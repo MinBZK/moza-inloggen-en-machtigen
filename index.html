@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roadmap inloggen en machtigen</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
+  <style>
+    /* Bewuste uitzondering op NLDD: nldd-table kent geen bevroren kolom of kopregel.
+       Alleen voor de roadmaptabel, alleen DS-tokens. Niet uitbreiden. */
+    #roadmap-table {
+      overflow: auto;
+      max-height: calc(100dvh - 120px);
+      grid-auto-rows: max-content; /* rijen niet samenpersen binnen de maximale hoogte */
+      overscroll-behavior: contain;
+    }
+    /* Jaarafsluiting: verticale lijn na elke T3 (kolom 4, 7, 10, ...), midden in de kolomtussenruimte.
+       Cellen rekken mee met de rij zodat de lijn over alle rijen doorloopt. */
+    #roadmap-table > nldd-table-row > * {
+      align-self: stretch;
+    }
+    #roadmap-table > nldd-table-row > :nth-child(3n + 4):not(:last-child) {
+      position: relative;
+    }
+    #roadmap-table > nldd-table-row > :nth-child(3n + 4):not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: calc(-1 * var(--semantics-tables-row-padding-block));
+      bottom: calc(-1 * var(--semantics-tables-row-padding-block) - var(--semantics-tables-border-width));
+      right: calc(-0.5 * var(--semantics-tables-column-gap) - 1px);
+      width: 2px;
+      background-color: var(--semantics-tables-border-color);
+      pointer-events: none;
+    }
+    /* Afhankelijkheden EDI -> EBW: lijnen achter de kaarten (isolation + z-index -1), oplichten bij aanwijzen */
+    #roadmap-table {
+      position: relative;
+      isolation: isolate;
+    }
+    #roadmap-deps {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: visible;
+      pointer-events: none;
+    }
+    #roadmap-deps path {
+      fill: none;
+      stroke: var(--primitives-color-neutral-400);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 4;
+      transition: opacity 0.15s ease;
+    }
+    #roadmap-deps marker path {
+      fill: var(--primitives-color-neutral-400);
+      stroke: none;
+    }
+    #roadmap-deps #dep-arrow-active path {
+      fill: var(--semantics-content-accent-color);
+    }
+    #roadmap-deps.has-active path.dep:not(.is-active) {
+      opacity: 0.25;
+    }
+    #roadmap-deps path.dep.is-active {
+      stroke: var(--semantics-content-accent-color);
+      stroke-width: 2.5;
+      stroke-dasharray: none;
+    }
+    /* Nog niet bepaalde releases: stippelrand in plaats van de verhoogde kaart */
+    #roadmap-table nldd-card[data-undecided] {
+      --components-card-box-shadow: none;
+      box-shadow: none;
+      outline: 2px dashed var(--primitives-color-neutral-500);
+      outline-offset: 0;
+    }
+    #roadmap-table > nldd-table-row[slot="header"] {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background-color: var(--semantics-surfaces-base-background-color);
+      box-shadow: 0 1px 0 var(--semantics-tables-border-color);
+    }
+    #roadmap-table > nldd-table-row > :first-child {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      align-self: stretch;
+    }
+    /* Dekkende achtergrond die ook de rij-padding afdekt, zodat scrollende kaarten er niet doorheen schijnen */
+    #roadmap-table > nldd-table-row > :first-child::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: calc(-1 * var(--semantics-tables-row-padding-block)) 0
+             calc(-1 * var(--semantics-tables-row-padding-block))
+             calc(-1 * var(--semantics-tables-row-padding-inline));
+      background-color: var(--semantics-surfaces-base-background-color);
+      box-shadow: inset -1px 0 0 var(--semantics-tables-border-color),
+                  6px 0 8px -6px var(--semantics-tables-border-color);
+    }
+    #roadmap-table > nldd-table-row[selected] > :first-child::before {
+      background-color: var(--semantics-tables-row-is-selected-background-color);
+    }
+  </style>
+</head>
+<body>
+<nldd-app-view background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section width="full">
+      <nldd-skip-link href="#roadmap" text="Direct naar de roadmap"></nldd-skip-link>
+      <nldd-title size="1">
+        <span slot="overline">MijnOverheid Zakelijk</span>
+        <h1>Roadmap inlog- en machtigings&shy;middelen 2027-2032</h1>
+        <p slot="subtitle">Hoe DigiD, eHerkenning en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p>
+      </nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-banner variant="accent" text="Concept - indicatieve planning"
+        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>
+
+      <nldd-container layout="grid" column-count="4" md-column-count="2" sm-column-count="1" gap="16">
+        <nldd-box>
+          <nldd-container gap="8">
+            <nldd-title size="6"><h2>Horizon</h2></nldd-title>
+            <nldd-container gap="8" id="legend-horizon"></nldd-container>
+          </nldd-container>
+        </nldd-box>
+        <nldd-box>
+          <nldd-container gap="8">
+            <nldd-title size="6"><h2>Wensen van de ondernemer</h2></nldd-title>
+            <nldd-container layout="wrap" gap="8" id="legend-fit"></nldd-container>
+          </nldd-container>
+        </nldd-box>
+        <nldd-box>
+          <nldd-container gap="8">
+            <nldd-title size="6"><h2>Soort mijlpaal</h2></nldd-title>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="robijnrood" icon="flag-filled" text="Extern kader"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">Wet- of regelgeving, buiten invloed van MOZa</p></nldd-title>
+            </nldd-container>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="neutral" icon="link" text="Randvoorwaarde"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">EDI-wallet: maakt de EBW mogelijk, ingetogen weergegeven</p></nldd-title>
+            </nldd-container>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="neutral" icon="arrow-up" text="Stippellijn"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">EDI-release maakt EBW-release mogelijk; wijs een kaart aan om de relatie te markeren</p></nldd-title>
+            </nldd-container>
+            <nldd-title size="6"><p slot="subtitle">Kaarten zijn mijlpalen die MOZa zelf in de hand heeft.</p></nldd-title>
+          </nldd-container>
+        </nldd-box>
+        <nldd-box>
+          <nldd-container gap="8">
+            <nldd-title size="6"><h2>Bereik van de inlog</h2></nldd-title>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="paars" icon="house" text="Alleen MOZa-portaal"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">Middel geïntegreerd in MOZa; inloggen in het portaal</p></nldd-title>
+            </nldd-container>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="paars" icon="link" text="Portaal + 1 dienstverlener"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">Met dezelfde inlog door naar een eerste dienstverlener</p></nldd-title>
+            </nldd-container>
+            <nldd-container gap="4">
+              <nldd-tag size="md" color="paars" icon="centralized-network" text="Alle dienstverleners"></nldd-tag>
+              <nldd-title size="6"><p slot="subtitle">Eén keer inloggen voor alle aangesloten dienstverleners</p></nldd-title>
+            </nldd-container>
+          </nldd-container>
+        </nldd-box>
+      </nldd-container>
+    </nldd-simple-section>
+
+    <nldd-simple-section width="full" id="roadmap">
+      <nldd-container slot="header" layout="wrap" gap="16" vertical-alignment="bottom">
+        <nldd-title size="3"><h2>Roadmap per spoor</h2><p slot="subtitle">Per tertiaal, vanaf februari 2027. Sleep de tijdlijn of gebruik de knoppen om door de jaren te bewegen; sporen en tertialen blijven in beeld.</p></nldd-title>
+        <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
+        <nldd-button id="pan-prev" variant="secondary" size="sm" start-icon="chevron-left" text="Eerder"></nldd-button>
+        <nldd-button id="pan-next" variant="secondary" size="sm" end-icon="chevron-right" text="Later"></nldd-button>
+      </nldd-container>
+      <nldd-table id="roadmap-table" accessible-label="Roadmap inlog- en machtigingsmiddelen per tertiaal"
+        columns="minmax(184px,208px) repeat(18, minmax(216px,1fr))" sm-columns="156px repeat(18, 216px)"></nldd-table>
+    </nldd-simple-section>
+
+    <nldd-simple-section width="full" id="wie-logt-in">
+      <nldd-title size="3" slot="header">
+        <h2>Wie logt in met welk middel?</h2>
+        <p slot="subtitle">Indeling zoals bij Mijn Belastingdienst Zakelijk: eerst voor welke onderneming, dan de rol. Per middel vanaf wanneer het in MOZa werkt. Groen: kan; oranje: beperkt; grijs: niet voorzien of nog uit te werken. Ondernemers uit andere EU-landen loggen in met een Europees middel: nu European login (eIDAS), straks hun eigen EDI-wallet of business wallet.</p>
+      </nldd-title>
+      <nldd-table id="login-table" accessible-label="Wie logt in met welk middel"
+        columns="minmax(170px,1fr) minmax(200px,1.2fr) repeat(4, minmax(180px,1fr))"></nldd-table>
+    </nldd-simple-section>
+
+    <nldd-simple-section width="full">
+      <nldd-title size="3" slot="header">
+        <h2>Wanneer is een wens ingevuld?</h2>
+        <p slot="subtitle">Een eerste versie bedient de ondernemer vaak deels. Dit overzicht laat zien in welke release een wens voor het eerst en wanneer volledig wordt ingevuld.</p>
+      </nldd-title>
+      <nldd-table id="wishes-table" accessible-label="Wensen van de ondernemer en wanneer ze worden ingevuld"
+        columns="minmax(240px,2fr) minmax(200px,1.5fr) minmax(200px,1.5fr) minmax(160px,1fr)"></nldd-table>
+    </nldd-simple-section>
+
+
+    <nldd-page-footer>
+      <nldd-container padding="24">
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026.</p><p>Externe kaders volgen eIDAS 2.0 (<a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" target="_blank" rel="noopener noreferrer">Verordening (EU) 2024/1183</a>) en het EBW-voorstel <a href="https://digitalpolicyalert.org/event/35575-european-commission-published-proposal-for-a-regulation-on-the-establishment-of-european-business-wallets" target="_blank" rel="noopener noreferrer">COM(2025) 838</a>; mijlpalen van MOZa zijn een werkvoorstel.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+
+  <nldd-sheet id="detail" width="560px" accessible-label="Verdieping release">
+    <nldd-container padding="24" gap="16" id="detail-body"></nldd-container>
+  </nldd-sheet>
+  </nldd-page>
+
+</nldd-app-view>
+
+<script type="module">
+// Tertialen vanaf februari 2027: T1 feb-mei, T2 jun-sep, T3 okt-jan. T1 2027 is fase 6, daarna doortellen.
+const FIRST_PHASE = 6;
+const YEAR_THEMES = { 2027: 'Fundament', 2028: 'Uitbreiden', 2029: 'Vertegenwoordigen', 2030: 'Zelf regelen', 2031: 'Samenvoegen', 2032: 'Volwaardig' };
+const MONTHS = { 1: 'feb - mei', 2: 'jun - sep', 3: 'okt - jan' };
+const TERTIALS = Object.keys(YEAR_THEMES).flatMap((y) => [1, 2, 3].map((n) => ({
+  id: `${y}-${n}`, year: Number(y), n, label: `T${n} ${y}`,
+  months: n === 3 ? `okt ${y} - jan ${Number(y) + 1}` : `${MONTHS[n]} ${y}`,
+}))).map((t, i) => ({ ...t, phase: FIRST_PHASE + i }));
+const tertial = (id) => TERTIALS.find((t) => t.id === id);
+
+const HORIZON = {
+  vastgesteld: { text: 'Vastgesteld', color: 'donkerblauw', help: 'Scope en planning staan vast' },
+  gepland:     { text: 'Gepland', color: 'hemelblauw', help: 'Scope bekend, planning indicatief' },
+  verkenning:  { text: 'Verkenning', color: 'neutral', help: 'Richting bekend, invulling volgt' },
+  onbepaald:   { text: 'Nog niet bepaald', color: 'neutral', icon: 'circle-dashed', help: 'Inhoud en planning nog niet vastgesteld (stippelrand)' },
+};
+
+const FIT = {
+  geen:        { text: 'Nog niet bediend', color: 'neutral', icon: 'circle-dashed' },
+  deels:       { text: 'Deels bediend', color: 'warning', icon: 'exclamation-triangle' },
+  grotendeels: { text: 'Grotendeels bediend', color: 'accent', icon: 'check-mark' },
+  volledig:    { text: 'Volledig bediend', color: 'success', icon: 'check-mark-circle' },
+};
+
+const LANES = [
+  {
+    id: 'eh', name: 'eHerkenning', icon: 'key', color: 'lintblauw',
+    tagline: 'Zakelijk inlogmiddel met machtigingen voor alle rechtsvormen',
+    releases: [
+      { t: '2027-1', code: 'R1', title: 'eHerkenning basis', horizon: 'vastgesteld', fit: 'deels',
+        summary: 'Ondernemers loggen in op MOZa met eHerkenning; MOZa herkent de onderneming op KvK-nummer.',
+        features: ['Inloggen met eHerkenning op niveau EH3', 'Onderneming herkend op KvK-nummer, met de gegevens uit het Handelsregister', 'Eén algemene dienstmachtiging "MOZa gebruiken"', 'Sessiebeheer en uitloggen volgens stelselafspraken'],
+        experience: 'De ondernemer logt voor het eerst op één plek zakelijk in en ziet dat MOZa de onderneming kent.',
+        gaps: ['Ondernemer moet eHerkenning aanschaffen en machtigingen regelen bij een leverancier', 'Geen onderscheid per vestiging', 'Gemachtigden, zoals boekhouders, kunnen nog niet inloggen voor een andere onderneming', 'Toegang is alles-of-niets: geen rechten per dienst'],
+        deps: ['Aansluiting op het eHerkenningsstelsel via een makelaar', 'MOZa opgenomen in de dienstencatalogus'] },
+      { t: '2027-3', code: 'R2', title: 'Machtigen per dienst', horizon: 'gepland', fit: 'deels',
+        summary: 'Medewerkers krijgen rechten per MOZa-dienst in plaats van alles-of-niets.',
+        features: ['Dienstmachtigingen per MOZa-dienst, zoals het profiel bekijken', 'Overzicht "Wie heeft toegang" (alleen lezen)'],
+        experience: 'Medewerkers zien alleen wat ze nodig hebben.',
+        gaps: ['Machtigingen aanpassen kan nog alleen bij de eHerkenningsleverancier', 'Nog geen onderscheid per vestiging', 'Inloggen voor een andere onderneming (ketenmachtiging) nog niet'],
+        deps: ['Uitbreiding dienstencatalogus met MOZa-diensten'] },
+      { t: '2028-2', code: 'R3', title: 'Vestigingen', horizon: 'gepland', fit: 'deels',
+        summary: 'Rechten en berichten per vestiging, op basis van het Handelsregister.',
+        features: ['Vestigingsfilter op basis van het Handelsregister', 'Machtiging beperken tot één of meer vestigingen'],
+        experience: 'Grotere ondernemingen verdelen het werk per vestiging.',
+        gaps: ['Inloggen voor een andere onderneming nog niet', 'Machtigen nog buiten MOZa'],
+        deps: ['Bevraging Handelsregister (KvK API)'] },
+      { t: '2029-1', code: 'R4', title: 'Inloggen voor een andere onderneming (ketenmachtiging)', horizon: 'gepland', fit: 'grotendeels',
+        summary: 'Gemachtigden, zoals boekhouders en adviseurs, loggen met ketenmachtiging in voor andere ondernemingen, vanuit één account.',
+        features: ['Ketenmachtiging via eHerkenning', 'Keuze "Inloggen voor een andere onderneming" met alle ondernemingen waarvoor de gemachtigde mag inloggen', 'Signalering van verlopende machtigingen', 'Logboek: wie deed wat voor welke onderneming'],
+        experience: 'Gemachtigden wisselen snel tussen ondernemingen; de ondernemer ziet wie voor de onderneming inlogt.',
+        gaps: ['Machtiging geven of intrekken gebeurt nog buiten MOZa', 'Buitenlandse ondernemers alleen via eIDAS met beperkte dekking', 'Kosten van eHerkenning blijven voor rechtspersonen'],
+        deps: ['Ondersteuning ketenmachtiging door leveranciers', 'Logboek Dataverwerkingen'] },
+      { t: '2030-1', code: 'R5', title: 'Machtigingen beheren in MOZa', horizon: 'verkenning', fit: 'grotendeels',
+        summary: 'De ondernemer geeft en trekt machtigingen in vanuit MOZa zelf.',
+        features: ['Machtigen vanuit MOZa via koppeling met machtigingsregisters', 'Machtigingsverzoek sturen naar een collega of gemachtigde', 'Eén overzicht van machtigingen over eHerkenning, DigiD en EBW heen'],
+        experience: 'Machtigen voelt als onderdeel van MOZa in plaats van een apart traject bij een leverancier.',
+        gaps: ['Werkt alleen bij leveranciers die de machtigings-API ondersteunen'],
+        deps: ['Open machtigings-API in het eHerkenningsstelsel', 'Gedeeld rechtenmodel met EBW'] },
+      { t: '2031-1', code: 'R6', title: 'Brug naar de business wallet', horizon: 'verkenning', fit: 'grotendeels',
+        summary: 'eHerkenning-machtigingen worden beschikbaar als attestatie in de EBW.',
+        features: ['Uitgifte van eHerkenning-machtigingen als verifieerbare attestatie', 'Inloggen met de EBW geeft dezelfde rechten als eHerkenning', 'Overstapbegeleiding voor ondernemers'],
+        experience: 'De ondernemer neemt bestaande machtigingen mee naar de wallet zonder opnieuw te beginnen.',
+        gaps: ['Tijdens de overgang beheert de ondernemer twee routes naast elkaar'],
+        deps: ['Afspraken stelsel eHerkenning en EBW-aanbieders'] },
+      { t: '2032-2', code: 'R7', title: 'Herijking eHerkenning', horizon: 'verkenning', fit: 'volledig',
+        summary: 'eHerkenning blijft als terugvaloptie; de rol wordt herijkt op basis van walletgebruik.',
+        features: ['Evaluatie gebruik eHerkenning ten opzichte van de EBW', 'eHerkenning als terugvaloptie voor ondernemingen zonder EBW', 'Besluit over uitfasering of blijvend naast elkaar'],
+        experience: 'De ondernemer kiest het middel dat past; elke wens is via minstens één middel ingevuld.',
+        gaps: ['Heldere communicatie nodig om keuzestress te voorkomen'],
+        deps: ['Gebruikscijfers EBW', 'Beleidsbesluit stelselregie'] },
+    ],
+  },
+  {
+    id: 'digid', name: 'DigiD', icon: 'person', color: 'oranje',
+    tagline: 'Inloggen als persoon; KvK-gegevens van de eigen ondernemingen in beeld',
+    releases: [
+      { t: '2027-1', code: 'R1', title: 'Inloggen met DigiD, eigen ondernemingen in beeld', horizon: 'vastgesteld', fit: 'deels',
+        summary: 'De ondernemer logt in met DigiD; MOZa toont de KvK-gegevens van alle ondernemingen waarin de ondernemer staat ingeschreven.',
+        features: ['Inloggen met DigiD op niveau substantieel (DigiD-app)', 'KvK-gegevens van alle eigen ondernemingen tonen op de landingspagina (MOZa portaal R1), zoals MijnOverheid dat al doet', 'De ondernemer ziet direct meerdere ondernemingen en kiest daaruit'],
+        experience: 'De zzp\'er hoeft geen eHerkenning aan te schaffen om MOZa te gebruiken en ziet meteen alle eigen ondernemingen.',
+        gaps: ['De ondernemer logt in als persoon: KvK-gegevens worden alleen getoond, er is nog geen inloggen namens de onderneming', 'Nog geen inloggen voor een andere onderneming: een gemachtigde kan niet met DigiD inloggen', 'Nog geen berichten in het portaal (volgt in MOZa portaal R3, T1 2028)'],
+        deps: ['Aansluiting DigiD voor MOZa', 'Bevraging Handelsregister op BSN (KvK API), zoals MijnOverheid die al gebruikt'] },
+      { t: '2028-1', code: 'R2', title: 'Eén inlog voor alle dienstverleners', horizon: 'onbepaald', fit: 'grotendeels',
+        summary: 'Met één keer inloggen met DigiD is de ondernemer ingelogd bij alle aangesloten dienstverleners.',
+        features: ['Uitloggen bij MOZa logt ook uit bij de aangesloten dienstverleners'],
+        experience: 'De ondernemer logt één keer in en kan bij alle aangesloten dienstverleners terecht.',
+        gaps: ['Inloggen gebeurt als persoon, niet namens de onderneming'],
+        deps: [] },
+    ],
+  },
+  {
+    id: 'ebw', name: 'EBW', icon: 'apartment-building', color: 'donkergroen',
+    tagline: 'European Business Wallet van de onderneming zelf',
+    releases: [
+      { t: '2027-2', code: 'R0', title: 'Verordening en architectuur', horizon: 'vastgesteld', fit: 'geen', kader: ['k2'],
+        summary: 'MOZa bereidt zich voor op de EBW-verordening en kiest de aansluitarchitectuur.',
+        features: ['Impactanalyse EBW-verordening voor MOZa', 'Proof of concept: MOZa als verifier van een business wallet', 'Afspraken met KvK over de organisatie-identiteit (EUID)'],
+        experience: 'Nog niets zichtbaar voor de ondernemer; dit is het fundament voor latere releases.',
+        gaps: ['Geen functionaliteit voor ondernemers'],
+        deps: ['Vaststelling EBW-verordening', 'Europese uitvoeringshandelingen'] },
+      { t: '2028-2', code: 'R1', title: 'Pilot inloggen als organisatie', horizon: 'gepland', fit: 'deels',
+        summary: 'Een medewerker logt in namens de onderneming met de business wallet.',
+        features: ['Organisatie-identiteit (KvK/EUID) uit de EBW', 'Medewerker identificeert zich met de EDI-wallet en handelt namens de onderneming', 'Pilot met een beperkte groep ondernemingen'],
+        experience: 'Pilotbedrijven beheren zelf wie namens hen inlogt, zonder losse middelen per medewerker.',
+        gaps: ['Medewerkerbeheer zit in de wallet van de leverancier, niet in MOZa', 'Kleine pilotgroep', 'Nog geen koppeling met eHerkenning-machtigingen'],
+        deps: ['EDI-wallet R1 en R2: identiteit en vertegenwoordiging van de medewerker', 'Eerste gecertificeerde business wallets op de markt'] },
+      { t: '2029-2', code: 'R2', title: 'Berichten naar de business wallet', horizon: 'gepland', fit: 'deels',
+        summary: 'Officiële berichten komen aan in de business wallet, met ontvangstbevestiging.',
+        features: ['Berichten aanbieden in de EBW (digitaal aangetekend)', 'Ontvangstbevestiging terug naar de afzender', 'Notificaties via de wallet'],
+        experience: 'Belangrijke post komt aantoonbaar aan in de omgeving die de onderneming al gebruikt.',
+        gaps: ['Twee plekken voor berichten (MOZa en wallet) zolang synchronisatie ontbreekt'],
+        deps: ['Berichten (MOZa portaal R3) en de notificatiedienst van MOZa', 'Europees profiel voor digitaal aangetekend bezorgen'] },
+      { t: '2030-1', code: 'R3', title: 'Acceptatie in alle MOZa-diensten', horizon: 'gepland', fit: 'grotendeels', kader: ['k4'],
+        summary: 'Alle MOZa-diensten accepteren de business wallet, ook uit andere lidstaten, binnen de wettelijke termijn.',
+        features: ['EBW geaccepteerd voor alle MOZa-diensten met identificatie', 'Business wallets uit andere EU-lidstaten erkend', 'Inloggen als organisatie uit de pilotfase'],
+        experience: 'Elke onderneming met een business wallet kan ermee terecht in heel MOZa.',
+        gaps: ['Mandaten voor medewerkers nog via eHerkenning', 'Kleine ondernemers zonder EBW blijven afhankelijk van eHerkenning of DigiD'],
+        deps: ['Acceptatieplicht EBW voor overheidsorganisaties (extern kader)', 'EDI-wallet R4: Europese wallets erkend'] },
+      { t: '2031-1', code: 'R4', title: 'Mandaten en gegevens eenmalig delen', horizon: 'verkenning', fit: 'grotendeels',
+        summary: 'De onderneming geeft mandaten vanuit de EBW en deelt gegevens één keer met de overheid.',
+        features: ['Mandaten voor medewerkers vanuit de EBW', 'Mandaten vertaald naar MOZa-dienstrechten', 'Gegevens eenmalig delen met de overheid vanuit de EBW', 'Gezamenlijk machtigingsoverzicht met eHerkenning en DigiD'],
+        experience: 'De ondernemer beheert medewerkers op één plek en levert gegevens één keer aan.',
+        gaps: ['Nog niet alle aangesloten organisaties hergebruiken gedeelde gegevens'],
+        deps: ['EDI-wallet R3: machtigingen als attestatie', 'Gedeeld rechtenmodel (eHerkenning R5)', 'Uitkomst verkenning OOTS (Onderzoek en verkenning V1)'] },
+      { t: '2032-3', code: 'R5', title: 'Zakendoen met de overheid via de wallet', horizon: 'verkenning', fit: 'volledig',
+        summary: 'De EBW is het standaardkanaal voor bedrijven richting overheid, ook over de grens.',
+        features: ['EBW als standaardkanaal bedrijf-overheid', 'Ondertekenen namens de onderneming', 'Grensoverschrijdend zakendoen met overheden in de EU'],
+        experience: 'De onderneming regelt overheidszaken in heel de EU vanuit één wallet.',
+        gaps: ['Afhankelijk van adoptie in andere lidstaten'],
+        deps: ['EDI-wallet R5: ondertekenen', 'Europese interoperabiliteit van business wallets'] },
+    ],
+  },
+  {
+    id: 'edi', name: 'EDI-wallet', icon: 'link', color: 'secondary-content', prerequisite: true,
+    tagline: 'Nodig voor EBW: identiteit van de persoon achter de business wallet',
+    releases: [
+      { t: '2027-1', code: 'R1', title: 'Persoonsidentificatie (PID)', horizon: 'vastgesteld', enables: 'EBW R1', kader: ['k1'],
+        summary: 'MOZa accepteert de EDI-wallet (PID) vanaf de start, zoals eIDAS 2.0 van overheidsdiensten vraagt.',
+        features: ['MOZa als verifier van de NL Wallet', 'Verificatie van PID op niveau hoog', 'Inloggen als persoon met de wallet naast DigiD'],
+        experience: 'Wettelijk nodig vanaf de start en de basis voor inloggen namens een onderneming met de EBW.',
+        gaps: ['Wallet bewijst wie je bent, niet namens welke onderneming je handelt'],
+        deps: ['NL Wallet beschikbaar (eIDAS 2.0: eind 2026)', 'Registratie van MOZa als relying party'] },
+      { t: '2028-1', code: 'R2', title: 'Vertegenwoordiging uit het Handelsregister', horizon: 'gepland', enables: 'EBW R1',
+        summary: 'KvK-attestatie "bevoegd vertegenwoordiger" verifieerbaar naast de PID.',
+        features: ['KvK-attestatie "bevoegd vertegenwoordiger"', 'PID en KvK-attestatie in één presentatie'],
+        experience: 'Maakt het mogelijk dat een bestuurder de EBW van de onderneming activeert.',
+        gaps: ['Gevolmachtigden zonder inschrijving in het Handelsregister nog niet'],
+        deps: ['KvK als uitgever van vertegenwoordigingsattestaties'] },
+      { t: '2029-1', code: 'R3', title: 'Machtigingen als attestatie', horizon: 'gepland', enables: 'EBW R4',
+        summary: 'Machtigingen voor medewerkers als verifieerbare attestatie, met directe intrekking.',
+        features: ['Machtiging als attestatie in de wallet van de medewerker', 'Intrekken met directe statuscontrole'],
+        experience: 'Basis voor mandaten vanuit de EBW.',
+        gaps: ['Herstel bij verlies van de telefoon vraagt opnieuw uitgeven'],
+        deps: ['Gedeeld rechtenmodel (eHerkenning R5)'] },
+      { t: '2030-1', code: 'R4', title: 'Europese wallets erkend', horizon: 'verkenning', enables: 'EBW R3',
+        summary: 'Acceptatie van EDI-wallets uit andere EU-lidstaten.',
+        features: ['Acceptatie van erkende EU-wallets', 'Meertalige verificatieflow'],
+        experience: 'Basis voor buitenlandse medewerkers en bestuurders in de EBW.',
+        gaps: ['Vertegenwoordigingsgegevens uit buitenlandse registers niet overal beschikbaar'],
+        deps: ['Europese vertrouwenslijsten en BRIS-koppeling'] },
+      { t: '2031-1', code: 'R5', title: 'Ondertekenen', horizon: 'verkenning', enables: 'EBW R5',
+        summary: 'Gekwalificeerde elektronische handtekening vanuit de wallet.',
+        features: ['Gekwalificeerde elektronische handtekening (QES)', 'Handtekening koppelbaar aan een EBW-mandaat'],
+        experience: 'Basis voor ondertekenen namens de onderneming.',
+        gaps: ['Niet alle organisaties accepteren al wallet-handtekeningen'],
+        deps: ['Gekwalificeerde handtekeningdienst in de wallet'] },
+    ],
+  },
+  {
+    id: 'sw', name: 'MOZa portaal', icon: 'stack-code', color: 'lintblauw',
+    tagline: 'Ontwikkelde functionaliteiten voor de ondernemer',
+    releases: [
+      { t: '2027-1', code: 'R1', title: 'Landingspagina met DigiD en KvK-gegevens', horizon: 'vastgesteld', fit: 'deels',
+        summary: 'Een landingspagina waar de ondernemer inlogt met DigiD en direct de gegevens van de eigen onderneming uit het Handelsregister ziet.',
+        features: ['Landingspagina MOZa met uitleg en een duidelijke ingang voor ondernemers', 'Inloggen met DigiD', 'KvK-gegevens van de eigen onderneming(en) tonen: naam, KvK-nummer, rechtsvorm en vestigingen', 'Doorverwijzing naar de diensten die al beschikbaar zijn'],
+        experience: 'De ondernemer ziet na het inloggen meteen dat MOZa de onderneming kent, zonder iets in te vullen.',
+        gaps: ['Met DigiD alleen inloggen als persoon; inloggen namens of voor een onderneming: zie "Wie logt in met welk middel?"', 'KvK-gegevens worden alleen getoond: dat is nog geen inloggen namens de onderneming of controle van bevoegdheid', 'Wijzigen van KvK-gegevens gaat via de KvK', 'Nog geen profiel of berichten in het portaal (volgen in R2 en R3)'],
+        deps: ['DigiD-aansluiting (DigiD R1)', 'eHerkenning R1 voor bestuurders, medewerkers en gemachtigden', 'Bevraging Handelsregister (KvK API)'] },
+      { t: '2027-2', code: 'R2', title: 'Profiel in het portaal (profieldienst)', horizon: 'gepland', fit: 'deels',
+        summary: 'MOZa portaal neemt de profieldienst af en toont het profiel van de ondernemer in het portaal.',
+        features: ['MOZa portaal sluit aan op de profieldienst als afnemer', 'Profiel van de ondernemer tonen in het portaal, zoals contactgegevens en voorkeuren'],
+        experience: 'De ondernemer ziet in het portaal welke contactgegevens en voorkeuren bekend zijn.',
+        gaps: ['Wat er getoond wordt, hangt af van de gegevens die de profieldienst levert'],
+        deps: ['Profieldienst beschikbaar als af te nemen service', 'Inloggen in MOZa'] },
+      { t: '2028-1', code: 'R3', title: 'Berichten van één dienstverlener', horizon: 'gepland', fit: 'deels',
+        summary: 'Eerste iteratie: MOZa portaal toont de berichten uit het berichtenmagazijn van één eerste dienstverlener.',
+        features: ['Berichten ophalen uit het berichtenmagazijn en tonen in het portaal', 'Stap 1: inloggen op het MOZa portaal', 'Stap 2: ingelogd bij de eerste dienstverlener, zodat diens berichten zichtbaar zijn', 'Bij een nieuw bericht stuurt de notificatiedienst van MOZa een melding die naar het portaal leidt'],
+        experience: 'De ondernemer ziet in het portaal de berichten van een eerste dienstverlener.',
+        gaps: ['Berichten van andere dienstverleners nog niet zichtbaar (volgt in R4)', 'Berichten nog niet in de business wallet (volgt in EBW R2)'],
+        deps: ['Berichtenmagazijn', 'Inloggen op het MOZa portaal (DigiD R1, eHerkenning R1)', 'Eerste dienstverlener aangesloten op het berichtenmagazijn en de MOZa-inlog', 'De notificatiedienst van MOZa'] },
+      { t: '2028-3', code: 'R4', title: 'Berichten van meerdere dienstverleners', horizon: 'onbepaald', fit: 'grotendeels',
+        summary: 'Vervolgiteratie: stap voor stap komen er dienstverleners bij, zodat de ondernemer steeds meer berichten in het portaal ziet.',
+        features: ['Per iteratie dienstverleners toevoegen aan het berichtenoverzicht', 'Ingelogd bij alle toegevoegde dienstverleners met één inlog (met DigiD via DigiD R2)'],
+        experience: 'Steeds meer berichten van de overheid op één plek in het portaal.',
+        gaps: ['Met eHerkenning of de business wallet pas vanaf T1 2030 bij alle dienstverleners ingelogd (eHerkenning R5, EBW R3)', 'Tempo hangt af van het aansluiten van dienstverleners op het berichtenmagazijn'],
+        deps: ['Berichten van één dienstverlener (R3)', 'Eén inlog voor alle dienstverleners (DigiD R2)'] },
+    ],
+  },
+  {
+    id: 'ok', name: 'Onderzoek en verkenning', icon: 'magnifier', color: 'secondary-content',
+    tagline: 'Alternatieven en aanvullingen op de wallets',
+    releases: [
+      { t: '2027-3', code: 'V1', title: 'Once-Only Technical System (OOTS)', horizon: 'verkenning', fit: 'geen',
+        summary: 'Verkennen of OOTS een alternatief is voor de wallet om bewijsstukken van de onderneming tussen overheden uit te wisselen.',
+        features: ['Onderzoek: OOTS haalt op uitdrukkelijk verzoek van de gebruiker bewijsstukken rechtstreeks bij de bron op, ook in een andere lidstaat (via eDelivery)', 'Vergelijking met de wallet-route: wanneer delen via EBW of EDI-wallet, wanneer via OOTS', 'Gebruikersonderzoek: begrijpt de ondernemer het verzoek en de preview van bewijsstukken?', 'Advies over inzet in MOZa en bij aangesloten dienstverleners'],
+        experience: 'Nog niet zichtbaar; levert een onderbouwde keuze op tussen wallet en OOTS voor het eenmalig delen van gegevens.',
+        gaps: ['OOTS is gericht op grensoverschrijdende procedures uit de Single Digital Gateway-verordening', 'Geen inlogmiddel: OOTS wisselt bewijsstukken uit, inloggen blijft via DigiD, eHerkenning of een wallet'],
+        deps: ['Single Digital Gateway-verordening (EU) 2018/1724 en uitvoeringsverordening (EU) 2022/1463', 'Nederlandse aansluiting op OOTS (eDelivery-toegangspunt)'],
+        src: ['Once-Only Technical System (Interoperable Europe)', 'https://interoperable-europe.ec.europa.eu/collection/digital-building-blocks/solution/once-only-technical-system-oots'] },
+      { t: '2029-1', code: 'V2', title: 'Hoger betrouwbaarheidsniveau (DigiD Hoog, EH4)', horizon: 'verkenning', fit: 'geen',
+        summary: 'Verkennen of een hoger betrouwbaarheidsniveau iets toevoegt: bestaan er via MOZa diensten die zo gevoelig zijn dat ze niveau hoog vragen?',
+        features: ['Inventarisatie bij aangesloten dienstverleners: welke diensten eisen nu of straks niveau hoog?', 'Bepalen of "gevoelige diensten" als categorie voor ondernemers eigenlijk bestaat', 'Alleen als het nodig blijkt: gevolgen voor DigiD Hoog en eHerkenning EH4, en voor een hoger niveau vragen zonder opnieuw in te loggen'],
+        experience: 'Nog niet zichtbaar; levert een besluit op of MOZa een hoger betrouwbaarheidsniveau moet ondersteunen.',
+        gaps: ['De uitkomst kan zijn dat het niets toevoegt: zakelijke diensten werken meestal op niveau substantieel (EH3)'],
+        deps: ['Input van aangesloten dienstverleners over hun vereiste betrouwbaarheidsniveau'] },
+    ],
+  },
+  {
+    id: 'kader', name: 'Kaders en wetgeving', icon: 'flag', color: 'robijnrood', kader: true,
+    tagline: 'Europese verplichtingen die het tempo bepalen; buiten invloed van MOZa',
+    releases: [
+      { t: '2027-1', code: 'k1', when: 'dec 2026', short: 'eIDAS 2.0', status: 'Van kracht',
+        title: 'EDI-wallet beschikbaar in alle lidstaten',
+        summary: 'Elke lidstaat biedt eind 2026 een European Digital Identity Wallet aan.',
+        info: 'Onder eIDAS 2.0 moet elke lidstaat uiterlijk 24 maanden na de uitvoeringshandelingen een EDI-wallet aanbieden. Die handelingen traden eind 2024 in werking, dus de wallet is er eind 2026, nog voor de start van deze roadmap.',
+        impact: 'Overheidsdiensten die elektronische identificatie vragen, accepteren de wallet zodra die beschikbaar is. MOZa accepteert de EDI-wallet daarom vanaf de start.',
+        src: ['Verordening (EU) 2024/1183 (eIDAS 2.0)', 'https://eur-lex.europa.eu/eli/reg/2024/1183/oj'],
+        affects: ['edi:R1'] },
+      { t: '2027-2', code: 'k2', when: '2027 (verwacht)', short: 'EBW-verordening', status: 'Verwacht',
+        title: 'EBW-verordening vastgesteld',
+        summary: 'Vaststelling van de verordening voor European Business Wallets na de triloog.',
+        info: 'De Europese Commissie publiceerde het voorstel voor European Business Wallets op 19 november 2025. De Raad bereikte medio 2026 een algemene oriëntatie; vaststelling wordt in 2027 verwacht.',
+        impact: 'Start van de termijn waarbinnen overheidsorganisaties de EBW moeten accepteren. MOZa richt de architectuur hierop in.',
+        src: ['Voorstel COM(2025) 838', 'https://digitalpolicyalert.org/event/35575-european-commission-published-proposal-for-a-regulation-on-the-establishment-of-european-business-wallets'],
+        affects: ['ebw:R0'] },
+      { t: '2027-3', code: 'k3', when: 'dec 2027', short: 'eIDAS 2.0', status: 'Vastgesteld',
+        title: 'Acceptatieplicht EDI-wallet voor private partijen',
+        summary: 'Partijen met sterke authenticatie, zoals banken, accepteren de EDI-wallet.',
+        info: 'Private partijen die wettelijk of contractueel sterke authenticatie moeten gebruiken, accepteren de EDI-wallet uiterlijk 36 maanden na de uitvoeringshandelingen.',
+        impact: 'Geen directe verplichting voor MOZa, wel een versneller: ondernemers raken gewend aan inloggen met de wallet.',
+        src: ['Verordening (EU) 2024/1183, art. 5f', 'https://eur-lex.europa.eu/eli/reg/2024/1183/oj'],
+        affects: [] },
+      { t: '2029-3', code: 'k4', when: '2029 - 2030 (indicatief)', short: 'EBW-verordening', status: 'Verwacht',
+        title: 'Acceptatieplicht EBW voor overheidsorganisaties',
+        summary: 'Publieke organisaties accepteren de European Business Wallet.',
+        info: 'Het voorstel verplicht publieke organisaties de EBW te accepteren binnen 24 maanden na inwerkingtreding, met een overgangstermijn tot maximaal 36 maanden. De exacte datum hangt af van de definitieve tekst.',
+        impact: 'MOZa moet de EBW uiterlijk dan in alle diensten met identificatie accepteren (EBW R3).',
+        src: ['Toelichting EBW-voorstel (cheqd)', 'https://blog.cheqd.io/european-business-wallets-new-proposal-to-accelerate-eus-digital-future-b4ee9497d45d'],
+        affects: ['ebw:R3'] },
+    ],
+  },
+];
+const KADERS = LANES.find((l) => l.id === 'kader').releases;
+
+// Officiële logo's per middel (transparant); aparte variant voor donkere modus waar de tekst anders wegvalt
+const LOGOS = {
+  digid: { src: 'logos/digid.png', alt: 'Logo DigiD', height: 40 },
+  eh:    { src: 'logos/eherkenning.svg', dark: 'logos/eherkenning-donker.svg', alt: 'Logo eHerkenning', height: 26, info: 'eherkenning.html' },
+  ebw:   { src: 'logos/ebw.png', dark: 'logos/ebw-donker.png', alt: 'Logo European Business Wallet', height: 22 },
+  edi:   { src: 'logos/edi-wallet.png', dark: 'logos/edi-wallet-donker.png', alt: 'Logo EU Digital Identity Wallet', height: 36 },
+};
+// Link naar een achtergrondpagina per middel (alleen waar die bestaat)
+const infoLink = (id) => LOGOS[id]?.info
+  ? `<nldd-link size="sm" href="${LOGOS[id].info}" end-icon="chevron-right" text="Achtergrond" accessible-label="Achtergrond ${esc(LANES.find((l) => l.id === id).name)}"></nldd-link>`
+  : '';
+const laneLogo = (lane) => {
+  const l = LOGOS[lane.id];
+  if (!l) return `<nldd-icon name="${lane.icon}" size="32" color="${lane.color}"></nldd-icon>`;
+  return `<picture>${l.dark ? `<source media="(prefers-color-scheme: dark)" srcset="${l.dark}">` : ''}<img src="${l.src}" alt="${l.alt}" height="${l.height}"></picture>`;
+};
+
+// Bereik van de inlog: eerst portaal plus direct één andere dienstverlener, daarna alle dienstverleners in één keer
+const REACH = {
+  portaal: { level: 1, text: 'Alleen MOZa-portaal', color: 'paars', icon: 'house' },
+  een:  { level: 2, text: 'Portaal + 1 dienstverlener', color: 'paars', icon: 'link' },
+  alle: { level: 3, text: 'Alle dienstverleners', color: 'paars', icon: 'centralized-network' },
+};
+const REACH_STEPS = ['Inloggen in het MOZa-portaal', 'Met dezelfde inlog door naar één andere dienstverlener', 'In één keer ingelogd bij alle aangesloten dienstverleners'];
+const REACH_PLAN = {
+  digid: { R1: 'portaal', R2: 'alle' },
+  eh:    { R1: 'portaal', R2: 'een', R3: 'een', R4: 'een', R5: 'alle', R6: 'alle', R7: 'alle' },
+  ebw:   { R1: 'portaal', R2: 'een', R3: 'alle', R4: 'alle', R5: 'alle' },
+  edi:   { R1: 'portaal' },
+};
+// Bij de eerste release per bereiksniveau de bijbehorende oplevering, beperking en afhankelijkheid toevoegen
+Object.entries(REACH_PLAN).forEach(([laneId, plan]) => {
+  const lane = LANES.find((l) => l.id === laneId);
+  const seen = new Set();
+  lane.releases.forEach((r) => {
+    r.reach = plan[r.code];
+    if (!r.reach || seen.has(r.reach)) return;
+    seen.add(r.reach);
+    if (r.reach === 'portaal') {
+      r.features.unshift(`Integratie van ${lane.name} in MOZa: inloggen in het MOZa-portaal`);
+      r.gaps.push('Nog niet met dezelfde inlog door naar andere dienstverleners');
+    } else if (r.reach === 'een') {
+      r.features.unshift(`Met dezelfde ${lane.name}-inlog door naar één andere dienstverlener, zonder opnieuw in te loggen`);
+      r.gaps.push('Overige dienstverleners vragen nog een eigen inlog');
+      r.deps.push('Eerste dienstverlener aangesloten op de MOZa-inlog');
+    } else {
+      r.features.unshift(`Eén keer inloggen met ${lane.name} geeft toegang tot alle aangesloten dienstverleners`);
+      r.deps.push('Federatieve afspraken en koppelvlak met alle dienstverleners');
+    }
+  });
+});
+
+// Volgorde van de sporen: MOZa portaal bovenaan, dan externe kaders, EDI-wallet als randvoorwaarde direct onder EBW, verkenningen onderaan
+const LANE_ORDER = ['sw', 'kader', 'digid', 'eh', 'ebw', 'edi', 'ok'];
+LANES.sort((x, y) => LANE_ORDER.indexOf(x.id) - LANE_ORDER.indexOf(y.id));
+
+// Wat de ondernemer per tertiaal merkt (samenvatting over alle sporen; leeg = geen nieuwe verandering)
+const EXPERIENCE = {
+  '2027-1': 'Nieuw middel: DigiD, eHerkenning en de EDI-wallet (als persoon) voor het MOZa-portaal; KvK-gegevens in beeld',
+  '2027-2': 'Eigen profiel (contactgegevens en voorkeuren) zichtbaar in het portaal',
+  '2027-3': 'Met dezelfde eHerkenning-inlog door naar een eerste dienstverlener; rechten per dienst',
+  '2028-1': 'Met DigiD in één keer ingelogd bij alle aangesloten dienstverleners; berichten van een eerste dienstverlener in het portaal; bestuurders loggen in met de wallet en een KvK-attestatie',
+  '2028-3': 'Berichten van meerdere dienstverleners in het portaal',
+  '2028-2': 'Nieuw middel: de business wallet (pilot); werken per vestiging',
+  '2029-1': 'Gemachtigden loggen met ketenmachtiging in voor meerdere ondernemingen; medewerkers met een machtiging in de wallet',
+  '2029-2': 'Officiële post komt aantoonbaar aan in de business wallet',
+  '2030-1': 'Nieuw middel: de business wallet voor iedere onderneming, en wallets uit andere EU-landen; zelf machtigen in MOZa; met eHerkenning en business wallet overal ingelogd',
+  '2031-1': 'Machtigingen mee naar de business wallet; mandaten vanuit de EBW; gegevens één keer delen en ondertekenen met de wallet',
+  '2031-2': 'Zelf kiezen tussen DigiD en wallet, met dezelfde toegang',
+  '2032-2': 'eHerkenning blijft als terugvaloptie; vrije keuze van middel',
+  '2032-3': 'Overheidszaken in heel de EU regelen vanuit één business wallet',
+};
+
+const WISHES = [
+  { wish: 'Met één inlog ook naar andere dienstverleners', first: 'eHerkenning R2 (T3 2027) - één dienstverlener', full: 'DigiD R2 (T1 2028), eHerkenning R5 en EBW R3 (T1 2030) - alle', via: 'Alle sporen' },
+  { wish: 'Inloggen zonder extra kosten', first: 'DigiD R1 (T1 2027) - als persoon', full: 'EDI-wallet R2 (T1 2028) - ook namens vof, bv en nv', via: 'DigiD, EDI-wallet' },
+  { wish: 'Rechten per dienst en vestiging', first: 'eHerkenning R2 (T3 2027) - per dienst', full: 'eHerkenning R3 (T2 2028) - per vestiging', via: 'eHerkenning' },
+  { wish: 'Een gemachtigde kan voor mijn onderneming inloggen', first: 'eHerkenning R4 (T1 2029) - ketenmachtiging', full: 'EBW R4 (T1 2031) - mandaat vanuit de EBW', via: 'eHerkenning, EBW' },
+  { wish: 'Zelf machtigen, zonder leverancier', first: 'eHerkenning R5 (T1 2030)', full: 'EBW R4 (T1 2031)', via: 'eHerkenning, EBW' },
+  { wish: 'Eén overzicht van alle machtigingen', first: 'eHerkenning R4 (T1 2029)', full: 'eHerkenning R5 (T1 2030)', via: 'Alle sporen' },
+  { wish: 'Inloggen als organisatie met een wallet', first: 'EBW R1 (T2 2028) - pilot', full: 'EBW R3 (T1 2030)', via: 'EBW (met EDI-wallet)' },
+  { wish: 'Buitenlandse ondernemer kan inloggen', first: 'eHerkenning R4 (T1 2029) - via eIDAS', full: 'EBW R3 (T1 2030)', via: 'eHerkenning, EBW' },
+  { wish: 'Post aantoonbaar ontvangen in eigen omgeving', first: 'EBW R2 (T2 2029)', full: 'EBW R5 (T3 2032)', via: 'EBW' },
+  { wish: 'Digitaal ondertekenen namens de onderneming', first: 'EBW R5 (T3 2032)', full: 'EBW R5 (T3 2032)', via: 'EBW (met EDI-wallet)' },
+];
+
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+const tag = (cfg, size = 'sm') =>
+  `<nldd-tag size="${size}" color="${cfg.color}" text="${esc(cfg.text)}"${cfg.icon ? ` icon="${cfg.icon}"` : ''}></nldd-tag>`;
+
+// Legenda
+document.getElementById('legend-horizon').innerHTML = Object.values(HORIZON)
+  .map((h) => `<nldd-container gap="4">${tag(h, 'md')}<nldd-title size="6"><p slot="subtitle">${esc(h.help)}</p></nldd-title></nldd-container>`).join('');
+document.getElementById('legend-fit').innerHTML = Object.values(FIT).map((f) => tag(f, 'md')).join('');
+
+// Roadmaptabel
+const kaderTag = (code, size = 'sm') => {
+  const k = KADERS.find((x) => x.code === code);
+  return `<nldd-tag size="${size}" color="robijnrood" icon="flag" text="${esc(k.short)}"></nldd-tag>`;
+};
+const kaderTags = (r) => (r.kader || []).map((c) => kaderTag(c)).join('');
+
+// Extern kader: geen kaart maar een vlag met datum, zodat het zich onderscheidt van eigen MOZa-mijlpalen
+const kaderItem = (lane, k) => `
+  <nldd-container gap="4">
+    <nldd-tag size="md" color="robijnrood" icon="flag-filled" text="${esc(k.when)}"></nldd-tag>
+    <nldd-title size="6">
+      <span slot="overline">${esc(`Extern kader · ${k.status}`)}</span>
+      <h4>${esc(k.title)}</h4>
+    </nldd-title>
+    <nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Toelichting"
+      data-lane="${lane.id}" data-code="${k.code}"></nldd-button>
+  </nldd-container>`;
+
+const releaseCard = (lane, r) => `
+  <nldd-card data-release="${lane.id}:${r.code}"${r.horizon === 'onbepaald' ? ' data-undecided' : ''} accessible-label="${esc(`${lane.name} ${r.code}: ${r.title}`)}">
+    <nldd-container padding="16" gap="8">
+      <nldd-title size="6">
+        <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
+        <h3>${esc(r.title)}</h3>
+      </nldd-title>
+      <nldd-container layout="wrap" gap="4">${tag(HORIZON[r.horizon])}${tag(FIT[r.fit])}${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}</nldd-container>
+    </nldd-container>
+    <nldd-container slot="footer" padding="16" padding-top="0">
+      <nldd-button variant="neutral-tinted" size="sm" end-icon="chevron-right" text="Verdieping"
+        data-lane="${lane.id}" data-code="${r.code}"></nldd-button>
+    </nldd-container>
+  </nldd-card>`;
+
+// Randvoorwaardelijk spoor: vlak, getint en zonder klantwaarde-label
+const prerequisiteItem = (lane, r) => `
+  <nldd-box data-release="${lane.id}:${r.code}">
+    <nldd-container gap="4">
+      <nldd-title size="6">
+        <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
+        <h4>${esc(r.title)}</h4>
+      </nldd-title>
+      <nldd-container layout="wrap" gap="4" vertical-alignment="center">
+        <nldd-tag size="sm" color="neutral" icon="link" text="${esc(`Voor ${r.enables}`)}"></nldd-tag>${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}
+        <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
+        <nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Details"
+          data-lane="${lane.id}" data-code="${r.code}"></nldd-button>
+      </nldd-container>
+    </nldd-container>
+  </nldd-box>`;
+
+const header = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell overline="&#160;" text="Spoor" supporting-text="Middel"></nldd-text-cell>
+    ${TERTIALS.map((t) => `<nldd-text-cell${t.n === 1 ? ` overline="**${t.year}** · ${YEAR_THEMES[t.year]}"` : ' overline="&#160;"'} text="**T${t.n}** · Fase ${t.phase}" supporting-text="${t.months}"></nldd-text-cell>`).join('')}
+  </nldd-table-row>`;
+
+const laneHeader = (lane) => lane.kader ? `
+    <nldd-container role="rowheader" gap="8" padding-block="12">
+      ${laneLogo(lane)}
+      <nldd-title size="5">
+        <span slot="overline">Extern</span>
+        <h3>${esc(lane.name)}</h3>
+        <p slot="subtitle">${esc(lane.tagline)}</p>
+      </nldd-title>
+    </nldd-container>` : lane.prerequisite ? `
+    <nldd-container role="rowheader" gap="4" padding-block="12">
+      ${laneLogo(lane)}
+      <nldd-title size="6"><span slot="overline">Randvoorwaarde</span><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
+    </nldd-container>` : !LOGOS[lane.id] ? `
+    <nldd-container role="rowheader" gap="8" padding-block="12">
+      ${laneLogo(lane)}
+      <nldd-title size="5">
+        <h3>${esc(lane.name)}</h3>
+        <p slot="subtitle">${esc(lane.tagline)}</p>
+      </nldd-title>
+    </nldd-container>` : `
+    <nldd-container role="rowheader" gap="8" padding-block="12">
+      ${laneLogo(lane)}
+      <nldd-title size="6"><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
+      ${infoLink(lane.id)}
+    </nldd-container>`;
+
+const laneRows = LANES.map((lane) => `
+  <nldd-table-row>
+    ${laneHeader(lane)}
+    ${TERTIALS.map((t) => {
+      const rs = lane.releases.filter((r) => r.t === t.id);
+      const item = lane.kader ? kaderItem : lane.prerequisite ? prerequisiteItem : releaseCard;
+      return `<nldd-container role="cell" gap="8" padding-block="12">${rs.map((r) => item(lane, r)).join('')}</nldd-container>`;
+    }).join('')}
+  </nldd-table-row>`).join('');
+
+// Eerste rij met afwijkende achtergrond (row-highlight van het DS; tabel is niet selectable, dus geen aria-selected)
+const experienceRow = `
+  <nldd-table-row selected>
+    <nldd-title-cell size="6" vertical-alignment="top" text="De ondernemer ervaart"
+      supporting-text="Wat er per tertiaal bijkomt"></nldd-title-cell>
+    ${TERTIALS.map((t) => EXPERIENCE[t.id]
+      ? `<nldd-text-cell vertical-alignment="top" color="accent" text="${esc(EXPERIENCE[t.id])}"></nldd-text-cell>`
+      : '<nldd-text-cell text=""></nldd-text-cell>').join('')}
+  </nldd-table-row>`;
+
+document.getElementById('roadmap-table').innerHTML = header + experienceRow + laneRows;
+
+// Pannen: slepen met de muis (touch pant al native) en knoppen per jaar
+const table = document.getElementById('roadmap-table');
+
+// Afhankelijkheden: elke EDI-release wijst naar de EBW-release die hij mogelijk maakt
+const DEPS = LANES.find((l) => l.id === 'edi').releases
+  .map((r) => ({ from: `edi:${r.code}`, to: `ebw:${r.enables.replace('EBW ', '')}` }));
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const depSvg = document.createElementNS(SVG_NS, 'svg');
+depSvg.id = 'roadmap-deps';
+depSvg.setAttribute('aria-hidden', 'true');
+depSvg.innerHTML = `<defs>
+  <marker id="dep-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+  <marker id="dep-arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+</defs>`;
+table.append(depSvg);
+const drawDeps = () => {
+  const tr = table.getBoundingClientRect();
+  depSvg.setAttribute('width', table.scrollWidth);
+  depSvg.setAttribute('height', table.scrollHeight);
+  depSvg.querySelectorAll('path.dep').forEach((p) => p.remove());
+  DEPS.forEach(({ from, to }) => {
+    const a = table.querySelector(`[data-release="${from}"]`)?.getBoundingClientRect();
+    const b = table.querySelector(`[data-release="${to}"]`)?.getBoundingClientRect();
+    if (!a || !b) return;
+    const x1 = a.left + a.width / 2 - tr.left + table.scrollLeft;
+    const y1 = a.top - tr.top + table.scrollTop;
+    const x2 = b.left + b.width / 2 - tr.left + table.scrollLeft;
+    const y2 = b.bottom - tr.top + table.scrollTop;
+    const dy = Math.max(24, (y1 - y2) / 2);
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('class', 'dep');
+    path.dataset.from = from;
+    path.dataset.to = to;
+    path.setAttribute('d', `M ${x1} ${y1} C ${x1} ${y1 - dy}, ${x2} ${y2 + dy}, ${x2} ${y2 + 2}`);
+    path.setAttribute('marker-end', 'url(#dep-arrow)');
+    depSvg.append(path);
+  });
+};
+const highlightDeps = (key) => {
+  depSvg.classList.toggle('has-active', !!key);
+  depSvg.querySelectorAll('path.dep').forEach((p) => {
+    const on = !!key && (p.dataset.from === key || p.dataset.to === key);
+    p.classList.toggle('is-active', on);
+    p.setAttribute('marker-end', `url(#${on ? 'dep-arrow-active' : 'dep-arrow'})`);
+  });
+};
+const releaseKey = (e) => e.composedPath().find((el) => el instanceof Element && el.dataset?.release)?.dataset.release;
+table.addEventListener('pointerover', (e) => highlightDeps(releaseKey(e)));
+table.addEventListener('pointerleave', () => highlightDeps(null));
+table.addEventListener('focusin', (e) => highlightDeps(releaseKey(e)));
+table.addEventListener('focusout', () => highlightDeps(null));
+const depObserver = new ResizeObserver(() => drawDeps());
+depObserver.observe(table);
+table.querySelectorAll(':scope > nldd-table-row').forEach((row) => depObserver.observe(row));
+document.fonts?.ready.then(drawDeps);
+customElements.whenDefined('nldd-card').then(() => requestAnimationFrame(drawDeps));
+setTimeout(drawDeps, 600);
+let pan = null;
+let suppressClick = false;
+table.style.cursor = 'grab';
+table.addEventListener('pointerdown', (e) => {
+  if (e.pointerType !== 'mouse' || e.button !== 0) return;
+  pan = { id: e.pointerId, x: e.clientX, y: e.clientY, left: table.scrollLeft, top: table.scrollTop, moved: false };
+});
+table.addEventListener('pointermove', (e) => {
+  if (!pan || e.pointerId !== pan.id) return;
+  const dx = e.clientX - pan.x;
+  const dy = e.clientY - pan.y;
+  if (!pan.moved && Math.hypot(dx, dy) < 5) return;
+  if (!pan.moved) {
+    pan.moved = true;
+    table.setPointerCapture(e.pointerId);
+    table.style.cursor = 'grabbing';
+  }
+  e.preventDefault();
+  window.getSelection()?.removeAllRanges();
+  table.scrollLeft = pan.left - dx;
+  table.scrollTop = pan.top - dy;
+});
+const endPan = (e) => {
+  if (!pan || e.pointerId !== pan.id) return;
+  suppressClick = pan.moved;
+  pan = null;
+  table.style.cursor = 'grab';
+};
+table.addEventListener('pointerup', endPan);
+table.addEventListener('pointercancel', endPan);
+// Na een sleepbeweging geen kaart openen
+table.addEventListener('click', (e) => {
+  if (suppressClick) { e.stopPropagation(); e.preventDefault(); suppressClick = false; }
+}, true);
+
+// Eerder/Later: per jaar, uitgelijnd op T1 direct naast de vaste sporenkolom.
+// Eigen animatie: native smooth scrollen blijft in deze tabel hangen als hij niet links begint.
+const yearStarts = () => {
+  // Let op: nldd-table-row zet op elk kind role="cell", ook op de sporenkop; daarom expliciet de kop overslaan
+  const row = table.querySelector('nldd-table-row:not([slot]):not([selected])');
+  const [head, ...cells] = row.children;
+  const tableLeft = table.getBoundingClientRect().left;
+  // Vastgeplakt staat de sporenkolom tegen de linkerrand (sticky left: 0), ongeacht de huidige scrollpositie
+  const frozenRight = head.getBoundingClientRect().width + parseFloat(getComputedStyle(table).columnGap || 0);
+  const max = table.scrollWidth - table.clientWidth;
+  return cells.filter((c, i) => i % 3 === 0)
+    .map((c, y) => (y === 0 ? 0 : Math.min(max, Math.max(0, Math.round(c.getBoundingClientRect().left - tableLeft + table.scrollLeft - frozenRight)))));
+};
+let panAnim = null;
+let panTarget = null;
+const animateTo = (target) => {
+  cancelAnimationFrame(panAnim);
+  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) { table.scrollLeft = target; panTarget = null; return; }
+  const from = table.scrollLeft;
+  const start = performance.now();
+  const step = (now) => {
+    const p = Math.min(1, (now - start) / 300);
+    table.scrollLeft = from + (target - from) * (1 - (1 - p) ** 3);
+    if (p < 1) panAnim = requestAnimationFrame(step);
+    else panTarget = null;
+  };
+  panAnim = requestAnimationFrame(step);
+};
+const panYear = (dir) => {
+  // Tijdens een lopende animatie verder rekenen vanaf het doel, zodat snel klikken meerdere jaren opschuift
+  const current = panTarget ?? table.scrollLeft;
+  const starts = yearStarts();
+  const target = dir > 0
+    ? starts.find((x) => x > current + 2) ?? table.scrollWidth - table.clientWidth
+    : [...starts].reverse().find((x) => x < current - 2) ?? 0;
+  panTarget = target;
+  animateTo(target);
+};
+// Handmatig slepen of scrollen breekt een lopende knopanimatie af
+table.addEventListener('pointerdown', () => { cancelAnimationFrame(panAnim); panTarget = null; });
+table.addEventListener('wheel', () => { cancelAnimationFrame(panAnim); panTarget = null; }, { passive: true });
+document.getElementById('pan-prev').addEventListener('click', () => panYear(-1));
+document.getElementById('pan-next').addEventListener('click', () => panYear(1));
+
+// Wie logt in met welk middel: per rol per middel vanaf welk tertiaal (fase volgt uit TERTIALS)
+// Indeling volgt het inlogscherm van Mijn Belastingdienst Zakelijk (sinds 6 augustus 2026):
+// eerst de soort onderneming, daarna de rol. Buitenlandse ondernemers gebruiken een Europees middel
+// (nu European login via eIDAS, straks hun eigen EDI-wallet of business wallet) en vallen onder dezelfde rijen.
+const LOGIN_MATRIX = [
+  { group: 'Eenmanszaak', role: 'Eigenaar', note: 'Staat zelf in het Handelsregister',
+    digid: { s: 'ja', t: '2027-1', ref: 'DigiD R1', note: 'als persoon; KvK-gegevens getoond' },
+    eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1', note: 'kan, maar kost geld' },
+    edi:   { s: 'ja', t: '2027-1', ref: 'EDI-wallet R1', note: 'EU-wallets uit andere landen vanaf T1 2030 (R4)' },
+    ebw:   { s: 'ja', t: '2028-2', ref: 'EBW R1', note: 'pilot; alle diensten T1 2030 (R3)' } },
+  { group: 'Bedrijf of organisatie', role: 'Vennoot vof of maatschap', note: 'Staat zelf in het Handelsregister',
+    digid: { s: 'beperkt', t: '2027-1', ref: 'DigiD R1', note: 'alleen KvK-gegevens inzien, niet namens de vof inloggen' },
+    eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1' },
+    edi:   { s: 'ja', t: '2028-1', ref: 'EDI-wallet R2', note: 'met KvK-attestatie' },
+    ebw:   { s: 'ja', t: '2028-2', ref: 'EBW R1', note: 'pilot; alle diensten T1 2030 (R3)' } },
+  { group: 'Bedrijf of organisatie', role: 'Bestuurder bv of nv', note: 'Vertegenwoordigt een rechtspersoon',
+    digid: { s: 'beperkt', t: '2027-1', ref: 'DigiD R1', note: 'alleen KvK-gegevens inzien, niet namens de bv of nv inloggen' },
+    eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1' },
+    edi:   { s: 'ja', t: '2028-1', ref: 'EDI-wallet R2', note: 'met KvK-attestatie' },
+    ebw:   { s: 'ja', t: '2028-2', ref: 'EBW R1', note: 'pilot; alle diensten T1 2030 (R3)' } },
+  { group: 'Bedrijf of organisatie', role: 'Medewerker', note: 'Werkt bij de onderneming, met machtiging',
+    digid: { s: 'nee', note: 'Geen koppeling met de onderneming' },
+    eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1', note: 'per dienst vanaf T3 2027 (R2)' },
+    edi:   { s: 'ja', t: '2029-1', ref: 'EDI-wallet R3', note: 'machtiging als attestatie' },
+    ebw:   { s: 'beperkt', t: '2028-2', ref: 'EBW R1', note: 'pilot; mandaten per dienst T1 2031 (R4)' } },
+  { group: 'Fiscale eenheid', role: 'Moeder- en dochtermaatschappij', note: 'Ondernemingen die als één worden gezien',
+    digid: { s: 'nee', note: 'DigiD is niet bedoeld voor rechtspersonen' },
+    eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1' },
+    edi:   { s: 'open', note: 'Vertegenwoordiging van een fiscale eenheid nog uit te werken' },
+    ebw:   { s: 'open', note: 'Fiscale eenheid als geheel in de EBW nog uit te werken' } },
+  { group: 'Voor een andere onderneming', role: 'Gemachtigde', note: 'Bijvoorbeeld boekhouder, adviseur of bewindvoerder',
+    digid: { s: 'nee', note: 'DigiD Machtigen is voorlopig niet voorzien' },
+    eh:    { s: 'ja', t: '2029-1', ref: 'eHerkenning R4', note: 'ketenmachtiging' },
+    edi:   { s: 'beperkt', t: '2029-1', ref: 'EDI-wallet R3', note: 'attestatie per onderneming' },
+    ebw:   { s: 'ja', t: '2031-1', ref: 'EBW R4', note: 'mandaat vanuit de EBW van de andere onderneming' } },
+];
+const LOGIN_COLS = ['digid', 'eh', 'edi', 'ebw'];
+const LOGIN_COLOR = { ja: 'success', beperkt: 'warning', nee: 'secondary' };
+const loginCell = (c) => {
+  if (c.s === 'nee') return `<nldd-text-cell color="secondary" text="Niet voorzien" supporting-text="${esc(c.note)}"></nldd-text-cell>`;
+  if (c.s === 'open') return `<nldd-text-cell color="secondary" text="Nog uit te werken" supporting-text="${esc(c.note)}"></nldd-text-cell>`;
+  const t = tertial(c.t);
+  const sub = [`${c.ref} · fase ${t.phase}`, c.note].filter(Boolean).join(' · ');
+  return `<nldd-text-cell color="${LOGIN_COLOR[c.s]}" text="**Vanaf ${t.label}**${c.s === 'beperkt' ? ' (beperkt)' : ''}" supporting-text="${esc(sub)}"></nldd-text-cell>`;
+};
+document.getElementById('login-table').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Inloggen voor"></nldd-text-cell>
+    <nldd-text-cell text="Rol"></nldd-text-cell>
+    ${LOGIN_COLS.map((id) => `<nldd-cell vertical-alignment="center">${laneLogo(LANES.find((l) => l.id === id))}${infoLink(id)}</nldd-cell>`).join('')}
+  </nldd-table-row>
+  ${LOGIN_MATRIX.map((row, i) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="${i === 0 || LOGIN_MATRIX[i - 1].group !== row.group ? `**${esc(row.group)}**` : ''}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(row.role)}" supporting-text="${esc(row.note)}"></nldd-text-cell>
+    ${LOGIN_COLS.map((id) => loginCell(row[id])).join('')}
+  </nldd-table-row>`).join('')}`;
+
+// Wensentabel
+document.getElementById('wishes-table').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Wens van de ondernemer"></nldd-text-cell>
+    <nldd-text-cell text="Eerst (deels) ingevuld"></nldd-text-cell>
+    <nldd-text-cell text="Volledig ingevuld"></nldd-text-cell>
+    <nldd-text-cell text="Via"></nldd-text-cell>
+  </nldd-table-row>
+  ${WISHES.map((w) => `
+  <nldd-table-row>
+    <nldd-text-cell text="**${esc(w.wish)}**"></nldd-text-cell>
+    <nldd-text-cell color="warning" text="${esc(w.first)}"></nldd-text-cell>
+    <nldd-text-cell color="success" text="${esc(w.full)}"></nldd-text-cell>
+    <nldd-text-cell color="secondary" text="${esc(w.via)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+
+// Verdieping in sheet
+const sheet = document.getElementById('detail');
+const body = document.getElementById('detail-body');
+
+const list = (items, icon, color) => `
+  <nldd-list variant="box">
+    ${items.map((t) => `
+    <nldd-list-item>
+      <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+      <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-text-cell text="${esc(t)}"></nldd-text-cell>
+    </nldd-list-item>`).join('')}
+  </nldd-list>`;
+
+const releaseRef = (ref) => {
+  const [laneId, code] = ref.split(':');
+  const lane = LANES.find((l) => l.id === laneId);
+  const r = lane.releases.find((x) => x.code === code);
+  return { lane, r };
+};
+
+function renderKader(lane, idx) {
+  const k = lane.releases[idx];
+  const prev = lane.releases[idx - 1];
+  const next = lane.releases[idx + 1];
+  const affected = k.affects.map(releaseRef);
+  sheet.setAttribute('accessible-label', `${lane.name}: ${k.title}`);
+  body.innerHTML = `
+    <nldd-title size="3">
+      <span slot="overline">${esc(`${lane.name} · ${k.when}`)}</span>
+      <h2>${esc(k.title)}</h2>
+      <p slot="subtitle">${esc(k.summary)}</p>
+      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+    </nldd-title>
+    <nldd-container layout="wrap" gap="8">
+      <nldd-tag size="md" color="robijnrood" icon="flag-filled" text="Extern kader"></nldd-tag>
+      <nldd-tag size="md" color="neutral" text="${esc(k.status)}"></nldd-tag>
+    </nldd-container>
+    <nldd-rich-text spacing="tight"><p>${esc(k.info)}</p><p>Bron: <a href="${k.src[1]}" target="_blank" rel="noopener noreferrer">${esc(k.src[0])}</a></p></nldd-rich-text>
+    <nldd-banner variant="neutral" icon="flag" heading-level="3" text="Wat betekent dit voor MOZa" supporting-text="${esc(k.impact)}"></nldd-banner>
+    ${affected.length ? `
+    <nldd-title size="5"><h3>Raakt deze MOZa-releases</h3></nldd-title>
+    <nldd-container layout="wrap" gap="8">
+      ${affected.map(({ lane: l, r }) => `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(`${l.name} ${r.code}: ${r.title}`)}" data-lane="${l.id}" data-code="${r.code}"></nldd-button>`).join('')}
+    </nldd-container>` : ''}
+    <nldd-container layout="wrap" gap="8">
+      ${prev ? `<nldd-button variant="secondary" start-icon="chevron-left" text="${esc(prev.title)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
+      <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
+      ${next ? `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(next.title)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
+    </nldd-container>`;
+}
+
+// Relaties EDI <-> EBW als knoppen in de verdieping
+const depSection = (lane, r) => {
+  const key = `${lane.id}:${r.code}`;
+  const links = lane.id === 'edi' ? DEPS.filter((d) => d.from === key).map((d) => d.to)
+    : lane.id === 'ebw' ? DEPS.filter((d) => d.to === key).map((d) => d.from) : [];
+  if (!links.length) return '';
+  const heading = lane.id === 'edi' ? 'Maakt mogelijk in EBW' : 'Steunt op de EDI-wallet';
+  return `<nldd-title size="5"><h3>${heading}</h3></nldd-title>
+    <nldd-container layout="wrap" gap="8">
+      ${links.map(releaseRef).map(({ lane: l, r: x }) => `<nldd-button variant="secondary" start-icon="link" text="${esc(`${l.name} ${x.code}: ${x.title}`)}" data-lane="${l.id}" data-code="${x.code}"></nldd-button>`).join('')}
+    </nldd-container>`;
+};
+
+function renderDetail(laneId, code) {
+  const lane = LANES.find((l) => l.id === laneId);
+  if (lane.kader) { renderKader(lane, lane.releases.findIndex((r) => r.code === code)); return; }
+  const idx = lane.releases.findIndex((r) => r.code === code);
+  const r = lane.releases[idx];
+  const t = tertial(r.t);
+  const prev = lane.releases[idx - 1];
+  const next = lane.releases[idx + 1];
+  const tags = lane.prerequisite
+    ? `${tag(HORIZON[r.horizon], 'md')}<nldd-tag size="md" color="neutral" icon="link" text="${esc(`Randvoorwaarde voor ${r.enables}`)}"></nldd-tag>`
+    : `${tag(HORIZON[r.horizon], 'md')}${tag(FIT[r.fit], 'md')}`;
+  const banner = lane.prerequisite
+    ? `<nldd-banner variant="neutral" icon="link" heading-level="3" text="${esc(`Waarom nodig voor ${r.enables}`)}" supporting-text="${esc(r.experience)}"></nldd-banner>`
+    : `<nldd-banner variant="${r.fit === 'volledig' ? 'success' : 'neutral'}" icon="person" heading-level="3" text="Wat merkt de ondernemer" supporting-text="${esc(r.experience)}"></nldd-banner>`;
+  sheet.setAttribute('accessible-label', `${lane.name} ${r.code}: ${r.title}`);
+  body.innerHTML = `
+    <nldd-title size="3">
+      <span slot="overline">${esc(`${lane.name} · ${r.code} · Fase ${t.phase} · ${t.label} (${t.months})`)}</span>
+      <h2>${esc(r.title)}</h2>
+      <p slot="subtitle">${esc(r.summary)}</p>
+      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+    </nldd-title>
+    <nldd-container layout="wrap" gap="8">${tags}${r.reach ? tag(REACH[r.reach], 'md') : ''}${(r.kader || []).map((c) => kaderTag(c, 'md')).join('')}</nldd-container>
+    ${banner}
+    ${depSection(lane, r)}
+    ${(r.kader || []).map((c) => {
+      const k = KADERS.find((x) => x.code === c);
+      return `<nldd-banner variant="warning" icon="flag" heading-level="3" text="${esc(`Extern kader: ${k.title} (${k.when})`)}" supporting-text="${esc(k.impact)}">
+        <nldd-button slot="actions" variant="neutral-tinted" size="sm" text="Toelichting kader" data-lane="kader" data-code="${k.code}"></nldd-button>
+      </nldd-banner>`;
+    }).join('')}
+    <nldd-title size="5"><h3>Wat wordt opgeleverd</h3></nldd-title>
+    ${list(r.features, 'check-mark', 'success')}
+    ${r.reach ? `
+    <nldd-title size="5"><h3>Bereik van de inlog</h3></nldd-title>
+    <nldd-list variant="box">
+      ${REACH_STEPS.map((step, i) => `
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+        <nldd-icon-cell slot="start" icon="${i < REACH[r.reach].level ? 'check-mark-circle' : 'circle-dashed'}" color="${i < REACH[r.reach].level ? 'success' : 'secondary'}" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-text-cell text="${esc(step)}" color="${i < REACH[r.reach].level ? 'default' : 'secondary'}"></nldd-text-cell>
+      </nldd-list-item>`).join('')}
+    </nldd-list>` : ''}
+    <nldd-title size="5"><h3>Nog niet in deze release</h3>${lane.prerequisite ? '' : '<p slot="subtitle">Waar de ondernemer zich nog niet volledig gezien voelt</p>'}</nldd-title>
+    ${list(r.gaps, 'exclamation-triangle', 'warning')}
+    <nldd-title size="5"><h3>Afhankelijkheden</h3></nldd-title>
+    ${list(r.deps, 'link', 'secondary')}
+    ${r.src ? `<nldd-rich-text spacing="tight"><p>Bron: <a href="${r.src[1]}" target="_blank" rel="noopener noreferrer">${esc(r.src[0])}</a></p></nldd-rich-text>` : ''}
+    <nldd-container layout="wrap" gap="8">
+      ${prev ? `<nldd-button variant="secondary" start-icon="chevron-left" text="${esc(`${prev.code} ${prev.title}`)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
+      <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
+      ${next ? `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(`${next.code} ${next.title}`)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
+    </nldd-container>`;
+}
+
+let lastTrigger = null;
+document.addEventListener('click', (e) => {
+  const path = e.composedPath();
+  if (path.some((el) => el instanceof Element && el.hasAttribute('data-close'))) { sheet.hide(); return; }
+  const btn = path.find((el) => el instanceof Element && el.hasAttribute?.('data-lane'));
+  if (!btn) return;
+  if (!sheet.contains(btn)) lastTrigger = btn;
+  renderDetail(btn.dataset.lane, btn.dataset.code);
+  sheet.show();
+});
+sheet.addEventListener('close', () => lastTrigger?.focus?.());
+</script>
+</body>
+</html>
