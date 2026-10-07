@@ -121,17 +121,11 @@
         supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping."></nldd-banner>
       <nldd-spacer size="24"></nldd-spacer>
 
-      <nldd-container layout="grid" column-count="4" md-column-count="2" sm-column-count="1" gap="16">
+      <nldd-container layout="grid" column-count="3" md-column-count="2" sm-column-count="1" gap="16">
         <nldd-box>
           <nldd-container gap="8">
             <nldd-title size="6"><h2>Horizon</h2></nldd-title>
             <nldd-container gap="8" id="legend-horizon"></nldd-container>
-          </nldd-container>
-        </nldd-box>
-        <nldd-box>
-          <nldd-container gap="8">
-            <nldd-title size="6"><h2>Wensen van de ondernemer</h2></nldd-title>
-            <nldd-container layout="wrap" gap="8" id="legend-fit"></nldd-container>
           </nldd-container>
         </nldd-box>
         <nldd-box>
@@ -565,7 +559,6 @@ const tag = (cfg, size = 'sm') =>
 // Legenda
 document.getElementById('legend-horizon').innerHTML = Object.values(HORIZON)
   .map((h) => `<nldd-container gap="4">${tag(h, 'md')}<nldd-title size="6"><p slot="subtitle">${esc(h.help)}</p></nldd-title></nldd-container>`).join('');
-document.getElementById('legend-fit').innerHTML = Object.values(FIT).map((f) => tag(f, 'md')).join('');
 
 // Roadmaptabel
 const kaderTag = (code, size = 'sm') => {
@@ -593,7 +586,7 @@ const releaseCard = (lane, r) => `
         <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
         <h3>${esc(r.title)}</h3>
       </nldd-title>
-      <nldd-container layout="wrap" gap="4">${tag(HORIZON[r.horizon])}${tag(FIT[r.fit])}${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}</nldd-container>
+      <nldd-container layout="wrap" gap="4">${tag(HORIZON[r.horizon])}${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}</nldd-container>
     </nldd-container>
     <nldd-container slot="footer" padding="16" padding-top="0">
       <nldd-button variant="neutral-tinted" size="sm" end-icon="chevron-right" text="Verdieping"
@@ -958,7 +951,7 @@ function renderDetail(laneId, code) {
   const next = lane.releases[idx + 1];
   const tags = lane.prerequisite
     ? `${tag(HORIZON[r.horizon], 'md')}<nldd-tag size="md" color="neutral" icon="link" text="${esc(`Randvoorwaarde voor ${r.enables}`)}"></nldd-tag>`
-    : `${tag(HORIZON[r.horizon], 'md')}${tag(FIT[r.fit], 'md')}`;
+    : `${tag(HORIZON[r.horizon], 'md')}`;
   const banner = lane.prerequisite
     ? `<nldd-banner variant="neutral" icon="link" heading-level="3" text="${esc(`Waarom nodig voor ${r.enables}`)}" supporting-text="${esc(r.experience)}"></nldd-banner>`
     : `<nldd-banner variant="${r.fit === 'volledig' ? 'success' : 'neutral'}" icon="person" heading-level="3" text="Wat merkt de ondernemer" supporting-text="${esc(r.experience)}"></nldd-banner>`;
