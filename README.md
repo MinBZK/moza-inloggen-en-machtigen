@@ -28,7 +28,9 @@ De pagina's zijn gebouwd met het [NLDD design system](https://minbzk.github.io/s
    ```
 
    en open http://localhost:8905.
-3. Push naar `main`. GitHub Actions draait `build.py` en publiceert de site op GitHub Pages.
+3. Maak een branch en open een pull request naar `main`. Direct pushen naar `main` kan niet.
+4. GitHub Actions bouwt de site bij de pull request als controle (check `build`); die moet slagen voordat je kunt mergen.
+5. Na de merge publiceert GitHub Actions de site op GitHub Pages.
 
 Een zelfstandige versie (bijvoorbeeld om te mailen of elders te publiceren) maak je met `python3 build.py`; het resultaat staat in `dist/`.
 
