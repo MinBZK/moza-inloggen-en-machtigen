@@ -2,15 +2,21 @@ name: Publiceer site
 
 # Pull requests: alleen bouwen als controle (verplichte check 'build').
 # Push op main (na merge van een pull request): bouwen en publiceren op GitHub Pages.
+# Opmerkingen (issues met label 'opmerking'): opnieuw publiceren met bijgewerkte opmerkingen.json.
 on:
   pull_request:
     branches: [main]
   push:
     branches: [main]
+  issues:
+    types: [opened, edited, closed, reopened, deleted, labeled, unlabeled]
+  issue_comment:
+    types: [created, edited, deleted]
   workflow_dispatch:
 
 permissions:
   contents: read
+  issues: read
   pages: write
   id-token: write
 
@@ -20,6 +26,8 @@ concurrency:
 
 jobs:
   build:
+    # Alleen issues met label 'opmerking' leiden tot een nieuwe publicatie
+    if: (github.event_name != 'issues' && github.event_name != 'issue_comment') || contains(github.event.issue.labels.*.name, 'opmerking')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,6 +36,10 @@ jobs:
           python-version: '3.12'
       - name: Bouw zelfstandige pagina's
         run: python3 build.py
+      - name: Opmerkingen ophalen
+        run: python3 opmerkingen.py dist/opmerkingen.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v6
       - if: github.event_name != 'pull_request'
