@@ -213,7 +213,10 @@
 
 
     <nldd-page-footer>
-      <nldd-container padding="24">
+      <nldd-container padding="24" gap="16">
+        <nldd-container layout="wrap" gap="8" id="archive-entry" hidden>
+          <nldd-button id="archive-open" variant="neutral-tinted" size="sm" start-icon="file-box" text="Opmerkingenarchief"></nldd-button>
+        </nldd-container>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026.</p><p>Externe kaders volgen eIDAS 2.0 (<a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" target="_blank" rel="noopener noreferrer">Verordening (EU) 2024/1183</a>) en het EBW-voorstel <a href="https://digitalpolicyalert.org/event/35575-european-commission-published-proposal-for-a-regulation-on-the-establishment-of-european-business-wallets" target="_blank" rel="noopener noreferrer">COM(2025) 838</a>; mijlpalen van MOZa zijn een werkvoorstel.</p></nldd-rich-text>
       </nldd-container>
     </nldd-page-footer>
@@ -932,7 +935,8 @@ const actionRow = (o) => `
       <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
       ${actionButtons(o).map((b) => `<nldd-cell>${b}</nldd-cell>`).join('')}
     </nldd-list-item>`;
-const threads = (anchor) => commentsAt(anchor).map((o) => threadRows(o) + actionRow(o)).join('');
+// Opgeloste opmerkingen staan in het opmerkingenarchief (knop in de footer), niet meer bij het punt
+const threads = (anchor) => commentsAt(anchor).filter((o) => o.status === 'open').map((o) => threadRows(o) + actionRow(o)).join('');
 
 // Knop om een opmerking te plaatsen (opent het opmerkingenveld), met het aantal open opmerkingen
 const commentButton = (anchor, where, label) => {
@@ -962,7 +966,7 @@ const generalComments = (lane, r, currentAnchors) => {
   if (!COMMENTS_ON) return '';
   const prefix = `${lane.id}:${r.code}|`;
   const general = anchorOf(lane, r, 'algemeen');
-  const orphans = [...new Set(OPMERKINGEN.filter((o) => o.anker.startsWith(prefix) && o.anker !== general && !currentAnchors.includes(o.anker)).map((o) => o.anker))];
+  const orphans = [...new Set(OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith(prefix) && o.anker !== general && !currentAnchors.includes(o.anker)).map((o) => o.anker))];
   return `
     <nldd-title size="5"><h3>Opmerkingen bij deze release</h3>
       <p slot="subtitle">Plaats een opmerking met de knop bij een punt of met Option (Mac) of Alt + klik. Je naam komt uit je rijksaccount. Een editor lost een opmerking op met een conclusie.</p></nldd-title>
@@ -1012,7 +1016,9 @@ const loadComments = async () => {
     renderPins();
     requestAnimationFrame(drawDeps);
     // Open verdieping bijwerken met de nieuwe draadjes
-    if (isSheetOpen() && currentRelease) renderDetail(currentRelease.lane.id, currentRelease.r.code);
+    updateArchiveEntry();
+    if (isSheetOpen() && archiveShown) renderArchive();
+    else if (isSheetOpen() && currentRelease) renderDetail(currentRelease.lane.id, currentRelease.r.code);
   } catch (err) {
     // Zonder server (statische versie) blijven opmerkingen uit; met server is een fout het melden waard
     if (COMMENTS_ON) console.warn('Opmerkingen verversen mislukt:', err);
@@ -1074,7 +1080,57 @@ const depSection = (lane, r) => {
 };
 
 let currentRelease = null;
+let archiveShown = false;
+
+// Opmerkingenarchief: alle opgeloste opmerkingen met hun conclusie, nieuwste eerst
+const archiveEntry = document.getElementById('archive-entry');
+const archiveButton = document.getElementById('archive-open');
+const updateArchiveEntry = () => {
+  const n = OPMERKINGEN.filter((o) => o.status === 'opgelost').length;
+  archiveEntry.hidden = !COMMENTS_ON;
+  archiveButton.setAttribute('text', `Opmerkingenarchief (${n})`);
+};
+const releaseOfAnchor = (anker) => {
+  const m = /^([a-z]+):([A-Za-z0-9]+)\|/.exec(anker);
+  const lane = m && LANES.find((l) => l.id === m[1]);
+  const r = lane && lane.releases.find((x) => x.code === m[2]);
+  return r ? { lane, r } : null;
+};
+function renderArchive() {
+  archiveShown = true;
+  currentRelease = null;
+  const done = OPMERKINGEN.filter((o) => o.status === 'opgelost')
+    .sort((a, b) => (b.opgelost_op || b.datum).localeCompare(a.opgelost_op || a.datum));
+  sheet.setAttribute('accessible-label', 'Opmerkingenarchief');
+  body.innerHTML = `
+    <nldd-title size="3">
+      <span slot="overline">Opmerkingen</span>
+      <h2>Opmerkingenarchief</h2>
+      <p slot="subtitle">Opgeloste opmerkingen met hun conclusie, nieuwste eerst.${IK?.editor ? ' Heropenen zet een opmerking terug bij het punt.' : ''}</p>
+      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+    </nldd-title>
+    ${done.length ? done.map((o) => {
+      const rel = releaseOfAnchor(o.anker);
+      return `
+    <nldd-list variant="box">
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+        <nldd-icon-cell slot="start" icon="file-box" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-text-cell overline="${esc(o.opgelost_op ? `Opgelost op ${fmtDate(o.opgelost_op)}` : 'Opgelost')}" text="${esc(o.onderdeel)}"></nldd-text-cell>
+      </nldd-list-item>${threadRows(o)}
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
+        ${rel ? `<nldd-cell><nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="${esc(`Naar ${rel.lane.name} ${rel.r.code}`)}" data-lane="${rel.lane.id}" data-code="${rel.r.code}"></nldd-button></nldd-cell>` : ''}
+        ${IK?.editor ? `<nldd-cell><nldd-button data-reopen="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button></nldd-cell>` : ''}
+      </nldd-list-item>
+    </nldd-list>`;
+    }).join('') : '<nldd-inline-dialog icon="file-box" text="Nog geen opgeloste opmerkingen" supporting-text="Een opmerking komt hier zodra een editor hem oplost met een conclusie."></nldd-inline-dialog>'}`;
+}
+archiveButton.addEventListener('click', () => { renderArchive(); sheet.show(); });
+
 function renderDetail(laneId, code) {
+  archiveShown = false;
   const lane = LANES.find((l) => l.id === laneId);
   currentRelease = { lane, r: lane.releases.find((x) => x.code === code) };
   if (lane.kader) { renderKader(lane, lane.releases.findIndex((r) => r.code === code)); return; }
@@ -1277,7 +1333,7 @@ const openPinThread = (o, e) => {
 };
 const renderPins = () => {
   document.querySelectorAll('[data-pin]').forEach((el) => el.remove());
-  OPMERKINGEN.filter((o) => o.anker.startsWith('plek|')).forEach((o) => {
+  OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith('plek|')).forEach((o) => {
     const [, sel, x, y] = o.anker.split('|');
     let host = null;
     try { host = document.querySelector(sel); } catch { return; }
