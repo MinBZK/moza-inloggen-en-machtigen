@@ -1,0 +1,1816 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EBW-flows stap voor stap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f9; --card:#ffffff; --peer:#eaeef4; --peer-line:#c9d2de;
+  --ink:#1b2a3d; --muted:#5b6b80; --faint:#8a97a8;
+  --navy:#1c3d6e; --accent:#2f7fd1; --active-bg:#e6f0fb;
+  --node-bg:#ffffff; --node-line:#d3dae4;
+  --issue:#2f7fd1; --share:#6b5bd0; --revoke:#c8453b;
+  --new-bg:#fdf1dc; --new-line:#c98a1e; --new-ink:#8a5a0c;
+  --held-bg:#e3f4ec; --held-line:#3f9a6e; --held-ink:#1e6245;
+  --rev-bg:#fbe7e5; --rev-ink:#9b2f27;
+  --call-bg:#e9f1fb; --tag-bg:#ffffff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161d; --card:#171e27; --peer:#1d2631; --peer-line:#34414f;
+    --ink:#e4e9f0; --muted:#a3b0bf; --faint:#7d8a99;
+    --navy:#9cc0ec; --accent:#5aa2ea; --active-bg:#1c3350;
+    --node-bg:#1a222c; --node-line:#3a4756;
+    --issue:#5aa2ea; --share:#9d90ea; --revoke:#e8766c;
+    --new-bg:#3a2c12; --new-line:#d9a441; --new-ink:#f0c877;
+    --held-bg:#16362a; --held-line:#4fb584; --held-ink:#9be0bd;
+    --rev-bg:#3d1c1a; --rev-ink:#f2a39c;
+    --call-bg:#1a2a3f; --tag-bg:#1a222c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161d; --card:#171e27; --peer:#1d2631; --peer-line:#34414f;
+  --ink:#e4e9f0; --muted:#a3b0bf; --faint:#7d8a99;
+  --navy:#9cc0ec; --accent:#5aa2ea; --active-bg:#1c3350;
+  --node-bg:#1a222c; --node-line:#3a4756;
+  --issue:#5aa2ea; --share:#9d90ea; --revoke:#e8766c;
+  --new-bg:#3a2c12; --new-line:#d9a441; --new-ink:#f0c877;
+  --held-bg:#16362a; --held-line:#4fb584; --held-ink:#9be0bd;
+  --rev-bg:#3d1c1a; --rev-ink:#f2a39c;
+  --call-bg:#1a2a3f; --tag-bg:#1a222c;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding:36px 24px 56px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+h1{margin:0;font-size:clamp(24px,3vw,32px);font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.hint{color:var(--muted);font-size:15px}
+kbd{font-family:inherit;font-size:12px;border:1px solid var(--node-line);border-radius:4px;padding:0 5px;background:var(--card)}
+.tabs{display:flex;gap:4px;margin:20px 0 0;border-bottom:1px solid var(--node-line)}
+.tab{-webkit-appearance:none;appearance:none;white-space:nowrap;font:inherit;font-size:16px;padding:8px 16px;border:none;border-bottom:3px solid transparent;background:none;color:var(--muted);cursor:pointer;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--navy);font-weight:600}
+.flownote{font-size:15px;color:var(--muted);margin:12px 0 0;max-width:90ch}
+.flownote a{color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
+.pill{-webkit-appearance:none;appearance:none;font:inherit;font-size:15px;line-height:1.3;white-space:nowrap;flex:none;padding:7px 14px;border-radius:999px;border:1px solid var(--node-line);background:var(--card);color:var(--ink);cursor:pointer}
+.pill:hover{border-color:var(--accent)}
+.pill.on{background:var(--navy);border-color:var(--navy);color:var(--bg);font-weight:600}
+.pill:focus-visible,.btn:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.diagram{background:var(--card);border:1px solid var(--node-line);border-radius:14px;padding:14px;overflow-x:auto}
+.diagram > svg{display:block;width:100%;min-width:560px;height:auto}
+.legend svg{display:inline-block;width:28px;height:10px;min-width:0;flex:none}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted);padding:8px 6px 2px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;letter-spacing:.12em;color:var(--accent);margin:4px 0 6px}
+.panel h2{margin:0 0 12px;font-size:26px;line-height:1.25;color:var(--ink);font-weight:700}
+.panel p{margin:0 0 12px;max-width:62ch}
+.callout{border-left:4px solid var(--accent);background:var(--call-bg);padding:12px 16px;margin:14px 0 16px;font-weight:600;border-radius:0}
+dl{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 14px;margin:0 0 18px;font-size:15px;border-top:1px solid var(--node-line);padding-top:12px}
+dt{color:var(--muted)}
+dd{margin:0}
+.mark{display:inline-block;font-size:12px;padding:0 7px;border-radius:999px;background:var(--new-bg);color:var(--new-ink);border:1px solid var(--new-line);margin-left:6px;vertical-align:1px;white-space:nowrap}
+.btns{display:flex;gap:10px}
+.btn{-webkit-appearance:none;appearance:none;white-space:nowrap;font:inherit;font-size:17px;padding:9px 22px;border-radius:8px;border:1px solid var(--node-line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:var(--bg);font-weight:600}
+.btn[aria-disabled="true"]{opacity:.45;cursor:default}
+.matrix{margin-top:28px;background:var(--card);border:1px solid var(--node-line);border-radius:14px;padding:18px 18px 12px}
+.matrix h3{margin:0 0 4px;font-size:20px;color:var(--ink)}
+.matrix .sub{margin:0 0 12px;color:var(--muted);font-size:15px}
+.mx-wrap{overflow-x:auto}
+.mx{border-collapse:collapse;width:100%;min-width:720px;font-size:15px}
+.mx th,.mx td{padding:6px 10px;border-bottom:1px solid var(--node-line);text-align:center}
+.mx th:first-child,.mx td:first-child{text-align:left;white-space:nowrap}
+.mx thead th{font-weight:600;color:var(--muted);font-size:14px;vertical-align:bottom}
+.mx thead th.act{color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+.mx td.act{background:var(--active-bg)}
+.mx tr.grp td{text-align:left;font-weight:600;color:var(--navy);padding-top:14px;border-bottom:none}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%}
+.dot.now{background:var(--new-line)}
+.dot.prev{background:var(--held-line)}
+.dot.rej{background:var(--revoke)}
+.mx-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.mx-legend span{display:inline-flex;align-items:center;gap:6px}
+footer{margin-top:36px;font-size:14px;color:var(--muted)}
+footer a{color:var(--accent)}
+.node rect{fill:var(--node-bg);stroke:var(--node-line);stroke-width:1.2;transition:fill .2s,stroke .2s}
+.node .nt{fill:var(--ink);font-size:15px;font-weight:600}
+.node .ns{fill:var(--muted);font-size:12.5px}
+.node.active rect{fill:var(--active-bg);stroke:var(--accent);stroke-width:2.2}
+.node.dim{opacity:.42}
+.node,.chip{transition:opacity .2s}
+.peer rect{fill:var(--peer);stroke:var(--peer-line);stroke-dasharray:5 5}
+.peer text{fill:var(--muted);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em}
+.chip rect{stroke-width:1.2}
+.chip text{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px}
+.chip.todo rect{fill:none;stroke:var(--node-line);stroke-dasharray:3 3}
+.chip.todo text{fill:var(--faint)}
+.chip.held rect{fill:var(--held-bg);stroke:var(--held-line)}
+.chip.held text{fill:var(--held-ink)}
+.chip.new rect{fill:var(--new-bg);stroke:var(--new-line)}
+.chip.new text{fill:var(--new-ink)}
+.chip.revoked rect{fill:var(--rev-bg);stroke:var(--revoke);stroke-dasharray:4 3}
+.chip.revoked text{fill:var(--rev-ink);text-decoration:line-through}
+.grpl{fill:var(--muted);font-size:12.5px;font-weight:600}
+.tag rect{fill:var(--tag-bg);stroke:var(--node-line)}
+.tag text{fill:var(--ink);font-size:12px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+.tag.rej rect{stroke:var(--revoke)}
+.tag.rej text{fill:var(--rev-ink)}
+
+.back{margin:0 0 12px;font-size:15px}
+.back a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="back"><a href="ebw.html">&larr; Terug naar EBW: achtergrond</a></p>
+<header>
+  <h1>Zakelijke wallet in de praktijk, stap voor stap</h1>
+  <div class="hint">Navigeer met <kbd>←</kbd> <kbd>→</kbd> of de knoppen</div>
+</header>
+<div class="tabs" role="tablist" id="tabs"></div>
+<p class="flownote" id="flownote">Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.</p>
+<nav class="pills" id="pills" aria-label="Stappen"><button type="button" class="pill on" aria-current="step">0 · Vooraf</button><button type="button" class="pill" aria-current="false">1 · Wallet activeren</button><button type="button" class="pill" aria-current="false">2 · KVK-uittreksel</button><button type="button" class="pill" aria-current="false">3 · Mandaten configureren</button><button type="button" class="pill" aria-current="false">4 · Naar Karins app</button><button type="button" class="pill" aria-current="false">5 · Inloggen MOZa</button><button type="button" class="pill" aria-current="false">6 · Omzetbelasting</button><button type="button" class="pill" aria-current="false">7 · Subsidie aanvragen</button><button type="button" class="pill" aria-current="false">8 · Subsidies inzien</button><button type="button" class="pill" aria-current="false">9 · Mandaat intrekken</button></nav>
+
+<div class="grid">
+  <div class="diagram">
+    <svg id="svg" viewBox="0 0 770 500" role="img" aria-labelledby="svgt svgd">
+      <title id="svgt">Houder en partijen</title>
+      <desc id="svgd">Links Karin met persoonlijke en zakelijke wallet en de bewijzen daarin, rechts de uitgevers en verifiers. De actieve stap is blauw gemarkeerd.</desc>
+      <defs>
+        <marker id="ah-issue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--issue)"></path></marker>
+        <marker id="ah-share" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--share)"></path></marker>
+        <marker id="ah-note" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--faint)"></path></marker>
+        <marker id="ah-sso" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--new-line)"></path></marker>
+        <marker id="ah-rej" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--revoke)"></path></marker>
+      </defs>
+      <g id="scene"><g class="peer"><rect x="16" y="16" width="300" height="234" rx="14"></rect><text x="36" y="44">PERSOONLIJK: KARIN</text></g><g class="peer"><rect x="16" y="266" width="300" height="218" rx="14"></rect><text x="36" y="294">ZAKELIJK: HANZE STAFFING</text></g><g class="peer"><rect x="440" y="16" width="304" height="468" rx="14"></rect><text x="460" y="44">UITGEVERS EN VERIFIERS</text></g><g class="node" id="w-p"><rect x="40" y="60" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="89" text-anchor="middle">Persoonlijke wallet</text><text class="ns" x="165" y="107" text-anchor="middle">Karin, app op telefoon</text></g><g class="node" id="w-z"><rect x="40" y="310" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="339" text-anchor="middle">Zakelijke wallet (EBW)</text><text class="ns" x="165" y="357" text-anchor="middle">Hanze Staffing, in de cloud</text></g><g class="chip todo" id="c-PID"><rect rx="12" height="24" x="40" y="136" width="46"></rect><text text-anchor="middle" x="63" y="152">PID</text></g><g class="chip todo" id="c-EUC"><rect rx="12" height="24" x="40" y="386" width="195.2554168701172"></rect><text text-anchor="middle" x="137.6277084350586" y="402">KVK-uittreksel (PuB-EAA)</text></g><g class="chip todo" id="c-MED"><rect rx="12" height="24" x="40" y="418" width="166.3795166015625"></rect><text text-anchor="middle" x="123.18975830078125" y="434">mandaten medewerkers</text></g><text class="grpl" x="40" y="184">Hanze Staffing:</text><g class="chip todo" id="c-MOB"><rect rx="12" height="24" x="142.89945220947266" y="168" width="94.18975830078125"></rect><text text-anchor="middle" x="189.99433135986328" y="184">mandaat OB</text></g><g class="chip todo" id="c-MRVO"><rect rx="12" height="24" x="52" y="200" width="101.40873718261719"></rect><text text-anchor="middle" x="102.7043685913086" y="216">mandaat RVO</text></g><g class="node" id="p0"><rect x="470" y="70" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="91" text-anchor="middle">PID-uitgever</text><text class="ns" x="595" y="109" text-anchor="middle">DigiD-login, gegevens uit BRP</text></g><g class="node" id="p1"><rect x="470" y="157.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="178.5" text-anchor="middle">KVK</text><text class="ns" x="595" y="196.5" text-anchor="middle">handelsregister</text></g><g class="node" id="p2"><rect x="470" y="245" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="266" text-anchor="middle">MOZa</text><text class="ns" x="595" y="284" text-anchor="middle">portaal, SSO naar diensten</text></g><g class="node" id="p3"><rect x="470" y="332.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="353.5" text-anchor="middle">Belastingdienst</text><text class="ns" x="595" y="371.5" text-anchor="middle">omzetbelasting</text></g><g class="node" id="p4"><rect x="470" y="420" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="441" text-anchor="middle">RVO</text><text class="ns" x="595" y="459" text-anchor="middle">subsidies</text></g></g>
+      <g id="arrows"></g>
+    </svg>
+    <div class="legend" id="legend"><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--issue)" stroke-width="2.5"></line></svg>Uitgifte naar wallet (OpenID4VCI)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--share)" stroke-width="2.5" stroke-dasharray="6 4"></line></svg>Delen of inloggen (OpenID4VP)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--new-line)" stroke-width="2.5"></line></svg>SSO via MOZa</span><span>Amber: net ontvangen. Groen: in de wallet. Rood: ingetrokken.</span></div>
+  </div>
+
+  <section class="panel" aria-live="polite">
+    <div class="eyebrow" id="eyebrow">STAP 0 VAN 9</div>
+    <h2 id="title">Karin regelt overheidszaken voor Hanze Staffing</h2>
+    <div id="body"><p>Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.</p><p>De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan.</p><div class="callout">Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.</div><dl><dt>Persoonlijke wallet</dt><dd>EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten</dd><dt>Zakelijke wallet</dt><dd>EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers</dd><dt>Configureren</dt><dd>De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit</dd><dt>MOZa</dt><dd>Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft</dd></dl></div>
+    <div class="btns">
+      <button class="btn" id="prev" type="button" aria-disabled="true">Vorige</button>
+      <button class="btn primary" id="next" type="button" aria-disabled="false">Volgende</button>
+    </div>
+  </section>
+</div>
+
+<section class="matrix" id="matrix">
+  <h3>Welke gegevens ziet wie</h3>
+  <p class="sub" id="mx-sub">Tot en met stap 0: karin regelt overheidszaken voor hanze staffing. Kolommen zijn de ontvangers, rijen de gegevens.</p>
+  <div class="mx-wrap"><table class="mx" id="mx"><thead><tr><th scope="col">Gegeven</th><th scope="col" class="">PID-uitgever</th><th scope="col" class="">KVK</th><th scope="col" class="">MOZa</th><th scope="col" class="">Belastingdienst</th><th scope="col" class="">RVO</th></tr></thead><tbody><tr class="grp"><td colspan="6">Persoon: PID in de persoonlijke wallet</td></tr><tr><th scope="row" style="font-weight:400">Naam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Geboortedatum</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Nationaliteit</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Adres</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">BSN</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de mandaten)</td></tr><tr><th scope="row" style="font-weight:400">KVK-nummer</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Handelsnaam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Rechtsvorm</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Tekenbevoegden</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Mandaten: alle medewerkers in de EBW, Karins eigen mandaten in haar app</td></tr><tr><th scope="row" style="font-weight:400">Mandaat OB: aangifte doen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Mandaat RVO: aanvragen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Mandaat RVO: inzien</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr></tbody></table></div>
+  <div class="mx-legend"><span><i class="dot now"></i>In deze stap gedeeld of opgehaald</span><span><i class="dot prev"></i>In een eerdere stap</span><span><i class="dot rej"></i>Gedeeld, maar geweigerd</span></div>
+</section>
+
+<footer>Flow 1 is een conceptflow voor MOZa. Flow 2 is gebaseerd op de MOZa-service blueprint <a href="https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html">Gezamenlijke subsidieaanvraag</a>. Punten die niet vaststaan zijn gemarkeerd als aanname of ontwerpkeuze. Overgenomen van plak.rijks.app (oktober 2026).</footer>
+</div>
+<script>
+
+const M=t=>'<span class="mark">'+t+'</span>';
+const FLOWS={
+ "moza": {
+  "tab": "1 · Inloggen op MOZa",
+  "note": "Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.",
+  "parties": [
+   {
+    "t": "PID-uitgever",
+    "s": "DigiD-login, gegevens uit BRP"
+   },
+   {
+    "t": "KVK",
+    "s": "handelsregister"
+   },
+   {
+    "t": "MOZa",
+    "s": "portaal, SSO naar diensten"
+   },
+   {
+    "t": "Belastingdienst",
+    "s": "omzetbelasting"
+   },
+   {
+    "t": "RVO",
+    "s": "subsidies"
+   }
+  ],
+  "chips": [
+   {
+    "id": "PID",
+    "l": "PID",
+    "w": "p",
+    "at": 1
+   },
+   {
+    "id": "EUC",
+    "l": "KVK-uittreksel (PuB-EAA)",
+    "w": "z",
+    "at": 2
+   },
+   {
+    "id": "MED",
+    "l": "mandaten medewerkers",
+    "w": "z",
+    "at": 3
+   },
+   {
+    "id": "MOB",
+    "l": "mandaat OB",
+    "w": "p",
+    "at": 4,
+    "grp": "Hanze Staffing"
+   },
+   {
+    "id": "MRVO",
+    "l": "mandaat RVO",
+    "w": "p",
+    "at": 4,
+    "rev": 9,
+    "grp": "Hanze Staffing"
+   }
+  ],
+  "attrs": [
+   {
+    "g": "Persoon: PID in de persoonlijke wallet",
+    "r": [
+     [
+      "naam",
+      "Naam"
+     ],
+     [
+      "geb",
+      "Geboortedatum"
+     ],
+     [
+      "nat",
+      "Nationaliteit"
+     ],
+     [
+      "adres",
+      "Adres"
+     ],
+     [
+      "bsn",
+      "BSN"
+     ]
+    ]
+   },
+   {
+    "g": "Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de mandaten)",
+    "r": [
+     [
+      "kvk",
+      "KVK-nummer"
+     ],
+     [
+      "hnaam",
+      "Handelsnaam"
+     ],
+     [
+      "rvorm",
+      "Rechtsvorm"
+     ],
+     [
+      "teken",
+      "Tekenbevoegden"
+     ]
+    ]
+   },
+   {
+    "g": "Mandaten: alle medewerkers in de EBW, Karins eigen mandaten in haar app",
+    "r": [
+     [
+      "mob",
+      "Mandaat OB: aangifte doen"
+     ],
+     [
+      "rvoA",
+      "Mandaat RVO: aanvragen"
+     ],
+     [
+      "rvoI",
+      "Mandaat RVO: inzien"
+     ]
+    ]
+   }
+  ],
+  "steps": [
+   {
+    "l": "Vooraf",
+    "h": "Karin regelt overheidszaken voor Hanze Staffing",
+    "w": [],
+    "p": [],
+    "a": [],
+    "x": {},
+    "t": [
+     "Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.",
+     "De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan."
+    ],
+    "c": "Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.",
+    "d": [
+     [
+      "Persoonlijke wallet",
+      "EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten"
+     ],
+     [
+      "Zakelijke wallet",
+      "EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers"
+     ],
+     [
+      "Configureren",
+      "De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit"
+     ],
+     [
+      "MOZa",
+      "Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft"
+     ]
+    ]
+   },
+   {
+    "l": "Wallet activeren",
+    "h": "Eenmalig: wallet activeren met DigiD",
+    "w": [
+     "p"
+    ],
+    "p": [
+     0
+    ],
+    "a": [
+     [
+      0,
+      "p",
+      "out",
+      "DigiD-login"
+     ],
+     [
+      0,
+      "p",
+      "in",
+      "PID"
+     ]
+    ],
+    "x": {
+     "0": [
+      "naam",
+      "geb",
+      "nat",
+      "adres",
+      "bsn"
+     ]
+    },
+    "t": [
+     "Karin installeert de wallet-app en logt eenmalig in met DigiD. De PID-uitgever krijgt daarmee haar BSN.",
+     "Met dat BSN haalt de uitgever haar gegevens op uit de BRP en zet die als PID in de wallet, gebonden aan een sleutel op haar telefoon."
+    ],
+    "c": "Dit is het enige moment waarop DigiD en de BRP meedoen. Daarna deelt Karin zelf gegevens vanuit haar wallet.",
+    "d": [
+     [
+      "Gevraagd",
+      "DigiD-login"
+     ],
+     [
+      "Opgehaald uit BRP",
+      "Naam, geboortedatum, nationaliteit, adres"
+     ],
+     [
+      "In wallet gezet",
+      "PID"
+     ],
+     [
+      "BSN in de PID",
+      "Opnemen voor latere koppelingen of juist weglaten<span class=\"mark\">ontwerpkeuze</span>"
+     ],
+     [
+      "Let op",
+      "Een PID vraagt eIDAS-niveau hoog; welke DigiD-variant daarvoor volstaat<span class=\"mark\">aandachtspunt</span>"
+     ],
+     [
+      "Type attestatie",
+      "PID: een eigen categorie in eIDAS, geen EAA"
+     ]
+    ]
+   },
+   {
+    "l": "KVK-uittreksel",
+    "h": "EBW inrichten met het KVK-uittreksel",
+    "w": [
+     "p",
+     "z"
+    ],
+    "p": [
+     1
+    ],
+    "a": [
+     [
+      1,
+      "p",
+      "out",
+      "naam + geb.datum"
+     ],
+     [
+      1,
+      "z",
+      "in",
+      "KVK-uittreksel"
+     ]
+    ],
+    "x": {
+     "1": [
+      "naam",
+      "geb"
+     ]
+    },
+    "t": [
+     "Karin richt als bevoegd vertegenwoordiger de EBW in; eigenaar van de wallet is Hanze Staffing. Ze logt bij de KVK in met haar PID uit de app.",
+     "De KVK vindt haar als tekenbevoegde in het handelsregister en zet het uittreksel in de EBW."
+    ],
+    "c": "Voor de match met het handelsregister zijn naam en geboortedatum genoeg. Adres, nationaliteit en BSN blijven in de wallet.",
+    "d": [
+     [
+      "Gevraagd",
+      "Naam en geboortedatum"
+     ],
+     [
+      "Gedeeld uit persoonlijke wallet",
+      "Naam, geboortedatum"
+     ],
+     [
+      "Niet gedeeld",
+      "Adres, nationaliteit, BSN"
+     ],
+     [
+      "In EBW gezet",
+      "KVK-uittreksel: KVK-nummer, handelsnaam, rechtsvorm, tekenbevoegden"
+     ],
+     [
+      "Matching",
+      "KVK koppelt op naam en geboortedatum<span class=\"mark\">aanname</span>"
+     ],
+     [
+      "Eigenaar EBW",
+      "Hanze Staffing; Karin is beheerder als tekenbevoegde<span class=\"mark\">aanname</span>"
+     ],
+     [
+      "Type attestatie",
+      "PuB-EAA: de KVK beheert het handelsregister als authentieke bron. Geeft een QTSP hem namens de KVK uit, dan is het een QEAA"
+     ]
+    ]
+   },
+   {
+    "l": "Mandaten configureren",
+    "h": "Karin configureert in de EBW wie wat mag",
+    "w": [
+     "z"
+    ],
+    "p": [
+     3,
+     4
+    ],
+    "a": [
+     [
+      3,
+      "z",
+      "out",
+      "aanvraag"
+     ],
+     [
+      4,
+      "z",
+      "out",
+      ""
+     ],
+     [
+      3,
+      "z",
+      "in",
+      "mandaat OB"
+     ],
+     [
+      4,
+      "z",
+      "in",
+      "mandaat RVO"
+     ]
+    ],
+    "x": {
+     "3": [
+      "kvk",
+      "hnaam",
+      "naam",
+      "geb"
+     ],
+     "4": [
+      "kvk",
+      "hnaam",
+      "naam",
+      "geb"
+     ]
+    },
+    "t": [
+     "Als beheerder van de EBW configureert Karin wie binnen Hanze Staffing wat mag: voor zichzelf het mandaat omzetbelasting en het mandaat subsidies, en zo ook voor collega's.",
+     "Voor elk mandaat vraagt de EBW de betreffende dienstverlener om het uit te geven. De Belastingdienst en RVO geven elk hun eigen mandaat terug in de EBW."
+    ],
+    "c": "De onderneming regelt op één plek wie wat mag; de dienstverlener bepaalt wat een mandaat bij hem inhoudt en geeft het uit.",
+    "d": [
+     [
+      "Waar",
+      "In de EBW, door de eigenaar (Hanze Staffing, via Karin)"
+     ],
+     [
+      "Gedeeld met elke dienstverlener",
+      "Wie de eigenaar is (KVK-nummer, handelsnaam) en voor wie het mandaat is (naam, geboortedatum)"
+     ],
+     [
+      "Niet gedeeld",
+      "Tekenbevoegden, rechtsvorm, adres, nationaliteit, BSN; de dienstverlener vertrouwt op de EBW-eigenaar<span class=\"mark\">ontwerpkeuze</span>"
+     ],
+     [
+      "In EBW gezet",
+      "Van de Belastingdienst: mandaat OB (aangifte doen). Van RVO: mandaat RVO (aanvragen, inzien). Plus die van collega's."
+     ],
+     [
+      "Binding",
+      "Hoe het mandaat aan Karin gekoppeld wordt: naam en geboortedatum, of direct haar wallet<span class=\"mark\">ontwerpkeuze</span>"
+     ],
+     [
+      "Type attestatie",
+      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+     ]
+    ]
+   },
+   {
+    "l": "Naar Karins app",
+    "h": "Karins attestaties naar haar persoonlijke wallet",
+    "w": [
+     "z",
+     "p"
+    ],
+    "p": [],
+    "a": [
+     [
+      "ww",
+      "z",
+      "p",
+      "Karins|mandaten",
+      258
+     ]
+    ],
+    "x": {},
+    "t": [
+     "Uit de EBW gaan alleen de mandaten die over Karin gaan naar de app op haar telefoon: het mandaat omzetbelasting en het mandaat subsidies.",
+     "In de app staan ze gegroepeerd onder Hanze Staffing. Werkt Karin ook voor een andere onderneming, dan krijgt die een eigen groep."
+    ],
+    "c": "Twee mandaten zijn twee aparte attestaties. Zo deelt Karin straks steeds alleen het mandaat dat een dienst nodig heeft.",
+    "d": [
+     [
+      "Van",
+      "EBW van Hanze Staffing"
+     ],
+     [
+      "Naar",
+      "Persoonlijke wallet van Karin, groep Hanze Staffing"
+     ],
+     [
+      "Mandaten",
+      "Mandaat OB; mandaat RVO, elk apart"
+     ],
+     [
+      "Niet overgezet",
+      "Mandaten van collega's; het KVK-uittreksel (KVK-nummer en naam staan al in de mandaten)"
+     ],
+     [
+      "Binding",
+      "Gebonden aan de sleutel van Karins app, zodat ze bij haar PID horen"
+     ],
+     [
+      "Uitgever",
+      "De EBW namens Hanze Staffing, of de dienstverlener rechtstreeks<span class=\"mark\">ontwerpkeuze</span>"
+     ]
+    ]
+   },
+   {
+    "l": "Inloggen MOZa",
+    "h": "Inloggen op MOZa met EDI en EBW-attestaties",
+    "w": [
+     "p"
+    ],
+    "p": [
+     2
+    ],
+    "a": [
+     [
+      2,
+      "p",
+      "out",
+      "PID + mandaten"
+     ]
+    ],
+    "x": {
+     "2": [
+      "naam",
+      "kvk",
+      "hnaam",
+      "mob",
+      "rvoA",
+      "rvoI"
+     ]
+    },
+    "t": [
+     "Karin logt in op MOZa met haar persoonlijke wallet. Ze toont haar naam uit de PID en de mandaten uit de groep Hanze Staffing.",
+     "MOZa ziet voor welke onderneming en welke diensten Karin mag handelen, en toont haar precies die diensten: omzetbelasting en subsidies. De EBW is hier niet nodig."
+    ],
+    "c": "MOZa is de voordeur: één keer inloggen, en op basis van de mandaten de juiste toegang, via SSO naar de diensten erachter.",
+    "d": [
+     [
+      "Gevraagd",
+      "Wie Karin is, namens welke onderneming en voor welke diensten"
+     ],
+     [
+      "Gedeeld uit persoonlijke wallet",
+      "Naam (PID); mandaat OB en mandaat RVO, met KVK-nummer en handelsnaam"
+     ],
+     [
+      "Niet gedeeld",
+      "Geboortedatum, adres, BSN"
+     ],
+     [
+      "Keuze",
+      "Alle mandaten in één keer bij inloggen: één portaalbeleving, met toegang tot alle dienstverleners waarvoor Karin een mandaat heeft"
+     ],
+     [
+      "Resultaat",
+      "MOZa-sessie namens Hanze Staffing, met toegang tot omzetbelasting en subsidies"
+     ]
+    ]
+   },
+   {
+    "l": "Omzetbelasting",
+    "h": "Aangifte omzetbelasting vanuit MOZa",
+    "w": [],
+    "p": [
+     2,
+     3
+    ],
+    "a": [
+     [
+      2,
+      "pp",
+      3,
+      "SSO"
+     ]
+    ],
+    "x": {
+     "3": [
+      "naam",
+      "kvk",
+      "mob"
+     ]
+    },
+    "t": [
+     "Vanuit MOZa opent Karin de aangifte omzetbelasting. MOZa brengt haar via SSO naar de Belastingdienst en geeft haar mandaat OB mee, zoals Karin het bij het inloggen toonde.",
+     "Er is geen nieuw wallet-verzoek nodig. Past het mandaat bij de handeling, dan doet Karin de aangifte."
+    ],
+    "c": "Karin logt één keer in. De Belastingdienst hoeft MOZa niet blind te vertrouwen: hij controleert het mandaat dat hij zelf heeft uitgegeven.",
+    "d": [
+     [
+      "Via SSO doorgegeven",
+      "Naam Karin, KVK-nummer, mandaat OB"
+     ],
+     [
+      "Controle",
+      "De Belastingdienst checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+     ],
+     [
+      "Niet doorgegeven",
+      "Mandaat RVO en overige PID-gegevens"
+     ],
+     [
+      "Vorm",
+      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+     ],
+     [
+      "Fiscaal nummer",
+      "De Belastingdienst koppelt het KVK-nummer aan het omzetbelastingnummer<span class=\"mark\">aandachtspunt</span>"
+     ],
+     [
+      "Resultaat",
+      "Aangifte ingediend"
+     ]
+    ]
+   },
+   {
+    "l": "Subsidie aanvragen",
+    "h": "Subsidie aanvragen bij RVO",
+    "w": [],
+    "p": [
+     2,
+     4
+    ],
+    "a": [
+     [
+      2,
+      "pp",
+      4,
+      "SSO"
+     ]
+    ],
+    "x": {
+     "4": [
+      "naam",
+      "kvk",
+      "rvoA"
+     ]
+    },
+    "t": [
+     "Karin start vanuit MOZa een subsidieaanvraag. MOZa brengt haar via SSO naar RVO en geeft het mandaat subsidies mee.",
+     "RVO controleert of het mandaat aanvragen toestaat. Karin dient de aanvraag in; de status is daarna in MOZa te volgen."
+    ],
+    "c": "Aanvragen en inzien zijn aparte rechten. Wie alleen mag inzien, kan niets indienen.",
+    "d": [
+     [
+      "Via SSO doorgegeven",
+      "Naam Karin, KVK-nummer, mandaat RVO (scope aanvragen)"
+     ],
+     [
+      "Controle",
+      "RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+     ],
+     [
+      "Vorm",
+      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+     ],
+     [
+      "Niet doorgegeven",
+      "Mandaat OB en overige PID-gegevens"
+     ],
+     [
+      "Resultaat",
+      "Aanvraag ingediend, status zichtbaar in MOZa"
+     ]
+    ]
+   },
+   {
+    "l": "Subsidies inzien",
+    "h": "Lopende subsidies inzien",
+    "w": [],
+    "p": [
+     2,
+     4
+    ],
+    "a": [
+     [
+      2,
+      "pp",
+      4,
+      "SSO"
+     ]
+    ],
+    "x": {
+     "4": [
+      "naam",
+      "kvk",
+      "rvoI"
+     ]
+    },
+    "t": [
+     "Karin bekijkt vanuit MOZa de lopende subsidies en besluiten van Hanze Staffing.",
+     "MOZa geeft via SSO het mandaat mee, met alleen de scope inzien; RVO controleert handtekening, statuslijst en scope."
+    ],
+    "c": "MOZa geeft per dienst en per handeling alleen door wat nodig is.",
+    "d": [
+     [
+      "Via SSO doorgegeven",
+      "Naam Karin, KVK-nummer, mandaat RVO (scope inzien)"
+     ],
+     [
+      "Controle",
+      "RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+     ],
+     [
+      "Vorm",
+      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+     ],
+     [
+      "Niet doorgegeven",
+      "Scope aanvragen<span class=\"mark\">ontwerpkeuze</span>"
+     ],
+     [
+      "Resultaat",
+      "Overzicht van subsidies en besluiten"
+     ]
+    ]
+   },
+   {
+    "l": "Mandaat intrekken",
+    "h": "Het RVO-mandaat wordt ingetrokken",
+    "w": [
+     "z"
+    ],
+    "p": [
+     2,
+     4
+    ],
+    "a": [
+     [
+      4,
+      "z",
+      "out",
+      "verzoek intrekken"
+     ],
+     [
+      2,
+      "pp",
+      4,
+      "SSO",
+      "rej"
+     ]
+    ],
+    "x": {
+     "4": [
+      "naam",
+      "kvk",
+      "rvoA"
+     ]
+    },
+    "rej": true,
+    "t": [
+     "Karin, of een andere beheerder, zet in de EBW het RVO-mandaat van Karin uit. De EBW van Hanze Staffing stuurt RVO een verzoek tot intrekken; RVO zet het mandaat als uitgever op zijn statuslijst.",
+     "Karin is op dat moment nog ingelogd op MOZa. Klikt ze op subsidies, dan geeft MOZa het mandaat mee en ziet RVO op de statuslijst dat het is ingetrokken: RVO weigert direct. De omzetbelasting blijft gewoon werken."
+    ],
+    "c": "Omdat de dienstverlener zelf controleert, werkt een intrekking meteen, ook in een lopende MOZa-sessie.",
+    "d": [
+     [
+      "Initiatief",
+      "De EBW van Hanze Staffing, na aanpassing van de configuratie door de eigenaar"
+     ],
+     [
+      "Uitvoering",
+      "RVO, als uitgever, zet het mandaat op zijn statuslijst"
+     ],
+     [
+      "Controle",
+      "RVO checkt bij elke SSO-toegang de statuslijst en weigert"
+     ],
+     [
+      "Bij volgende login",
+      "MOZa ziet het ingetrokken mandaat en biedt de subsidiedienst niet meer aan"
+     ],
+     [
+      "Resultaat",
+      "Direct geen toegang meer tot subsidies; mandaat OB blijft geldig"
+     ]
+    ]
+   }
+  ]
+ },
+ "subsidie": {
+  "tab": "2 · Gezamenlijke subsidie",
+  "note": "Gebaseerd op de MOZa-service blueprint <a href=\"https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html\">Gezamenlijke subsidieaanvraag</a>: drie bedrijven vragen samen DEI+-subsidie aan bij RVO en machtigen intermediair Lotte als penvoerder. De wallet-laag is een uitwerking van de blueprint; Elk bedrijf heeft een eigen EBW waarin de eigenaar configureert wie namens het bedrijf mag handelen; RVO geeft als dienstverlener de rollen en machtigingen voor DEI+ uit. ontwerpkeuzes zijn gemarkeerd.",
+  "layout": {
+   "groups": [
+    {
+     "label": "COLLECTIEF (DEI+)",
+     "y": 16,
+     "h": 330,
+     "holders": [
+      {
+       "id": "sa",
+       "t": "Sander",
+       "s": "GreenFlow BV",
+       "y": 56,
+       "h": 52,
+       "cg": 6
+      },
+      {
+       "id": "we",
+       "t": "Wei",
+       "s": "Polar Components BV",
+       "y": 152,
+       "h": 52,
+       "cg": 6
+      },
+      {
+       "id": "ah",
+       "t": "Ahmed",
+       "s": "MetaalbouwZuid BV",
+       "y": 248,
+       "h": 52,
+       "cg": 6
+      }
+     ]
+    },
+    {
+     "label": "INTERMEDIAIR",
+     "y": 358,
+     "h": 126,
+     "holders": [
+      {
+       "id": "lo",
+       "t": "Lotte",
+       "s": "Bureau Subsidiekracht",
+       "y": 394,
+       "h": 52,
+       "cg": 6
+      }
+     ]
+    }
+   ]
+  },
+  "parties": [
+   {
+    "t": "MOZa",
+    "s": "portaal, SSO en notificaties"
+   },
+   {
+    "t": "RVO",
+    "s": "DEI+, rollen en machtigingen"
+   }
+  ],
+  "mcols": [
+   "MOZa",
+   "Lotte",
+   "RVO"
+  ],
+  "chips": [
+   {
+    "id": "S_MA",
+    "l": "mede-aanvrager",
+    "w": "sa",
+    "tl": [
+     [
+      2,
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "S_PV",
+    "l": "penvoerder",
+    "w": "sa",
+    "tl": [
+     [
+      2,
+      "new"
+     ],
+     [
+      4,
+      "revoked"
+     ],
+     [
+      8,
+      "new"
+     ],
+     [
+      9,
+      "revoked"
+     ]
+    ]
+   },
+   {
+    "id": "W_MA",
+    "l": "mede-aanvrager",
+    "w": "we",
+    "tl": [
+     [
+      2,
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "A_MA",
+    "l": "mede-aanvrager",
+    "w": "ah",
+    "tl": [
+     [
+      2,
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "L_PV",
+    "l": "penvoerder (3x)",
+    "w": "lo",
+    "tl": [
+     [
+      4,
+      "new"
+     ],
+     [
+      8,
+      "revoked"
+     ]
+    ]
+   }
+  ],
+  "attrs": [
+   {
+    "g": "GreenFlow BV (Sander)",
+    "r": [
+     [
+      "gf_b",
+      "Bedrijfsgegevens (KVK-nummer, naam)"
+     ],
+     [
+      "gf_d",
+      "Project- en bedrijfsdocumenten"
+     ]
+    ]
+   },
+   {
+    "g": "Polar Components BV (Wei)",
+    "r": [
+     [
+      "pc_b",
+      "Bedrijfsgegevens (KVK-nummer, naam)"
+     ],
+     [
+      "pc_d",
+      "Project- en bedrijfsdocumenten"
+     ]
+    ]
+   },
+   {
+    "g": "MetaalbouwZuid BV (Ahmed)",
+    "r": [
+     [
+      "mz_b",
+      "Bedrijfsgegevens (KVK-nummer, naam)"
+     ],
+     [
+      "mz_d",
+      "Project- en bedrijfsdocumenten"
+     ]
+    ]
+   },
+   {
+    "g": "Rollen en machtigingen",
+    "r": [
+     [
+      "rol",
+      "Rollen mede-aanvragers"
+     ],
+     [
+      "pv",
+      "Machtiging penvoerder"
+     ]
+    ]
+   }
+  ],
+  "steps": [
+   {
+    "l": "Vooraf",
+    "h": "Drie bedrijven, één aanvraag",
+    "w": [],
+    "p": [],
+    "a": [],
+    "x": {},
+    "t": [
+     "Sander (GreenFlow BV), Wei (Polar Components BV) en Ahmed (MetaalbouwZuid BV) doen samen een innovatieproject en vragen daarvoor DEI+-subsidie aan bij RVO, ter waarde van € 145.000.",
+     "Ze machtigen samen intermediair Lotte van Bureau Subsidiekracht om de aanvraag in te dienen. Onderweg verandert de samenwerking twee keer."
+    ],
+    "c": "Elke rol en elke machtiging is een aparte attestatie. Daardoor is op elk moment te controleren en in te trekken wie namens wie mag handelen.",
+    "d": [
+     [
+      "Wallets",
+      "Elke persoon heeft een app; elk bedrijf een EBW waarin de eigenaar de bevoegdheden configureert. Voor de leesbaarheid staat hier per persoon één box: wat de persoon in de app en in de EBW van zijn bedrijf doet"
+     ],
+     [
+      "Rollen",
+      "Mede-aanvrager (elk bedrijf) en penvoerder (één partij namens het collectief)"
+     ],
+     [
+      "Fasen",
+      "Oriënteren, uitvoeren, opvolgen"
+     ]
+    ]
+   },
+   {
+    "l": "Concept",
+    "f": "Oriënteren",
+    "h": "Sander start de aanvraag",
+    "w": [
+     "sa",
+     "we",
+     "ah"
+    ],
+    "p": [
+     0
+    ],
+    "a": [
+     [
+      0,
+      "sa",
+      "out",
+      "PID + attestatie"
+     ],
+     [
+      0,
+      "we",
+      "note",
+      "uitnodiging"
+     ],
+     [
+      0,
+      "ah",
+      "note",
+      "uitnodiging"
+     ]
+    ],
+    "x": {
+     "0": [
+      "gf_b"
+     ]
+    },
+    "t": [
+     "Sander logt in op MOZa met zijn PID en zijn bevoegdheid voor GreenFlow en maakt een concept-aanvraag voor DEI+.",
+     "Hij nodigt Wei en Ahmed uit als mede-aanvrager en draagt zichzelf voor als mede-aanvrager en penvoerder. MOZa stuurt Wei en Ahmed een notificatie."
+    ],
+    "c": "MOZa is de gezamenlijke plek van het collectief: één concept, één stand van zaken.",
+    "d": [
+     [
+      "Inloggen",
+      "PID plus EBW-attestatie van GreenFlow BV uit Sanders app"
+     ],
+     [
+      "Gedeeld met MOZa",
+      "Naam Sander; KVK-nummer en naam GreenFlow BV"
+     ],
+     [
+      "Vastgelegd",
+      "Concept DEI+, € 145.000; voorgestelde rollen"
+     ],
+     [
+      "Notificatie",
+      "Wei en Ahmed: verzoek om de rol van mede-aanvrager te accepteren"
+     ]
+    ]
+   },
+   {
+    "l": "Rollen accepteren",
+    "f": "Oriënteren",
+    "h": "Wei en Ahmed doen mee",
+    "w": [
+     "sa",
+     "we",
+     "ah"
+    ],
+    "p": [
+     1,
+     0
+    ],
+    "a": [
+     [
+      0,
+      "we",
+      "out",
+      "akkoord"
+     ],
+     [
+      0,
+      "ah",
+      "out",
+      "akkoord"
+     ],
+     [
+      1,
+      "sa",
+      "in",
+      "rol-attestaties"
+     ],
+     [
+      1,
+      "we",
+      "in",
+      ""
+     ],
+     [
+      1,
+      "ah",
+      "in",
+      ""
+     ]
+    ],
+    "x": {
+     "0": [
+      "pc_b",
+      "mz_b",
+      "rol"
+     ]
+    },
+    "t": [
+     "Wei en Ahmed loggen in op MOZa, lezen het bericht en accepteren de rol van mede-aanvrager. Ze accepteren ook Sander als penvoerder.",
+     "Elk bedrijf legt zijn rol vast in de eigen EBW. RVO geeft daarop de rollen als attestaties uit, die in de apps komen, elk onder de eigen onderneming."
+    ],
+    "c": "Een rol geldt pas als alle betrokkenen akkoord zijn. Dat akkoord is het moment van uitgifte.",
+    "d": [
+     [
+      "Inloggen",
+      "Wei en Ahmed: PID plus EBW-attestatie van hun eigen bedrijf"
+     ],
+     [
+      "Gedeeld met MOZa",
+      "KVK-nummer en naam van Polar Components en MetaalbouwZuid; akkoord op de rollen"
+     ],
+     [
+      "In de apps",
+      "Sander: mede-aanvrager en penvoerder, met een machtiging per bedrijf. Wei en Ahmed: mede-aanvrager"
+     ],
+     [
+      "Configuratie",
+      "Elk bedrijf in de eigen EBW; RVO geeft uit als dienstverlener van DEI+"
+     ],
+     [
+      "Type attestatie",
+      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+     ]
+    ]
+   },
+   {
+    "l": "Lotte voorgesteld",
+    "f": "Uitvoeren",
+    "h": "Sander stelt Lotte voor als penvoerder",
+    "w": [
+     "sa",
+     "we",
+     "ah",
+     "lo"
+    ],
+    "p": [
+     0
+    ],
+    "a": [
+     [
+      0,
+      "sa",
+      "out",
+      "voorstel Lotte"
+     ],
+     [
+      0,
+      "we",
+      "note",
+      "verzoek"
+     ],
+     [
+      0,
+      "ah",
+      "note",
+      "verzoek"
+     ],
+     [
+      0,
+      "lo",
+      "note",
+      "verzoek"
+     ]
+    ],
+    "x": {},
+    "t": [
+     "Het collectief zoekt een intermediair en vraagt Lotte. Sander koppelt haar in MOZa aan de aanvraag als penvoerder.",
+     "MOZa vraagt Wei en Ahmed om Lotte te accepteren, en Lotte om de rol aan te nemen."
+    ],
+    "c": "Penvoerderschap overdragen is een spannend moment: Lotte gaat namens drie bedrijven handelen.",
+    "d": [
+     [
+      "Gedeeld met MOZa",
+      "Voorstel: Lotte (Bureau Subsidiekracht) als penvoerder"
+     ],
+     [
+      "Notificaties",
+      "Wei en Ahmed: Lotte accepteren. Lotte: de rol accepteren"
+     ],
+     [
+      "Lotte ziet",
+      "Alleen het verzoek, nog geen bedrijfsgegevens<span class=\"mark\">ontwerpkeuze</span>"
+     ]
+    ]
+   },
+   {
+    "l": "Machtiging Lotte",
+    "f": "Uitvoeren",
+    "h": "Lotte wordt penvoerder",
+    "w": [
+     "sa",
+     "we",
+     "ah",
+     "lo"
+    ],
+    "p": [
+     1,
+     0
+    ],
+    "a": [
+     [
+      0,
+      "we",
+      "out",
+      "akkoord Lotte"
+     ],
+     [
+      0,
+      "ah",
+      "out",
+      "akkoord Lotte"
+     ],
+     [
+      0,
+      "lo",
+      "out",
+      "accepteert rol"
+     ],
+     [
+      1,
+      "lo",
+      "in",
+      "machtiging (3x)"
+     ]
+    ],
+    "x": {
+     "0": [
+      "pv"
+     ]
+    },
+    "t": [
+     "Wei en Ahmed accepteren Lotte als penvoerder en Lotte accepteert de rol. MOZa meldt iedereen dat Lotte penvoerder is.",
+     "Elk bedrijf zet in de eigen EBW Lotte als penvoerder voor DEI+. RVO geeft daarop drie machtigingen uit in Lottes app, één per onderneming, elk in een eigen groep. Sanders penvoerderschap vervalt."
+    ],
+    "c": "Lotte krijgt geen machtiging van 'het collectief', maar drie losse machtigingen: van GreenFlow, Polar Components en MetaalbouwZuid.",
+    "d": [
+     [
+      "Inloggen Lotte",
+      "PID plus EBW-attestatie van Bureau Subsidiekracht"
+     ],
+     [
+      "Gedeeld met MOZa",
+      "Akkoord van Wei, Ahmed en Lotte"
+     ],
+     [
+      "In Lottes app",
+      "Machtiging penvoerder DEI+, in drie groepen: GreenFlow, Polar Components, MetaalbouwZuid"
+     ],
+     [
+      "Ingetrokken",
+      "Penvoerder-machtigingen van Sander"
+     ],
+     [
+      "Type attestatie",
+      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+     ]
+    ]
+   },
+   {
+    "l": "Gegevens",
+    "f": "Uitvoeren",
+    "h": "Gegevens één keer aanleveren",
+    "w": [
+     "sa",
+     "we",
+     "ah",
+     "lo"
+    ],
+    "p": [
+     0
+    ],
+    "a": [
+     [
+      0,
+      "lo",
+      "out",
+      "verzoek gegevens"
+     ],
+     [
+      0,
+      "sa",
+      "out",
+      "gegevens + akkoord"
+     ],
+     [
+      0,
+      "we",
+      "out",
+      "gegevens + akkoord"
+     ],
+     [
+      0,
+      "ah",
+      "out",
+      "gegevens + akkoord"
+     ]
+    ],
+    "x": {
+     "0": [
+      "gf_d",
+      "pc_d",
+      "mz_d"
+     ],
+     "1": [
+      "gf_b",
+      "gf_d",
+      "pc_b",
+      "pc_d",
+      "mz_b",
+      "mz_d"
+     ]
+    },
+    "t": [
+     "Lotte vraagt via MOZa bij elk bedrijf de ontbrekende gegevens op. Sander, Wei en Ahmed krijgen een bericht, uploaden hun documenten en geven akkoord om ze met Lotte te delen.",
+     "MOZa meldt Lotte wanneer alles binnen is."
+    ],
+    "c": "Gegevens worden maar één keer uitgevraagd, en elk bedrijf beslist zelf dat Lotte ze mag zien.",
+    "d": [
+     [
+      "Gevraagd",
+      "Ontbrekende bedrijfs- en projectgegevens per deelnemer"
+     ],
+     [
+      "Gedeeld met MOZa",
+      "Documenten van alle drie de bedrijven"
+     ],
+     [
+      "Gedeeld met Lotte",
+      "Bedrijfsgegevens en documenten, na akkoord per bedrijf"
+     ],
+     [
+      "Grondslag",
+      "Lottes machtiging per onderneming"
+     ]
+    ]
+   },
+   {
+    "l": "Indienen",
+    "f": "Uitvoeren",
+    "h": "Lotte dient de aanvraag in",
+    "w": [
+     "lo"
+    ],
+    "p": [
+     0,
+     1
+    ],
+    "a": [
+     [
+      0,
+      "lo",
+      "out",
+      "PID +|machtigingen (3x)"
+     ],
+     [
+      0,
+      "pp",
+      1,
+      "SSO"
+     ]
+    ],
+    "x": {
+     "2": [
+      "gf_b",
+      "gf_d",
+      "pc_b",
+      "pc_d",
+      "mz_b",
+      "mz_d",
+      "rol",
+      "pv"
+     ]
+    },
+    "t": [
+     "Lotte logt in op MOZa met haar PID en haar drie machtigingen, en dient de complete aanvraag in. MOZa brengt de aanvraag via SSO naar RVO.",
+     "RVO controleert per bedrijf of Lottes machtiging geldig is en of de mede-aanvragers kloppen. MOZa meldt iedereen dat de aanvraag compleet is en in behandeling."
+    ],
+    "c": "RVO kan beschikken zonder juridisch risico, omdat per bedrijf aantoonbaar is dat Lotte namens hen mag indienen.",
+    "d": [
+     [
+      "Gedeeld met MOZa",
+      "Lottes PID-naam en haar drie machtigingen"
+     ],
+     [
+      "Via SSO naar RVO",
+      "Aanvraag met gegevens en documenten van alle drie; rollen; Lottes machtigingen"
+     ],
+     [
+      "Controle",
+      "Per onderneming: uitgever, geldigheid, niet ingetrokken, scope DEI+ indienen"
+     ],
+     [
+      "Resultaat",
+      "Aanvraag in behandeling"
+     ]
+    ]
+   },
+   {
+    "l": "Beschikking",
+    "f": "Opvolgen",
+    "h": "Beschikking en voorschot",
+    "w": [
+     "sa",
+     "we",
+     "ah",
+     "lo"
+    ],
+    "p": [
+     0,
+     1
+    ],
+    "a": [
+     [
+      0,
+      "sa",
+      "note",
+      "beschikking"
+     ],
+     [
+      0,
+      "we",
+      "note",
+      ""
+     ],
+     [
+      0,
+      "ah",
+      "note",
+      ""
+     ],
+     [
+      0,
+      "lo",
+      "note",
+      "beschikking"
+     ]
+    ],
+    "x": {},
+    "t": [
+     "RVO beschikt de aanvraag en betaalt het voorschot uit. Via MOZa krijgen Sander, Wei, Ahmed en Lotte een melding.",
+     "Het dossier is voor alle partijen in te zien, ieder op basis van de eigen rol of machtiging."
+    ],
+    "c": "Iedereen ziet hetzelfde, actuele beeld, zonder losse mails.",
+    "d": [
+     [
+      "Notificaties",
+      "Beschikking en uitbetaling voorschot, aan alle deelnemers"
+     ],
+     [
+      "Inzage",
+      "Via rol (mede-aanvragers) of machtiging (Lotte)"
+     ],
+     [
+      "Nieuw gedeeld",
+      "Geen"
+     ]
+    ]
+   },
+   {
+    "l": "Lotte stopt",
+    "f": "Opvolgen",
+    "h": "De samenwerking met Lotte stopt",
+    "w": [
+     "sa",
+     "we",
+     "ah",
+     "lo"
+    ],
+    "p": [
+     0,
+     1
+    ],
+    "a": [
+     [
+      1,
+      "sa",
+      "out",
+      "EBW: intrekken +|herbenoemen"
+     ],
+     [
+      1,
+      "sa",
+      "in",
+      "penvoerder"
+     ],
+     [
+      0,
+      "we",
+      "note",
+      "rolwijziging"
+     ],
+     [
+      0,
+      "ah",
+      "note",
+      ""
+     ]
+    ],
+    "x": {
+     "0": [
+      "pv"
+     ],
+     "2": [
+      "pv"
+     ]
+    },
+    "t": [
+     "De samenwerking met Lotte wordt stopgezet. Sander zet in de EBW van GreenFlow Lottes machtiging uit en zichzelf weer als penvoerder.",
+     "Wei en Ahmed keuren de rolwijziging goed in MOZa en passen hun eigen EBW aan. RVO trekt Lottes drie machtigingen in en geeft Sander de penvoerder-machtigingen terug."
+    ],
+    "c": "Grip houden op wie namens ons mag handelen, ook als de samenwerking verandert.",
+    "d": [
+     [
+      "Ingetrokken",
+      "Lottes machtigingen, alle drie"
+     ],
+     [
+      "Goedkeuring",
+      "Wei en Ahmed, via MOZa"
+     ],
+     [
+      "In Sanders app",
+      "Penvoerder DEI+, per bedrijf"
+     ],
+     [
+      "Lotte",
+      "Verliest inzage in het dossier"
+     ],
+     [
+      "Wie trekt in",
+      "Initiatief vanuit de EBW van elk bedrijf voor de eigen machtiging; RVO voert uit als uitgever"
+     ]
+    ]
+   },
+   {
+    "l": "Sander stapt op",
+    "f": "Opvolgen",
+    "h": "Ruzie: Sander stapt op",
+    "w": [
+     "sa",
+     "we"
+    ],
+    "p": [
+     1
+    ],
+    "a": [
+     [
+      1,
+      "we",
+      "out",
+      "EBW: intrekken|penvoerder Sander"
+     ]
+    ],
+    "x": {
+     "2": [
+      "pv"
+     ]
+    },
+    "t": [
+     "Het collectief krijgt ruzie en Sander stapt op. Wei zet in de EBW van Polar Components de penvoerder-machtiging voor Sander uit en keurt zijn eigen wijziging goed.",
+     "Zonder geldige penvoerder voor het hele collectief zet RVO de subsidie op pauze."
+    ],
+    "c": "Elk bedrijf kan zijn eigen machtiging intrekken. Het gevolg raakt het hele collectief.",
+    "d": [
+     [
+      "Ingetrokken",
+      "Op initiatief van de EBW van Polar Components trekt RVO de penvoerder-machtiging voor Sander in; daarmee is hij geen penvoerder meer voor het collectief"
+     ],
+     [
+      "Goedkeuring",
+      "Wei keurt zijn eigen wijziging goed<span class=\"mark\">vier ogen?</span>"
+     ],
+     [
+      "Gevolg",
+      "Subsidie gepauzeerd bij RVO"
+     ],
+     [
+      "Open",
+      "Wie wordt penvoerder, en wat gebeurt er met Sanders rol als mede-aanvrager<span class=\"mark\">niet in blueprint</span>"
+     ]
+    ]
+   }
+  ]
+ }
+};
+const NS="http://www.w3.org/2000/svg",WX=40,WW=250;
+const L2={groups:[{label:'PERSOONLIJK: KARIN',y:16,h:234,holders:[{id:'p',t:'Persoonlijke wallet',s:'Karin, app op telefoon',y:60,h:64}]},
+                  {label:'ZAKELIJK: HANZE STAFFING',y:266,h:218,holders:[{id:'z',t:'Zakelijke wallet (EBW)',s:'Hanze Staffing, in de cloud',y:310,h:64}]}]};
+let flowKey="moza",cur=0,PY=[],HY={},HOLD=[];
+function el(n,at,txt){const e=document.createElementNS(NS,n);for(const k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;return e;}
+function nodeG(id,x,y,w,h,t,s){const g=el('g',{class:'node',id});g.appendChild(el('rect',{x,y,width:w,height:h,rx:10}));
+  if(s){g.appendChild(el('text',{class:'nt',x:x+w/2,y:y+h/2-3,'text-anchor':'middle'},t));g.appendChild(el('text',{class:'ns',x:x+w/2,y:y+h/2+15,'text-anchor':'middle'},s));}
+  else g.appendChild(el('text',{class:'nt',x:x+w/2,y:y+h/2+5,'text-anchor':'middle'},t));return g;}
+function tl(c){if(c.tl)return c.tl;const r=[[c.at,'new']];if(c.rev!=null)r.push([c.rev,'revoked']);return r;}
+function chipState(c){let last=null;tl(c).forEach(([st,v])=>{if(st<=cur)last=[st,v];});if(!last)return'todo';if(last[1]==='revoked')return'revoked';return last[0]===cur?'new':'held';}
+function buildScene(){
+  const F=FLOWS[flowKey],L=F.layout||L2,sc=document.getElementById('scene');sc.innerHTML='';HY={};HOLD=[];
+  L.groups.forEach(gr=>{const pg=el('g',{class:'peer'});pg.appendChild(el('rect',{x:16,y:gr.y,width:300,height:gr.h,rx:14}));pg.appendChild(el('text',{x:36,y:gr.y+28},gr.label));sc.appendChild(pg);});
+  const p2=el('g',{class:'peer'});p2.appendChild(el('rect',{x:440,y:16,width:304,height:468,rx:14}));p2.appendChild(el('text',{x:460,y:44},'UITGEVERS EN VERIFIERS'));sc.appendChild(p2);
+  const pos={};
+  L.groups.forEach(gr=>gr.holders.forEach(hd=>{HOLD.push(hd.id);HY[hd.id]=hd.y+hd.h/2;sc.appendChild(nodeG('w-'+hd.id,WX,hd.y,WW,hd.h,hd.t,hd.s));pos[hd.id]={x:WX,y:hd.y+hd.h+(hd.cg!=null?hd.cg:12)};}));
+  F.chips.forEach(c=>{const g=el('g',{class:'chip todo',id:'c-'+c.id});const r=el('rect',{rx:12,height:24});const t=el('text',{'text-anchor':'middle'},c.l);
+    g.appendChild(r);g.appendChild(t);sc.appendChild(g);
+    const P=pos[c.w];
+    if(c.grp&&P.grp!==c.grp){P.grp=c.grp;if(P.x>WX){P.x=WX;P.y+=32;}const gl=el('text',{class:'grpl',x:P.x,y:P.y+16},c.grp+':');sc.insertBefore(gl,g);P.x+=gl.getComputedTextLength()+8;}
+    const w=Math.max(46,t.getComputedTextLength()+22);if(P.x+w>WX+WW+6){P.x=c.grp?WX+12:WX;P.y+=32;}
+    r.setAttribute('x',P.x);r.setAttribute('y',P.y);r.setAttribute('width',w);t.setAttribute('x',P.x+w/2);t.setAttribute('y',P.y+16);P.x+=w+8;});
+  const n=F.parties.length,gap=n>1?Math.min(90,350/(n-1)):0,h=n>4?48:56;PY=[];
+  F.parties.forEach((p,i)=>{const y=70+i*gap;PY.push(y+h/2);sc.appendChild(nodeG('p'+i,470,y,250,h,p.t,p.s));});
+  const hasSSO=F.steps.some(s=>s.a.some(a=>a[1]==='pp')),hasNote=F.steps.some(s=>s.a.some(a=>a[2]==='note')),hasRev=F.chips.some(c=>tl(c).some(x=>x[1]==='revoked'));
+  document.getElementById('legend').innerHTML='<span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--issue)" stroke-width="2.5"/></svg>Uitgifte naar wallet (OpenID4VCI)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--share)" stroke-width="2.5" stroke-dasharray="6 4"/></svg>Delen of inloggen (OpenID4VP)</span>'+(hasSSO?'<span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--new-line)" stroke-width="2.5"/></svg>SSO via MOZa</span>':'')+(hasNote?'<span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--faint)" stroke-width="2.5" stroke-dasharray="2 4"/></svg>Notificatie</span>':'')+'<span>Amber: net ontvangen. Groen: in de wallet.'+(hasRev?' Rood: ingetrokken.':'')+'</span>';
+}
+function tag(g,lx,ly,label,rej,minL,maxR){
+  if(!label)return;
+  const lines=label.split('|'),lh=16,bh=lines.length*lh+6;
+  const tg=el('g',{class:'tag'+(rej?' rej':'')});const r=el('rect',{rx:6,height:bh});const tx=el('text',{'text-anchor':'middle'});
+  tg.appendChild(r);tg.appendChild(tx);g.appendChild(tg);let mw=0;
+  lines.forEach((ln,li)=>{const ts=el('tspan',{x:lx,y:ly-bh/2+3+lh*(li+1)-4},ln);tx.appendChild(ts);mw=Math.max(mw,ts.getComputedTextLength());});
+  const wd=mw+16;
+  if(minL!=null&&lx-wd/2<minL)lx=minL+wd/2;
+  if(maxR!=null&&lx+wd/2>maxR)lx=maxR-wd/2;
+  [...tx.childNodes].forEach(ts=>ts.setAttribute('x',lx));
+  r.setAttribute('width',wd);r.setAttribute('x',lx-wd/2);r.setAttribute('y',ly-bh/2);
+}
+function setNode(id,active,dim){const e=document.getElementById(id);if(!e)return;e.classList.toggle('active',active);e.classList.toggle('dim',dim);}
+function spread(i,n,step){return (i-(n-1)/2)*step;}
+function go(i){
+  const F=FLOWS[flowKey];cur=Math.max(0,Math.min(F.steps.length-1,i));const s=F.steps[cur];const none=!s.w.length&&!s.p.length;
+  [...document.getElementById('pills').children].forEach((b,j)=>{b.classList.toggle('on',j===cur);b.setAttribute('aria-current',j===cur?'step':'false');});
+  HOLD.forEach(w=>setNode('w-'+w,s.w.includes(w),!none&&!s.w.includes(w)));
+  F.parties.forEach((_,j)=>setNode('p'+j,s.p.includes(j),!none&&!s.p.includes(j)));
+  F.chips.forEach(c=>document.getElementById('c-'+c.id).setAttribute('class','chip '+chipState(c)));
+  const g=document.getElementById('arrows');g.innerHTML='';
+  const ww=s.a.filter(a=>a[0]==='ww'),pp=s.a.filter(a=>a[1]==='pp'),na=s.a.filter(a=>a[0]!=='ww'&&a[1]!=='pp');
+  pp.forEach(a=>{const y1=PY[a[0]],y2=PY[a[2]],rj=a[4]==='rej';
+    g.appendChild(el('path',{d:'M722 '+y1+' C750 '+y1+' 750 '+y2+' 724 '+y2,fill:'none',stroke:rj?'var(--revoke)':'var(--new-line)','stroke-width':2.4,'marker-end':'url(#'+(rj?'ah-rej':'ah-sso')+')'}));
+    tag(g,738,(y1+y2)/2,a[3],rj);});
+  ww.forEach(a=>{const y1=HY[a[1]],y2=HY[a[2]];
+    g.appendChild(el('path',{d:'M290 '+y1+' H304 V'+y2+' H294',fill:'none',stroke:'var(--issue)','stroke-width':2.4,'marker-end':'url(#ah-issue)'}));
+    tag(g,304,a[4]||(y1+y2)/2,a[3],false);});
+  const byW={},byP={};na.forEach((a,k)=>{(byW[a[1]]=byW[a[1]]||[]).push(k);(byP[a[0]]=byP[a[0]]||[]).push(k);});
+  const mixed=w=>{const d=new Set(byW[w].map(k=>na[k][2]==='out'?'out':'in'));return d.size>1;};
+  const pOnly=byW.p&&byW.z&&byW.p.length===1;
+  na.forEach((a,k)=>{const [pi,w,dir,label,kind]=a;
+    const wy=HY[w]+spread(byW[w].indexOf(k),byW[w].length,16);
+    const py=PY[pi]+spread(byP[pi].indexOf(k),byP[pi].length,10);
+    const incoming=dir!=='out',rej=kind==='rej',note=dir==='note';
+    const x1=incoming?468:292,y1=incoming?py:wy,x2=incoming?294:466,y2=incoming?wy:py;
+    const col=rej?'var(--revoke)':note?'var(--faint)':incoming?'var(--issue)':'var(--share)';
+    const dash=note?'2 4':incoming?'':'7 5';
+    g.appendChild(el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':2.4,'stroke-dasharray':dash,'marker-end':'url(#'+(rej?'ah-rej':note?'ah-note':incoming?'ah-issue':'ah-share')+')'}));
+    const t=(w==='p'&&pOnly)?0.5:(incoming?0.7:0.3);
+    let lx=x1+(x2-x1)*t,ly=y1+(y2-y1)*t;
+    if(mixed(w))ly+=dir==='out'?-12:12;
+    tag(g,lx,ly,label,rej,incoming?302:null,incoming?null:458);});
+  document.getElementById('eyebrow').textContent='STAP '+cur+' VAN '+(F.steps.length-1)+(s.f?' · '+s.f.toUpperCase():'');
+  document.getElementById('title').textContent=s.h;
+  document.getElementById('body').innerHTML=s.t.map(x=>'<p>'+x+'</p>').join('')+'<div class="callout">'+s.c+'</div><dl>'+s.d.map(r=>'<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>').join('')+'</dl>';
+  document.getElementById('prev').setAttribute('aria-disabled',cur===0);
+  document.getElementById('next').setAttribute('aria-disabled',cur===F.steps.length-1);
+  renderMatrix();
+  try{history.replaceState(null,'','#'+flowKey+'-'+cur);}catch(e){}
+}
+function renderMatrix(){
+  const F=FLOWS[flowKey],sec=document.getElementById('matrix');
+  if(!F.attrs){sec.hidden=true;return;}sec.hidden=false;
+  const s=F.steps[cur],cols=F.mcols||F.parties.map(p=>p.t);
+  const act=j=>F.mcols?(s.x[j]||[]).length>0:s.p.includes(j);
+  document.getElementById('mx-sub').textContent='Tot en met stap '+cur+': '+s.h.toLowerCase()+'. Kolommen zijn de ontvangers, rijen de gegevens.';
+  let html='<thead><tr><th scope="col">Gegeven</th>'+cols.map((c,j)=>'<th scope="col" class="'+(act(j)?'act':'')+'">'+c+'</th>').join('')+'</tr></thead><tbody>';
+  F.attrs.forEach(gr=>{html+='<tr class="grp"><td colspan="'+(cols.length+1)+'">'+gr.g+'</td></tr>';
+    gr.r.forEach(([id,label])=>{html+='<tr><th scope="row" style="font-weight:400">'+label+'</th>';
+      cols.forEach((_,j)=>{const now=(s.x[j]||[]).includes(id);let prev=false;for(let k=0;k<cur;k++){if((F.steps[k].x[j]||[]).includes(id))prev=true;}
+        const cls=now?(s.rej?'rej':'now'):prev?'prev':'';const lab=now?(s.rej?'gedeeld, geweigerd':'nu gedeeld'):prev?'eerder gedeeld':'niet gedeeld';
+        html+='<td class="'+(act(j)?'act':'')+'">'+(cls?'<i class="dot '+cls+'" role="img" aria-label="'+lab+'"></i>':'')+'</td>';});
+      html+='</tr>';});});
+  document.getElementById('mx').innerHTML=html+'</tbody>';
+}
+function setFlow(key,step){
+  flowKey=key;const F=FLOWS[key];
+  [...document.getElementById('tabs').children].forEach(b=>b.setAttribute('aria-selected',b.dataset.k===key));
+  document.getElementById('flownote').innerHTML=F.note;
+  const pills=document.getElementById('pills');pills.innerHTML='';
+  F.steps.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='pill';b.textContent=i+' · '+s.l;b.addEventListener('click',()=>go(i));pills.appendChild(b);});
+  buildScene();go(step||0);
+}
+const tabs=document.getElementById('tabs');
+Object.keys(FLOWS).forEach(k=>{const b=document.createElement('button');b.type='button';b.className='tab';b.setAttribute('role','tab');b.dataset.k=k;b.textContent=FLOWS[k].tab;b.addEventListener('click',()=>setFlow(k,0));tabs.appendChild(b);});
+document.getElementById('prev').addEventListener('click',()=>go(cur-1));
+document.getElementById('next').addEventListener('click',()=>go(cur+1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);});
+function fromHash(){const m=/#(moza|subsidie)-(\d+)/.exec(location.hash);return m?[m[1],+m[2]]:['moza',0];}
+const [hk,hs]=fromHash();setFlow(hk,hs);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{const c=cur;buildScene();go(c);});
+
+</script>
+</body>
+</html>

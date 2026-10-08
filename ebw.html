@@ -22,18 +22,27 @@
       <nldd-title size="1">
         <span slot="overline">Roadmap inlog- en machtigingsmiddelen</span>
         <h1>European Business Wallet: achtergrond</h1>
-        <p slot="subtitle">Twee scenario's die laten zien hoe de zakelijke wallet (EBW) en de persoonlijke wallet (EDI) samen werken met MOZa, stap voor stap.</p>
+        <p slot="subtitle">Hoe de zakelijke wallet (EBW) en de persoonlijke wallet (EDI) samenwerken met dienstverleners en MOZa.</p>
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-banner variant="accent" text="Concept"
-        supporting-text="Inloggen op MOZa is een conceptflow voor MOZa. Gezamenlijke subsidie is gebaseerd op de MOZa-service blueprint Gezamenlijke subsidieaanvraag. Punten die niet vaststaan zijn gemarkeerd."></nldd-banner>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-container layout="wrap" gap="8" vertical-alignment="center" id="legend"></nldd-container>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-link size="sm" href="https://plak.rijks.app/moza-inloggen-en-machtigen/wallet-flow-scenario-2-inloggen-op-moza/" end-icon="external-link" text="Interactieve versie met diagram en gegevenstabel"></nldd-link>
+      <nldd-list variant="box" type="navigation" aria-label="Achtergrond EBW">
+        <nldd-list-item href="ebw-landschap.html">
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="centralized-network" color="accent" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Het EBW-landschap: PuB of Q**" supporting-text="Schema met BLD (PuB-EBW, zelf beheerd), de gemeente Nijmegen (Q-EBW via een commerciële aanbieder) en een onderneming met eigenaar en werknemer."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item href="ebw-flows.html">
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="check-list" color="accent" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Wallet-flows stap voor stap**" supporting-text="Interactieve flows met diagram en gegevenstabel: Inloggen op MOZa en Gezamenlijke subsidie."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
     </nldd-simple-section>
 
-    <div id="flows"></div>
 
     <nldd-page-footer>
       <nldd-container padding="24">
@@ -43,268 +52,5 @@
   </nldd-page>
 </nldd-app-view>
 
-<script type="module">
-// Markeringen bij punten die niet vaststaan
-const MARKS = {
-  ontwerpkeuze:        { color: 'paars',  icon: 'pencil' },
-  aanname:             { color: 'oranje', icon: 'info-circle' },
-  aandachtspunt:       { color: 'warning', icon: 'exclamation-triangle' },
-  'vier ogen?':        { color: 'neutral', icon: 'info-circle' },
-  'niet in blueprint': { color: 'neutral', icon: 'info-circle' },
-};
-
-// Stappen: [kort, titel, alinea's, kernpunt, [gegeven, waarde, markering?]]
-const FLOWS = [
-  {
-    id: 'inloggen',
-    name: 'Inloggen op MOZa',
-    intro: 'Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten.',
-    steps: [
-      ['Vooraf', 'Karin regelt overheidszaken voor Hanze Staffing', [
-        'Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.',
-        'De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan.',
-      ], 'Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.', [
-        ['Persoonlijke wallet', 'EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten'],
-        ['Zakelijke wallet', 'EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers'],
-        ['Configureren', 'De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit'],
-        ['MOZa', 'Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft'],
-      ]],
-      ['Wallet activeren', 'Eenmalig: wallet activeren met DigiD', [
-        'Karin installeert de wallet-app en logt eenmalig in met DigiD. De PID-uitgever krijgt daarmee haar BSN.',
-        'Met dat BSN haalt de uitgever haar gegevens op uit de BRP en zet die als PID in de wallet, gebonden aan een sleutel op haar telefoon.',
-      ], 'Dit is het enige moment waarop DigiD en de BRP meedoen. Daarna deelt Karin zelf gegevens vanuit haar wallet.', [
-        ['Gevraagd', 'DigiD-login'],
-        ['Opgehaald uit BRP', 'Naam, geboortedatum, nationaliteit, adres'],
-        ['In wallet gezet', 'PID'],
-        ['BSN in de PID', 'Opnemen voor latere koppelingen of juist weglaten', 'ontwerpkeuze'],
-        ['Let op', 'Een PID vraagt eIDAS-niveau hoog; welke DigiD-variant daarvoor volstaat', 'aandachtspunt'],
-        ['Type attestatie', 'PID: een eigen categorie in eIDAS, geen EAA'],
-      ]],
-      ['KVK-uittreksel', 'EBW inrichten met het KVK-uittreksel', [
-        'Karin richt als bevoegd vertegenwoordiger de EBW in; eigenaar van de wallet is Hanze Staffing. Ze logt bij de KVK in met haar PID uit de app.',
-        'De KVK vindt haar als tekenbevoegde in het handelsregister en zet het uittreksel in de EBW.',
-      ], 'Voor de match met het handelsregister zijn naam en geboortedatum genoeg. Adres, nationaliteit en BSN blijven in de wallet.', [
-        ['Gevraagd', 'Naam en geboortedatum'],
-        ['Gedeeld uit persoonlijke wallet', 'Naam, geboortedatum'],
-        ['Niet gedeeld', 'Adres, nationaliteit, BSN'],
-        ['In EBW gezet', 'KVK-uittreksel: KVK-nummer, handelsnaam, rechtsvorm, tekenbevoegden'],
-        ['Matching', 'KVK koppelt op naam en geboortedatum', 'aanname'],
-        ['Eigenaar EBW', 'Hanze Staffing; Karin is beheerder als tekenbevoegde', 'aanname'],
-        ['Type attestatie', 'PuB-EAA: de KVK beheert het handelsregister als authentieke bron. Geeft een QTSP hem namens de KVK uit, dan is het een QEAA'],
-      ]],
-      ['Mandaten configureren', 'Karin configureert in de EBW wie wat mag', [
-        "Als beheerder van de EBW configureert Karin wie binnen Hanze Staffing wat mag: voor zichzelf het mandaat omzetbelasting en het mandaat subsidies, en zo ook voor collega's.",
-        'Voor elk mandaat vraagt de EBW de betreffende dienstverlener om het uit te geven. De Belastingdienst en RVO geven elk hun eigen mandaat terug in de EBW.',
-      ], 'De onderneming regelt op één plek wie wat mag; de dienstverlener bepaalt wat een mandaat bij hem inhoudt en geeft het uit.', [
-        ['Waar', 'In de EBW, door de eigenaar (Hanze Staffing, via Karin)'],
-        ['Gedeeld met elke dienstverlener', 'Wie de eigenaar is (KVK-nummer, handelsnaam) en voor wie het mandaat is (naam, geboortedatum)'],
-        ['Niet gedeeld', 'Tekenbevoegden, rechtsvorm, adres, nationaliteit, BSN; de dienstverlener vertrouwt op de EBW-eigenaar', 'ontwerpkeuze'],
-        ['In EBW gezet', "Van de Belastingdienst: mandaat OB (aangifte doen). Van RVO: mandaat RVO (aanvragen, inzien). Plus die van collega's."],
-        ['Binding', 'Hoe het mandaat aan Karin gekoppeld wordt: naam en geboortedatum, of direct haar wallet', 'ontwerpkeuze'],
-        ['Type attestatie', 'EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is', 'ontwerpkeuze'],
-      ]],
-      ['Naar Karins app', 'Karins attestaties naar haar persoonlijke wallet', [
-        'Uit de EBW gaan alleen de mandaten die over Karin gaan naar de app op haar telefoon: het mandaat omzetbelasting en het mandaat subsidies.',
-        'In de app staan ze gegroepeerd onder Hanze Staffing. Werkt Karin ook voor een andere onderneming, dan krijgt die een eigen groep.',
-      ], 'Twee mandaten zijn twee aparte attestaties. Zo deelt Karin straks steeds alleen het mandaat dat een dienst nodig heeft.', [
-        ['Van', 'EBW van Hanze Staffing'],
-        ['Naar', 'Persoonlijke wallet van Karin, groep Hanze Staffing'],
-        ['Mandaten', 'Mandaat OB; mandaat RVO, elk apart'],
-        ['Niet overgezet', "Mandaten van collega's; het KVK-uittreksel (KVK-nummer en naam staan al in de mandaten)"],
-        ['Binding', 'Gebonden aan de sleutel van Karins app, zodat ze bij haar PID horen'],
-        ['Uitgever', 'De EBW namens Hanze Staffing, of de dienstverlener rechtstreeks', 'ontwerpkeuze'],
-      ]],
-      ['Inloggen MOZa', 'Inloggen op MOZa met EDI en EBW-attestaties', [
-        'Karin logt in op MOZa met haar persoonlijke wallet. Ze toont haar naam uit de PID en de mandaten uit de groep Hanze Staffing.',
-        'MOZa ziet voor welke onderneming en welke diensten Karin mag handelen, en toont haar precies die diensten: omzetbelasting en subsidies. De EBW is hier niet nodig.',
-      ], 'MOZa is de voordeur: één keer inloggen, en op basis van de mandaten de juiste toegang, via SSO naar de diensten erachter.', [
-        ['Gevraagd', 'Wie Karin is, namens welke onderneming en voor welke diensten'],
-        ['Gedeeld uit persoonlijke wallet', 'Naam (PID); mandaat OB en mandaat RVO, met KVK-nummer en handelsnaam'],
-        ['Niet gedeeld', 'Geboortedatum, adres, BSN'],
-        ['Keuze', 'Alle mandaten in één keer bij inloggen: één portaalbeleving, met toegang tot alle dienstverleners waarvoor Karin een mandaat heeft'],
-        ['Resultaat', 'MOZa-sessie namens Hanze Staffing, met toegang tot omzetbelasting en subsidies'],
-      ]],
-      ['Omzetbelasting', 'Aangifte omzetbelasting vanuit MOZa', [
-        'Vanuit MOZa opent Karin de aangifte omzetbelasting. MOZa brengt haar via SSO naar de Belastingdienst en geeft haar mandaat OB mee, zoals Karin het bij het inloggen toonde.',
-        'Er is geen nieuw wallet-verzoek nodig. Past het mandaat bij de handeling, dan doet Karin de aangifte.',
-      ], 'Karin logt één keer in. De Belastingdienst hoeft MOZa niet blind te vertrouwen: hij controleert het mandaat dat hij zelf heeft uitgegeven.', [
-        ['Via SSO doorgegeven', 'Naam Karin, KVK-nummer, mandaat OB'],
-        ['Controle', 'De Belastingdienst checkt bij elke SSO-toegang zelf de statuslijst van het mandaat'],
-        ['Niet doorgegeven', 'Mandaat RVO en overige PID-gegevens'],
-        ['Vorm', 'Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst'],
-        ['Fiscaal nummer', 'De Belastingdienst koppelt het KVK-nummer aan het omzetbelastingnummer', 'aandachtspunt'],
-        ['Resultaat', 'Aangifte ingediend'],
-      ]],
-      ['Subsidie aanvragen', 'Subsidie aanvragen bij RVO', [
-        'Karin start vanuit MOZa een subsidieaanvraag. MOZa brengt haar via SSO naar RVO en geeft het mandaat subsidies mee.',
-        'RVO controleert of het mandaat aanvragen toestaat. Karin dient de aanvraag in; de status is daarna in MOZa te volgen.',
-      ], 'Aanvragen en inzien zijn aparte rechten. Wie alleen mag inzien, kan niets indienen.', [
-        ['Via SSO doorgegeven', 'Naam Karin, KVK-nummer, mandaat RVO (scope aanvragen)'],
-        ['Controle', 'RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat'],
-        ['Vorm', 'Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst'],
-        ['Niet doorgegeven', 'Mandaat OB en overige PID-gegevens'],
-        ['Resultaat', 'Aanvraag ingediend, status zichtbaar in MOZa'],
-      ]],
-      ['Subsidies inzien', 'Lopende subsidies inzien', [
-        'Karin bekijkt vanuit MOZa de lopende subsidies en besluiten van Hanze Staffing.',
-        'MOZa geeft via SSO het mandaat mee, met alleen de scope inzien; RVO controleert handtekening, statuslijst en scope.',
-      ], 'MOZa geeft per dienst en per handeling alleen door wat nodig is.', [
-        ['Via SSO doorgegeven', 'Naam Karin, KVK-nummer, mandaat RVO (scope inzien)'],
-        ['Controle', 'RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat'],
-        ['Vorm', 'Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst'],
-        ['Niet doorgegeven', 'Scope aanvragen', 'ontwerpkeuze'],
-        ['Resultaat', 'Overzicht van subsidies en besluiten'],
-      ]],
-      ['Mandaat intrekken', 'Het RVO-mandaat wordt ingetrokken', [
-        'Karin, of een andere beheerder, zet in de EBW het RVO-mandaat van Karin uit. De EBW van Hanze Staffing stuurt RVO een verzoek tot intrekken; RVO zet het mandaat als uitgever op zijn statuslijst.',
-        'Karin is op dat moment nog ingelogd op MOZa. Klikt ze op subsidies, dan geeft MOZa het mandaat mee en ziet RVO op de statuslijst dat het is ingetrokken: RVO weigert direct. De omzetbelasting blijft gewoon werken.',
-      ], 'Omdat de dienstverlener zelf controleert, werkt een intrekking meteen, ook in een lopende MOZa-sessie.', [
-        ['Initiatief', 'De EBW van Hanze Staffing, na aanpassing van de configuratie door de eigenaar'],
-        ['Uitvoering', 'RVO, als uitgever, zet het mandaat op zijn statuslijst'],
-        ['Controle', 'RVO checkt bij elke SSO-toegang de statuslijst en weigert'],
-        ['Bij volgende login', 'MOZa ziet het ingetrokken mandaat en biedt de subsidiedienst niet meer aan'],
-        ['Resultaat', 'Direct geen toegang meer tot subsidies; mandaat OB blijft geldig'],
-      ]],
-    ],
-  },
-  {
-    id: 'subsidie',
-    name: 'Gezamenlijke subsidie',
-    intro: 'Gebaseerd op de MOZa-service blueprint Gezamenlijke subsidieaanvraag: drie bedrijven vragen samen DEI+-subsidie aan bij RVO en machtigen intermediair Lotte als penvoerder. De wallet-laag is een uitwerking van de blueprint. Elk bedrijf heeft een eigen EBW waarin de eigenaar configureert wie namens het bedrijf mag handelen; RVO geeft als dienstverlener de rollen en machtigingen voor DEI+ uit.',
-    steps: [
-      ['Vooraf', 'Drie bedrijven, één aanvraag', [
-        'Sander (GreenFlow BV), Wei (Polar Components BV) en Ahmed (MetaalbouwZuid BV) doen samen een innovatieproject en vragen daarvoor DEI+-subsidie aan bij RVO, ter waarde van € 145.000.',
-        'Ze machtigen samen intermediair Lotte van Bureau Subsidiekracht om de aanvraag in te dienen. Onderweg verandert de samenwerking twee keer.',
-      ], 'Elke rol en elke machtiging is een aparte attestatie. Daardoor is op elk moment te controleren en in te trekken wie namens wie mag handelen.', [
-        ['Wallets', 'Elke persoon heeft een app; elk bedrijf een EBW waarin de eigenaar de bevoegdheden configureert'],
-        ['Rollen', 'Mede-aanvrager (elk bedrijf) en penvoerder (één partij namens het collectief)'],
-        ['Fasen', 'Oriënteren, uitvoeren, opvolgen'],
-      ]],
-      ['Concept', 'Sander start de aanvraag', [
-        'Sander logt in op MOZa met zijn PID en zijn bevoegdheid voor GreenFlow en maakt een concept-aanvraag voor DEI+.',
-        'Hij nodigt Wei en Ahmed uit als mede-aanvrager en draagt zichzelf voor als mede-aanvrager en penvoerder. MOZa stuurt Wei en Ahmed een notificatie.',
-      ], 'MOZa is de gezamenlijke plek van het collectief: één concept, één stand van zaken.', [
-        ['Inloggen', 'PID plus EBW-attestatie van GreenFlow BV uit Sanders app'],
-        ['Gedeeld met MOZa', 'Naam Sander; KVK-nummer en naam GreenFlow BV'],
-        ['Vastgelegd', 'Concept DEI+, € 145.000; voorgestelde rollen'],
-        ['Notificatie', 'Wei en Ahmed: verzoek om de rol van mede-aanvrager te accepteren'],
-      ]],
-      ['Rollen accepteren', 'Wei en Ahmed doen mee', [
-        'Wei en Ahmed loggen in op MOZa, lezen het bericht en accepteren de rol van mede-aanvrager. Ze accepteren ook Sander als penvoerder.',
-        'Elk bedrijf legt zijn rol vast in de eigen EBW. RVO geeft daarop de rollen als attestaties uit, die in de apps komen, elk onder de eigen onderneming.',
-      ], 'Een rol geldt pas als alle betrokkenen akkoord zijn. Dat akkoord is het moment van uitgifte.', [
-        ['Inloggen', 'Wei en Ahmed: PID plus EBW-attestatie van hun eigen bedrijf'],
-        ['Gedeeld met MOZa', 'KVK-nummer en naam van Polar Components en MetaalbouwZuid; akkoord op de rollen'],
-        ['In de apps', 'Sander: mede-aanvrager en penvoerder, met een machtiging per bedrijf. Wei en Ahmed: mede-aanvrager'],
-        ['Configuratie', 'Elk bedrijf in de eigen EBW; RVO geeft uit als dienstverlener van DEI+'],
-        ['Type attestatie', 'EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is', 'ontwerpkeuze'],
-      ]],
-      ['Lotte voorgesteld', 'Sander stelt Lotte voor als penvoerder', [
-        'Het collectief zoekt een intermediair en vraagt Lotte. Sander koppelt haar in MOZa aan de aanvraag als penvoerder.',
-        'MOZa vraagt Wei en Ahmed om Lotte te accepteren, en Lotte om de rol aan te nemen.',
-      ], 'Penvoerderschap overdragen is een spannend moment: Lotte gaat namens drie bedrijven handelen.', [
-        ['Gedeeld met MOZa', 'Voorstel: Lotte (Bureau Subsidiekracht) als penvoerder'],
-        ['Notificaties', 'Wei en Ahmed: Lotte accepteren. Lotte: de rol accepteren'],
-        ['Lotte ziet', 'Alleen het verzoek, nog geen bedrijfsgegevens', 'ontwerpkeuze'],
-      ]],
-      ['Machtiging Lotte', 'Lotte wordt penvoerder', [
-        'Wei en Ahmed accepteren Lotte als penvoerder en Lotte accepteert de rol. MOZa meldt iedereen dat Lotte penvoerder is.',
-        'Elk bedrijf zet in de eigen EBW Lotte als penvoerder voor DEI+. RVO geeft daarop drie machtigingen uit in Lottes app, één per onderneming, elk in een eigen groep. Sanders penvoerderschap vervalt.',
-      ], "Lotte krijgt geen machtiging van 'het collectief', maar drie losse machtigingen: van GreenFlow, Polar Components en MetaalbouwZuid.", [
-        ['Inloggen Lotte', 'PID plus EBW-attestatie van Bureau Subsidiekracht'],
-        ['Gedeeld met MOZa', 'Akkoord van Wei, Ahmed en Lotte'],
-        ['In Lottes app', 'Machtiging penvoerder DEI+, in drie groepen: GreenFlow, Polar Components, MetaalbouwZuid'],
-        ['Ingetrokken', 'Penvoerder-machtigingen van Sander'],
-        ['Type attestatie', 'EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is', 'ontwerpkeuze'],
-      ]],
-      ['Gegevens', 'Gegevens één keer aanleveren', [
-        'Lotte vraagt via MOZa bij elk bedrijf de ontbrekende gegevens op. Sander, Wei en Ahmed krijgen een bericht, uploaden hun documenten en geven akkoord om ze met Lotte te delen.',
-        'MOZa meldt Lotte wanneer alles binnen is.',
-      ], 'Gegevens worden maar één keer uitgevraagd, en elk bedrijf beslist zelf dat Lotte ze mag zien.', [
-        ['Gevraagd', 'Ontbrekende bedrijfs- en projectgegevens per deelnemer'],
-        ['Gedeeld met MOZa', 'Documenten van alle drie de bedrijven'],
-        ['Gedeeld met Lotte', 'Bedrijfsgegevens en documenten, na akkoord per bedrijf'],
-        ['Grondslag', 'Lottes machtiging per onderneming'],
-      ]],
-      ['Indienen', 'Lotte dient de aanvraag in', [
-        'Lotte logt in op MOZa met haar PID en haar drie machtigingen, en dient de complete aanvraag in. MOZa brengt de aanvraag via SSO naar RVO.',
-        'RVO controleert per bedrijf of Lottes machtiging geldig is en of de mede-aanvragers kloppen. MOZa meldt iedereen dat de aanvraag compleet is en in behandeling.',
-      ], 'RVO kan beschikken zonder juridisch risico, omdat per bedrijf aantoonbaar is dat Lotte namens hen mag indienen.', [
-        ['Gedeeld met MOZa', 'Lottes PID-naam en haar drie machtigingen'],
-        ['Via SSO naar RVO', 'Aanvraag met gegevens en documenten van alle drie; rollen; Lottes machtigingen'],
-        ['Controle', 'Per onderneming: uitgever, geldigheid, niet ingetrokken, scope DEI+ indienen'],
-        ['Resultaat', 'Aanvraag in behandeling'],
-      ]],
-      ['Beschikking', 'Beschikking en voorschot', [
-        'RVO beschikt de aanvraag en betaalt het voorschot uit. Via MOZa krijgen Sander, Wei, Ahmed en Lotte een melding.',
-        'Het dossier is voor alle partijen in te zien, ieder op basis van de eigen rol of machtiging.',
-      ], 'Iedereen ziet hetzelfde, actuele beeld, zonder losse mails.', [
-        ['Notificaties', 'Beschikking en uitbetaling voorschot, aan alle deelnemers'],
-        ['Inzage', 'Via rol (mede-aanvragers) of machtiging (Lotte)'],
-        ['Nieuw gedeeld', 'Geen'],
-      ]],
-      ['Lotte stopt', 'De samenwerking met Lotte stopt', [
-        'De samenwerking met Lotte wordt stopgezet. Sander zet in de EBW van GreenFlow Lottes machtiging uit en zichzelf weer als penvoerder.',
-        'Wei en Ahmed keuren de rolwijziging goed in MOZa en passen hun eigen EBW aan. RVO trekt Lottes drie machtigingen in en geeft Sander de penvoerder-machtigingen terug.',
-      ], 'Grip houden op wie namens ons mag handelen, ook als de samenwerking verandert.', [
-        ['Ingetrokken', 'Lottes machtigingen, alle drie'],
-        ['Goedkeuring', 'Wei en Ahmed, via MOZa'],
-        ['In Sanders app', 'Penvoerder DEI+, per bedrijf'],
-        ['Lotte', 'Verliest inzage in het dossier'],
-        ['Wie trekt in', 'Initiatief vanuit de EBW van elk bedrijf voor de eigen machtiging; RVO voert uit als uitgever'],
-      ]],
-      ['Sander stapt op', 'Ruzie: Sander stapt op', [
-        'Het collectief krijgt ruzie en Sander stapt op. Wei zet in de EBW van Polar Components de penvoerder-machtiging voor Sander uit en keurt zijn eigen wijziging goed.',
-        'Zonder geldige penvoerder voor het hele collectief zet RVO de subsidie op pauze.',
-      ], 'Elk bedrijf kan zijn eigen machtiging intrekken. Het gevolg raakt het hele collectief.', [
-        ['Ingetrokken', 'Op initiatief van de EBW van Polar Components trekt RVO de penvoerder-machtiging voor Sander in; daarmee is hij geen penvoerder meer voor het collectief'],
-        ['Goedkeuring', 'Wei keurt zijn eigen wijziging goed', 'vier ogen?'],
-        ['Gevolg', 'Subsidie gepauzeerd bij RVO'],
-        ['Open', 'Wie wordt penvoerder, en wat gebeurt er met Sanders rol als mede-aanvrager', 'niet in blueprint'],
-      ]],
-    ],
-  },
-];
-
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const markTag = (m, size = 'sm') => `<nldd-tag size="${size}" color="${MARKS[m].color}" icon="${MARKS[m].icon}" text="${esc(m)}"></nldd-tag>`;
-
-document.getElementById('legend').innerHTML = ['ontwerpkeuze', 'aanname', 'aandachtspunt'].map((m) => markTag(m, 'md')).join('');
-
-const detailList = (rows) => `
-  <nldd-list variant="box">
-    ${rows.map(([key, value, mark]) => `
-    <nldd-list-item>
-      <nldd-text-cell size="sm" overline="${esc(key)}" text="${esc(value)}"></nldd-text-cell>
-      ${mark ? `<nldd-spacer-cell size="8"></nldd-spacer-cell><nldd-cell vertical-alignment="center">${markTag(mark)}</nldd-cell>` : ''}
-    </nldd-list-item>`).join('')}
-  </nldd-list>`;
-
-const stepCard = (flow, [short, title, paras, key, rows], i) => `
-  <nldd-card id="${flow.id}-${i}" accessible-label="${esc(`${flow.name}, stap ${i}: ${title}`)}">
-    <nldd-container padding="16" gap="12">
-      <nldd-title size="4">
-        <span slot="overline">${esc(`Stap ${i} van ${flow.steps.length - 1} · ${short}`)}</span>
-        <h3>${esc(title)}</h3>
-      </nldd-title>
-      <nldd-rich-text>${paras.map((p) => `<p>${esc(p)}</p>`).join('')}</nldd-rich-text>
-      <nldd-banner variant="neutral" icon="info-circle" text="${esc(key)}"></nldd-banner>
-      ${detailList(rows)}
-    </nldd-container>
-  </nldd-card>`;
-
-document.getElementById('flows').innerHTML = FLOWS.map((flow) => `
-  <nldd-simple-section id="${flow.id}">
-    <nldd-title size="2">
-      <span slot="overline">Scenario</span>
-      <h2>${esc(flow.name)}</h2>
-      <p slot="subtitle">${esc(flow.intro)}</p>
-    </nldd-title>
-    <nldd-spacer size="24"></nldd-spacer>
-    <nldd-container gap="16">
-      ${flow.steps.map((s, i) => stepCard(flow, s, i)).join('')}
-    </nldd-container>
-  </nldd-simple-section>`).join('');
-</script>
 </body>
 </html>

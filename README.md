@@ -12,7 +12,9 @@ Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project
 |---|---|
 | `index.html` | De roadmap. Alle inhoud (sporen, releases, kaders, tabellen) staat als data bovenaan het script: `LANES`, `EXPERIENCE`, `WISHES`, `LOGIN_MATRIX`. |
 | `eherkenning.html` | Achtergrondpagina eHerkenning. |
-| `ebw.html` | Achtergrondpagina EBW: scenario's Inloggen op MOZa en Gezamenlijke subsidie. |
+| `ebw.html` | Achtergrondpagina EBW, met links naar: |
+| `ebw-landschap.html` | Schema EBW-landschap (PuB- en Q-EBW). |
+| `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, wordt ongewijzigd meegekopieerd). |
 | `logos/` | Officiële logo's (licht en donker). |
 | `vendor/nldd/` | NLDD design system 0.8.62 (script, CSS, lettertypen), lokaal meegeleverd. |
 | `build.py` | Bouwt zelfstandige pagina's in `dist/` met alles ingebed. |

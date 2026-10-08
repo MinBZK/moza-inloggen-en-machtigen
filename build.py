@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bouwt zelfstandige pagina's in dist/: NLDD-script, CSS, lettertypen en logo's worden ingebed.
 
-De bronpagina's (index.html, eherkenning.html) laden NLDD van esm.sh. De versie in dist/ heeft
+De NLDD-pagina's (PAGES) laden NLDD van esm.sh. De versie in dist/ heeft
 geen externe bronnen nodig en werkt als los bestand, op elke webserver en zonder internet.
 
 Gebruik: python3 build.py
@@ -13,7 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 VENDOR = ROOT / 'vendor' / 'nldd'
 DIST = ROOT / 'dist'
-PAGES = ['index.html', 'eherkenning.html', 'ebw.html']
+PAGES = ['index.html', 'eherkenning.html', 'ebw.html', 'ebw-landschap.html']
+STATIC = ['ebw-flows.html']  # eigen opmaak, geen NLDD: ongewijzigd kopiëren
 
 CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">'
 CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>'
@@ -45,6 +46,9 @@ def main() -> None:
         html = re.sub(r'logos/([\w.-]+\.(?:png|svg))', lambda m: data_uri(ROOT / 'logos' / m.group(1)), html)
         (DIST / name).write_text(html)
         print(f'dist/{name}: {len(html) / 1024 / 1024:.1f} MB')
+    for name in STATIC:
+        (DIST / name).write_text((ROOT / name).read_text())
+        print(f'dist/{name}: gekopieerd')
 
 
 if __name__ == '__main__':
