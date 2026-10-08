@@ -134,8 +134,19 @@
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Concept - indicatieve planning"
-        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping. Opmerking? Option (Mac) of Alt + klik op een plek op de pagina."></nldd-banner>
+        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping."></nldd-banner>
       <nldd-spacer size="24"></nldd-spacer>
+      <div id="comment-hint-wrap" hidden>
+        <nldd-banner id="comment-hint" variant="neutral" icon="message-rectangle-text" heading-level="2" dismissible
+          text="Opmerkingen plaatsen" supporting-text="Reageer direct op de roadmap; je naam komt uit je rijksaccount.">
+          <nldd-rich-text spacing="tight"><ul>
+            <li><strong id="comment-hint-key">Option + klik</strong> ergens op de pagina, bijvoorbeeld op een tegel of in een tabel, opent een opmerkingenveld op die plek.</li>
+            <li>In de verdieping van een release: klik op het tekstballon-icoon bij een punt, of op <em>Opmerking plaatsen</em> onderaan.</li>
+            <li>Reageren en oplossen gaat bij het draadje; opgeloste opmerkingen staan in het <em>Opmerkingenarchief</em> in de footer.</li>
+          </ul></nldd-rich-text>
+        </nldd-banner>
+        <nldd-spacer size="24"></nldd-spacer>
+      </div>
 
       <nldd-container layout="grid" column-count="3" md-column-count="2" sm-column-count="1" gap="16">
         <nldd-box>
@@ -1085,7 +1096,20 @@ let archiveShown = false;
 // Opmerkingenarchief: alle opgeloste opmerkingen met hun conclusie, nieuwste eerst
 const archiveEntry = document.getElementById('archive-entry');
 const archiveButton = document.getElementById('archive-open');
+// Hint voor opmerkingen: alleen als opmerkingen werken, weg te klikken (onthouden in deze browser)
+const HINT_KEY = 'roadmap-opmerkingen-hint-weg';
+const hintWrap = document.getElementById('comment-hint-wrap');
+const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+document.getElementById('comment-hint-key').textContent = isMac ? 'Option (⌥) + klik' : 'Alt + klik';
+const hintDismissed = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
+document.getElementById('comment-hint').addEventListener('dismiss', () => {
+  hintWrap.hidden = true;
+  try { localStorage.setItem(HINT_KEY, '1'); } catch { /* geen opslag beschikbaar: hint komt bij herladen terug */ }
+});
+const updateCommentHint = () => { hintWrap.hidden = !COMMENTS_ON || hintDismissed(); };
+
 const updateArchiveEntry = () => {
+  updateCommentHint();
   const n = OPMERKINGEN.filter((o) => o.status === 'opgelost').length;
   archiveEntry.hidden = !COMMENTS_ON;
   archiveButton.setAttribute('text', `Opmerkingenarchief (${n})`);
