@@ -4,7 +4,7 @@ Concept-roadmap voor MijnOverheid Zakelijk (MOZa): hoe DigiD, eHerkenning, de ED
 
 **Status: concept.** De planning is indicatief; tertialen na 2028 zijn richtinggevend.
 
-Online (intern, achter SSO Rijk): op ZAD-project `mr-7qd`; adres volgt na goedkeuring van het subdomein.
+Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project `mr-7qd`).
 
 ## Opbouw
 
