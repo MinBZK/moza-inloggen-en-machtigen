@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 VENDOR = ROOT / 'vendor' / 'nldd'
 DIST = ROOT / 'dist'
-PAGES = ['index.html', 'eherkenning.html']
+PAGES = ['index.html', 'eherkenning.html', 'ebw.html']
 
 CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">'
 CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>'

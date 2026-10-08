@@ -4,7 +4,7 @@
 
 FROM python:3.12-slim AS bouw
 WORKDIR /src
-COPY build.py index.html eherkenning.html ./
+COPY build.py index.html eherkenning.html ebw.html ./
 COPY logos logos
 COPY vendor vendor
 RUN python3 build.py
