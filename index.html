@@ -76,6 +76,20 @@
       position: absolute;
       z-index: 4;
       transform: translate(-50%, -50%);
+      border-radius: 50%;
+    }
+    /* Open opmerking: zeer opvallend oranje met witte rand en pulserende gloed */
+    [data-pin][data-open] {
+      color: var(--primitives-color-oranje-500);
+      box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500);
+      animation: pin-pulse 1.6s ease-out infinite;
+    }
+    @keyframes pin-pulse {
+      0% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500), 0 0 0 6px color-mix(in oklch, var(--primitives-color-oranje-500) 60%, transparent); }
+      100% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500), 0 0 0 18px transparent; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-pin][data-open] { animation: none; }
     }
     #roadmap-table > nldd-table-row[slot="header"] {
       position: sticky;
@@ -870,23 +884,39 @@ document.getElementById('wishes-table').innerHTML = `
 const sheet = document.getElementById('detail');
 const body = document.getElementById('detail-body');
 
-// Opmerkingen: GitHub-issues met label 'opmerking'. De workflow publiceert ze als opmerkingen.json,
-// zodat de site geen GitHub-API hoeft te bevragen. Elk issue verwijst via 'anker' naar een punt:
-// '<spoor>:<release>|<sectie>|<tekst van het punt>' of '<spoor>:<release>|algemeen'.
-const REPO = 'MinBZK/moza-inloggen-en-machtigen';
+// Opmerkingen zijn taken in MinBZK/MijnOverheidZakelijk: label Lamarr, de volgende Lamarr-sprint als
+// milestone en onder epic #1136. De workflow publiceert ze (met de Lamarr-milestones) als opmerkingen.json,
+// zodat de site geen GitHub-API hoeft te bevragen. Elke taak verwijst via 'Anker' naar een plek:
+// '<spoor>:<release>|<sectie>|<tekst van het punt>', '<spoor>:<release>|algemeen' of 'plek|<selector>|x|y'.
+const ISSUE_REPO = 'MinBZK/MijnOverheidZakelijk';
+const ISSUE_LABEL = 'Lamarr';
+const PARENT_ISSUE = 1136;
+const ROADMAP_MARK = 'roadmap-moza-inloggen';
+const SITE_URL = 'https://minbzk.github.io/moza-inloggen-en-machtigen/';
 const SECTIONS = { opgeleverd: 'Wat wordt opgeleverd', 'nog-niet': 'Nog niet in deze release', afhankelijkheden: 'Afhankelijkheden', algemeen: 'Algemeen' };
 let OPMERKINGEN = [];
+let MILESTONES = [];
 const anchorOf = (lane, r, section, text) => `${lane.id}:${r.code}|${section}${text ? `|${text}` : ''}`;
 const commentsAt = (anchor) => OPMERKINGEN.filter((o) => o.anker === anchor);
-const newCommentUrl = (lane, r, section, text) => {
-  const where = `${lane.name} ${r.code} · ${r.title} · ${SECTIONS[section]}${text ? `: ${text}` : ''}`;
-  const params = new URLSearchParams({
-    template: 'opmerking.yml',
-    title: `Opmerking ${lane.name} ${r.code}: ${(text || r.title).slice(0, 70)}`,
-    onderdeel: where,
-    anker: anchorOf(lane, r, section, text),
-  });
-  return `https://github.com/${REPO}/issues/new?${params}`;
+// De volgende Lamarr-sprint: de sprint na de sprint die vandaag loopt (op einddatum, niet op nummer)
+const nextLamarrMilestone = () => {
+  const today = new Date().toISOString().slice(0, 10);
+  const current = MILESTONES.findIndex((m) => m.einddatum >= today);
+  return current >= 0 ? MILESTONES[current + 1] || null : null;
+};
+const newTaskUrl = (target, text) => {
+  const milestone = nextLamarrMilestone();
+  const body = [
+    '### Onderdeel', '', target.onderdeel, '',
+    '### Opmerking', '', text || '_Beschrijf hier je opmerking._', '',
+    '### Anker', '', target.anker, '',
+    '---',
+    `Onderdeel van #${PARENT_ISSUE}. Geplaatst via de [roadmap inlog- en machtigingsmiddelen](${SITE_URL}) (${ROADMAP_MARK}).`,
+  ].join('\n');
+  // type=Task zet het issuetype 'Task' (MinBZK gebruikt issuetypes); label en milestone alleen bij triagerechten
+  const params = new URLSearchParams({ title: `Roadmap-opmerking: ${(text || target.onderdeel).slice(0, 70)}`, body, labels: ISSUE_LABEL, type: 'Task' });
+  if (milestone) params.set('milestone', milestone.titel);
+  return `https://github.com/${ISSUE_REPO}/issues/new?${params}`;
 };
 const fmtDate = (iso) => new Date(iso).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' });
 const oneLine = (t) => String(t).replace(/\s+/g, ' ').trim();
@@ -899,6 +929,12 @@ const threadRow = (url, icon, color, overline, text, textColor = 'default') => `
       <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
       <nldd-text-cell size="sm" color="${textColor}" overline="${esc(overline)}" text="${esc(text)}"></nldd-text-cell>
     </nldd-list-item>`;
+// Reageren op een bestaande opmerking: toevoeging op hetzelfde issue
+const replyRow = (o) => `
+    <nldd-list-item>
+      <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
+      <nldd-cell><nldd-button data-reply="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button></nldd-cell>
+    </nldd-list-item>`;
 const threads = (anchor) => commentsAt(anchor).map((o) => {
   const done = o.status === 'opgelost';
   return [
@@ -906,13 +942,14 @@ const threads = (anchor) => commentsAt(anchor).map((o) => {
       `${o.auteur} · ${fmtDate(o.datum)} · #${o.nummer}`, oneLine(o.opmerking), done ? 'secondary' : 'default'),
     ...o.reacties.map((c) => threadRow(o.url, 'arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'default')),
     done ? threadRow(o.url, 'check-mark', 'success', 'Opgelost', `Conclusie: ${oneLine(o.conclusie || 'geen conclusie vermeld')}`, 'success') : '',
+    replyRow(o),
   ].join('');
 }).join('');
 
-// Knop om een opmerking te plaatsen, met het aantal open opmerkingen
-const commentButton = (url, anchor, label) => {
+// Knop om een opmerking te plaatsen (opent het opmerkingenveld), met het aantal open opmerkingen
+const commentButton = (anchor, where, label) => {
   const open = commentsAt(anchor).filter((o) => o.status === 'open').length;
-  return `<nldd-cell vertical-alignment="top"><nldd-icon-button href="${url}" target="_blank" size="sm" variant="neutral-transparent"
+  return `<nldd-cell vertical-alignment="top"><nldd-icon-button data-comment-anchor="${esc(anchor)}" data-comment-label="${esc(where)}" size="sm" variant="neutral-transparent"
     icon="message-rectangle-text" text="${esc(open ? `${label} (${open} open)` : label)}"></nldd-icon-button></nldd-cell>`;
 };
 
@@ -926,7 +963,7 @@ const list = (items, icon, color, ctx) => `
       <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
       <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
       <nldd-text-cell text="${esc(t)}"></nldd-text-cell>
-      ${ctx ? commentButton(newCommentUrl(ctx.lane, ctx.r, ctx.section, t), anchor, 'Opmerking plaatsen bij dit punt') : ''}
+      ${ctx ? commentButton(anchor, `${ctx.lane.name} ${ctx.r.code} · ${SECTIONS[ctx.section]}: ${t}`, 'Opmerking plaatsen bij dit punt') : ''}
     </nldd-list-item>${ctx ? threads(anchor) : ''}`;
     }).join('')}
   </nldd-list>`;
@@ -938,14 +975,14 @@ const generalComments = (lane, r, currentAnchors) => {
   const orphans = [...new Set(OPMERKINGEN.filter((o) => o.anker.startsWith(prefix) && o.anker !== general && !currentAnchors.includes(o.anker)).map((o) => o.anker))];
   return `
     <nldd-title size="5"><h3>Opmerkingen bij deze release</h3>
-      <p slot="subtitle">Reageren kan met een GitHub-account. Een editor lost een opmerking op door het issue te sluiten met een reactie die begint met "Conclusie:".</p></nldd-title>
+      <p slot="subtitle">Een opmerking wordt een taak in MijnOverheidZakelijk (Lamarr, onder epic #1136); je logt in met je GitHub-account. Een editor lost hem op door de taak te sluiten met een reactie die begint met "Conclusie:".</p></nldd-title>
     <nldd-list variant="box">
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
         <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
         <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
         <nldd-text-cell text="Algemene opmerking over deze release"></nldd-text-cell>
-        ${commentButton(newCommentUrl(lane, r, 'algemeen'), general, 'Opmerking plaatsen')}
+        ${commentButton(general, `${lane.name} ${r.code} · ${r.title} · Algemeen`, 'Opmerking plaatsen')}
       </nldd-list-item>${threads(general)}
       ${orphans.map((a) => `
       <nldd-list-item>
@@ -969,7 +1006,11 @@ const markCards = () => {
 };
 fetch('opmerkingen.json', { cache: 'no-cache' })
   .then((res) => (res.ok ? res.json() : []))
-  .then((data) => { OPMERKINGEN = Array.isArray(data) ? data : []; markCards(); renderPins(); requestAnimationFrame(drawDeps); })
+  .then((data) => {
+    OPMERKINGEN = Array.isArray(data) ? data : data.opmerkingen || [];
+    MILESTONES = Array.isArray(data) ? [] : data.milestones || [];
+    markCards(); renderPins(); requestAnimationFrame(drawDeps);
+  })
   .catch(() => {});
 
 const releaseRef = (ref) => {
@@ -1132,25 +1173,60 @@ const describeTarget = (path, e) => {
     onderdeel: hint ? `${label}: "${hint}"` : label,
   };
 };
-const openCommentForm = (e, target) => {
+const openCommentForm = (point, target) => {
+  const milestone = nextLamarrMilestone();
   popover.setAttribute('accessible-label', 'Opmerking plaatsen');
   popoverBody.innerHTML = `
     <nldd-title size="6"><h2>Opmerking plaatsen</h2><p slot="subtitle">${esc(target.onderdeel)}</p></nldd-title>
     <nldd-form-field label="Opmerking"><nldd-multi-line-text-field id="comment-text" rows="4" autofocus></nldd-multi-line-text-field></nldd-form-field>
     <nldd-container layout="wrap" gap="8">
-      <nldd-button id="comment-submit" variant="primary" size="sm" end-icon="square-arrow-right-top" text="Verder op GitHub"></nldd-button>
+      <nldd-button id="comment-submit" variant="primary" size="sm" end-icon="square-arrow-right-top" text="Taak aanmaken op GitHub"></nldd-button>
       <nldd-button id="comment-cancel" variant="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
     </nldd-container>
-    <nldd-title size="6"><p slot="subtitle">Je opmerking wordt een issue op GitHub; je logt in met je GitHub-account.</p></nldd-title>`;
+    <nldd-title size="6"><p slot="subtitle">Wordt een taak in MijnOverheidZakelijk met label Lamarr${milestone ? `, milestone ${esc(milestone.titel)}` : ''}, onder epic #${PARENT_ISSUE}. Je logt in met je GitHub-account.</p></nldd-title>`;
   popoverBody.querySelector('#comment-submit').addEventListener('click', () => {
-    const text = popoverBody.querySelector('#comment-text').value || '';
-    const params = new URLSearchParams({ template: 'opmerking.yml', title: `Opmerking: ${(text || target.onderdeel).slice(0, 70)}`, onderdeel: target.onderdeel, anker: target.anker, opmerking: text });
-    window.open(`https://github.com/${REPO}/issues/new?${params}`, '_blank', 'noopener');
+    window.open(newTaskUrl(target, popoverBody.querySelector('#comment-text').value || ''), '_blank', 'noopener');
     popover.hidePopover();
   });
   popoverBody.querySelector('#comment-cancel').addEventListener('click', () => popover.hidePopover());
-  showPopoverAt(e.clientX, e.clientY);
+  showPopoverAt(point.x, point.y);
 };
+// Reactie: tekst naar het klembord en het issue openen bij het reactieveld (GitHub kan dat veld niet vooraf invullen)
+const openReplyForm = (point, o) => {
+  popover.setAttribute('accessible-label', `Reageren op opmerking #${o.nummer}`);
+  popoverBody.innerHTML = `
+    <nldd-title size="6"><span slot="overline">Opmerking #${o.nummer}</span><h2>Reageren</h2><p slot="subtitle">${esc(oneLine(o.opmerking).slice(0, 140))}</p></nldd-title>
+    <nldd-form-field label="Reactie"><nldd-multi-line-text-field id="reply-text" rows="4" autofocus></nldd-multi-line-text-field></nldd-form-field>
+    <nldd-container layout="wrap" gap="8">
+      <nldd-button id="reply-submit" variant="primary" size="sm" end-icon="square-arrow-right-top" text="Reactie plaatsen op GitHub"></nldd-button>
+      <nldd-button id="reply-cancel" variant="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
+    </nldd-container>
+    <nldd-title size="6"><p slot="subtitle">Je reactie wordt toegevoegd aan dit issue. Bij het openen staat je tekst op het klembord: plak hem in het reactieveld en klik op Comment.</p></nldd-title>`;
+  popoverBody.querySelector('#reply-submit').addEventListener('click', async () => {
+    const text = popoverBody.querySelector('#reply-text').value || '';
+    try { if (text) await navigator.clipboard.writeText(text); } catch { /* klembord niet beschikbaar: gebruiker typt de reactie op GitHub */ }
+    window.open(`${o.url}#new_comment_field`, '_blank', 'noopener');
+    popover.hidePopover();
+  });
+  popoverBody.querySelector('#reply-cancel').addEventListener('click', () => popover.hidePopover());
+  showPopoverAt(point.x, point.y);
+};
+document.addEventListener('click', (e) => {
+  const btn = e.composedPath().find((el) => el instanceof Element && el.dataset?.reply);
+  if (!btn || e.altKey) return;
+  e.stopPropagation();
+  const o = OPMERKINGEN.find((x) => String(x.nummer) === btn.dataset.reply);
+  const rect = btn.getBoundingClientRect();
+  if (o) openReplyForm({ x: rect.left, y: rect.bottom }, o);
+}, true);
+
+// Knop bij een punt in de verdieping
+document.addEventListener('click', (e) => {
+  const btn = e.composedPath().find((el) => el instanceof Element && el.dataset?.commentAnchor);
+  if (!btn || e.altKey) return;
+  const rect = btn.getBoundingClientRect();
+  openCommentForm({ x: rect.left - 320, y: rect.bottom }, { anker: btn.dataset.commentAnchor, onderdeel: btn.dataset.commentLabel });
+});
 document.addEventListener('click', (e) => {
   if (!e.altKey) return;
   // Capture-fase: geen link volgen, geen verdieping openen en geen download (Alt-klik op een link)
@@ -1158,7 +1234,7 @@ document.addEventListener('click', (e) => {
   e.stopPropagation();
   const path = e.composedPath().filter((n) => n instanceof Element);
   if (path.includes(popover)) return;
-  openCommentForm(e, describeTarget(path, e));
+  openCommentForm({ x: e.clientX, y: e.clientY }, describeTarget(path, e));
 }, true);
 
 // Markeringen voor opmerkingen op een plek; klik toont het draadje
@@ -1169,7 +1245,10 @@ const openPinThread = (o, e) => {
     <nldd-title size="6"><span slot="overline">${esc(o.onderdeel)}</span><h2>Opmerking #${o.nummer}</h2></nldd-title>
     <nldd-container layout="wrap" gap="4"><nldd-tag size="sm" color="${done ? 'success' : 'accent'}" text="${done ? 'Opgelost' : 'Open'}"></nldd-tag></nldd-container>
     <nldd-list variant="box">${threadRow(o.url, 'message-rectangle-text', 'accent', `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking))}${o.reacties.map((c) => threadRow(o.url, 'arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst))).join('')}${done ? threadRow(o.url, 'check-mark', 'success', 'Opgelost', `Conclusie: ${oneLine(o.conclusie || 'geen conclusie vermeld')}`, 'success') : ''}</nldd-list>
-    <nldd-button href="${o.url}" target="_blank" variant="secondary" size="sm" end-icon="square-arrow-right-top" text="Bekijken of reageren op GitHub"></nldd-button>`;
+    <nldd-container layout="wrap" gap="8">
+      <nldd-button data-reply="${o.nummer}" variant="primary" size="sm" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>
+      <nldd-button href="${o.url}" target="_blank" variant="secondary" size="sm" end-icon="square-arrow-right-top" text="Bekijken op GitHub"></nldd-button>
+    </nldd-container>`;
   showPopoverAt(e.clientX, e.clientY);
 };
 const renderPins = () => {
@@ -1181,8 +1260,8 @@ const renderPins = () => {
     if (!host) return;
     const done = o.status === 'opgelost';
     host.setAttribute('data-has-pins', '');
-    host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}" size="xs" style="left:${parseFloat(x)}%;top:${parseFloat(y)}%"
-      variant="${done ? 'neutral-tinted' : 'accent-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking #${o.nummer}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
+    host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}"${done ? '' : ' data-open'} size="sm" style="left:${parseFloat(x)}%;top:${parseFloat(y)}%"
+      variant="${done ? 'neutral-tinted' : 'inherit-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking #${o.nummer}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
   });
 };
 document.addEventListener('click', (e) => {

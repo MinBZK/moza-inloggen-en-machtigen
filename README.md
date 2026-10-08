@@ -38,17 +38,26 @@ Een zelfstandige versie (bijvoorbeeld om te mailen of elders te publiceren) maak
 
 Iedereen met een GitHub-account kan opmerkingen plaatsen, net als bij Figma:
 
-1. Open in de roadmap de verdieping van een release.
-2. Klik bij een punt op het tekstballon-icoon ("Opmerking plaatsen bij dit punt"), of plaats onderaan een algemene opmerking. GitHub opent een ingevuld formulier; het veld *Anker* koppelt de opmerking aan dat punt.
-3. Na het opslaan verschijnt de opmerking binnen ongeveer een minuut in de verdieping, direct onder het punt. Tegels met open opmerkingen tonen een teller.
+- **Option (Mac) of Alt + klik** ergens op de pagina opent een opmerkingenveld op die plek. In de verdieping wordt de opmerking aan het aangeklikte punt gekoppeld.
+- Of klik bij een punt in de verdieping op het tekstballon-icoon.
 
-**Oplossen** (editors): sluit het issue met een reactie die begint met `Conclusie:`. In de verdieping verschijnt het draadje dan als opgelost, met die conclusie. Dat kan in GitHub, of via Claude, bijvoorbeeld:
+*Taak aanmaken op GitHub* opent een ingevulde taak in [MinBZK/MijnOverheidZakelijk](https://github.com/MinBZK/MijnOverheidZakelijk) met:
+
+- issuetype **Task** en label **Lamarr**;
+- als milestone de **volgende Lamarr-sprint**: de sprint na de sprint die vandaag loopt, gekozen op naam (`... - Lamarr`) en einddatum, niet op nummer;
+- de vermelding *Onderdeel van #1136*; de workflow hangt de taak daarna ook als sub-issue onder epic [#1136](https://github.com/MinBZK/MijnOverheidZakelijk/issues/1136).
+
+Label, milestone en type worden alleen overgenomen als je triagerechten op MijnOverheidZakelijk hebt; anders kan een beheerder ze aanvullen.
+
+De site ververst opmerkingen elk kwartier (workflow, `opmerkingen.py` schrijft `opmerkingen.json`). Opmerkingen bij een punt staan in de verdieping onder dat punt; opmerkingen op een plek verschijnen als oranje markering. Tegels met open opmerkingen tonen een teller.
+
+**Oplossen** (editors): sluit de taak met een reactie die begint met `Conclusie:`. Dat kan in GitHub of via Claude, bijvoorbeeld:
 
 ```bash
-gh issue close 12 --comment "Conclusie: tertiaal aangepast naar T1 2028."
+gh issue close 1234 -R MinBZK/MijnOverheidZakelijk --comment "Conclusie: tertiaal aangepast naar T1 2028."
 ```
 
-Opmerkingen zijn issues met label `opmerking`. De workflow haalt ze op met `opmerkingen.py` en publiceert ze als `opmerkingen.json`, zodat de site geen GitHub-API hoeft te bevragen. Lokaal bekijken: `python3 opmerkingen.py opmerkingen.json`.
+**Koppelen aan epic #1136** vraagt een repo-secret `MOZ_ISSUES_TOKEN`: een fine-grained token met *Issues: read and write* op MinBZK/MijnOverheidZakelijk. Zonder dit secret slaat de workflow het koppelen over (de vermelding in de taak blijft).
 
 ## Licentie
 
