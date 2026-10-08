@@ -2,4 +2,4 @@ dist/
 logos/_bron/
 .DS_Store
 __pycache__/
-/opmerkingen.json
+.data/

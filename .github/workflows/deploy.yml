@@ -1,0 +1,72 @@
+name: Bouwen en uitrollen
+
+# Pull requests: alleen bouwen als controle (verplichte check 'build').
+# Push op main: container-image bouwen en uitrollen naar ZAD (project mr-7qd, achter SSO Rijk).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Bouw zelfstandige pagina's (controle)
+        run: python3 build.py
+      - name: Controleer de server
+        run: python3 -m py_compile server.py
+
+  image:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Containerfile
+          push: true
+          tags: |
+            ghcr.io/minbzk/moza-inloggen-en-machtigen:latest
+            ghcr.io/minbzk/moza-inloggen-en-machtigen:${{ github.sha }}
+
+  # Project-id staat vast, zodat een release nooit op een ander ZAD-project landt.
+  # Vereist repo-secret ZAD_API_KEY (API-key van ZAD-project mr-7qd).
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: image
+    runs-on: ubuntu-latest
+    env:
+      HAS_ZAD_KEY: ${{ secrets.ZAD_API_KEY != '' }}
+    steps:
+      - if: env.HAS_ZAD_KEY != 'true'
+        run: echo "::warning::Secret ZAD_API_KEY ontbreekt; uitrollen naar ZAD overgeslagen"
+      - if: env.HAS_ZAD_KEY == 'true'
+        uses: RijksICTGilde/zad-actions/deploy@v4
+        with:
+          api-key: ${{ secrets.ZAD_API_KEY }}
+          project-id: mr-7qd
+          deployment-name: roadmap
+          component: roadmap
+          image: ghcr.io/minbzk/moza-inloggen-en-machtigen:${{ github.sha }}
+          wait-for-ready: 'true'

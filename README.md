@@ -4,7 +4,7 @@ Concept-roadmap voor MijnOverheid Zakelijk (MOZa): hoe DigiD, eHerkenning, de ED
 
 **Status: concept.** De planning is indicatief; tertialen na 2028 zijn richtinggevend.
 
-Online: https://minbzk.github.io/moza-inloggen-en-machtigen/
+Online (intern, achter SSO Rijk): op ZAD-project `mr-7qd`; adres volgt na goedkeuring van het subdomein.
 
 ## Opbouw
 
@@ -28,36 +28,31 @@ De pagina's zijn gebouwd met het [NLDD design system](https://minbzk.github.io/s
    ```
 
    en open http://localhost:8905.
-3. Maak een branch en open een pull request naar `main`. Direct pushen naar `main` kan niet.
+3. Maak een branch en open een pull request naar `main` (beheerders kunnen direct pushen).
 4. GitHub Actions bouwt de site bij de pull request als controle (check `build`); die moet slagen voordat je kunt mergen.
-5. Na de merge publiceert GitHub Actions de site op GitHub Pages.
+5. Na de merge bouwt GitHub Actions het image en rolt het uit naar ZAD.
 
 Een zelfstandige versie (bijvoorbeeld om te mailen of elders te publiceren) maak je met `python3 build.py`; het resultaat staat in `dist/`.
 
 ## Opmerkingen
 
-Iedereen met een GitHub-account kan opmerkingen plaatsen, net als bij Figma:
+Opmerkingen staan op de site zelf. Je bent ingelogd met je rijksaccount (SSO Rijk); je naam komt daaruit.
 
-- **Option (Mac) of Alt + klik** ergens op de pagina opent een opmerkingenveld op die plek. In de verdieping wordt de opmerking aan het aangeklikte punt gekoppeld.
-- Of klik bij een punt in de verdieping op het tekstballon-icoon.
+- **Plaatsen:** Option (Mac) of Alt + klik ergens op de pagina, of de tekstballon bij een punt in de verdieping. Een opmerking bij een punt staat in de verdieping onder dat punt; een opmerking op een plek verschijnt als oranje markering. Tegels met open opmerkingen tonen een teller.
+- **Reageren:** knop *Reageren* bij een draadje.
+- **Oplossen** (editors): knop *Oplossen* met een conclusie; *Heropenen* kan altijd. Wie editor is, regelt de omgevingsvariabele `EDITORS` (komma-gescheiden e-mailadressen; leeg = iedereen).
+- **Via Claude:** Claude kan opmerkingen oplossen via het browserpaneel, nadat je daar met SSO Rijk bent ingelogd.
 
-*Taak aanmaken op GitHub* opent een ingevulde taak in [MinBZK/MijnOverheidZakelijk](https://github.com/MinBZK/MijnOverheidZakelijk) met:
+## Techniek
 
-- issuetype **Task** en label **Lamarr**;
-- als milestone de **volgende Lamarr-sprint**: de sprint na de sprint die vandaag loopt, gekozen op naam (`... - Lamarr`) en einddatum, niet op nummer;
-- de vermelding *Onderdeel van #1136*; de workflow hangt de taak daarna ook als sub-issue onder epic [#1136](https://github.com/MinBZK/MijnOverheidZakelijk/issues/1136).
+- `server.py` levert de site en de API (`/api/ik`, `/api/opmerkingen`, `/api/opmerkingen/<id>/reacties|oplossen|heropenen`). Alleen de standaardbibliotheek; opslag in SQLite op het persistent volume `/data`.
+- De identiteit komt uit de headers van de authorization-wall (oauth2-proxy met SSO Rijk). De app is alleen via die proxy bereikbaar.
+- `Containerfile` bouwt de zelfstandige pagina's en de server in één image. De workflow bouwt het image bij elke push op `main` en rolt het uit naar ZAD (secret `ZAD_API_KEY`).
+- Lokaal met opmerkingen:
 
-Label, milestone en type worden alleen overgenomen als je triagerechten op MijnOverheidZakelijk hebt; anders kan een beheerder ze aanvullen.
-
-De site ververst opmerkingen elk kwartier (workflow, `opmerkingen.py` schrijft `opmerkingen.json`). Opmerkingen bij een punt staan in de verdieping onder dat punt; opmerkingen op een plek verschijnen als oranje markering. Tegels met open opmerkingen tonen een teller.
-
-**Oplossen** (editors): sluit de taak met een reactie die begint met `Conclusie:`. Dat kan in GitHub of via Claude, bijvoorbeeld:
-
-```bash
-gh issue close 1234 -R MinBZK/MijnOverheidZakelijk --comment "Conclusie: tertiaal aangepast naar T1 2028."
-```
-
-**Koppelen aan epic #1136** vraagt een repo-secret `MOZ_ISSUES_TOKEN`: een fine-grained token met *Issues: read and write* op MinBZK/MijnOverheidZakelijk. Zonder dit secret slaat de workflow het koppelen over (de vermelding in de taak blijft).
+  ```bash
+  SITE_DIR=. DATA_DIR=.data DEV_USER=voornaam.achternaam@rijksoverheid.nl PORT=8906 python3 server.py
+  ```
 
 ## Licentie
 
