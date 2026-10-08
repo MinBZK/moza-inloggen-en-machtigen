@@ -68,12 +68,14 @@
       stroke-width: 2.5;
       stroke-dasharray: none;
     }
-    /* Nog niet bepaalde releases: stippelrand in plaats van de verhoogde kaart */
-    #roadmap-table nldd-card[data-undecided] {
-      --components-card-box-shadow: none;
-      box-shadow: none;
-      outline: 2px dashed var(--primitives-color-neutral-500);
-      outline-offset: 0;
+    /* Opmerkingen op een plek (Option/Alt + klik): markering op de geklikte positie */
+    [data-has-pins] {
+      position: relative;
+    }
+    [data-pin] {
+      position: absolute;
+      z-index: 4;
+      transform: translate(-50%, -50%);
     }
     #roadmap-table > nldd-table-row[slot="header"] {
       position: sticky;
@@ -118,7 +120,7 @@
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Concept - indicatieve planning"
-        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping."></nldd-banner>
+        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Kies een release voor de verdieping. Opmerking? Option (Mac) of Alt + klik op een plek op de pagina."></nldd-banner>
       <nldd-spacer size="24"></nldd-spacer>
 
       <nldd-container layout="grid" column-count="3" md-column-count="2" sm-column-count="1" gap="16">
@@ -202,6 +204,10 @@
       </nldd-container>
     </nldd-page-footer>
 
+  <span id="comment-anchor" hidden></span>
+  <nldd-popover id="comment-popover" anchor="comment-anchor" accessible-label="Opmerking plaatsen" width="360px">
+    <nldd-container padding="16" gap="12" id="comment-popover-body"></nldd-container>
+  </nldd-popover>
   <nldd-sheet id="detail" width="560px" accessible-label="Verdieping release">
     <nldd-container padding="24" gap="16" id="detail-body"></nldd-container>
   </nldd-sheet>
@@ -221,10 +227,8 @@ const TERTIALS = Object.keys(YEAR_THEMES).flatMap((y) => [1, 2, 3].map((n) => ({
 const tertial = (id) => TERTIALS.find((t) => t.id === id);
 
 const HORIZON = {
-  vastgesteld: { text: 'Vastgesteld', color: 'donkerblauw', help: 'Scope en planning staan vast' },
   gepland:     { text: 'Gepland', color: 'hemelblauw', help: 'Scope bekend, planning indicatief' },
   verkenning:  { text: 'Verkenning', color: 'neutral', help: 'Richting bekend, invulling volgt' },
-  onbepaald:   { text: 'Nog niet bepaald', color: 'neutral', icon: 'circle-dashed', help: 'Inhoud en planning nog niet vastgesteld (stippelrand)' },
 };
 
 const FIT = {
@@ -239,13 +243,13 @@ const LANES = [
     id: 'eh', name: 'eHerkenning', icon: 'key', color: 'lintblauw',
     tagline: 'Zakelijk inlogmiddel; machtigingen per afgevaardigde voor een set van dienstverleners',
     releases: [
-      { t: '2027-1', code: 'R1', title: 'eHerkenning in het MOZa portaal', horizon: 'vastgesteld', fit: 'deels',
+      { t: '2027-1', code: 'R1', title: 'eHerkenning in het MOZa portaal', horizon: 'gepland', fit: 'deels',
         summary: 'Afgevaardigden van een onderneming loggen met eHerkenning in op het MOZa portaal; MOZa herkent de onderneming op KvK-nummer.',
         features: ['Inloggen met eHerkenning op niveau EH3', 'Niet afhankelijk van een rol: werkt voor elke afgevaardigde van een onderneming', 'Machtigingen zijn per afgevaardigde ingericht voor een set van dienstverleners', 'Onderneming herkend op KvK-nummer, met de gegevens uit het Handelsregister'],
         experience: 'De ondernemer of een afgevaardigde logt zakelijk in en ziet dat MOZa de onderneming kent.',
         gaps: ['Inloggen kan alleen per dienstverlener: nog niet één keer inloggen voor alle dienstverleners waarvoor je gemachtigd bent (volgt in R2)', 'Machtigingen worden ingericht bij de eHerkenningsleverancier, niet in MOZa', 'De onderneming moet eHerkenning aanschaffen'],
         deps: ['Aansluiting op het eHerkenningsstelsel via een makelaar', 'MOZa opgenomen in de dienstencatalogus'] },
-      { t: '2030-1', code: 'R2', title: 'Eén inlog voor alle dienstverleners waarvoor je gemachtigd bent', horizon: 'onbepaald', fit: 'grotendeels',
+      { t: '2030-1', code: 'R2', title: 'Eén inlog voor alle dienstverleners waarvoor je gemachtigd bent', horizon: 'verkenning', fit: 'grotendeels',
         summary: 'Met één keer inloggen met eHerkenning is de afgevaardigde ingelogd bij alle dienstverleners waarvoor die gemachtigd is.',
         features: ['De makelaar geeft in één keer alle machtigingen van de afgevaardigde door', 'De data is al beschikbaar bij de makelaars (zoals KPN en Digidentity), dus technisch zou dit al mogelijk moeten zijn'],
         experience: 'Eén keer inloggen in plaats van per dienstverlener opnieuw.',
@@ -275,13 +279,13 @@ const LANES = [
     id: 'digid', name: 'DigiD', icon: 'person', color: 'oranje',
     tagline: 'Inloggen als persoon; KvK-gegevens van de eigen ondernemingen in beeld',
     releases: [
-      { t: '2027-1', code: 'R1', title: 'Inloggen met DigiD, eigen ondernemingen in beeld', horizon: 'vastgesteld', fit: 'deels',
+      { t: '2027-1', code: 'R1', title: 'Inloggen met DigiD, eigen ondernemingen in beeld', horizon: 'gepland', fit: 'deels',
         summary: 'De ondernemer logt in met DigiD; MOZa toont de KvK-gegevens van alle ondernemingen waarin de ondernemer staat ingeschreven.',
         features: ['Inloggen met DigiD op niveau substantieel (DigiD-app)', 'KvK-gegevens van alle eigen ondernemingen tonen op de landingspagina (MOZa portaal R1), zoals MijnOverheid dat al doet', 'De ondernemer ziet direct meerdere ondernemingen en kiest daaruit'],
         experience: 'De zzp\'er hoeft geen eHerkenning aan te schaffen om MOZa te gebruiken en ziet meteen alle eigen ondernemingen.',
         gaps: ['De ondernemer logt in als persoon: KvK-gegevens worden alleen getoond, er is nog geen inloggen namens de onderneming', 'Nog geen inloggen voor een andere onderneming: een gemachtigde kan niet met DigiD inloggen', 'Nog geen berichten in het portaal (volgt in MOZa portaal R3, T1 2028)'],
         deps: ['Aansluiting DigiD voor MOZa', 'Bevraging Handelsregister op BSN (KvK API), zoals MijnOverheid die al gebruikt'] },
-      { t: '2028-1', code: 'R2', title: 'Eén inlog voor alle dienstverleners', horizon: 'onbepaald', fit: 'grotendeels',
+      { t: '2028-1', code: 'R2', title: 'Eén inlog voor alle dienstverleners', horizon: 'verkenning', fit: 'grotendeels',
         summary: 'Met één keer inloggen met DigiD is de ondernemer ingelogd bij alle aangesloten dienstverleners.',
         features: ['Uitloggen bij MOZa logt ook uit bij de aangesloten dienstverleners'],
         experience: 'De ondernemer logt één keer in en kan bij alle aangesloten dienstverleners terecht.',
@@ -293,7 +297,7 @@ const LANES = [
     id: 'ebw', name: 'EBW', icon: 'apartment-building', color: 'donkergroen',
     tagline: 'European Business Wallet van de onderneming zelf',
     releases: [
-      { t: '2027-2', code: 'R0', title: 'Verordening en architectuur', horizon: 'vastgesteld', fit: 'geen', kader: ['k2'],
+      { t: '2027-2', code: 'R0', title: 'Verordening en architectuur', horizon: 'gepland', fit: 'geen', kader: ['k2'],
         summary: 'MOZa bereidt zich voor op de EBW-verordening en kiest de aansluitarchitectuur.',
         features: ['Impactanalyse EBW-verordening voor MOZa', 'Proof of concept: MOZa als verifier van een business wallet', 'Afspraken met KvK over de organisatie-identiteit (EUID)'],
         experience: 'Nog niets zichtbaar voor de ondernemer; dit is het fundament voor latere releases.',
@@ -335,7 +339,7 @@ const LANES = [
     id: 'edi', name: 'EDI-wallet', icon: 'link', color: 'secondary-content', prerequisite: true,
     tagline: 'Nodig voor EBW: identiteit van de persoon achter de business wallet',
     releases: [
-      { t: '2027-1', code: 'R1', title: 'Persoonsidentificatie (PID)', horizon: 'vastgesteld', enables: 'EBW R1', kader: ['k1'],
+      { t: '2027-1', code: 'R1', title: 'Persoonsidentificatie (PID)', horizon: 'gepland', enables: 'EBW R1', kader: ['k1'],
         summary: 'MOZa accepteert de EDI-wallet (PID) vanaf de start, zoals eIDAS 2.0 van overheidsdiensten vraagt.',
         features: ['MOZa als verifier van de NL Wallet', 'Verificatie van PID op niveau hoog', 'Inloggen als persoon met de wallet naast DigiD'],
         experience: 'Wettelijk nodig vanaf de start en de basis voor inloggen namens een onderneming met de EBW.',
@@ -371,7 +375,7 @@ const LANES = [
     id: 'sw', name: 'MOZa portaal', icon: 'stack-code', color: 'lintblauw',
     tagline: 'Ontwikkelde functionaliteiten voor de ondernemer',
     releases: [
-      { t: '2027-1', code: 'R1', title: 'Landingspagina met DigiD en KvK-gegevens', horizon: 'vastgesteld', fit: 'deels',
+      { t: '2027-1', code: 'R1', title: 'Landingspagina met DigiD en KvK-gegevens', horizon: 'gepland', fit: 'deels',
         summary: 'Een landingspagina waar de ondernemer inlogt met DigiD en direct de gegevens van de eigen onderneming uit het Handelsregister ziet.',
         features: ['Landingspagina MOZa met uitleg en een duidelijke ingang voor ondernemers', 'Inloggen met DigiD', 'KvK-gegevens van de eigen onderneming(en) tonen: naam, KvK-nummer, rechtsvorm en vestigingen', 'Doorverwijzing naar de diensten die al beschikbaar zijn'],
         experience: 'De ondernemer ziet na het inloggen meteen dat MOZa de onderneming kent, zonder iets in te vullen.',
@@ -389,7 +393,7 @@ const LANES = [
         experience: 'De ondernemer ziet in het portaal de berichten van een eerste dienstverlener.',
         gaps: ['Berichten van andere dienstverleners nog niet zichtbaar (volgt in R4)', 'Berichten nog niet in de business wallet (volgt in EBW R2)'],
         deps: ['Berichtenmagazijn', 'Inloggen op het MOZa portaal (DigiD R1, eHerkenning R1)', 'Eerste dienstverlener aangesloten op het berichtenmagazijn en de MOZa-inlog', 'De notificatiedienst van MOZa'] },
-      { t: '2028-3', code: 'R4', title: 'Berichten van meerdere dienstverleners', horizon: 'onbepaald', fit: 'grotendeels',
+      { t: '2028-3', code: 'R4', title: 'Berichten van meerdere dienstverleners', horizon: 'verkenning', fit: 'grotendeels',
         summary: 'Vervolgiteratie: stap voor stap komen er dienstverleners bij, zodat de ondernemer steeds meer berichten in het portaal ziet.',
         features: ['Per iteratie dienstverleners toevoegen aan het berichtenoverzicht', 'Ingelogd bij alle toegevoegde dienstverleners met één inlog (met DigiD via DigiD R2)'],
         experience: 'Steeds meer berichten van de overheid op één plek in het portaal.',
@@ -567,7 +571,7 @@ const kaderItem = (lane, k) => `
   </nldd-container>`;
 
 const releaseCard = (lane, r) => `
-  <nldd-card data-release="${lane.id}:${r.code}"${r.horizon === 'onbepaald' ? ' data-undecided' : ''} accessible-label="${esc(`${lane.name} ${r.code}: ${r.title}`)}">
+  <nldd-card data-release="${lane.id}:${r.code}" accessible-label="${esc(`${lane.name} ${r.code}: ${r.title}`)}">
     <nldd-container padding="16" gap="8">
       <nldd-title size="6">
         <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
@@ -917,7 +921,7 @@ const list = (items, icon, color, ctx) => `
     ${items.map((t) => {
       const anchor = ctx && anchorOf(ctx.lane, ctx.r, ctx.section, t);
       return `
-    <nldd-list-item>
+    <nldd-list-item${ctx ? ` data-anchor="${esc(anchor)}" data-label="${esc(`${ctx.lane.name} ${ctx.r.code} · ${SECTIONS[ctx.section]}: ${t}`)}"` : ''}>
       <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
       <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
       <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
@@ -965,7 +969,7 @@ const markCards = () => {
 };
 fetch('opmerkingen.json', { cache: 'no-cache' })
   .then((res) => (res.ok ? res.json() : []))
-  .then((data) => { OPMERKINGEN = Array.isArray(data) ? data : []; markCards(); requestAnimationFrame(drawDeps); })
+  .then((data) => { OPMERKINGEN = Array.isArray(data) ? data : []; markCards(); renderPins(); requestAnimationFrame(drawDeps); })
   .catch(() => {});
 
 const releaseRef = (ref) => {
@@ -1020,8 +1024,10 @@ const depSection = (lane, r) => {
     </nldd-container>`;
 };
 
+let currentRelease = null;
 function renderDetail(laneId, code) {
   const lane = LANES.find((l) => l.id === laneId);
+  currentRelease = { lane, r: lane.releases.find((x) => x.code === code) };
   if (lane.kader) { renderKader(lane, lane.releases.findIndex((r) => r.code === code)); return; }
   const idx = lane.releases.findIndex((r) => r.code === code);
   const r = lane.releases[idx];
@@ -1080,6 +1086,112 @@ function renderDetail(laneId, code) {
       ${next ? `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(`${next.code} ${next.title}`)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
     </nldd-container>`;
 }
+
+// Option/Alt + klik: opmerkingenveld op de geklikte plek
+const popover = document.getElementById('comment-popover');
+const popoverBody = document.getElementById('comment-popover-body');
+const PLACES = { roadmap: 'Roadmap per spoor', 'roadmap-table': 'Roadmap per spoor', 'wie-logt-in': 'Wie logt in met welk middel?', 'login-table': 'Wie logt in met welk middel?', 'wishes-table': 'Wanneer is een wens ingevuld?' };
+let sheetOpen = false;
+sheet.addEventListener('open', () => { sheetOpen = true; });
+sheet.addEventListener('close', () => { sheetOpen = false; });
+const showPopoverAt = (x, y) => {
+  // Een open verdieping is modaal: het veld moet daarbinnen staan om bedienbaar te zijn
+  const parent = sheetOpen ? sheet : sheet.parentElement;
+  if (popover.parentElement !== parent) { if (popover.matches(':popover-open')) popover.hidePopover(); parent.append(popover); }
+  const w = 360;
+  popover.setAttribute('left', `${Math.max(8, Math.min(x + 12, innerWidth - w - 8))}px`);
+  popover.setAttribute('top', `${Math.max(8, Math.min(y + 12, innerHeight - 320))}px`);
+  if (!popover.matches(':popover-open')) popover.showPopover();
+};
+const describeTarget = (path, e) => {
+  // In de verdieping: koppelen aan het punt, of aan de release als geheel
+  const bullet = path.find((el) => el.dataset?.anchor);
+  if (bullet) return { anker: bullet.dataset.anchor, onderdeel: bullet.dataset.label };
+  if (path.includes(sheet) && currentRelease) {
+    const { lane, r } = currentRelease;
+    return { anker: anchorOf(lane, r, 'algemeen'), onderdeel: `${lane.name} ${r.code} · ${r.title} · Algemeen` };
+  }
+  // Elders op de pagina: positie binnen de dichtstbijzijnde tegel of sectie
+  const host = path.find((el) => el.dataset?.release || PLACES[el.id] || (el.id && el.tagName === 'NLDD-SIMPLE-SECTION')) || document.querySelector('nldd-simple-section');
+  const rect = host.getBoundingClientRect();
+  const pct = (v) => Math.round(v * 1000) / 10;
+  const sel = host.dataset?.release ? `[data-release="${host.dataset.release}"]` : `#${host.id}`;
+  const hint = oneLine(path.find((el) => el.textContent?.trim() && el.textContent.trim().length < 200)?.textContent || '').slice(0, 80);
+  const place = host.dataset?.release ? releaseRef(host.dataset.release) : null;
+  // Lege plek in de roadmaptabel: spoor en tertiaal van de cel
+  const cell = host.id === 'roadmap-table' && path.find((el) => el.parentElement?.tagName === 'NLDD-TABLE-ROW' && el.parentElement.parentElement === table);
+  const cellLabel = cell && (() => {
+    const row = cell.parentElement;
+    const i = [...row.children].indexOf(cell);
+    const laneName = row.querySelector(':scope > :first-child img')?.alt.replace(/^Logo /, '') || row.querySelector(':scope > :first-child h3')?.textContent || '';
+    return [laneName, TERTIALS[i - 1]?.label].filter(Boolean).join(' · ');
+  })();
+  const label = place ? `${place.lane.name} ${place.r.code} · ${place.r.title}` : (cellLabel || PLACES[host.id] || host.querySelector('h1, h2')?.textContent || 'Pagina');
+  return {
+    anker: `plek|${sel}|${pct((e.clientX - rect.left) / rect.width)}|${pct((e.clientY - rect.top) / rect.height)}`,
+    onderdeel: hint ? `${label}: "${hint}"` : label,
+  };
+};
+const openCommentForm = (e, target) => {
+  popover.setAttribute('accessible-label', 'Opmerking plaatsen');
+  popoverBody.innerHTML = `
+    <nldd-title size="6"><h2>Opmerking plaatsen</h2><p slot="subtitle">${esc(target.onderdeel)}</p></nldd-title>
+    <nldd-form-field label="Opmerking"><nldd-multi-line-text-field id="comment-text" rows="4" autofocus></nldd-multi-line-text-field></nldd-form-field>
+    <nldd-container layout="wrap" gap="8">
+      <nldd-button id="comment-submit" variant="primary" size="sm" end-icon="square-arrow-right-top" text="Verder op GitHub"></nldd-button>
+      <nldd-button id="comment-cancel" variant="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
+    </nldd-container>
+    <nldd-title size="6"><p slot="subtitle">Je opmerking wordt een issue op GitHub; je logt in met je GitHub-account.</p></nldd-title>`;
+  popoverBody.querySelector('#comment-submit').addEventListener('click', () => {
+    const text = popoverBody.querySelector('#comment-text').value || '';
+    const params = new URLSearchParams({ template: 'opmerking.yml', title: `Opmerking: ${(text || target.onderdeel).slice(0, 70)}`, onderdeel: target.onderdeel, anker: target.anker, opmerking: text });
+    window.open(`https://github.com/${REPO}/issues/new?${params}`, '_blank', 'noopener');
+    popover.hidePopover();
+  });
+  popoverBody.querySelector('#comment-cancel').addEventListener('click', () => popover.hidePopover());
+  showPopoverAt(e.clientX, e.clientY);
+};
+document.addEventListener('click', (e) => {
+  if (!e.altKey) return;
+  // Capture-fase: geen link volgen, geen verdieping openen en geen download (Alt-klik op een link)
+  e.preventDefault();
+  e.stopPropagation();
+  const path = e.composedPath().filter((n) => n instanceof Element);
+  if (path.includes(popover)) return;
+  openCommentForm(e, describeTarget(path, e));
+}, true);
+
+// Markeringen voor opmerkingen op een plek; klik toont het draadje
+const openPinThread = (o, e) => {
+  const done = o.status === 'opgelost';
+  popover.setAttribute('accessible-label', `Opmerking #${o.nummer}`);
+  popoverBody.innerHTML = `
+    <nldd-title size="6"><span slot="overline">${esc(o.onderdeel)}</span><h2>Opmerking #${o.nummer}</h2></nldd-title>
+    <nldd-container layout="wrap" gap="4"><nldd-tag size="sm" color="${done ? 'success' : 'accent'}" text="${done ? 'Opgelost' : 'Open'}"></nldd-tag></nldd-container>
+    <nldd-list variant="box">${threadRow(o.url, 'message-rectangle-text', 'accent', `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking))}${o.reacties.map((c) => threadRow(o.url, 'arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst))).join('')}${done ? threadRow(o.url, 'check-mark', 'success', 'Opgelost', `Conclusie: ${oneLine(o.conclusie || 'geen conclusie vermeld')}`, 'success') : ''}</nldd-list>
+    <nldd-button href="${o.url}" target="_blank" variant="secondary" size="sm" end-icon="square-arrow-right-top" text="Bekijken of reageren op GitHub"></nldd-button>`;
+  showPopoverAt(e.clientX, e.clientY);
+};
+const renderPins = () => {
+  document.querySelectorAll('[data-pin]').forEach((el) => el.remove());
+  OPMERKINGEN.filter((o) => o.anker.startsWith('plek|')).forEach((o) => {
+    const [, sel, x, y] = o.anker.split('|');
+    let host = null;
+    try { host = document.querySelector(sel); } catch { return; }
+    if (!host) return;
+    const done = o.status === 'opgelost';
+    host.setAttribute('data-has-pins', '');
+    host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}" size="xs" style="left:${parseFloat(x)}%;top:${parseFloat(y)}%"
+      variant="${done ? 'neutral-tinted' : 'accent-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking #${o.nummer}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
+  });
+};
+document.addEventListener('click', (e) => {
+  const pin = e.composedPath().find((el) => el instanceof Element && el.dataset?.pin);
+  if (!pin || e.altKey) return;
+  e.stopPropagation();
+  const o = OPMERKINGEN.find((x) => String(x.nummer) === pin.dataset.pin);
+  if (o) openPinThread(o, e);
+}, true);
 
 let lastTrigger = null;
 document.addEventListener('click', (e) => {
