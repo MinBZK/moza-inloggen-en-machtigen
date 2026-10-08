@@ -866,16 +866,107 @@ document.getElementById('wishes-table').innerHTML = `
 const sheet = document.getElementById('detail');
 const body = document.getElementById('detail-body');
 
-const list = (items, icon, color) => `
+// Opmerkingen: GitHub-issues met label 'opmerking'. De workflow publiceert ze als opmerkingen.json,
+// zodat de site geen GitHub-API hoeft te bevragen. Elk issue verwijst via 'anker' naar een punt:
+// '<spoor>:<release>|<sectie>|<tekst van het punt>' of '<spoor>:<release>|algemeen'.
+const REPO = 'MinBZK/moza-inloggen-en-machtigen';
+const SECTIONS = { opgeleverd: 'Wat wordt opgeleverd', 'nog-niet': 'Nog niet in deze release', afhankelijkheden: 'Afhankelijkheden', algemeen: 'Algemeen' };
+let OPMERKINGEN = [];
+const anchorOf = (lane, r, section, text) => `${lane.id}:${r.code}|${section}${text ? `|${text}` : ''}`;
+const commentsAt = (anchor) => OPMERKINGEN.filter((o) => o.anker === anchor);
+const newCommentUrl = (lane, r, section, text) => {
+  const where = `${lane.name} ${r.code} · ${r.title} · ${SECTIONS[section]}${text ? `: ${text}` : ''}`;
+  const params = new URLSearchParams({
+    template: 'opmerking.yml',
+    title: `Opmerking ${lane.name} ${r.code}: ${(text || r.title).slice(0, 70)}`,
+    onderdeel: where,
+    anker: anchorOf(lane, r, section, text),
+  });
+  return `https://github.com/${REPO}/issues/new?${params}`;
+};
+const fmtDate = (iso) => new Date(iso).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' });
+const oneLine = (t) => String(t).replace(/\s+/g, ' ').trim();
+
+// Een draadje als ingesprongen regels direct onder het punt; elke regel linkt naar het issue op GitHub
+const threadRow = (url, icon, color, overline, text, textColor = 'default') => `
+    <nldd-list-item href="${url}" target="_blank" rel="noopener noreferrer">
+      <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
+      <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-text-cell size="sm" color="${textColor}" overline="${esc(overline)}" text="${esc(text)}"></nldd-text-cell>
+    </nldd-list-item>`;
+const threads = (anchor) => commentsAt(anchor).map((o) => {
+  const done = o.status === 'opgelost';
+  return [
+    threadRow(o.url, done ? 'check-mark-circle' : 'message-rectangle-text', done ? 'success' : 'accent',
+      `${o.auteur} · ${fmtDate(o.datum)} · #${o.nummer}`, oneLine(o.opmerking), done ? 'secondary' : 'default'),
+    ...o.reacties.map((c) => threadRow(o.url, 'arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'default')),
+    done ? threadRow(o.url, 'check-mark', 'success', 'Opgelost', `Conclusie: ${oneLine(o.conclusie || 'geen conclusie vermeld')}`, 'success') : '',
+  ].join('');
+}).join('');
+
+// Knop om een opmerking te plaatsen, met het aantal open opmerkingen
+const commentButton = (url, anchor, label) => {
+  const open = commentsAt(anchor).filter((o) => o.status === 'open').length;
+  return `<nldd-cell vertical-alignment="top"><nldd-icon-button href="${url}" target="_blank" size="sm" variant="neutral-transparent"
+    icon="message-rectangle-text" text="${esc(open ? `${label} (${open} open)` : label)}"></nldd-icon-button></nldd-cell>`;
+};
+
+const list = (items, icon, color, ctx) => `
   <nldd-list variant="box">
-    ${items.map((t) => `
+    ${items.map((t) => {
+      const anchor = ctx && anchorOf(ctx.lane, ctx.r, ctx.section, t);
+      return `
     <nldd-list-item>
       <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
       <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
       <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
       <nldd-text-cell text="${esc(t)}"></nldd-text-cell>
-    </nldd-list-item>`).join('')}
+      ${ctx ? commentButton(newCommentUrl(ctx.lane, ctx.r, ctx.section, t), anchor, 'Opmerking plaatsen bij dit punt') : ''}
+    </nldd-list-item>${ctx ? threads(anchor) : ''}`;
+    }).join('')}
   </nldd-list>`;
+
+// Algemene opmerkingen bij een release, plus opmerkingen waarvan het punt inmiddels is gewijzigd
+const generalComments = (lane, r, currentAnchors) => {
+  const prefix = `${lane.id}:${r.code}|`;
+  const general = anchorOf(lane, r, 'algemeen');
+  const orphans = [...new Set(OPMERKINGEN.filter((o) => o.anker.startsWith(prefix) && o.anker !== general && !currentAnchors.includes(o.anker)).map((o) => o.anker))];
+  return `
+    <nldd-title size="5"><h3>Opmerkingen bij deze release</h3>
+      <p slot="subtitle">Reageren kan met een GitHub-account. Een editor lost een opmerking op door het issue te sluiten met een reactie die begint met "Conclusie:".</p></nldd-title>
+    <nldd-list variant="box">
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+        <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-text-cell text="Algemene opmerking over deze release"></nldd-text-cell>
+        ${commentButton(newCommentUrl(lane, r, 'algemeen'), general, 'Opmerking plaatsen')}
+      </nldd-list-item>${threads(general)}
+      ${orphans.map((a) => `
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+        <nldd-icon-cell slot="start" icon="info-circle" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-text-cell color="secondary" overline="Bij een punt dat inmiddels is gewijzigd" text="${esc(a.split('|').slice(2).join('|') || a)}"></nldd-text-cell>
+      </nldd-list-item>${threads(a)}`).join('')}
+    </nldd-list>`;
+};
+
+// Teller op tegels met open opmerkingen
+const markCards = () => {
+  table.querySelectorAll('[data-release]').forEach((el) => {
+    const open = OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith(`${el.dataset.release}|`)).length;
+    el.querySelector('[data-comments]')?.remove();
+    if (!open) return;
+    el.querySelector('nldd-container[layout="wrap"]')?.insertAdjacentHTML('beforeend',
+      `<nldd-tag data-comments size="sm" color="accent" icon="message-rectangle-text" text="${open} ${open === 1 ? 'opmerking' : 'opmerkingen'}"></nldd-tag>`);
+  });
+};
+fetch('opmerkingen.json', { cache: 'no-cache' })
+  .then((res) => (res.ok ? res.json() : []))
+  .then((data) => { OPMERKINGEN = Array.isArray(data) ? data : []; markCards(); requestAnimationFrame(drawDeps); })
+  .catch(() => {});
 
 const releaseRef = (ref) => {
   const [laneId, code] = ref.split(':');
@@ -903,6 +994,7 @@ function renderKader(lane, idx) {
     </nldd-container>
     <nldd-rich-text spacing="tight"><p>${esc(k.info)}</p><p>Bron: <a href="${k.src[1]}" target="_blank" rel="noopener noreferrer">${esc(k.src[0])}</a></p></nldd-rich-text>
     <nldd-banner variant="neutral" icon="flag" heading-level="3" text="Wat betekent dit voor MOZa" supporting-text="${esc(k.impact)}"></nldd-banner>
+    ${generalComments(lane, k, [])}
     ${affected.length ? `
     <nldd-title size="5"><h3>Raakt deze MOZa-releases</h3></nldd-title>
     <nldd-container layout="wrap" gap="8">
@@ -960,7 +1052,7 @@ function renderDetail(laneId, code) {
       </nldd-banner>`;
     }).join('')}
     <nldd-title size="5"><h3>Wat wordt opgeleverd</h3></nldd-title>
-    ${list(r.features, 'check-mark', 'success')}
+    ${list(r.features, 'check-mark', 'success', { lane, r, section: 'opgeleverd' })}
     ${r.reach ? `
     <nldd-title size="5"><h3>Bereik van de inlog</h3></nldd-title>
     <nldd-list variant="box">
@@ -973,10 +1065,15 @@ function renderDetail(laneId, code) {
       </nldd-list-item>`).join('')}
     </nldd-list>` : ''}
     <nldd-title size="5"><h3>Nog niet in deze release</h3>${lane.prerequisite ? '' : '<p slot="subtitle">Waar de ondernemer zich nog niet volledig gezien voelt</p>'}</nldd-title>
-    ${list(r.gaps, 'exclamation-triangle', 'warning')}
+    ${list(r.gaps, 'exclamation-triangle', 'warning', { lane, r, section: 'nog-niet' })}
     <nldd-title size="5"><h3>Afhankelijkheden</h3></nldd-title>
-    ${list(r.deps, 'link', 'secondary')}
+    ${list(r.deps, 'link', 'secondary', { lane, r, section: 'afhankelijkheden' })}
     ${r.src ? `<nldd-rich-text spacing="tight"><p>Bron: <a href="${r.src[1]}" target="_blank" rel="noopener noreferrer">${esc(r.src[0])}</a></p></nldd-rich-text>` : ''}
+    ${generalComments(lane, r, [
+      ...r.features.map((x) => anchorOf(lane, r, 'opgeleverd', x)),
+      ...r.gaps.map((x) => anchorOf(lane, r, 'nog-niet', x)),
+      ...r.deps.map((x) => anchorOf(lane, r, 'afhankelijkheden', x)),
+    ])}
     <nldd-container layout="wrap" gap="8">
       ${prev ? `<nldd-button variant="secondary" start-icon="chevron-left" text="${esc(`${prev.code} ${prev.title}`)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
       <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
