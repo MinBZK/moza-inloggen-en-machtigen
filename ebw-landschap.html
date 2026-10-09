@@ -325,7 +325,23 @@
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="4"><h3>Legenda</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
       <nldd-list variant="simple" id="legend" aria-label="Legenda"></nldd-list>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4" id="keten"><h3>Toelichting bij het schema</h3><p slot="subtitle">Zo lees je het schema hierboven, van links naar rechts.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ol>
+          <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de attestatie onderneming als Pub-EAA uit aan de EBW van Waalkade Installatietechniek BV, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
+          <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
+          <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
+          <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Nijmegen.</li>
+          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Nijmegen laat een commerciële QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
+          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Nijmegen neemt haar EBW af bij een commerciële wallet-provider. Voor een onderneming als Waalkade ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
+          <li>De Belastingdienst en de gemeente Nijmegen hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
+        </ol>
+      </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4"><h3>Open punten in het schema</h3><p slot="subtitle">Gestippeld oranje in het schema. Zie ook <nldd-link href="webuild.html#open-punten" text="wat WE BUILD erover zegt"></nldd-link>.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
@@ -370,37 +386,41 @@
   <rect width="1280" height="742" fill="#fff"/>
   <rect width="1280" height="742" fill="url(#grid2)"/>
   <path d="M100 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="22" y="18" width="156" height="60" rx="10" fill="#fff" stroke="#666"/>
-  <circle cx="50" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
-  <svg x="34" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#fcp-karin)"/></svg>
-  <text x="114" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
-  <text x="114" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
+  <rect x="15" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <circle cx="38" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
+  <svg x="22" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#fcp-karin)"/></svg>
+  <svg x="146" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
+  <text x="96" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
+  <text x="96" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
   <path d="M280 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="202" y="18" width="156" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
+  <rect x="195" y="18" width="170" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="280" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
   <text x="280" y="63" font-size="11.5" fill="#555" text-anchor="middle">bronhouder</text>
   <path d="M460 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="382" y="18" width="156" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="460" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Wallet-provider</text>
-  <text x="460" y="63" font-size="11.5" fill="#555" text-anchor="middle">commercieel</text>
+  <rect x="375" y="18" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
+  <text x="460" y="41" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Wallet-provider</text>
+  <text x="390" y="63" font-size="11" fill="#555">bijv.</text>
+  <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een wallet-provider)</title></image>
   <path d="M640 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="562" y="18" width="156" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
-  <text x="640" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">EBW Waalkade</text>
-  <text x="640" y="63" font-size="11.5" fill="#555" text-anchor="middle">zakelijke wallet</text>
+  <rect x="555" y="18" width="170" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
+  <svg x="686" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <text x="626" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">EBW Waalkade</text>
+  <text x="626" y="63" font-size="11.5" fill="#555" text-anchor="middle">zakelijke wallet</text>
   <path d="M820 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="742" y="18" width="156" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
+  <rect x="735" y="18" width="170" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
   <text x="820" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
   <text x="820" y="63" font-size="11.5" fill="#555" text-anchor="middle">bronhouder</text>
   <path d="M1000 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="922" y="18" width="156" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
+  <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
   <text x="1000" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Nijmegen</text>
   <text x="1000" y="63" font-size="11.5" fill="#555" text-anchor="middle">via een QTSP</text>
   <path d="M1180 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="1102" y="18" width="156" height="60" rx="10" fill="#fff" stroke="#666"/>
-  <circle cx="1130" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
-  <svg x="1114" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#fcp-bilal)"/></svg>
-  <text x="1194" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
-  <text x="1194" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
+  <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <circle cx="1118" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
+  <svg x="1102" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#fcp-bilal)"/></svg>
+  <svg x="1226" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
+  <text x="1176" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
+  <text x="1176" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
   <path d="M116 132H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
   <circle cx="100" cy="132" r="11" fill="#2d7a46"/><text x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
   <text x="190" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
@@ -437,6 +457,8 @@
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
           <li><strong>Inloggen bij de KVK.</strong> Karin logt met de PID uit haar EUDI-wallet in bij de KVK.</li>
@@ -449,22 +471,6 @@
           <li><strong>Mandaten vastleggen.</strong> Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Nijmegen een vergunning aanvragen.</li>
           <li><strong>Mandaten naar Bilal.</strong> De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet. Alleen zijn eigen mandaten, niet die van collega's.</li>
           <li><strong>Mandaat voor Karin? (open punt)</strong> Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net zo: vanuit de EBW naar haar persoonlijke wallet. Zie de open punten bij het schema.</li>
-        </ol>
-      </nldd-rich-text>
-    </nldd-simple-section>
-
-    <nldd-simple-section id="keten">
-      <nldd-title size="2"><h2>Hoe de keten werkt</h2></nldd-title>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text>
-        <ol>
-          <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de attestatie onderneming als Pub-EAA uit aan de EBW van Waalkade Installatietechniek BV, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
-          <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
-          <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
-          <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Nijmegen.</li>
-          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Nijmegen laat een commerciële QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
-          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Nijmegen neemt haar EBW af bij een commerciële wallet-provider. Voor een onderneming als Waalkade ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
-          <li>De Belastingdienst en de gemeente Nijmegen hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
         </ol>
       </nldd-rich-text>
     </nldd-simple-section>

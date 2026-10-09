@@ -233,7 +233,7 @@ const tags = (id, items) => {
 points('takeaways', [
   ['check-list', 'Mandaten zijn aparte attestaties', 'In BU4 is een mandaat overal een losse attestatie (PoA, PoR, PoE), nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
   ['key', 'De KVK-bevoegdheid lijkt op de PoR', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra mandaat voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
-  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE', 'Een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
+  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE', 'PoE staat voor Power of Employee: een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
   ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
   ['magnifier', 'OOTS naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
   ['shield', 'Controles voor MOZa als relying party', 'Handtekening, trust chain, status (Token Status List), match tussen PID en gevolmachtigde, zakelijke geldigheid en scope tegen de dienst; en een identity swap-check bij elke overstap tussen kanalen (D2.1 p. 371-372, 409; D4.1 p. 32, 52).'],
@@ -251,7 +251,7 @@ points('bu3-moza', [
 points('bu4-moza', [
   ['check-list', 'Betekenis voor MOZa: losse attestatie', 'Ons model met mandaten als EAA in de persoonlijke wallet past bij BU4 (p. 38, 364).'],
   ['key', 'Betekenis voor MOZa: geen extra mandaat voor de bestuurder', 'Een PoR volstaat voor de onderneming als geheel; de service-based machtiging uit BU3 is bedoeld voor intermediairs (p. 243-244, 372; interpretatie).'],
-  ['pencil', 'Betekenis voor MOZa: scope zelf vastleggen', 'Voor mandaten die de onderneming zelf uitgeeft (PoE) moet de betekenis van de scope met de relying party zijn afgesproken. MOZa moet die semantiek dus zelf vastleggen (p. 369; interpretatie).'],
+  ['pencil', 'Betekenis voor MOZa: scope zelf vastleggen', 'Voor mandaten die de onderneming zelf uitgeeft (PoE, Power of Employee) moet de betekenis van de scope met de relying party zijn afgesproken. MOZa moet die semantiek dus zelf vastleggen (p. 369; interpretatie).'],
 ]);
 points('bu6-moza', [
   ['magnifier', 'Betekenis voor MOZa: OOTS als aanvulling', 'Voor het verkenningsspoor OOTS in de roadmap is "OOTS naast de wallet" een realistischer framing dan "OOTS als alternatief voor de wallet" (interpretatie).'],
@@ -266,9 +266,9 @@ document.getElementById('bu4-typen').innerHTML = `
     <nldd-text-cell text="Uitgever"></nldd-text-cell>
   </nldd-table-row>
   ${[
-    ['**PoR**', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel (zoals een bestuurder). Automatisch ingetrokken als het register wijzigt.', 'QTSP namens het register, of de publieke registerbeheerder'],
-    ['**PoA**', 'Volmacht: specifieke, juridisch traceerbare delegatie voor een doel en een periode.', 'QTSP op basis van een authentieke bron (EAA, mogelijk QEAA)'],
-    ['**PoE**', 'Mandaat dat de onderneming zelf geeft, zonder authentieke bron; lagere zekerheid. De scope moet vooraf met de relying party zijn afgesproken.', 'De onderneming zelf (EAA)'],
+    ['**PoR**  \nPower of Representation', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel (zoals een bestuurder). Automatisch ingetrokken als het register wijzigt.', 'QTSP namens het register, of de publieke registerbeheerder'],
+    ['**PoA**  \nPower of Attorney', 'Volmacht: specifieke, juridisch traceerbare delegatie voor een doel en een periode.', 'QTSP op basis van een authentieke bron (EAA, mogelijk QEAA)'],
+    ['**PoE**  \nPower of Employee', 'Mandaat dat de onderneming zelf geeft, zonder authentieke bron; lagere zekerheid. De scope moet vooraf met de relying party zijn afgesproken.', 'De onderneming zelf (EAA)'],
   ].map(([t, w, u]) => `
   <nldd-table-row>
     <nldd-text-cell vertical-alignment="top" text="${t}"></nldd-text-cell>
