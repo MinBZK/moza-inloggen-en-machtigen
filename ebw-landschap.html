@@ -363,14 +363,6 @@
       </nldd-rich-text>
     </nldd-simple-section>
 
-    <nldd-simple-section id="uitgifte-sectie">
-      <nldd-title size="2">
-        <h2>Wie mag welk type attestatie uitgeven</h2>
-        <p slot="subtitle">Pub-EAA: van een publieke bronhouder. QEAA: gekwalificeerd, van een QTSP. EAA: overige attestaties.</p>
-      </nldd-title>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-table id="uitgifte" columns="minmax(160px,1.4fr) repeat(3,minmax(110px,1fr))" accessible-label="Wie mag welk type attestatie uitgeven"></nldd-table>
-    </nldd-simple-section>
 
     <nldd-simple-section id="vergelijking-sectie">
       <nldd-title size="2">
@@ -455,22 +447,7 @@ document.getElementById('houders').innerHTML = HOLDERS.map(([icon, title, text],
     <nldd-text-cell text="**${esc(title)}**" supporting-text="${esc(text)}"></nldd-text-cell>
   </nldd-list-item>`).join('');
 
-const ISSUE = [
-  ['Onderneming', ['Nee', 'secondary'], ['Alleen als QTSP', 'warning'], ['Ja', 'success']],
-  ['Belastingdienst of gemeente', ['Ja, als bronhouder', 'success'], ['Alleen als QTSP', 'warning'], ['Ja', 'success']],
-];
-document.getElementById('uitgifte').innerHTML = `
-  <nldd-table-row slot="header">
-    <nldd-text-cell text="Partij"></nldd-text-cell>
-    <nldd-text-cell text="Pub-EAA"></nldd-text-cell>
-    <nldd-text-cell text="QEAA"></nldd-text-cell>
-    <nldd-text-cell text="EAA"></nldd-text-cell>
-  </nldd-table-row>
-  ${ISSUE.map(([who, ...cells]) => `
-  <nldd-table-row>
-    <nldd-text-cell text="**${esc(who)}**"></nldd-text-cell>
-    ${cells.map(([t, c]) => `<nldd-text-cell color="${c}" text="${esc(t)}"></nldd-text-cell>`).join('')}
-  </nldd-table-row>`).join('')}`;
+
 
 const COMPARE = [
   ['Attestaties uitgeven', 'Zelf, als bronhouder van een authentieke bron: Pub-EAA', 'Door een commerciële QTSP namens de gemeente: QEAA'],
