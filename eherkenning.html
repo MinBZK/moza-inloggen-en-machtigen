@@ -11,7 +11,7 @@
 <nldd-app-view background="tinted">
   <nldd-page>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="inhoud">
       <nldd-link size="sm" href="index.html" start-icon="chevron-left" text="Terug naar de roadmap"></nldd-link>
       <nldd-spacer size="24"></nldd-spacer>
       <picture>
@@ -27,14 +27,17 @@
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="neutral" text="Inhoud volgt"
         supporting-text="De achtergrondinformatie over eHerkenning wordt hier nog toegevoegd."></nldd-banner>
+      <div id="opm-hint"></div>
     </nldd-simple-section>
 
     <nldd-page-footer>
-      <nldd-container padding="24">
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026.</p></nldd-rich-text>
       </nldd-container>
     </nldd-page-footer>
   </nldd-page>
 </nldd-app-view>
+<script type="module" src="opmerkingen.js"></script>
 </body>
 </html>
