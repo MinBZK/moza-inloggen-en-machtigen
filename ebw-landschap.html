@@ -44,6 +44,7 @@
     <marker id="m-login" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
     <marker id="m-delegate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
     <marker id="m-comm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666"/></marker>
+    <marker id="m-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#d79b00"/></marker>
     <marker id="m-service" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
   </defs>
 
@@ -283,8 +284,10 @@
     <path d="M818 120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <!-- open punt: mandaat van de Belastingdienst voor de eigenaar? -->
+    <path d="M818 262H800V170H385V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
     <!-- eigenaar machtigt in de EBW -->
-    <path d="M330 250H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
+    <path d="M330 300H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
     <!-- mandaat vanuit de EBW naar de werknemer -->
     <path d="M412 533H332" stroke="#0e7c86" marker-end="url(#m-delegate)"/>
     <!-- inloggen -->
@@ -301,7 +304,9 @@
   <!-- Labels op verbindingen -->
   <g font-size="11.5">
     <text x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
-    <text x="361" y="243" fill="#7a4f8c" text-anchor="middle">machtigt</text>
+    <text x="361" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
+    <rect x="555" y="161" width="70" height="18" fill="#fff"/>
+    <text x="590" y="174" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
     <text x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
     <rect x="465" y="57" width="350" height="18" fill="#fff"/>
     <text x="640" y="70" fill="#2d7a46" text-anchor="middle">inloggen bij de Belastingdienst met de vertegenwoordigingsbevoegdheid</text>
@@ -411,6 +416,7 @@ const LEGEND = [
   ['#0e7c86', '', 'Mandaat vanuit de EBW naar de werknemer (EAA)'],
   ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of mandaat'],
   ['#b46504', '', 'Dienst van een commerciële partij (QTSP of wallet-provider), tegen betaling'],
+  ['#d79b00', '5 4', 'Open punt: hier moet nog een besluit worden genomen'],
 ];
 const WALLETS = [
   ['logos/edi-wallet.png', 398, '0 0 188 130', 'EUDI-wallet: persoonlijke wallet'],
