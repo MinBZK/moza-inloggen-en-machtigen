@@ -24,8 +24,8 @@
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="1">
         <span slot="overline">European Business Wallet</span>
-        <h1>Het EBW-landschap: PuB of Q</h1>
-        <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Elke wallethouder kiest: zelf genotificeerde provider worden (PuB-EBW) of de wallet als dienst afnemen bij een commerciële, gekwalificeerde provider (Q-EBW). Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een voorbeeld met de Belastingdienst, de gemeente Nijmegen en een onderneming met twee mensen.</p>
+        <h1>Het EBW-landschap</h1>
+        <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een publieke organisatie die attestaties uitgeeft, kiest: zelf als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens haar een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Nijmegen en een onderneming met twee mensen.</p>
       </nldd-title>
     </nldd-simple-section>
 
@@ -33,7 +33,7 @@
       <div class="canvas" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 740" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De KVK geeft de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA) voor de Belastingdienst en de gemeente Nijmegen. De Belastingdienst is zelf provider van zijn PuB-EBW; de gemeente Nijmegen neemt haar Q-EBW als dienst af bij een commerciële provider, die zelf onder toezicht staat en wettelijk verantwoordelijk is voor beveiliging, integriteit en het intrekken van wallet units. De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij Nijmegen met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De KVK geeft de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder fiscale gegevens als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Nijmegen laat een commerciële QTSP namens haar een vergunning als QEAA uitgeven, tegen een abonnement. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij Nijmegen met zijn mandaat.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -83,6 +83,7 @@
   <rect x="100" y="92" width="230" height="220" rx="16" fill="#fff" stroke="#666"/>
   <text x="116" y="117" font-size="14" font-weight="700" fill="#333">Persoonlijke wallet</text>
   <text x="116" y="135" font-size="12" fill="#666">EUDI-wallet van de eigenaar</text>
+  <svg x="284" y="100" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
     <rect x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
     <text x="124" y="165" fill="#333">PID (persoonsgegevens)</text>
@@ -98,6 +99,7 @@
   <rect x="100" y="412" width="230" height="220" rx="16" fill="#fff" stroke="#666"/>
   <text x="116" y="437" font-size="14" font-weight="700" fill="#333">Persoonlijke wallet</text>
   <text x="116" y="455" font-size="12" fill="#666">EUDI-wallet van de werknemer</text>
+  <svg x="284" y="420" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
     <rect x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
     <text x="124" y="483" fill="#333">PID (persoonsgegevens)</text>
@@ -118,109 +120,116 @@
   <rect x="392" y="196" width="360" height="440" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
   <text x="408" y="221" font-size="14" font-weight="700" fill="#333">EBW van de onderneming</text>
   <text x="408" y="239" font-size="12" fill="#5b3f68">Waalkade Installatietechniek BV</text>
+  <svg x="710" y="206" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
 
-  <rect x="412" y="256" width="320" height="110" rx="8" fill="#fff" stroke="#9673a6"/>
-  <text x="428" y="281" font-size="13" font-weight="700" fill="#333">Attestatie onderneming</text>
-  <text x="428" y="302" font-size="12" fill="#333">KVK-nummer, handelsnaam,</text>
-  <text x="428" y="319" font-size="12" fill="#333">rechtsvorm, tekenbevoegden</text>
-  <text x="428" y="347" font-size="11.5" fill="#666">Pub-EAA, ontvangen van de KVK</text>
-
-  <rect x="412" y="386" width="320" height="230" rx="8" fill="#fff" stroke="#9673a6"/>
-  <text x="428" y="411" font-size="13" font-weight="700" fill="#333">Mandaten werknemers</text>
-  <text x="428" y="429" font-size="11.5" fill="#666">afgeleid mandaat, afgegeven door de eigenaar</text>
+  <rect x="412" y="256" width="320" height="130" rx="8" fill="#fff" stroke="#9673a6"/>
+  <text x="428" y="279" font-size="13" font-weight="700" fill="#333">Ontvangen attestaties</text>
   <g font-size="12">
-    <rect x="424" y="442" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
-    <text x="436" y="459" fill="#1f4d1c">Belastingdienst · inzien → werknemer</text>
-    <rect x="424" y="474" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text x="436" y="491" fill="#1d3f6e">Nijmegen · vergunning aanvragen → werknemer</text>
+    <rect x="424" y="290" width="296" height="26" rx="13" fill="#fff2cc" stroke="#d6b656"/>
+    <text x="436" y="307" fill="#5c4a00">Onderneming · Pub-EAA van de KVK</text>
+    <rect x="424" y="322" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
+    <text x="436" y="339" fill="#1f4d1c">Fiscale gegevens · Pub-EAA, Belastingdienst</text>
+    <rect x="424" y="354" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
+    <text x="436" y="371" fill="#1d3f6e">Vergunning · QEAA, via QTSP van Nijmegen</text>
   </g>
-  <text x="428" y="524" font-size="11.5" fill="#666">Een gewone EAA; gekwalificeerd (QEAA)</text>
-  <text x="428" y="539" font-size="11.5" fill="#666">alleen als het via een QTSP loopt.</text>
-  <rect x="424" y="556" width="296" height="44" rx="8" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text x="436" y="574" font-size="11.5" font-weight="700" fill="#7a4500">Open punt</text>
-  <text x="436" y="590" font-size="11.5" fill="#7a4500">losse EAA, of een rol binnen de EBW?</text>
+
+  <rect x="412" y="398" width="320" height="222" rx="8" fill="#fff" stroke="#9673a6"/>
+  <text x="428" y="421" font-size="13" font-weight="700" fill="#333">Mandaten werknemers</text>
+  <text x="428" y="439" font-size="11.5" fill="#666">afgeleid mandaat, afgegeven door de eigenaar</text>
+  <g font-size="12">
+    <rect x="424" y="450" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
+    <text x="436" y="467" fill="#1f4d1c">Belastingdienst · inzien → werknemer</text>
+    <rect x="424" y="482" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
+    <text x="436" y="499" fill="#1d3f6e">Nijmegen · vergunning aanvragen → werknemer</text>
+  </g>
+  <text x="428" y="530" font-size="11.5" fill="#666">Een gewone EAA; gekwalificeerd (QEAA)</text>
+  <text x="428" y="545" font-size="11.5" fill="#666">alleen als het via een QTSP loopt.</text>
+  <rect x="424" y="560" width="296" height="44" rx="8" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
+  <text x="436" y="578" font-size="11.5" font-weight="700" fill="#7a4500">Open punt</text>
+  <text x="436" y="594" font-size="11.5" fill="#7a4500">losse EAA, of een rol binnen de EBW?</text>
 
   <!-- ===== Dienstverleners ===== -->
-  <!-- Belastingdienst: PuB-EBW -->
+  <!-- Belastingdienst: geeft zelf Pub-EAA uit -->
   <rect x="818" y="92" width="426" height="230" rx="12" fill="#d5e8d4" stroke="#82b366"/>
-  <text x="834" y="117" font-size="14" font-weight="700" fill="#333">EBW van de Belastingdienst</text>
-  <text x="834" y="135" font-size="12" fill="#1f4d1c">grote overheidsinstantie</text>
+  <text x="834" y="117" font-size="14" font-weight="700" fill="#333">Belastingdienst</text>
+  <text x="834" y="135" font-size="12" fill="#1f4d1c">grote overheidsinstantie, heeft een eigen EBW</text>
+  <svg x="1200" y="102" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <rect x="834" y="152" width="190" height="96" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
-  <text x="929" y="180" font-size="15" font-weight="700" fill="#333" text-anchor="middle">PuB-EBW</text>
-  <text x="929" y="201" font-size="12" fill="#333" text-anchor="middle">de Belastingdienst is</text>
-  <text x="929" y="217" font-size="12" fill="#333" text-anchor="middle">zelf genotificeerde provider</text>
+  <text x="929" y="180" font-size="15" font-weight="700" fill="#333" text-anchor="middle">Pub-EAA</text>
+  <text x="929" y="201" font-size="12" fill="#333" text-anchor="middle">zelf uitgegeven</text>
+  <text x="929" y="217" font-size="12" fill="#333" text-anchor="middle">als bronhouder</text>
+  <text x="929" y="236" font-size="11.5" fill="#666" text-anchor="middle">bijv. fiscale gegevens</text>
   <g font-size="11.5" fill="#1f4d1c">
-    <text x="834" y="268">Eigenaar: bepaalt gebruikers,</text>
-    <text x="834" y="284">rollen, attestaties en met</text>
-    <text x="834" y="300">wie hij communiceert</text>
+    <text x="834" y="272">Een gemeente kan dit ook,</text>
+    <text x="834" y="288">als bronhouder van een</text>
+    <text x="834" y="304">authentieke bron</text>
   </g>
   <rect x="1044" y="152" width="184" height="152" rx="8" fill="#fff" stroke="#82b366" stroke-dasharray="5 4"/>
-  <text x="1056" y="176" font-size="13" font-weight="700" fill="#333">Zelf provider</text>
+  <text x="1056" y="176" font-size="13" font-weight="700" fill="#333">Zelf geregeld</text>
   <g font-size="12" fill="#333">
-    <text x="1056" y="197">• beveiliging en integriteit</text>
+    <text x="1056" y="197">• inrichting</text>
     <text x="1056" y="214">• onderhoud</text>
-    <text x="1056" y="231">• intrekken wallet units</text>
-    <text x="1056" y="248">• staat onder toezicht</text>
+    <text x="1056" y="231">• audits en certificering</text>
   </g>
-  <text x="1056" y="274" font-size="12" font-weight="700" fill="#1f4d1c">Kosten: eigen</text>
-  <text x="1056" y="291" font-size="12" font-weight="700" fill="#1f4d1c">mankracht en kennis</text>
+  <text x="1056" y="268" font-size="12" font-weight="700" fill="#1f4d1c">Kosten: eigen</text>
+  <text x="1056" y="285" font-size="12" font-weight="700" fill="#1f4d1c">mankracht en kennis</text>
 
   <!-- Callout: de keuze -->
   <g>
     <path d="M872 338H1216V384H1060L1044 398L1036 384H872Z" fill="#647687" stroke="#314354"/>
-    <text x="1044" y="357" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">De wallethouder kiest:</text>
-    <text x="1044" y="374" font-size="12" fill="#fff" text-anchor="middle">zelf provider worden (PuB) of een dienst afnemen (Q)</text>
+    <text x="1044" y="357" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">De uitgever kiest:</text>
+    <text x="1044" y="374" font-size="12" fill="#fff" text-anchor="middle">zelf een Pub-EAA uitgeven of een QEAA via een QTSP</text>
   </g>
 
-  <!-- Nijmegen: Q-EBW -->
+  <!-- Nijmegen: QEAA via een QTSP -->
   <rect x="818" y="400" width="250" height="236" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="834" y="425" font-size="14" font-weight="700" fill="#333">EBW van Nijmegen</text>
-  <text x="834" y="443" font-size="12" fill="#1d3f6e">gemeente, neemt de wallet af</text>
-  <rect x="834" y="456" width="218" height="88" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
-  <text x="943" y="482" font-size="15" font-weight="700" fill="#333" text-anchor="middle">Q-EBW</text>
-  <text x="943" y="503" font-size="12" fill="#333" text-anchor="middle">eigendom van de gemeente,</text>
-  <text x="943" y="519" font-size="12" fill="#333" text-anchor="middle">geleverd door een provider</text>
+  <text x="834" y="425" font-size="14" font-weight="700" fill="#333">Gemeente Nijmegen</text>
+  <text x="834" y="443" font-size="12" fill="#1d3f6e">heeft een eigen EBW</text>
+  <svg x="1026" y="410" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <rect x="834" y="456" width="218" height="96" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="943" y="482" font-size="15" font-weight="700" fill="#333" text-anchor="middle">QEAA</text>
+  <text x="943" y="503" font-size="12" fill="#333" text-anchor="middle">uitgegeven door een QTSP</text>
+  <text x="943" y="519" font-size="12" fill="#333" text-anchor="middle">namens de gemeente</text>
+  <text x="943" y="539" font-size="11.5" fill="#666" text-anchor="middle">bijv. een vergunning</text>
   <g font-size="11.5" fill="#1d3f6e">
-    <text x="834" y="566">Eigenaar: bepaalt gebruikers,</text>
-    <text x="834" y="582">rollen, mandaten, attestaties</text>
-    <text x="834" y="598">en met wie ze communiceert</text>
+    <text x="834" y="574">Geen mankracht om zelf</text>
+    <text x="834" y="590">uit te geven: geeft het</text>
+    <text x="834" y="606">uit handen</text>
   </g>
 
-  <!-- Commerciële provider -->
+  <!-- Commerciële QTSP -->
   <rect x="1092" y="400" width="152" height="236" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="1104" y="425" font-size="13" font-weight="700" fill="#333">Provider</text>
-  <text x="1104" y="442" font-size="12" fill="#333">QTSP, commercieel</text>
-  <g font-size="11.5" fill="#7a4500">
-    <text x="1104" y="466">staat zelf onder toezicht</text>
-    <text x="1104" y="481">en is wettelijk</text>
-    <text x="1104" y="496">verantwoordelijk voor:</text>
-  </g>
+  <text x="1104" y="425" font-size="13" font-weight="700" fill="#333">QTSP</text>
+  <text x="1104" y="442" font-size="11.5" fill="#333">commercieel, bijv.</text>
+  <text x="1104" y="457" font-size="11.5" fill="#333">KPN, Digidentity,</text>
+  <text x="1104" y="472" font-size="11.5" fill="#333">Cleverbase</text>
+  <text x="1104" y="494" font-size="11.5" fill="#7a4500">neemt over:</text>
   <g font-size="12" fill="#333">
-    <text x="1104" y="516">• beveiliging</text>
-    <text x="1104" y="533">• integriteit</text>
-    <text x="1104" y="550">• intrekken van</text>
-    <text x="1114" y="566">wallet units</text>
+    <text x="1104" y="512">• inrichting</text>
+    <text x="1104" y="528">• onderhoud</text>
+    <text x="1104" y="544">• audits en</text>
+    <text x="1114" y="559">certificering</text>
   </g>
-  <text x="1104" y="592" font-size="12" font-weight="700" fill="#7a4500">Kosten:</text>
-  <text x="1104" y="608" font-size="12" font-weight="700" fill="#7a4500">abonnement</text>
+  <text x="1104" y="576" font-size="11.5" fill="#7a4500">staat onder toezicht</text>
+  <text x="1104" y="590" font-size="12" font-weight="700" fill="#7a4500">Kosten:</text>
+  <text x="1104" y="606" font-size="12" font-weight="700" fill="#7a4500">abonnement</text>
 
   <!-- ===== Verbindingen ===== -->
   <g fill="none" stroke-width="1.6">
-    <!-- uitgifte door de KVK -->
-    <path d="M650 140V254" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <!-- uitgifte -->
+    <path d="M650 140V288" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M472 112H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path d="M818 232H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path d="M818 430H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <!-- eigenaar machtigt in de EBW -->
     <path d="M330 250H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
     <!-- mandaat vanuit de EBW naar de werknemer -->
     <path d="M412 533H332" stroke="#0e7c86" marker-end="url(#m-delegate)"/>
-    <!-- communicatie tussen EBW's -->
-    <path d="M756 300H790V232H816" stroke="#666" stroke-dasharray="2 3" marker-start="url(#m-comm)" marker-end="url(#m-comm)"/>
-    <path d="M756 420H816" stroke="#666" stroke-dasharray="2 3" marker-start="url(#m-comm)" marker-end="url(#m-comm)"/>
     <!-- inloggen -->
     <path d="M215 92V66H1031V90" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
     <path d="M215 632V700H943V638" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
-    <!-- dienst afnemen bij een provider -->
-    <path d="M1092 500H1054" stroke="#b46504" marker-end="url(#m-service)"/>
+    <!-- QEAA-uitgifte uit handen bij een QTSP -->
+    <path d="M1092 504H1054" stroke="#b46504" marker-end="url(#m-service)"/>
     <path d="M1068 622H1090" stroke="#b46504" marker-end="url(#m-service)"/>
   </g>
   <path d="M1044 200H1026" fill="none" stroke="#82b366" stroke-width="1.6" stroke-dasharray="5 4"/>
@@ -253,6 +262,7 @@
           <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. Een apart mandaat is niet nodig: de bevoegdheid volgt uit het handelsregister.</li>
           <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
           <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Nijmegen.</li>
+          <li>De Belastingdienst geeft zelf als bronhouder attestaties uit, zoals fiscale gegevens, als Pub-EAA. De gemeente Nijmegen laat een commerciële QTSP namens haar attestaties uitgeven, zoals een vergunning; dat is dan een QEAA.</li>
           <li>De Belastingdienst en de gemeente Nijmegen hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
         </ol>
       </nldd-rich-text>
@@ -284,14 +294,16 @@
 
     <nldd-simple-section>
       <nldd-title size="2">
-        <h2>PuB-EBW of Q-EBW</h2>
-        <p slot="subtitle">Bij een Q-EBW besteedt de wallethouder niet uit, maar neemt hij een dienst af. De provider heeft eigen wettelijke verplichtingen.</p>
+        <h2>Pub-EAA of QEAA</h2>
+        <p slot="subtitle">Een publieke organisatie die attestaties uitgeeft, kiest: zelf doen als bronhouder, of uit handen geven aan een QTSP.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-table id="vergelijking" columns="minmax(140px,1fr) minmax(200px,2fr) minmax(200px,2fr)" accessible-label="Vergelijking PuB-EBW en Q-EBW"></nldd-table>
-      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-table id="vergelijking" columns="minmax(140px,1fr) minmax(200px,2fr) minmax(200px,2fr)" accessible-label="Vergelijking Pub-EAA en QEAA"></nldd-table>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="3"><h3>En de wallet zelf?</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
-        <p>De verplichtingen van de provider vloeien rechtstreeks uit de verordening voort. Een gemeente kan ze niet naar zich toe trekken of contractueel wegschuiven. Wil een gemeente, of de overheid gezamenlijk, het zelf doen, dan moet ze zelf genotificeerde provider worden.</p>
+        <p>Los daarvan wordt elke EBW geleverd door een wallet-provider. Wie een EBW bij een provider afneemt, besteedt niet uit maar neemt een dienst af. De eigenaar, bijvoorbeeld een gemeente, bepaalt wie namens haar de wallet gebruikt, welke attestaties ze ontvangt en presenteert, en met wie ze communiceert. De provider staat zelf onder toezicht en is wettelijk verantwoordelijk voor onder meer beveiliging, integriteit en het intrekken van wallet units. Die verplichtingen kan de eigenaar niet naar zich toe trekken of contractueel wegschuiven. Wil een gemeente, of de overheid gezamenlijk, het zelf doen, dan moet ze zelf genotificeerde provider worden.</p>
       </nldd-rich-text>
     </nldd-simple-section>
 
@@ -320,14 +332,26 @@
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const LEGEND = [
-  ['#1f5fa8', '', 'Uitgifte door een bronhouder (Pub-EAA)'],
+  ['#1f5fa8', '', 'Uitgifte van een attestatie (Pub-EAA of QEAA)'],
   ['#7a4f8c', '6 4', 'Eigenaar machtigt in de EBW'],
   ['#0e7c86', '', 'Mandaat vanuit de EBW naar de werknemer (EAA)'],
   ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of mandaat'],
-  ['#666', '2 3', 'Communicatie tussen EBW\'s'],
-  ['#b46504', '', 'Wallet als dienst afnemen bij een provider, tegen betaling'],
+  ['#b46504', '', 'Uitgifte uit handen geven aan een QTSP, tegen betaling'],
 ];
-document.getElementById('legend').innerHTML = LEGEND.map(([color, dash, text]) => `
+const WALLETS = [
+  ['logos/edi-wallet.png', 398, '0 0 188 130', 'EUDI-wallet: persoonlijke wallet'],
+  ['logos/ebw.png', 455, '6 0 98 72', 'European Business Wallet (EBW): zakelijke wallet'],
+];
+const walletItems = WALLETS.map(([src, w, vb, text]) => {
+  const [, , vw, vh] = vb.split(' ').map(Number);
+  return `
+  <nldd-list-item size="sm">
+    <nldd-cell slot="start" vertical-alignment="center"><svg class="legend-line" width="32" height="${Math.round(32 * vh / vw)}" viewBox="${vb}" aria-hidden="true"><rect x="${vb.split(' ')[0]}" width="${vw}" height="${vh}" rx="12" fill="#fff"/><image href="${src}" width="${w}" height="${vh}"/></svg></nldd-cell>
+    <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+    <nldd-text-cell size="sm" text="${esc(text)}"></nldd-text-cell>
+  </nldd-list-item>`;
+}).join('');
+document.getElementById('legend').innerHTML = walletItems + LEGEND.map(([color, dash, text]) => `
   <nldd-list-item size="sm">
     <nldd-cell slot="start" vertical-alignment="center"><svg class="legend-line" width="32" height="10" aria-hidden="true"><path d="M1 5H31" stroke="${color}" stroke-width="2" stroke-dasharray="${dash}"/></svg></nldd-cell>
     <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
@@ -367,19 +391,19 @@ document.getElementById('uitgifte').innerHTML = `
   </nldd-table-row>`).join('')}`;
 
 const COMPARE = [
-  ['Wie is provider', 'De organisatie zelf, als genotificeerde provider', 'Een commerciële, gekwalificeerde provider (QTSP)'],
-  ['Eigenaar van de wallet', 'De organisatie', 'De organisatie: neemt de wallet als dienst af'],
-  ['Eigenaar bepaalt', 'Gebruikers, rollen en mandaten; welke attestaties hij ontvangt en presenteert; met wie hij communiceert', 'Idem: dat blijft bij de gemeente'],
-  ['Wettelijke plichten provider', 'Bij de organisatie zelf: beveiliging, integriteit, intrekken van wallet units', 'Bij de provider; niet over te dragen aan de gemeente'],
-  ['Toezicht', 'De organisatie staat zelf onder toezicht', 'De provider staat onder toezicht'],
-  ['Kosten', 'Eigen mankracht en kennis', 'Abonnement bij de provider'],
-  ['Past bij', 'Een grote organisatie met eigen capaciteit, zoals de Belastingdienst', 'Een organisatie zonder mankracht om zelf provider te worden, zoals de gemeente Nijmegen'],
+  ['Wie geeft uit', 'De publieke organisatie zelf, als bronhouder van een authentieke bron', 'Een commerciële QTSP, namens de organisatie'],
+  ['Inrichting en onderhoud', 'Eigen team', 'De QTSP'],
+  ['Audits en certificering', 'Zelf regelen', 'Geregeld door de QTSP, die zelf onder toezicht staat'],
+  ['Kosten', 'Eigen mankracht en kennis', 'Abonnement bij de QTSP'],
+  ['Voorbeeld', 'Belastingdienst: fiscale gegevens', 'Gemeente Nijmegen: vergunning'],
+  ['Voorbeelden van een QTSP', 'Niet van toepassing', 'KPN, Digidentity en Cleverbase: nu QTSP voor gekwalificeerde certificaten; of ze QEAA\'s gaan uitgeven is nog niet bekend'],
+  ['Past bij', 'Een grote organisatie met eigen capaciteit', 'Een organisatie zonder mankracht om zelf uit te geven'],
 ];
 document.getElementById('vergelijking').innerHTML = `
   <nldd-table-row slot="header">
     <nldd-text-cell text=""></nldd-text-cell>
-    <nldd-text-cell text="**PuB-EBW**" supporting-text="zelf provider"></nldd-text-cell>
-    <nldd-text-cell text="**Q-EBW**" supporting-text="dienst afnemen"></nldd-text-cell>
+    <nldd-text-cell text="**Pub-EAA**" supporting-text="zelf uitgeven"></nldd-text-cell>
+    <nldd-text-cell text="**QEAA**" supporting-text="uit handen geven"></nldd-text-cell>
   </nldd-table-row>
   ${COMPARE.map(([what, pub, q]) => `
   <nldd-table-row>
