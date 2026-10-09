@@ -14,7 +14,9 @@ Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project
 | `eherkenning.html` | Achtergrondpagina eHerkenning. |
 | `ebw.html` | Achtergrondpagina EBW, met links naar: |
 | `ebw-landschap.html` | Schema EBW-landschap (PuB- en Q-EBW). |
-| `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, wordt ongewijzigd meegekopieerd). |
+| `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, NLDD alleen voor de opmerkingen). |
+| `opmerkingen.js` | Opmerkingen op de pagina's naast de roadmap. |
+| `avatars/` | Avatars van de persona's Karin Jansen en Bilal Yılmaz (van cx-moza.rijksapp.dev). |
 | `logos/` | Officiële logo's (licht en donker). |
 | `vendor/nldd/` | NLDD design system 0.8.62 (script, CSS, lettertypen), lokaal meegeleverd. |
 | `build.py` | Bouwt zelfstandige pagina's in `dist/` met alles ingebed. |
@@ -40,6 +42,8 @@ Een zelfstandige versie (bijvoorbeeld om te mailen of elders te publiceren) maak
 ## Opmerkingen
 
 Opmerkingen staan op de site zelf. Je bent ingelogd met je rijksaccount (SSO Rijk); je naam komt daaruit.
+
+Dat werkt op alle pagina's. De roadmap (`index.html`) heeft een eigen variant met opmerkingen bij de punten in de verdieping en een opmerkingenarchief; de andere pagina's gebruiken `opmerkingen.js` (Option/Alt + klik, oranje markeringen en de knop *Opmerkingen op deze pagina* in de footer). Opmerkingen op een andere pagina dan de roadmap hebben een anker dat begint met `pagina:<bestand>|`.
 
 - **Plaatsen:** Option (Mac) of Alt + klik ergens op de pagina, of de tekstballon bij een punt in de verdieping. Een opmerking bij een punt staat in de verdieping onder dat punt; een opmerking op een plek verschijnt als oranje markering. Tegels met open opmerkingen tonen een teller.
 - **Reageren:** knop *Reageren* bij een draadje.

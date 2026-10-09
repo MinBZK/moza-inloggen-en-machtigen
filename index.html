@@ -1018,7 +1018,8 @@ const loadComments = async () => {
       COMMENTS_ON = Boolean(me.opmerkingen && me.gebruiker);
     }
     if (!COMMENTS_ON) return;
-    const data = (await api('opmerkingen')).opmerkingen || [];
+    // Opmerkingen van andere pagina's (anker 'pagina:…') horen daar, niet hier
+    const data = ((await api('opmerkingen')).opmerkingen || []).filter((o) => !o.anker.startsWith('pagina:'));
     const signature = JSON.stringify(data);
     if (signature === commentsSignature) return;
     commentsSignature = signature;

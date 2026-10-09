@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
+<script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
 <style>
 :root{
   --bg:#f4f6f9; --card:#ffffff; --peer:#eaeef4; --peer-line:#c9d2de;
@@ -131,18 +133,19 @@ footer a{color:var(--accent)}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="pagina">
 <p class="back"><a href="ebw.html">&larr; Terug naar EBW: achtergrond</a></p>
 <header>
   <h1>Zakelijke wallet in de praktijk, stap voor stap</h1>
   <div class="hint">Navigeer met <kbd>←</kbd> <kbd>→</kbd> of de knoppen</div>
 </header>
+<div id="opm-hint"></div>
 <div class="tabs" role="tablist" id="tabs"></div>
 <p class="flownote" id="flownote">Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.</p>
 <nav class="pills" id="pills" aria-label="Stappen"><button type="button" class="pill on" aria-current="step">0 · Vooraf</button><button type="button" class="pill" aria-current="false">1 · Wallet activeren</button><button type="button" class="pill" aria-current="false">2 · KVK-uittreksel</button><button type="button" class="pill" aria-current="false">3 · Mandaten configureren</button><button type="button" class="pill" aria-current="false">4 · Naar Karins app</button><button type="button" class="pill" aria-current="false">5 · Inloggen MOZa</button><button type="button" class="pill" aria-current="false">6 · Omzetbelasting</button><button type="button" class="pill" aria-current="false">7 · Subsidie aanvragen</button><button type="button" class="pill" aria-current="false">8 · Subsidies inzien</button><button type="button" class="pill" aria-current="false">9 · Mandaat intrekken</button></nav>
 
 <div class="grid">
-  <div class="diagram">
+  <div class="diagram" id="diagram">
     <svg id="svg" viewBox="0 0 770 500" role="img" aria-labelledby="svgt svgd">
       <title id="svgt">Houder en partijen</title>
       <desc id="svgd">Links Karin met persoonlijke en zakelijke wallet en de bewijzen daarin, rechts de uitgevers en verifiers. De actieve stap is blauw gemarkeerd.</desc>
@@ -159,7 +162,7 @@ footer a{color:var(--accent)}
     <div class="legend" id="legend"><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--issue)" stroke-width="2.5"></line></svg>Uitgifte naar wallet (OpenID4VCI)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--share)" stroke-width="2.5" stroke-dasharray="6 4"></line></svg>Delen of inloggen (OpenID4VP)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--new-line)" stroke-width="2.5"></line></svg>SSO via MOZa</span><span>Amber: net ontvangen. Groen: in de wallet. Rood: ingetrokken.</span></div>
   </div>
 
-  <section class="panel" aria-live="polite">
+  <section class="panel" id="paneel" aria-live="polite">
     <div class="eyebrow" id="eyebrow">STAP 0 VAN 9</div>
     <h2 id="title">Karin regelt overheidszaken voor Hanze Staffing</h2>
     <div id="body"><p>Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.</p><p>De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan.</p><div class="callout">Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.</div><dl><dt>Persoonlijke wallet</dt><dd>EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten</dd><dt>Zakelijke wallet</dt><dd>EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers</dd><dt>Configureren</dt><dd>De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit</dd><dt>MOZa</dt><dd>Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft</dd></dl></div>
@@ -177,7 +180,9 @@ footer a{color:var(--accent)}
   <div class="mx-legend"><span><i class="dot now"></i>In deze stap gedeeld of opgehaald</span><span><i class="dot prev"></i>In een eerdere stap</span><span><i class="dot rej"></i>Gedeeld, maar geweigerd</span></div>
 </section>
 
-<footer>Flow 1 is een conceptflow voor MOZa. Flow 2 is gebaseerd op de MOZa-service blueprint <a href="https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html">Gezamenlijke subsidieaanvraag</a>. Punten die niet vaststaan zijn gemarkeerd als aanname of ontwerpkeuze. Overgenomen van plak.rijks.app (oktober 2026).</footer>
+<footer>
+<div id="opm-knop"></div>
+Flow 1 is een conceptflow voor MOZa. Flow 2 is gebaseerd op de MOZa-service blueprint <a href="https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html">Gezamenlijke subsidieaanvraag</a>. Punten die niet vaststaan zijn gemarkeerd als aanname of ontwerpkeuze. Overgenomen van plak.rijks.app (oktober 2026).</footer>
 </div>
 <script>
 
@@ -1812,5 +1817,6 @@ const [hk,hs]=fromHash();setFlow(hk,hs);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{const c=cur;buildScene();go(c);});
 
 </script>
+<script type="module" src="opmerkingen.js"></script>
 </body>
 </html>

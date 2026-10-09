@@ -19,7 +19,7 @@
 <nldd-app-view background="tinted">
   <nldd-page>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="intro">
       <nldd-link size="sm" href="ebw.html" start-icon="chevron-left" text="Terug naar EBW: achtergrond"></nldd-link>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="1">
@@ -27,10 +27,11 @@
         <h1>Het EBW-landschap</h1>
         <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een publieke organisatie die attestaties uitgeeft, kiest: zelf als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens haar een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Nijmegen en een onderneming met twee mensen.</p>
       </nldd-title>
+      <div id="opm-hint"></div>
     </nldd-simple-section>
 
-    <nldd-simple-section>
-      <div class="canvas" role="img" aria-labelledby="schema-titel schema-uitleg">
+    <nldd-simple-section id="schema-sectie">
+      <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 900" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
   <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Nijmegen laat een commerciële QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Nijmegen neemt haar EBW af bij een commerciële wallet-provider. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Nijmegen met zijn mandaat.</desc>
@@ -67,22 +68,26 @@
   </g>
 
   <!-- ===== Personen ===== -->
-  <g stroke="#333" stroke-width="1.6" fill="none" stroke-linecap="round">
-    <circle cx="56" cy="139" r="9" fill="#fff"/>
-    <path d="M56 148V175M42 158H70M56 175L44 195M56 175L68 195"/>
-    <circle cx="56" cy="459" r="9" fill="#fff"/>
-    <path d="M56 468V495M42 478H70M56 495L44 515M56 495L68 515"/>
-  </g>
-  <g font-size="12.5" fill="#333" text-anchor="middle">
-    <text x="56" y="214" font-weight="700">Eigenaar</text>
-    <text x="56" y="230">bestuurder</text>
-    <text x="56" y="534" font-weight="700">Werknemer</text>
+  <!-- Persona's van de CX-site (cx-moza.rijksapp.dev/personas): Karin Jansen (eigenaar) en Bilal Yılmaz (werknemer) -->
+  <defs>
+    <clipPath id="clip-karin"><circle cx="56" cy="152" r="32"/></clipPath>
+    <clipPath id="clip-bilal"><circle cx="56" cy="472" r="32"/></clipPath>
+  </defs>
+  <circle cx="56" cy="152" r="32" fill="oklch(0.858 0.073 29.5)"/>
+  <image href="avatars/karin.svg" x="24" y="117" width="64" height="68" clip-path="url(#clip-karin)"><title>Avatar van Karin Jansen</title></image>
+  <circle cx="56" cy="472" r="32" fill="oklch(0.859 0.091 308.6)"/>
+  <image href="avatars/bilal.svg" x="24" y="437" width="64" height="68" clip-path="url(#clip-bilal)"><title>Avatar van Bilal Yılmaz</title></image>
+  <g font-size="12" fill="#333" text-anchor="middle">
+    <text x="56" y="202" font-weight="700">Karin Jansen</text>
+    <text x="56" y="217">eigenaar</text>
+    <text x="56" y="522" font-weight="700">Bilal Yılmaz</text>
+    <text x="56" y="537">werknemer</text>
   </g>
 
   <!-- Persoonlijke wallet eigenaar -->
   <rect x="100" y="92" width="230" height="220" rx="16" fill="#fff" stroke="#666"/>
   <text x="116" y="117" font-size="14" font-weight="700" fill="#333">Persoonlijke wallet</text>
-  <text x="116" y="135" font-size="12" fill="#666">EUDI-wallet van de eigenaar</text>
+  <text x="116" y="135" font-size="12" fill="#666">EUDI-wallet van Karin</text>
   <svg x="284" y="100" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
     <rect x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
@@ -98,7 +103,7 @@
   <!-- Persoonlijke wallet werknemer -->
   <rect x="100" y="412" width="230" height="220" rx="16" fill="#fff" stroke="#666"/>
   <text x="116" y="437" font-size="14" font-weight="700" fill="#333">Persoonlijke wallet</text>
-  <text x="116" y="455" font-size="12" fill="#666">EUDI-wallet van de werknemer</text>
+  <text x="116" y="455" font-size="12" fill="#666">EUDI-wallet van Bilal</text>
   <svg x="284" y="420" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
     <rect x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
@@ -291,7 +296,7 @@
       <nldd-list variant="simple" id="legend" aria-label="Legenda"></nldd-list>
     </nldd-simple-section>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="keten">
       <nldd-title size="2"><h2>Hoe de keten werkt</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
@@ -310,7 +315,7 @@
         supporting-text="Een losse EAA, of een interne gebruikersrol binnen de EBW zonder losse attestatie: dat is in de uitwerking nog niet duidelijk."></nldd-banner>
     </nldd-simple-section>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="ebw-houders">
       <nldd-title size="2"><h2>Wie kan een EBW hebben</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-list variant="box" id="houders" aria-label="Wie kan een EBW hebben"></nldd-list>
@@ -322,7 +327,7 @@
       </nldd-rich-text>
     </nldd-simple-section>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="uitgifte-sectie">
       <nldd-title size="2">
         <h2>Wie mag welk type attestatie uitgeven</h2>
         <p slot="subtitle">Pub-EAA: van een publieke bronhouder. QEAA: gekwalificeerd, van een QTSP. EAA: overige attestaties.</p>
@@ -331,7 +336,7 @@
       <nldd-table id="uitgifte" columns="minmax(160px,1.4fr) repeat(3,minmax(110px,1fr))" accessible-label="Wie mag welk type attestatie uitgeven"></nldd-table>
     </nldd-simple-section>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="vergelijking-sectie">
       <nldd-title size="2">
         <h2>Zelf doen of uit handen geven</h2>
         <p slot="subtitle">Bij het uitgeven van attestaties (Pub-EAA of QEAA) en bij de wallet zelf (eigen of commerciële wallet-provider).</p>
@@ -347,7 +352,7 @@
       </nldd-rich-text>
     </nldd-simple-section>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="bronnen">
       <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
@@ -361,7 +366,8 @@
     </nldd-simple-section>
 
     <nldd-page-footer>
-      <nldd-container padding="24">
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Nijmegen en Waalkade Installatietechniek BV zijn een voorbeeld.</p></nldd-rich-text>
       </nldd-container>
     </nldd-page-footer>
@@ -454,5 +460,6 @@ document.getElementById('vergelijking').innerHTML = `
     <nldd-text-cell vertical-alignment="top" text="${esc(q)}"></nldd-text-cell>
   </nldd-table-row>`).join('')}`;
 </script>
+<script type="module" src="opmerkingen.js"></script>
 </body>
 </html>

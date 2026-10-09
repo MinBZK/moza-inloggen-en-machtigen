@@ -13,8 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 VENDOR = ROOT / 'vendor' / 'nldd'
 DIST = ROOT / 'dist'
-PAGES = ['index.html', 'eherkenning.html', 'ebw.html', 'ebw-landschap.html']
-STATIC = ['ebw-flows.html']  # eigen opmaak, geen NLDD: ongewijzigd kopiëren
+PAGES = ['index.html', 'eherkenning.html', 'ebw.html', 'ebw-landschap.html', 'ebw-flows.html']
+COMMENTS_JS = '<script type="module" src="opmerkingen.js"></script>'
 
 CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">'
 CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>'
@@ -36,6 +36,7 @@ def inline_css(path: Path) -> str:
 def main() -> None:
     css = inline_css(VENDOR / 'css' / 'global.css')
     js = (VENDOR / 'design-system.bundle.mjs').read_text()
+    comments = (ROOT / 'opmerkingen.js').read_text()
     assert '</script' not in js.lower(), 'bundel bevat </script>, kan niet inline'
     DIST.mkdir(exist_ok=True)
     for name in PAGES:
@@ -43,12 +44,10 @@ def main() -> None:
         assert CDN_CSS in html and CDN_JS in html, f'{name}: CDN-verwijzingen niet gevonden'
         html = html.replace(CDN_CSS, f'<style>\n{css}\n</style>')
         html = html.replace(CDN_JS, f'<script type="module">\n{js}\n</script>')
-        html = re.sub(r'logos/([\w.-]+\.(?:png|svg))', lambda m: data_uri(ROOT / 'logos' / m.group(1)), html)
+        html = html.replace(COMMENTS_JS, f'<script type="module">\n{comments}\n</script>')
+        html = re.sub(r'(logos|avatars)/([\w.-]+\.(?:png|svg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
         (DIST / name).write_text(html)
         print(f'dist/{name}: {len(html) / 1024 / 1024:.1f} MB')
-    for name in STATIC:
-        (DIST / name).write_text((ROOT / name).read_text())
-        print(f'dist/{name}: gekopieerd')
 
 
 if __name__ == '__main__':
