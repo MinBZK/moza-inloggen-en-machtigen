@@ -370,9 +370,9 @@
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
-<svg viewBox="0 0 1280 742" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Wallet-provider, EBW afnemen; toont PID en bevoegdheid. Stap 4: Wallet-provider naar EBW Waalkade, maakt de EBW aan; Karin wordt beheerder. Stap 5: KVK naar EBW Waalkade, attestatie onderneming (Pub-EAA). Stap 6: Belastingdienst naar EBW Waalkade, btw-id en meer (Pub-EAA's). Stap 7: Gemeente Nijmegen naar EBW Waalkade, vergunningen (QEAA's, via QTSP). Stap 8: Karin Jansen naar EBW Waalkade, legt mandaten vast: wie mag wat. Stap 9: EBW Waalkade naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Waalkade naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Wallet-provider, EBW afnemen; toont PID en bevoegdheid. Stap 4: Wallet-provider naar EBW Waalkade, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Waalkade naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Waalkade, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Waalkade naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Waalkade, btw-id en meer (Pub-EAA's). Stap 7a: EBW Waalkade naar Gemeente Nijmegen, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Nijmegen naar EBW Waalkade, vergunningen (QEAA's, door de QTSP). Stap 8: Karin Jansen naar EBW Waalkade, legt mandaten vast: wie mag wat. Stap 9: EBW Waalkade naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Waalkade naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -383,38 +383,41 @@
     <marker id="f-delegate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
     <marker id="f-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#d79b00"/></marker>
   </defs>
-  <rect width="1280" height="742" fill="#fff"/>
-  <rect width="1280" height="742" fill="url(#grid2)"/>
-  <path d="M100 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect width="1280" height="922" fill="#fff"/>
+  <rect width="1280" height="922" fill="url(#grid2)"/>
+  <path d="M100 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="15" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="38" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
   <svg x="22" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#fcp-karin)"/></svg>
   <svg x="146" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <text x="96" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
   <text x="96" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
-  <path d="M280 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M280 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="195" y="18" width="170" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="280" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
-  <text x="280" y="63" font-size="11.5" fill="#555" text-anchor="middle">bronhouder</text>
-  <path d="M460 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <svg x="326" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <text x="266" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
+  <text x="266" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
+  <path d="M460 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="375" y="18" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="460" y="41" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Wallet-provider</text>
   <text x="390" y="63" font-size="11" fill="#555">bijv.</text>
   <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een wallet-provider)</title></image>
-  <path d="M640 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M640 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="555" y="18" width="170" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
   <svg x="686" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="626" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">EBW Waalkade</text>
   <text x="626" y="63" font-size="11.5" fill="#555" text-anchor="middle">zakelijke wallet</text>
-  <path d="M820 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M820 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="735" y="18" width="170" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
-  <text x="820" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
-  <text x="820" y="63" font-size="11.5" fill="#555" text-anchor="middle">bronhouder</text>
-  <path d="M1000 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <svg x="866" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <text x="806" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
+  <text x="806" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
+  <path d="M1000 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="1000" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Nijmegen</text>
-  <text x="1000" y="63" font-size="11.5" fill="#555" text-anchor="middle">via een QTSP</text>
-  <path d="M1180 78V730" stroke="#bbb" stroke-dasharray="4 4"/>
+  <svg x="1046" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <text x="986" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Nijmegen</text>
+  <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via QTSP</text>
+  <path d="M1180 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="1118" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
   <svg x="1102" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#fcp-bilal)"/></svg>
@@ -422,56 +425,146 @@
   <text x="1176" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
   <text x="1176" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
   <path d="M116 132H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle cx="100" cy="132" r="11" fill="#2d7a46"/><text x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <circle cx="100" cy="132" r="12" fill="#2d7a46"/><text x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
   <text x="190" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
   <path d="M264 192H104" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="280" cy="192" r="11" fill="#1f5fa8"/><text x="280" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <circle cx="280" cy="192" r="12" fill="#1f5fa8"/><text x="280" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
   <text x="190" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
   <text x="190" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
   <path d="M116 252H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
-  <circle cx="100" cy="252" r="11" fill="#b46504"/><text x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <circle cx="100" cy="252" r="12" fill="#b46504"/><text x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
   <text x="280" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">EBW afnemen; toont PID</text>
   <text x="280" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">en bevoegdheid</text>
   <path d="M476 312H636" stroke="#b46504" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-service2)"/>
-  <circle cx="460" cy="312" r="11" fill="#b46504"/><text x="460" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <circle cx="460" cy="312" r="12" fill="#b46504"/><text x="460" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
   <text x="550" y="290" font-size="11.5" fill="#b46504" text-anchor="middle">maakt de EBW aan;</text>
   <text x="550" y="304" font-size="11.5" fill="#b46504" text-anchor="middle">Karin wordt beheerder</text>
-  <path d="M296 372H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="280" cy="372" r="11" fill="#1f5fa8"/><text x="280" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
-  <text x="460" y="364" font-size="11.5" fill="#1f5fa8" text-anchor="middle">attestatie onderneming (Pub-EAA)</text>
-  <path d="M804 432H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="820" cy="432" r="11" fill="#1f5fa8"/><text x="820" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
-  <text x="730" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
-  <path d="M984 492H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="1000" cy="492" r="11" fill="#1f5fa8"/><text x="1000" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
-  <text x="820" y="484" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, via QTSP)</text>
-  <path d="M116 552H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
-  <circle cx="100" cy="552" r="11" fill="#7a4f8c"/><text x="100" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
-  <text x="370" y="544" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
-  <path d="M656 612H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
-  <circle cx="640" cy="612" r="11" fill="#0e7c86"/><text x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
-  <text x="910" y="604" font-size="11.5" fill="#0e7c86" text-anchor="middle">mandaten (EAA) naar Bilals wallet</text>
-  <path d="M624 672H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
-  <circle cx="640" cy="672" r="11" fill="#d79b00"/><text x="640" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
-  <text x="370" y="664" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
+  <path d="M624 372H284" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle cx="640" cy="372" r="12" fill="#2d7a46"/><text x="640" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
+  <text x="460" y="350" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt vanuit de EBW aan;</text>
+  <text x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid (OpenID4VP)</text>
+  <path d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle cx="280" cy="432" r="12" fill="#1f5fa8"/><text x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
+  <text x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">attestatie onderneming (Pub-EAA, OpenID4VCI)</text>
+  <path d="M656 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle cx="640" cy="492" r="12" fill="#2d7a46"/><text x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
+  <text x="730" y="470" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan; toont</text>
+  <text x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">attestatie onderneming</text>
+  <path d="M804 552H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle cx="820" cy="552" r="12" fill="#1f5fa8"/><text x="820" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
+  <text x="730" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
+  <path d="M656 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle cx="640" cy="612" r="12" fill="#2d7a46"/><text x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
+  <text x="820" y="590" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan;</text>
+  <text x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont attestatie onderneming</text>
+  <path d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle cx="1000" cy="672" r="12" fill="#1f5fa8"/><text x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
+  <text x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de QTSP)</text>
+  <path d="M116 732H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
+  <circle cx="100" cy="732" r="12" fill="#7a4f8c"/><text x="100" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+  <text x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
+  <path d="M656 792H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
+  <circle cx="640" cy="792" r="12" fill="#0e7c86"/><text x="640" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
+  <text x="910" y="784" font-size="11.5" fill="#0e7c86" text-anchor="middle">mandaten (EAA) naar Bilals wallet</text>
+  <path d="M624 852H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
+  <circle cx="640" cy="852" r="12" fill="#d79b00"/><text x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text x="370" y="844" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven.</p></nldd-title>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven; a is steeds de aanvraag, b de uitgifte.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-list variant="box" aria-label="De stappen toegelicht">
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij de KVK.**" supporting-text="Karin logt met de PID uit haar EUDI-wallet in bij de KVK."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Vertegenwoordigingsbevoegdheid.**" supporting-text="De KVK vindt haar in het handelsregister en geeft haar bevoegdheid als Pub-EAA in haar persoonlijke wallet."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**EBW afnemen.**" supporting-text="Karin kiest een commerciële wallet-provider en neemt een EBW af voor Waalkade. Ze toont haar PID en haar bevoegdheid, zodat de provider weet dat ze namens de onderneming mag handelen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**EBW aanmaken.**" supporting-text="De provider maakt de EBW aan; Waalkade is eigenaar en Karin wordt beheerder."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**5a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Attestatie onderneming aanvragen.**" supporting-text="Karin vraagt vanuit de EBW de attestatie onderneming aan bij de EBW van de KVK. De EBW heeft nog geen eigen attestaties, dus Karin toont haar PID en vertegenwoordigingsbevoegdheid uit haar EUDI-wallet (OpenID4VP)."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**5b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Attestatie onderneming ontvangen.**" supporting-text="De KVK controleert het handelsregister en geeft de attestatie onderneming (KVK-nummer, handelsnaam, rechtsvorm, tekenbevoegden) als Pub-EAA uit aan de EBW (OpenID4VCI)."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**6a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Aanvragen bij de Belastingdienst.**" supporting-text="Karin vraagt vanuit de EBW attestaties aan bij de EBW van de Belastingdienst. De EBW toont de attestatie onderneming, zodat de Belastingdienst weet om welke onderneming het gaat."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**6b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Attestaties van de Belastingdienst.**" supporting-text="De Belastingdienst zoekt de onderneming op in zijn eigen registratie en geeft als bronhouder bijvoorbeeld het btw-identificatienummer uit als Pub-EAA."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**7a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Aanvragen bij de gemeente Nijmegen.**" supporting-text="Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente Nijmegen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**7b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Attestaties van de gemeente Nijmegen.**" supporting-text="De QTSP haalt de gegevens bij de gemeente op of controleert ze, en geeft namens de gemeente bijvoorbeeld vergunningen uit als QEAA."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Mandaten vastleggen.**" supporting-text="Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Nijmegen een vergunning aanvragen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**9**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Mandaten naar Bilal.**" supporting-text="De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet. Alleen zijn eigen mandaten, niet die van collega's."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**10**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Mandaat voor Karin? (open punt)**" supporting-text="Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net zo: vanuit de EBW naar haar persoonlijke wallet. Zie de open punten bij het schema."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>Hoe haalt Karin de attestaties op?</h3><p slot="subtitle">De KVK, de Belastingdienst en de gemeente Nijmegen hebben elk een EBW en treden daarmee op als uitgever. Een EBW kan uitgever, houder en verifier zijn (WE BUILD D4.1 p. 57).</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
-          <li><strong>Inloggen bij de KVK.</strong> Karin logt met de PID uit haar EUDI-wallet in bij de KVK.</li>
-          <li><strong>Vertegenwoordigingsbevoegdheid.</strong> De KVK vindt haar in het handelsregister en geeft haar bevoegdheid als Pub-EAA in haar persoonlijke wallet.</li>
-          <li><strong>EBW afnemen.</strong> Karin kiest een commerciële wallet-provider en neemt een EBW af voor Waalkade. Ze toont haar PID en haar bevoegdheid, zodat de provider weet dat ze namens de onderneming mag handelen.</li>
-          <li><strong>EBW aanmaken.</strong> De provider maakt de EBW aan; Waalkade is eigenaar en Karin wordt beheerder.</li>
-          <li><strong>Attestatie onderneming.</strong> De KVK geeft de attestatie onderneming (KVK-nummer, handelsnaam, rechtsvorm, tekenbevoegden) als Pub-EAA aan de EBW.</li>
-          <li><strong>Attestaties van de Belastingdienst.</strong> De Belastingdienst geeft als bronhouder zijn attestaties uit aan de EBW, zoals het btw-identificatienummer (Pub-EAA's).</li>
-          <li><strong>Attestaties van de gemeente Nijmegen.</strong> Een QTSP geeft namens de gemeente bijvoorbeeld vergunningen uit aan de EBW (QEAA's).</li>
-          <li><strong>Mandaten vastleggen.</strong> Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Nijmegen een vergunning aanvragen.</li>
-          <li><strong>Mandaten naar Bilal.</strong> De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet. Alleen zijn eigen mandaten, niet die van collega's.</li>
-          <li><strong>Mandaat voor Karin? (open punt)</strong> Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net zo: vanuit de EBW naar haar persoonlijke wallet. Zie de open punten bij het schema.</li>
+          <li><strong>Aanvraag starten.</strong> Karin kiest in de EBW van Waalkade bij welke uitgever ze een attestatie wil ophalen. Dat kan ook via het portaal van de uitgever, dat dan een QR-code of link toont.</li>
+          <li><strong>Laten zien wie het is.</strong> De EBW presenteert de attestatie onderneming aan de EBW van de uitgever (OpenID4VP). Bij de allereerste attestatie heeft de EBW die nog niet; dan toont Karin haar PID en vertegenwoordigingsbevoegdheid.</li>
+          <li><strong>Controle bij de uitgever.</strong> De uitgever controleert de presentatie en zoekt de onderneming op in de eigen registratie of authentieke bron.</li>
+          <li><strong>Uitgifte.</strong> De uitgever geeft de attestatie uit aan de EBW van Waalkade (OpenID4VCI). Is de attestatie nog niet klaar, dan volgt die later (uitgestelde uitgifte).</li>
         </ol>
+        <p>Het kan ook andersom: de uitgever stuurt de EBW zelf een aanbod (credential offer), dat Karin accepteert. WE BUILD werkt beide varianten uit (D4.1 p. 20-22; D2.1 BU4 scenario 1b, p. 340-342; BU3 scenario 3 en 4). Uitgeven blijft wel een aparte rol: wie uitgeeft, moet als uitgever geregistreerd zijn (D4.1 p. 42-45).</p>
       </nldd-rich-text>
     </nldd-simple-section>
 
