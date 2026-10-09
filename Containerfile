@@ -4,7 +4,7 @@
 
 FROM python:3.12-slim AS bouw
 WORKDIR /src
-COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.html opmerkingen.js ./
+COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.html webuild.html opmerkingen.js ./
 COPY logos logos
 COPY avatars avatars
 COPY vendor vendor

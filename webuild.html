@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WE BUILD-analyses</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
+</head>
+<body>
+<nldd-app-view background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="ebw.html" start-icon="chevron-left" text="Terug naar EBW: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">European Business Wallet</span>
+        <h1>WE BUILD: analyses van de use cases</h1>
+        <p slot="subtitle">Wat het WE BUILD-consortium uitwerkt voor buitenlandse belastingaangifte (BU3), vertegenwoordiging van een onderneming (BU4) en toegang tot het Once-Only Technical System (BU6), en wat dat betekent voor MOZa.</p>
+      </nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-banner variant="accent" text="Pilot, geen productie"
+        supporting-text="WE BUILD is een Large Scale Pilot met 13 use cases in drie clusters (Business, Supply Chain, Payments). Er wordt getest in pre-productie met synthetische data en fictieve identiteiten, zonder eIDAS-certificering of echte QEAA's. Het project loopt tot september 2027."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Deze analyse is gebaseerd op de use-casepagina's van WE BUILD en op de publieke deliverables <strong>D2.1 Pilot Design</strong> (Business-domein, v1.0, 30 juli 2026) en <strong>D4.1 Architecture &amp; Integration Blueprint</strong> (v1.0, maart 2026). Paginanummers verwijzen naar die documenten. Eigen interpretaties zijn gemarkeerd.</p>
+      </nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="kort">
+      <nldd-title size="2"><h2>In het kort voor MOZa</h2></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list variant="box" id="takeaways" aria-label="Belangrijkste lessen voor MOZa"></nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bu3">
+      <nldd-title size="2">
+        <span slot="overline">BU3</span>
+        <h2>Foreign Tax Declaration</h2>
+        <p slot="subtitle">Grensoverschrijdend btw-aangifte doen en een btw-ID-certificaat uitgeven als verifieerbare attestatie, via een portaal of machine-to-machine (D2.1 p. 18-21, 211-301).</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-container layout="wrap" gap="4" id="bu3-tags"></nldd-container>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <h3>Scenario's</h3>
+        <ul>
+          <li><strong>S1</strong> btw-aangifte via een portaal en <strong>S2</strong> via machine-to-machine (M2M).</li>
+          <li><strong>S3</strong> btw-ID-certificaat via een portaal en <strong>S4</strong> via M2M.</li>
+          <li>De fiscale woonplaatsverklaring (S5, S6) is een stretch goal. De inhoudelijke controle van de aangifte, de betaling en een centraal machtigingsregister vallen buiten scope.</li>
+        </ul>
+        <h3>Nederland</h3>
+        <p>De Nederlandse Belastingdienst doet mee als relying party bij M2M-aangifte (S2) en als uitgever van het btw-ID-certificaat als <strong>Pub-EAA</strong> (S3, S4). Nederlandse leveranciers zijn onder meer Cleverbase, Digidentity, KPN en Credenco (wallets, QEAA, QERDS) (p. 249, 274, 297).</p>
+        <h3>Flow via het portaal (S1)</h3>
+        <ol>
+          <li>De vertegenwoordiger haalt vooraf zijn machtiging op: een machtigingsattestatie, of een volmacht (PoA) via BU4.</li>
+          <li>Hij opent het belastingportaal; dat vraagt om de PID en de machtiging.</li>
+          <li>De belastingdienst controleert de presentatie (trust chain, geldigheid, holder binding) en de bevoegdheid: via een centraal register (variant a) of via de attestatie (variant b).</li>
+          <li>De aangifte wordt ingevuld en met een QES uit de wallet ondertekend.</li>
+          <li>De ontvangstbevestiging wordt gesealed en komt in de EUDI-wallet of in de Business Wallet; daarvoor wordt de EBWOID of een adres van de Business Wallet meegegeven.</li>
+        </ol>
+        <h3>Machtigen</h3>
+        <ul>
+          <li>Twee modellen naast elkaar: een <strong>centraal register</strong> of een <strong>machtigingsattestatie</strong>. Elke belastingdienst kiest wat hij pilot (p. 215).</li>
+          <li>Een intermediair vraagt zijn machtiging aan bij de EBW van de onderneming. Die geeft een gesealde attestatie uit met de EUID van beide partijen en een scope, bijvoorbeeld "VAT ID certificate request". Zo ontstaat een gelaagd model (p. 234, 243, 263).</li>
+          <li>Het intrekken van machtigingen wordt uitdrukkelijk gepilot (p. 220, 244).</li>
+        </ul>
+        <h3>Techniek</h3>
+        <p>OpenID4VP in de portaalscenario's. Bij M2M gaan de aangifte en de machtiging samen in één QERDS-bericht, gesealed met een gekwalificeerd zegel. QES en zegel zijn verplicht voor aangifte en ontvangstbevestiging (p. 230, 242).</p>
+        <h3>Open punten</h3>
+        <p>Scenario's, de machtigingsattestatie, M2M, identity matching en interactie tussen Business Wallets zijn mogelijk niet op tijd gespecificeerd. Belastingdiensten stellen strengere eisen aan identity matching dan de PID- en EBWOID-schema's bieden. De landencombinaties liggen nog niet vast (p. 40, 221, 246).</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list variant="box" id="bu3-moza" aria-label="Betekenis van BU3 voor MOZa"></nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bu4">
+      <nldd-title size="2">
+        <span slot="overline">BU4</span>
+        <h2>Company Representative acting on behalf of a Company</h2>
+        <p slot="subtitle">Een persoon rechtsgeldig en verifieerbaar laten handelen namens een onderneming, met gestandaardiseerde mandaat-attestaties. BU4 is de autorisatielaag onder de andere use cases (D2.1 p. 21-24, 304-384).</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-container layout="wrap" gap="4" id="bu4-tags"></nldd-container>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-table id="bu4-typen" columns="minmax(120px,0.8fr) minmax(200px,2fr) minmax(160px,1.4fr)" accessible-label="Mandaattypen in BU4"></nldd-table>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <h3>Scenario's</h3>
+        <ul>
+          <li><strong>1a</strong> uitgifte van een volmacht (PoA), <strong>1b</strong> uitgifte van een vertegenwoordigingsbevoegdheid (PoR), <strong>1c</strong> toegang tot een dienst namens de onderneming.</li>
+          <li>Nederland doet mee in alle drie. Credenco is een van de EBW-providers, Cleverbase een van de uitgevers. De Belastingdienst staat als relying party voor PoA en PoR (via BU3) (p. 22-23, 321-323, 373-375).</li>
+          <li>Buiten scope: mandaten zonder registratie in een authentieke bron (contractueel) en mandaten die alleen op een functie rusten, zoals de inkoopbevoegdheid van een CFO (p. 313-314).</li>
+        </ul>
+        <h3>Toegang tot een dienst (1c)</h3>
+        <ol>
+          <li>De gebruiker kiest bij de relying party "namens bedrijf".</li>
+          <li>De relying party vraagt een mandaat-attestatie op, met doel en dienstbeperking. In 1c zijn PoR, PoA en scope samengevoegd tot één "PoX".</li>
+          <li>De wallet presenteert na toestemming.</li>
+          <li>De relying party controleert handtekening, trust chain, technische geldigheid en status (intrekking).</li>
+          <li>Daarna de inhoud: wie de mandaatgever en de gevolmachtigde zijn, of de persoon overeenkomt met de PID, of het mandaat zakelijk geldig is en of de scope bij de dienst past. Dan volgt toegang (p. 370-372).</li>
+        </ol>
+        <h3>Uitgifte, opslag en intrekking</h3>
+        <ul>
+          <li>PoA en PoR worden door een QTSP uitgegeven op basis van een register; de PoR kan ook door de publieke beheerder van het register worden uitgegeven. Of de PoA een QEAA of een EAA wordt, is nog niet besloten (p. 38, 313, 319).</li>
+          <li>Mandaten kunnen in de <strong>persoonlijke EUDI-wallet</strong> van de gevolmachtigde staan; de PoA ook in de EBW van de organisatie. De verificatie is in beide gevallen gelijk (p. 364).</li>
+          <li>Een PoR wordt automatisch ingetrokken als het register wijzigt. Relying parties controleren de status via een statusdienst (p. 38, 342).</li>
+          <li>Subdelegatie is niet uitgewerkt; het toewijzen en intrekken van mandaten aan medewerkers is een leerdoel (p. 39).</li>
+        </ul>
+        <h3>Open punten</h3>
+        <p>Mandaatmodellen verschillen per lidstaat, er is geen geharmoniseerde semantiek voor PoA en PoR, registers en API's zijn beperkt beschikbaar en er is nog geen EU-register van uitgevers van mandaten. De pilot bouwt op de huidige ARF, niet op de toekomstige EBW-specificaties (p. 40, 314-315, 367-369).</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list variant="box" id="bu4-moza" aria-label="Betekenis van BU4 voor MOZa"></nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bu6">
+      <nldd-title size="2">
+        <span slot="overline">BU6</span>
+        <h2>Business Access to Once-Only Technical System (OOTS)</h2>
+        <p slot="subtitle">De EUDI-wallet koppelen aan OOTS: in één interactie identiteit, vertegenwoordiging en bedrijfsgegevens leveren aan een publieke dienst in een andere lidstaat (D2.1 p. 25-27, 404-421).</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-container layout="wrap" gap="4" id="bu6-tags"></nldd-container>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <h3>Scenario's</h3>
+        <ul>
+          <li><strong>S1 Full Power</strong>: volledige vertegenwoordigingsbevoegdheid (GR, PL, PT, SI en NL). <strong>S2 Fine-grained</strong>: bevoegdheid beperkt tot één dienst (PL, PT, SI).</li>
+          <li>Later (MVP+): attestaties uitgeven via OOTS, wallet-attestaties presenteren via OOTS en het gebruik van een Business Wallet. In S1 zelf valt de EBW buiten scope (p. 27, 406).</li>
+        </ul>
+        <h3>Nederland</h3>
+        <p>Nederland is in S1 alleen leverende lidstaat. De <strong>KVK</strong> levert het bewijs en is authentieke bron en uitgever voor de vertegenwoordigingsbevoegdheid; <strong>RINIS</strong> is het Nederlandse OOTS-intermediairplatform. Er is geen Nederlandse relying party (p. 416-417).</p>
+        <h3>Flow (S1)</h3>
+        <ol>
+          <li>De gebruiker start in een andere lidstaat een dienst via de Single Digital Gateway, "namens bedrijf".</li>
+          <li>De relying party vraagt PID en vertegenwoordigingsbevoegdheid (PoR) op uit de EUDI-wallet; de gebruiker geeft toestemming.</li>
+          <li>Er is aanvullend bewijs nodig (bedrijfsregistratie). De gebruiker kiest OOTS als kanaal.</li>
+          <li>Het verzoek gaat via de OOTS-platforms naar de leverende lidstaat. Daar logt de gebruiker opnieuw in met de wallet.</li>
+          <li><strong>Identity swap-check</strong>: de gegevens van persoon en onderneming moeten gelijk zijn aan die in het verzoek; anders stopt het proces.</li>
+          <li>Het bewijs komt uit de authentieke bron, de gebruiker ziet het in de preview space en geeft toestemming om het te delen (p. 409-415).</li>
+        </ol>
+        <h3>Attestaties</h3>
+        <p>Alleen de EUDI-wallet, met PID en PoR. Het ontwerp van de PoR komt uit BU4: id en naam van de rechtspersoon, <code>full_powers</code>, de dienst (<code>eService</code>) en geldigheidsdata. Eis: een relying party moet de PoR kunnen interpreteren zonder lidstaatspecifieke regels (p. 418-419). Het opslaan van OOTS-bewijs in de wallet is alleen een idee voor later (p. 27).</p>
+        <h3>Open punten</h3>
+        <p>De pilot gaat ervan uit dat partners een werkende OOTS hebben; WE BUILD bouwt alleen de koppeling. De specificaties voor het EU Company Certificate en de digitale volmacht worden pas medio 2026 verwacht, er is geen centraal register voor vertegenwoordigingsbevoegdheid en dienstgebonden machtigingen vragen om een register van relying parties met attestatietypen (p. 37, 40, 407-410).</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list variant="box" id="bu6-moza" aria-label="Betekenis van BU6 voor MOZa"></nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="architectuur">
+      <nldd-title size="2">
+        <span slot="overline">D4.1</span>
+        <h2>Architectuur en vertrouwen</h2>
+        <p slot="subtitle">Wat het architectuurdocument zegt over rollen, attestaties, mandaten en communicatie (D4.1 v1.0).</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <h3>Rollen</h3>
+        <ul>
+          <li><strong>EUDI-wallet</strong> voor natuurlijke personen (meestal mobiel), <strong>EBW</strong> voor ondernemingen en publieke organisaties (meestal een server- of webwallet) (p. 18-19).</li>
+          <li><strong>Wallet-provider en uitgever zijn verschillende rollen.</strong> De wallet-provider levert de wallet en wordt door de lidstaat bij de Commissie aangemeld; een uitgever (PID, EAA, EBWOID) registreert bij een Registrar. De wallet-provider kan ook de eigenaar zelf zijn (p. 42-45, 57).</li>
+          <li>Een EBW heeft één eigenaar en kan meerdere gebruikers hebben, met rollen en mandaten die de eigenaar instelt. De eigenaar kan zelf rollen toevoegen (p. 56-57).</li>
+          <li>Een natuurlijk persoon die als ondernemer optreedt, valt onder "economic operator"; een zzp'er kan dus EBW-eigenaar zijn (p. 41, interpretatie).</li>
+        </ul>
+        <h3>Attestaties en standaarden</h3>
+        <ul>
+          <li>De <strong>EBWOID</strong> (voorheen LPID) is de minimale identificatie van een organisatie en wordt als EAA in de EBW uitgegeven (p. 26, 56).</li>
+          <li>OpenID4VCI en OpenID4VP als basis, met HAIP. Formaten: SD-JWT VC, ISO mdoc en W3C VCDM 2.0 (p. 13-14, 29, 38).</li>
+          <li>Een concreet datamodel voor een mandaat-attestatie volgt nog in rulebooks (p. 26, 30).</li>
+        </ul>
+        <h3>Communicatie en vertrouwen</h3>
+        <ul>
+          <li>Berichten tussen EBW's, EUDI-wallets en overheden gaan via <strong>QERDS</strong> in een vierhoekmodel, met een Digital Directory voor adressen (p. 27-28, 58-59).</li>
+          <li>Een verifier accepteert alleen attestaties waarvan het type bij de uitgever als geautoriseerd is geregistreerd (p. 52).</li>
+          <li>Intrekken van attestaties ligt bij de uitgever, via een Token Status List. Een relying party controleert de wallet zelf niet: de uitgever trekt zijn attestaties in als een wallet unit wordt ingetrokken (p. 32-33, 48).</li>
+          <li>OOTS komt in D4.1 niet voor (interpretatie: de koppeling wordt in D2.1 uitgewerkt).</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="open-punten">
+      <nldd-title size="2">
+        <h2>WE BUILD en onze open punten</h2>
+        <p slot="subtitle">Wat de documenten zeggen over de open punten in het <nldd-link href="ebw-landschap.html" text="EBW-landschap"></nldd-link>.</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-table id="open-tabel" columns="minmax(180px,1.2fr) minmax(240px,2fr)" accessible-label="Open punten en wat WE BUILD erover zegt"></nldd-table>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://www.webuildconsortium.eu/use-cases/foreign-tax-declaration">WE BUILD use case BU3: Foreign Tax Declaration</a></li>
+          <li><a href="https://www.webuildconsortium.eu/use-cases/company-representative-acting-on-behalf-of-a-company">WE BUILD use case BU4: Company Representative acting on behalf of a Company</a></li>
+          <li><a href="https://www.webuildconsortium.eu/use-cases/business-access-to-once-only-technical-system-oots">WE BUILD use case BU6: Business Access to OOTS</a></li>
+          <li><a href="https://www.webuildconsortium.eu/downloads">WE BUILD downloads</a>: D2.1 Pilot Design (Business, v1.0, 30 juli 2026) en D4.1 Architecture &amp; Integration Blueprint (v1.0, maart 2026)</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Samenvatting van publieke WE BUILD-documenten; de bron blijft leidend.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-app-view>
+
+<script type="module">
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// Lijst met punten: [icoon, titel, tekst]
+const points = (id, items) => {
+  document.getElementById(id).innerHTML = items.map(([icon, title, text]) => `
+    <nldd-list-item>
+      <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+      <nldd-icon-cell slot="start" icon="${icon}" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-text-cell text="**${esc(title)}**" supporting-text="${esc(text)}"></nldd-text-cell>
+    </nldd-list-item>`).join('');
+};
+const tags = (id, items) => {
+  document.getElementById(id).innerHTML = items.map(([text, color]) => `<nldd-tag size="md" color="${color}" text="${esc(text)}"></nldd-tag>`).join('');
+};
+
+points('takeaways', [
+  ['check-list', 'Mandaten zijn aparte attestaties', 'In BU4 is een mandaat overal een losse attestatie (PoA, PoR, PoE), nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
+  ['key', 'De KVK-bevoegdheid lijkt op de PoR', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra mandaat voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
+  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE', 'Een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
+  ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
+  ['magnifier', 'OOTS naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
+  ['shield', 'Controles voor MOZa als relying party', 'Handtekening, trust chain, status (Token Status List), match tussen PID en gevolmachtigde, zakelijke geldigheid en scope tegen de dienst; en een identity swap-check bij elke overstap tussen kanalen (D2.1 p. 371-372, 409; D4.1 p. 32, 52).'],
+]);
+
+tags('bu3-tags', [['Belastingdienst NL', 'paars'], ['Portaal en M2M', 'neutral'], ['Pub-EAA btw-ID', 'neutral'], ['QERDS', 'neutral']]);
+tags('bu4-tags', [['NL in alle scenario\'s', 'paars'], ['PoA, PoR, PoE', 'neutral'], ['Horizontale autorisatielaag', 'neutral']]);
+tags('bu6-tags', [['KVK en RINIS', 'paars'], ['Single Digital Gateway', 'neutral'], ['Alleen EUDI-wallet in S1', 'neutral']]);
+
+points('bu3-moza', [
+  ['house', 'Betekenis voor MOZa: dezelfde keuze', 'Register of attestatie voor machtigingen is precies de keuze die MOZa ook moet maken. Met de Belastingdienst valt af te stemmen over scope-namen zoals "VAT ID certificate request" (interpretatie).'],
+  ['envelope', 'Betekenis voor MOZa: waar documenten landen', 'Het meegeven van de EBWOID of een adres van de Business Wallet bepaalt waar een document terechtkomt; bruikbaar voor berichten en documenten in MOZa (p. 217, 266; interpretatie).'],
+  ['link', 'Betekenis voor MOZa: intermediairs', 'De keten van gesealde machtigingen tussen Business Wallets is een referentie voor intermediairs zoals boekhouders (p. 234, 255; interpretatie).'],
+]);
+points('bu4-moza', [
+  ['check-list', 'Betekenis voor MOZa: losse attestatie', 'Ons model met mandaten als EAA in de persoonlijke wallet past bij BU4 (p. 38, 364).'],
+  ['key', 'Betekenis voor MOZa: geen extra mandaat voor de bestuurder', 'Een PoR volstaat voor de onderneming als geheel; de service-based machtiging uit BU3 is bedoeld voor intermediairs (p. 243-244, 372; interpretatie).'],
+  ['pencil', 'Betekenis voor MOZa: scope zelf vastleggen', 'Voor mandaten die de onderneming zelf uitgeeft (PoE) moet de betekenis van de scope met de relying party zijn afgesproken. MOZa moet die semantiek dus zelf vastleggen (p. 369; interpretatie).'],
+]);
+points('bu6-moza', [
+  ['magnifier', 'Betekenis voor MOZa: OOTS als aanvulling', 'Voor het verkenningsspoor OOTS in de roadmap is "OOTS naast de wallet" een realistischer framing dan "OOTS als alternatief voor de wallet" (interpretatie).'],
+  ['shield', 'Betekenis voor MOZa: identity swap-check', 'Bij elke overstap tussen kanalen controleren dat persoon en onderneming gelijk blijven (p. 409; interpretatie).'],
+  ['flag', 'Betekenis voor MOZa: ruimte als Nederlandse relying party', 'Nederland levert alleen bewijs; een Nederlandse relying party en de EBW-variant zijn nog open (MVP+). MOZa zou zich daarvoor kunnen melden (interpretatie).'],
+]);
+
+document.getElementById('bu4-typen').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Type"></nldd-text-cell>
+    <nldd-text-cell text="Wat het is"></nldd-text-cell>
+    <nldd-text-cell text="Uitgever"></nldd-text-cell>
+  </nldd-table-row>
+  ${[
+    ['**PoR**', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel (zoals een bestuurder). Automatisch ingetrokken als het register wijzigt.', 'QTSP namens het register, of de publieke registerbeheerder'],
+    ['**PoA**', 'Volmacht: specifieke, juridisch traceerbare delegatie voor een doel en een periode.', 'QTSP op basis van een authentieke bron (EAA, mogelijk QEAA)'],
+    ['**PoE**', 'Mandaat dat de onderneming zelf geeft, zonder authentieke bron; lagere zekerheid. De scope moet vooraf met de relying party zijn afgesproken.', 'De onderneming zelf (EAA)'],
+  ].map(([t, w, u]) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="${t}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(w)}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(u)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+
+document.getElementById('open-tabel').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Open punt"></nldd-text-cell>
+    <nldd-text-cell text="Wat WE BUILD erover zegt"></nldd-text-cell>
+  </nldd-table-row>
+  ${[
+    ['**Mandaat voor Karin?** Heeft de bestuurder naast haar bevoegdheid nog een mandaat nodig?', 'Niet als vereiste: een PoR toont de bevoegdheid over de onderneming als geheel en de relying party toetst de scope tegen de dienst. Dienstgebonden machtigingen komen wel voor in BU3 en BU6 S2, vooral voor intermediairs en beperkte bevoegdheden (D2.1 p. 26-27, 243-244, 372; interpretatie).'],
+    ['**Vorm van het mandaat:** losse attestatie of rol binnen de EBW?', 'In BU4 steeds een losse attestatie (PoA, PoR, PoE), te bewaren in de persoonlijke EUDI-wallet. D4.1 kent daarnaast rollen en mandaten van gebruikers binnen de EBW, voor toegang tot de wallet zelf. Een datamodel voor de mandaat-attestatie volgt in rulebooks (D2.1 p. 38, 364; D4.1 p. 26, 57).'],
+    ['**Wallet-provider van de onderneming**', 'Wallet-provider en uitgever zijn gescheiden rollen; de provider wordt door de lidstaat aangemeld en kan ook de eigenaar zelf zijn. In BU4 zijn onder meer Credenco, Procivis, Siros en iGrant EBW-provider (D4.1 p. 42-45, 57; D2.1 p. 321).'],
+  ].map(([p, w]) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="${esc(p).replace(/\*\*(.+?)\*\*/, '**$1**')}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(w)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+</script>
+<script type="module" src="opmerkingen.js"></script>
+</body>
+</html>
