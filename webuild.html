@@ -24,7 +24,7 @@
         supporting-text="WE BUILD is een Large Scale Pilot met 13 use cases in drie clusters (Business, Supply Chain, Payments). Er wordt getest in pre-productie met synthetische data en fictieve identiteiten, zonder eIDAS-certificering of echte QEAA's. Het project loopt tot september 2027."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
-        <p>Deze analyse is gebaseerd op de use-casepagina's van WE BUILD en op de publieke deliverables <strong>D2.1 Pilot Design</strong> (Business-domein, v1.0, 30 juli 2026) en <strong>D4.1 Architecture &amp; Integration Blueprint</strong> (v1.0, maart 2026). Paginanummers verwijzen naar die documenten. Eigen interpretaties zijn gemarkeerd.</p>
+        <p>Deze analyse is gebaseerd op de use-casepagina's van WE BUILD en op de publieke deliverables <strong>D2.1 Pilot Design</strong> (Business-domein, v1.0, 30 juli 2026) en <strong>D4.1 Architecture &amp; Integration Blueprint</strong> (v1.0, maart 2026). Paginanummers verwijzen naar die documenten. Eigen interpretaties zijn gemarkeerd. Onderaan staat een <a href="#afkortingen">lijst met afkortingen</a>.</p>
       </nldd-rich-text>
       <div id="opm-hint"></div>
     </nldd-simple-section>
@@ -191,6 +191,12 @@
       <nldd-table id="open-tabel" columns="minmax(180px,1.2fr) minmax(240px,2fr)" accessible-label="Open punten en wat WE BUILD erover zegt"></nldd-table>
     </nldd-simple-section>
 
+    <nldd-simple-section id="afkortingen">
+      <nldd-title size="2"><h2>Afkortingen</h2></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-table id="afk-tabel" columns="minmax(110px,0.6fr) minmax(200px,1.4fr) minmax(240px,2.4fr)" accessible-label="Afkortingen"></nldd-table>
+    </nldd-simple-section>
+
     <nldd-simple-section id="bronnen">
       <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
@@ -231,12 +237,12 @@ const tags = (id, items) => {
 };
 
 points('takeaways', [
-  ['check-list', 'Mandaten zijn aparte attestaties', 'In BU4 is een mandaat overal een losse attestatie (PoA, PoR, PoE), nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
-  ['key', 'De KVK-bevoegdheid lijkt op de PoR', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra mandaat voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
-  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE', 'PoE staat voor Power of Employee: een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
-  ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
-  ['magnifier', 'OOTS naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
-  ['shield', 'Controles voor MOZa als relying party', 'Handtekening, trust chain, status (Token Status List), match tussen PID en gevolmachtigde, zakelijke geldigheid en scope tegen de dienst; en een identity swap-check bij elke overstap tussen kanalen (D2.1 p. 371-372, 409; D4.1 p. 32, 52).'],
+  ['check-list', 'Mandaten zijn aparte attestaties', 'In BU4 is een mandaat overal een losse attestatie: een PoR (Power of Representation), PoA (Power of Attorney) of PoE (Power of Employee). Nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
+  ['key', 'De KVK-bevoegdheid lijkt op de PoR (Power of Representation)', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra mandaat voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
+  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE (Power of Employee)', 'Een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
+  ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID (persoonsidentificatiegegevens) plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
+  ['magnifier', 'OOTS (Once-Only Technical System) naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
+  ['shield', 'Controles voor MOZa als relying party', 'Handtekening, trust chain, status (Token Status List), match tussen PID (persoonsidentificatiegegevens) en gevolmachtigde, zakelijke geldigheid en scope tegen de dienst; en een identity swap-check bij elke overstap tussen kanalen (D2.1 p. 371-372, 409; D4.1 p. 32, 52).'],
 ]);
 
 tags('bu3-tags', [['Belastingdienst NL', 'paars'], ['Portaal en M2M', 'neutral'], ['Pub-EAA btw-ID', 'neutral'], ['QERDS', 'neutral']]);
@@ -274,6 +280,48 @@ document.getElementById('bu4-typen').innerHTML = `
     <nldd-text-cell vertical-alignment="top" text="${t}"></nldd-text-cell>
     <nldd-text-cell vertical-alignment="top" text="${esc(w)}"></nldd-text-cell>
     <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(u)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+
+const AFK = [
+  ['ARF', 'Architecture and Reference Framework', 'Het Europese referentiekader voor de EUDI-wallet.'],
+  ['BU3, BU4, BU6', 'Business use case 3, 4 en 6', 'De use cases van WE BUILD in het Business-domein.'],
+  ['EAA', 'Electronic Attestation of Attributes', 'Elektronische attestatie van attributen: een digitaal bewijs van een gegeven of bevoegdheid.'],
+  ['EBW', 'European Business Wallet', 'De zakelijke wallet voor ondernemingen en publieke organisaties.'],
+  ['EBWOID', 'European Business Wallet Owner Identification Data', 'De minimale identificatie van de organisatie die eigenaar is van een EBW (voorheen LPID).'],
+  ['eIDAS', 'electronic IDentification, Authentication and trust Services', 'De Europese verordening voor elektronische identificatie en vertrouwensdiensten.'],
+  ['EUCC', 'EU Company Certificate', 'Europees bedrijfscertificaat uit het handelsregister.'],
+  ['EUDI-wallet (EUDIW)', 'European Digital Identity Wallet', 'De persoonlijke wallet voor natuurlijke personen.'],
+  ['EUID', 'European Unique Identifier', 'Het Europese unieke nummer van een onderneming.'],
+  ['LPID', 'Legal Person Identification Data', 'Identificatiegegevens van een rechtspersoon; in WE BUILD nu EBWOID.'],
+  ['M2M', 'Machine-to-machine', 'Systemen wisselen gegevens uit zonder dat een mens inlogt.'],
+  ['MVP', 'Minimum Viable Product', 'De kleinste werkende versie van een pilot; MVP+ is een uitbreiding voor later.'],
+  ['OOTS', 'Once-Only Technical System', 'Het Europese systeem waarmee overheden op verzoek bewijsstukken uitwisselen.'],
+  ['OpenID4VCI / OpenID4VP', 'OpenID for Verifiable Credential Issuance / Verifiable Presentations', 'De protocollen voor het uitgeven en het tonen van attestaties.'],
+  ['PID', 'Person Identification Data', 'Persoonsidentificatiegegevens in de EUDI-wallet.'],
+  ['PoA', 'Power of Attorney', 'Volmacht: specifieke delegatie voor een doel en een periode.'],
+  ['PoE', 'Power of Employee', 'Mandaat dat de onderneming zelf aan een medewerker geeft.'],
+  ['PoR', 'Power of Representation', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel.'],
+  ['PoX', 'Verzamelnaam (X = soort mandaat)', 'In BU4 scenario 1c: PoR, PoA en scope samen in één attestatie.'],
+  ['Pub-EAA', 'Public Electronic Attestation of Attributes', 'Attestatie uitgegeven door of namens een publieke bronhouder van een authentieke bron.'],
+  ['QEAA', 'Qualified Electronic Attestation of Attributes', 'Gekwalificeerde attestatie, uitgegeven door een QTSP.'],
+  ['QERDS', 'Qualified Electronic Registered Delivery Service', 'Gekwalificeerde dienst voor aangetekende elektronische bezorging.'],
+  ['QES', 'Qualified Electronic Signature', 'Gekwalificeerde elektronische handtekening.'],
+  ['QTSP', 'Qualified Trust Service Provider', 'Gekwalificeerde verlener van vertrouwensdiensten.'],
+  ['RP', 'Relying Party', 'De partij die een attestatie controleert en erop vertrouwt, zoals een dienstverlener.'],
+  ['SDG', 'Single Digital Gateway', 'De Europese digitale toegangspoort tot overheidsdiensten.'],
+  ['SSO', 'Single Sign-On', 'Eén keer inloggen voor meerdere diensten.'],
+];
+document.getElementById('afk-tabel').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Afkorting"></nldd-text-cell>
+    <nldd-text-cell text="Voluit"></nldd-text-cell>
+    <nldd-text-cell text="Betekenis"></nldd-text-cell>
+  </nldd-table-row>
+  ${AFK.map(([a, v, b]) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="**${esc(a)}**"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(v)}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(b)}"></nldd-text-cell>
   </nldd-table-row>`).join('')}`;
 
 document.getElementById('open-tabel').innerHTML = `
