@@ -125,6 +125,24 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-container layout="wrap" gap="4" id="bu6-tags"></nldd-container>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-box id="oots-definitie">
+        <nldd-container gap="12">
+          <nldd-title size="4">
+            <h3>Wat is OOTS?</h3>
+            <p slot="subtitle">Once-Only Technical System: het Europese systeem voor het eenmalig aanleveren van gegevens.</p>
+          </nldd-title>
+          <nldd-rich-text>
+            <p>OOTS verbindt overheden in de EU, zodat zij op uitdrukkelijk verzoek van een burger of onderneming officiële documenten en gegevens rechtstreeks bij elkaar kunnen ophalen. Het idee is <strong>eenmalig aanleveren</strong> (once-only): wat een overheid in de ene lidstaat al heeft, hoef je in een andere lidstaat niet opnieuw in te leveren. De gebruiker logt in, kiest welk bewijs uit welk land nodig is, ziet het bewijs eerst zelf (preview) en geeft dan toestemming om het te delen.</p>
+            <p>OOTS is onderdeel van de Single Digital Gateway (Verordening (EU) 2018/1724, artikel 14) en is uitgewerkt in Uitvoeringsverordening (EU) 2022/1463. In Nederland is RINIS het intermediairplatform.</p>
+          </nldd-rich-text>
+          <nldd-title size="5"><h4>Waarom een aanvulling op de wallet?</h4></nldd-title>
+          <nldd-table id="oots-tabel" columns="minmax(130px,0.8fr) minmax(200px,1.6fr) minmax(200px,1.6fr)" accessible-label="Wallet en OOTS vergeleken"></nldd-table>
+          <nldd-rich-text>
+            <p>In BU6 doen ze daarom elk wat ze goed kunnen: de wallet levert identiteit, vertegenwoordiging en toestemming, OOTS haalt het bewijs op bij de bron. De gebruiker kiest zelf hoe hij de twee kanalen combineert (D2.1 p. 26, 407, 410).</p>
+          </nldd-rich-text>
+        </nldd-container>
+      </nldd-box>
+      <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
         <h3>Scenario's</h3>
         <ul>
@@ -295,7 +313,7 @@ const AFK = [
   ['LPID', 'Legal Person Identification Data', 'Identificatiegegevens van een rechtspersoon; in WE BUILD nu EBWOID.'],
   ['M2M', 'Machine-to-machine', 'Systemen wisselen gegevens uit zonder dat een mens inlogt.'],
   ['MVP', 'Minimum Viable Product', 'De kleinste werkende versie van een pilot; MVP+ is een uitbreiding voor later.'],
-  ['OOTS', 'Once-Only Technical System', 'Het Europese systeem waarmee overheden op verzoek bewijsstukken uitwisselen.'],
+  ['OOTS', 'Once-Only Technical System', 'Het Europese systeem waarmee overheden op verzoek van een burger of onderneming bewijsstukken rechtstreeks bij elkaar ophalen, zodat je ze maar één keer hoeft aan te leveren.'],
   ['OpenID4VCI / OpenID4VP', 'OpenID for Verifiable Credential Issuance / Verifiable Presentations', 'De protocollen voor het uitgeven en het tonen van attestaties.'],
   ['PID', 'Person Identification Data', 'Persoonsidentificatiegegevens in de EUDI-wallet.'],
   ['PoA', 'Power of Attorney', 'Volmacht: specifieke delegatie voor een doel en een periode.'],
@@ -322,6 +340,25 @@ document.getElementById('afk-tabel').innerHTML = `
     <nldd-text-cell vertical-alignment="top" text="**${esc(a)}**"></nldd-text-cell>
     <nldd-text-cell vertical-alignment="top" text="${esc(v)}"></nldd-text-cell>
     <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(b)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+
+document.getElementById('oots-tabel').innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text=""></nldd-text-cell>
+    <nldd-text-cell text="**Wallet**" supporting-text="EUDI-wallet en EBW"></nldd-text-cell>
+    <nldd-text-cell text="**OOTS**" supporting-text="Once-Only Technical System"></nldd-text-cell>
+  </nldd-table-row>
+  ${[
+    ['Wie levert de gegevens', 'De gebruiker zelf: hij toont een attestatie die al in zijn wallet staat.', 'De overheid die de bron beheert: zij stuurt het bewijs rechtstreeks naar de vragende overheid.'],
+    ['Wat is er vooraf nodig', 'De attestatie moet eerst zijn uitgegeven en in de wallet staan.', 'Niets in de wallet; het bewijs wordt opgehaald op het moment dat het nodig is.'],
+    ['Sterk in', 'Laten zien wie je bent en namens wie je handelt (PID, vertegenwoordiging, mandaat), en toestemming geven.', 'Actuele gegevens en documenten uit authentieke bronnen, ook als daar geen attestatie van bestaat.'],
+    ['Tussen wie', 'Elke partij die attestaties accepteert, ook bedrijven onderling.', 'Tussen overheden, voor procedures van de Single Digital Gateway.'],
+    ['Wat ontbreekt', 'Niet elk bewijsstuk bestaat (al) als attestatie.', 'OOTS weet zelf niet wie de gebruiker is of namens wie hij handelt: inloggen is nodig.'],
+  ].map(([w, a, b]) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="**${esc(w)}**"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(a)}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${esc(b)}"></nldd-text-cell>
   </nldd-table-row>`).join('')}`;
 
 document.getElementById('open-tabel').innerHTML = `
