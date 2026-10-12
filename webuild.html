@@ -73,6 +73,13 @@
         <p>Scenario's, de machtigingsattestatie, M2M, identity matching en interactie tussen Business Wallets zijn mogelijk niet op tijd gespecificeerd. Belastingdiensten stellen strengere eisen aan identity matching dan de PID- en EBWOID-schema's bieden. De landencombinaties liggen nog niet vast (p. 40, 221, 246).</p>
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4" id="bu3-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-table id="bu3-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU3"></nldd-table>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen en de subset per scenario; de attributen van de EBWOID behalve de EUID; schema en formaat van de machtigingsattestatie en de PoA; de overige velden van het btw-ID-certificaat; de inhoud van de aangifte en de ontvangstbevestiging; identity matching. Dit staat in losse rulebooks en in specificaties die elke belastingdienst nog maakt (p. 221, 228, 276)."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
       <nldd-list variant="box" id="bu3-moza" aria-label="Betekenis van BU3 voor MOZa"></nldd-list>
     </nldd-simple-section>
 
@@ -112,6 +119,13 @@
         <h3>Open punten</h3>
         <p>Mandaatmodellen verschillen per lidstaat, er is geen geharmoniseerde semantiek voor PoA en PoR, registers en API's zijn beperkt beschikbaar en er is nog geen EU-register van uitgevers van mandaten. De pilot bouwt op de huidige ARF, niet op de toekomstige EBW-specificaties (p. 40, 314-315, 367-369).</p>
       </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4" id="bu4-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-table id="bu4-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU4"></nldd-table>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen; veldnamen, verplicht of optioneel en datatypes van PoA, PoX, PoE, EBWOID en EUCC; welk nummer de gevolmachtigde identificeert en de regels voor matching; het statusmechanisme. De rulebooks zijn aparte documenten (p. 324, 355, 377)."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-list variant="box" id="bu4-moza" aria-label="Betekenis van BU4 voor MOZa"></nldd-list>
     </nldd-simple-section>
@@ -166,6 +180,13 @@
         <p>De pilot gaat ervan uit dat partners een werkende OOTS hebben; WE BUILD bouwt alleen de koppeling. De specificaties voor het EU Company Certificate en de digitale volmacht worden pas medio 2026 verwacht, er is geen centraal register voor vertegenwoordigingsbevoegdheid en dienstgebonden machtigingen vragen om een register van relying parties met attestatietypen (p. 37, 40, 407-410).</p>
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4" id="bu6-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-table id="bu6-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU6"></nldd-table>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen en de optionele attributen per lidstaat; de veldnamen van het nummer en de naam van de rechtspersoon in de PoR, het formaat en de toegestane waarden van eService; het datamodel van het OOTS-bewijs; welke velden de identity swap-check precies vergelijkt (p. 414, 418-420)."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
       <nldd-list variant="box" id="bu6-moza" aria-label="Betekenis van BU6 voor MOZa"></nldd-list>
     </nldd-simple-section>
 
@@ -188,7 +209,8 @@
         <ul>
           <li>De <strong>EBWOID</strong> (voorheen LPID) is de minimale identificatie van een organisatie en wordt als EAA in de EBW uitgegeven (p. 26, 56).</li>
           <li>OpenID4VCI en OpenID4VP als basis, met HAIP. Formaten: SD-JWT VC, ISO mdoc en W3C VCDM 2.0 (p. 13-14, 29, 38).</li>
-          <li>Een concreet datamodel voor een mandaat-attestatie volgt nog in rulebooks (p. 26, 30).</li>
+          <li>De <strong>PID</strong> is een verplichte set attributen waarmee een natuurlijk persoon uniek wordt geïdentificeerd op betrouwbaarheidsniveau hoog. De EBWOID bevat een officiële naam en een EU-uniek identificatienummer. Attributenlijsten staan niet in D4.1 (p. 42, 56).</li>
+          <li>Datamodellen voor attestaties, PID en EBWOID volgen in D4.3 en in rulebooks; dat geldt ook voor de mandaat-attestatie (p. 26, 30, 39).</li>
         </ul>
         <h3>Communicatie en vertrouwen</h3>
         <ul>
@@ -260,6 +282,7 @@ points('takeaways', [
   ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE (Power of Employee)', 'Een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
   ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID (persoonsidentificatiegegevens) plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
   ['magnifier', 'OOTS (Once-Only Technical System) naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
+  ['file-text', 'Gegevens: veldnamen volgen nog', 'D2.1 en D4.1 noemen welke attestaties worden gebruikt en wat er op hoofdlijnen in staat, maar geen volledige attributenlijsten. Die komen in losse rulebooks en in D4.3. Alleen de PoR heeft al concrete velden: full_powers, eService, effective_from_date en effective_until_date (D2.1 p. 418-419; D4.1 p. 39).'],
   ['shield', 'Controles voor MOZa als relying party', 'Handtekening, trust chain, status (Token Status List), match tussen PID (persoonsidentificatiegegevens) en gevolmachtigde, zakelijke geldigheid en scope tegen de dienst; en een identity swap-check bij elke overstap tussen kanalen (D2.1 p. 371-372, 409; D4.1 p. 32, 52).'],
 ]);
 
@@ -341,6 +364,111 @@ document.getElementById('afk-tabel').innerHTML = `
     <nldd-text-cell vertical-alignment="top" text="${esc(v)}"></nldd-text-cell>
     <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(b)}"></nldd-text-cell>
   </nldd-table-row>`).join('')}`;
+
+const GEGEVENS = {
+ "bu3": [
+  [
+   "PID",
+   "Persoonsidentificatie. Uitgever: PID-provider. In de EUDI-wallet van de persoon; getoond aan de belastingdienst.",
+   "De verplichte attributen om de persoon te identificeren volgens Uitvoeringsverordening 2024/2977, plus optionele attributen die per lidstaat verschillen. Elke belastingdienst bepaalt zelf welke identiteitsgegevens nodig zijn. In de M2M-scenario's alleen als iemand meetekent (p. 228, 230, 244)."
+  ],
+  [
+   "EBWOID",
+   "Identificatie van de organisatie. Uitgever: EBWOID-provider. In de Business Wallet.",
+   "Verplichte attributen om de onderneming te identificeren, plus optionele per lidstaat. Enige genoemde inhoud: de EUID. Dient ook als adres voor het afleveren van de ontvangstbevestiging of het certificaat (p. 217, 228, 243)."
+  ],
+  [
+   "Service-based authorisation attestation",
+   "Machtiging per dienst, ontworpen door BU4. Uitgever: machtigingenregister of Business Wallet van de vertegenwoordigde onderneming. In de EUDI-wallet of de Business Wallet van de intermediair.",
+   "`The Intermediary EUID` (wie gemachtigd is); `The party concerned EUID` (namens wie); `The scope` (de btw-aangiftedienst of volledige scope; NL-voorbeeld: VAT ID certificate request); `Trust references` (uitgever of machtigingenregister). Gecontroleerd: uitgever, integriteit, geldigheid en intrekking (p. 243-244, 263)."
+  ],
+  [
+   "PoA",
+   "Volmacht, gedefinieerd door BU4. In de EUDI-wallet van de volledig bevoegde persoon.",
+   "Brede of onbeperkte scope; velden volgen uit BU4 (p. 228, 275)."
+  ],
+  [
+   "VAT ID certificate",
+   "Btw-ID-certificaat. Pub-EAA van de belastingdienst (met gekwalificeerd zegel) of QEAA van een QTSP. In de EUDI-wallet of de Business Wallet.",
+   "De EUID waaraan het btw-nummer is toegekend en het btw-identificatienummer zelf. De overige attributen staan in een concept-rulebook (p. 261, 276, 289)."
+  ],
+  [
+   "Btw-aangifte en ontvangstbevestiging",
+   "Bedrijfsdocumenten, geen attestaties.",
+   "Aangifte: getekend met QES (portaal) of verzegeld en via QERDS verzonden, samen met de EBWOID, de EUID van de vertegenwoordigde onderneming en eventueel de machtiging. Ontvangstbevestiging: verzegeld door de belastingdienst (p. 224, 229, 242-243)."
+  ]
+ ],
+ "bu4": [
+  [
+   "PID",
+   "Persoonsidentificatie uit de EUDI-wallet.",
+   "Moet de natuurlijke persoon die namens de organisatie handelt uniek kunnen identificeren. Is er een QES nodig, dan mag de dienst op de identiteit in het QES-certificaat vertrouwen en hoeft de PID niet apart (p. 370, 377)."
+  ],
+  [
+   "PoR",
+   "Vertegenwoordigingsbevoegdheid. QEAA van een QTSP namens het register, of van de publieke registerbeheerder. In de EBW van het bedrijf of de EUDI-wallet.",
+   "Koppelt de gevolmachtigde (Proxy), de vertegenwoordigde rechtspersoon (via EBWOID) en de bevoegdheden met hun beperkingen (p. 330-331). Velden uit het PoR-rulebook v1.2: nummer en naam van de rechtspersoon, `full_powers`, `eService` (leeg bij volledige bevoegdheid), `effective_from_date`, `effective_until_date` (p. 418-419)."
+  ],
+  [
+   "PoA",
+   "Volmacht. EAA, mogelijk QEAA, van een QTSP op basis van een authentieke bron. In de EBW of de EUDI-wallet.",
+   "Bij uitgifte gecontroleerd: identiteit, scope van het mandaat, geldigheidsperiode en rechtsgrond. Zichtbaar in de wallet: uitgever, scope, geldigheid en intrekkingsstatus (p. 310, 318)."
+  ],
+  [
+   "PoX",
+   "PoR, PoA en scope in één attestatie (scenario 1c).",
+   "Rol (PoR) of gedelegeerd mandaat (PoA), de scope van de bevoegdheden, de geldigheidsperiode en de beperking tot een dienst. Formaat: W3C VCDM 2.0 en SD-JWT VC, met selective disclosure (p. 379-380)."
+  ],
+  [
+   "PoE",
+   "Power of Employee. EAA van het bedrijf zelf, zonder authentieke bron. In de EUDI-wallet.",
+   "Rol en scope volgens een model dat organisatie en dienst vooraf afspreken. Cryptografisch gebonden aan de EBWOID en te controleren via de EUCC (p. 369, 380)."
+  ],
+  [
+   "EBWOID en EUCC",
+   "Identificatie van de rechtspersoon en het EU-bedrijfscertificaat. In de EBW.",
+   "EBWOID: moet genoeg informatie bevatten om te controleren bij het handelsregister. Velden zijn niet gegeven (p. 355, 364)."
+  ]
+ ],
+ "bu6": [
+  [
+   "PID",
+   "Unique PID set. Uitgever per lidstaat; voor NL staat de KVK genoemd. In de EUDI-wallet; getoond aan de dienst en opnieuw aan het OOTS-platform.",
+   "De verplichte attributen om de persoon te identificeren, plus de optionele attributen die nodig zijn om hem uniek te identificeren; dat verschilt per lidstaat. Het OOTS-platform mag aanvullend bijvoorbeeld een lidstaatspecifiek nummer vragen (p. 413, 417-418)."
+  ],
+  [
+   "PoR (full power)",
+   "Vertegenwoordigingsbevoegdheid. QEAA, Pub-EAA of EAA, per lidstaat; voor NL de KVK. In de EUDI-wallet.",
+   "Nummer van de rechtspersoon; huidige juridische naam; `full_powers` (true of false); `eService` (leeg als full_powers true is); `effective_from_date` (ingangsdatum); `effective_until_date` (einddatum, optioneel). Een dienst moet de PoR kunnen lezen zonder lidstaatspecifieke regels (p. 418-419)."
+  ],
+  [
+   "OOTS-bewijs",
+   "Proof of existence of a legal person (basic information). Geen attestatie, maar bewijs dat via OOTS bij de bron wordt opgehaald; voor NL bij de KVK via RINIS.",
+   "Indicatief: de juridische naam van de rechtspersoon, bevestiging dat de rechtspersoon bestaat en bevestiging van zijn rechtsbevoegdheid (p. 407, 416, 420)."
+  ],
+  [
+   "Identity swap-check",
+   "Controle door het OOTS-platform van de leverende lidstaat.",
+   "De gegevens van de natuurlijke persoon en de rechtspersoon na het opnieuw inloggen worden vergeleken met die uit het OOTS-verzoek. Bij een verschil stopt het proces (p. 409, 414)."
+  ]
+ ]
+};
+// Veldnamen tussen backticks worden vet getoond
+const fields = (t) => esc(t).replace(/`([^`]+)`/g, '**$1**');
+Object.entries(GEGEVENS).forEach(([uc, rows]) => {
+  document.getElementById(`${uc}-data`).innerHTML = `
+  <nldd-table-row slot="header">
+    <nldd-text-cell text="Attestatie of gegeven"></nldd-text-cell>
+    <nldd-text-cell text="Wat het is"></nldd-text-cell>
+    <nldd-text-cell text="Inhoud volgens de documenten"></nldd-text-cell>
+  </nldd-table-row>
+  ${rows.map(([n, w, i]) => `
+  <nldd-table-row>
+    <nldd-text-cell vertical-alignment="top" text="**${esc(n)}**"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(w)}"></nldd-text-cell>
+    <nldd-text-cell vertical-alignment="top" text="${fields(i)}"></nldd-text-cell>
+  </nldd-table-row>`).join('')}`;
+});
 
 document.getElementById('oots-tabel').innerHTML = `
   <nldd-table-row slot="header">
