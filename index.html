@@ -91,6 +91,21 @@
     @media (prefers-reduced-motion: reduce) {
       [data-pin][data-open] { animation: none; }
     }
+    /* Sporen die nog nader te bepalen zijn (EBW, EDI-wallet): halfdoorzichtige laag met herhaald watermerk.
+       De vaste eerste kolom (z-index 2) blijft erboven; klikken gaat door de laag heen. */
+    #roadmap-table > nldd-table-row[data-tbd] {
+      position: relative;
+    }
+    #roadmap-table > nldd-table-row[data-tbd]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='120'%3E%3Ctext x='260' y='66' text-anchor='middle' font-family='RijksSans, system-ui, sans-serif' font-size='22' font-weight='700' letter-spacing='1' fill='%236b7280' fill-opacity='0.85'%3ENader te bepalen%3C/text%3E%3C/svg%3E") center / 520px 120px repeat,
+        color-mix(in srgb, var(--semantics-surfaces-base-background-color) 72%, transparent);
+    }
     #roadmap-table > nldd-table-row[slot="header"] {
       position: sticky;
       top: 0;
@@ -647,6 +662,7 @@ const laneHeader = (lane) => lane.kader ? `
     </nldd-container>` : lane.prerequisite ? `
     <nldd-container role="rowheader" gap="4" padding-block="12">
       ${laneLogo(lane)}
+      ${tbdTag(lane)}
       <nldd-title size="6"><span slot="overline">Randvoorwaarde</span><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
     </nldd-container>` : !LOGOS[lane.id] ? `
     <nldd-container role="rowheader" gap="8" padding-block="12">
@@ -658,12 +674,16 @@ const laneHeader = (lane) => lane.kader ? `
     </nldd-container>` : `
     <nldd-container role="rowheader" gap="8" padding-block="12">
       ${laneLogo(lane)}
+      ${tbdTag(lane)}
       <nldd-title size="6"><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
       ${infoLink(lane.id)}
     </nldd-container>`;
 
+// Sporen waarvan de planning nog nader te bepalen is
+const TBD_LANES = new Set(['ebw', 'edi']);
+const tbdTag = (lane) => TBD_LANES.has(lane.id) ? '<nldd-tag size="sm" color="neutral" icon="clock" text="Nader te bepalen"></nldd-tag>' : '';
 const laneRows = LANES.map((lane) => `
-  <nldd-table-row>
+  <nldd-table-row${TBD_LANES.has(lane.id) ? ' data-tbd' : ''}>
     ${laneHeader(lane)}
     ${TERTIALS.map((t) => {
       const rs = lane.releases.filter((r) => r.t === t.id);
