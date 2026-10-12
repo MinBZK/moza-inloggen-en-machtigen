@@ -154,6 +154,36 @@
           <nldd-rich-text>
             <p>In BU6 doen ze daarom elk wat ze goed kunnen: de wallet levert identiteit, vertegenwoordiging en toestemming, OOTS haalt het bewijs op bij de bron. De gebruiker kiest zelf hoe hij de twee kanalen combineert (D2.1 p. 26, 407, 410).</p>
           </nldd-rich-text>
+          <nldd-banner variant="neutral" icon="info-circle" heading-level="5" text="Onderstaande duiding is eigen interpretatie"
+            supporting-text="De voorbeelden en de afweging hieronder komen uit de regelgeving (Single Digital Gateway) en eigen redenering, niet uit de WE BUILD-documenten. Welke bewijstypen Nederland precies heeft aangesloten, is niet nagegaan; alleen het KVK-bewijs komt uit WE BUILD."></nldd-banner>
+          <nldd-title size="5"><h4>Voorbeelden van bewijs voor een ondernemer</h4></nldd-title>
+          <nldd-rich-text>
+            <p>OOTS is alleen bedoeld voor grensoverschrijdende procedures, zoals een bedrijfsactiviteit melden of er een vergunning voor aanvragen, je als werkgever registreren, aangifte vennootschapsbelasting doen en meedoen aan een aanbesteding.</p>
+            <ul>
+              <li><strong>Over de onderneming:</strong> uittreksel uit het handelsregister of bewijs dat de rechtspersoon bestaat (in BU6 levert de KVK dit), rechtsvorm, vestigingsadres en bestuurders, bewijs dat de onderneming niet failliet is.</li>
+              <li><strong>Fiscaal:</strong> btw-registratie, verklaring betalingsgedrag, fiscale woonplaatsverklaring.</li>
+              <li><strong>Sociale zekerheid:</strong> verklaring dat de premies zijn afgedragen, registratie als werkgever.</li>
+              <li><strong>Bij aanbestedingen:</strong> gedragsverklaring, jaarrekening of omzetgegevens, bewijs van verzekering.</li>
+              <li><strong>Over personen in de onderneming:</strong> diploma's en beroepskwalificaties, vergunningen.</li>
+            </ul>
+          </nldd-rich-text>
+          <nldd-title size="5"><h4>Is OOTS concurrentie voor de attestatie van de KVK?</h4></nldd-title>
+          <nldd-rich-text>
+            <p>Inhoudelijk overlappen ze: de attestatie onderneming in de EBW en het OOTS-bewijs dat de rechtspersoon bestaat bevatten grotendeels dezelfde gegevens, en in beide gevallen is de KVK de bron. Het zijn dus twee kanalen voor dezelfde gegevens. De attestatie geeft de KVK één keer uit en de onderneming toont hem zelf, aan elke partij en ook binnen Nederland. Via OOTS haalt een buitenlandse overheid de gegevens op het moment zelf op, alleen tussen overheden en alleen bij grensoverschrijdende procedures.</p>
+          </nldd-rich-text>
+          <nldd-title size="5"><h4>Wanneer is OOTS relevant voor MOZa?</h4></nldd-title>
+          <nldd-list variant="box" id="oots-moza" aria-label="Wanneer is OOTS relevant voor MOZa"></nldd-list>
+          <nldd-title size="5"><h4>Waarom een tussenlaag, en niet direct bij de bron ophalen?</h4></nldd-title>
+          <nldd-rich-text>
+            <p>Direct ophalen kan, en dat is de wallet-route: het buitenlandse register geeft een attestatie rechtstreeks uit aan de EBW van de onderneming, zonder OOTS ertussen. Het verschil zit in wie ophaalt. Bij de wallet haalt de onderneming zelf haar attestatie op; zij weet bij welk register ze staat. Bij OOTS haalt de ene overheid het bewijs op bij de andere, en dan is een tussenlaag nodig:</p>
+            <ul>
+              <li><strong>Vinden en begrijpen.</strong> Een Nederlandse dienstverlener weet niet welke buitenlandse instantie welk bewijs levert, hoe hij die bevraagt en hoe dat bewijs zich verhoudt tot wat hij nodig heeft. OOTS heeft daarvoor gemeenschappelijke diensten: een overzicht van wie wat levert, een vertaling tussen bewijstypen en een beveiligd transportkanaal. De tussenlaag is dus een wegwijzer en transportlaag, geen extra bron.</li>
+              <li><strong>Het werkt zonder wallet.</strong> Niet elke bron geeft al attestaties uit en niet elke onderneming heeft al een EBW. OOTS bestaat nu al.</li>
+              <li><strong>Wettelijke plicht.</strong> De Single Digital Gateway-verordening verplicht overheden om bewijs op verzoek van de gebruiker zelf op te halen, en geeft de grondslag voor de uitwisseling.</li>
+              <li><strong>Niet alles is een attestatie.</strong> OOTS kan ook documenten ophalen waar geen attestatie van bestaat.</li>
+            </ul>
+            <p>In de wallet-wereld nemen de vertrouwenslijsten en rulebooks de rol van wegwijzer over: MOZa moet dan weten dat het buitenlandse register een erkende uitgever is en wat de velden betekenen. OOTS is voor MOZa dus vooral een vangnet voor de periode waarin buitenlandse ondernemingen nog geen EBW of geen attestatie hebben, en voor bewijs dat niet als attestatie bestaat.</p>
+          </nldd-rich-text>
         </nldd-container>
       </nldd-box>
       <nldd-spacer size="16"></nldd-spacer>
@@ -469,6 +499,12 @@ Object.entries(GEGEVENS).forEach(([uc, rows]) => {
     <nldd-text-cell vertical-alignment="top" text="${fields(i)}"></nldd-text-cell>
   </nldd-table-row>`).join('')}`;
 });
+
+points('oots-moza', [
+  ['house', 'Nederlandse onderneming bij een Nederlandse dienst: geen rol', 'MOZa en de dienstverleners kunnen het handelsregister rechtstreeks bevragen. De attestatie is hier vooral nodig om in te loggen en te laten zien namens wie je handelt.'],
+  ['flag', 'Buitenlandse onderneming bij MOZa: hier is OOTS relevant', 'De KVK heeft geen gegevens. De onderneming toont een attestatie uit haar eigen EBW, of de Nederlandse dienstverlener haalt het bewijs via OOTS op bij het register in het thuisland. Zolang buitenlandse ondernemingen nog geen EBW hebben, kan OOTS eerder werken.'],
+  ['arrow-right', 'Nederlandse onderneming in het buitenland: buiten het portaal', 'De KVK levert via OOTS aan de buitenlandse overheid, of de onderneming toont haar attestatie. De gebruiker kiest; dit loopt buiten het MOZa-portaal om.'],
+]);
 
 document.getElementById('oots-tabel').innerHTML = `
   <nldd-table-row slot="header">
