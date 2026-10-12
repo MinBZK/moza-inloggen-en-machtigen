@@ -140,7 +140,7 @@
 <nldd-app-view background="tinted">
   <nldd-page>
 
-    <nldd-simple-section width="full">
+    <nldd-simple-section width="full" id="intro">
       <nldd-skip-link href="#roadmap" text="Direct naar de roadmap"></nldd-skip-link>
       <nldd-title size="1">
         <span slot="overline">MijnOverheid Zakelijk</span>
@@ -228,7 +228,7 @@
         columns="minmax(170px,1fr) minmax(200px,1.2fr) repeat(4, minmax(180px,1fr))"></nldd-table>
     </nldd-simple-section>
 
-    <nldd-simple-section width="full">
+    <nldd-simple-section width="full" id="wensen">
       <nldd-title size="3" slot="header">
         <h2>Wanneer is een wens ingevuld?</h2>
         <p slot="subtitle">Een eerste versie bedient de ondernemer vaak deels. Dit overzicht laat zien in welke release een wens voor het eerst en wanneer volledig wordt ingevuld.</p>
@@ -1133,7 +1133,7 @@ const updateArchiveEntry = () => {
   updateCommentHint();
   const n = OPMERKINGEN.filter((o) => o.status === 'opgelost').length;
   archiveEntry.hidden = !COMMENTS_ON;
-  archiveButton.setAttribute('text', `Opmerkingenarchief (${n})`);
+  archiveButton.setAttribute('text', ZONDER_PLEK.length ? `Opmerkingenarchief (${n} opgelost, ${ZONDER_PLEK.length} open zonder plek)` : `Opmerkingenarchief (${n})`);
 };
 const releaseOfAnchor = (anker) => {
   const m = /^([a-z]+):([A-Za-z0-9]+)\|/.exec(anker);
@@ -1154,6 +1154,19 @@ function renderArchive() {
       <p slot="subtitle">Opgeloste opmerkingen met hun conclusie, nieuwste eerst.${IK?.editor ? ' Heropenen zet een opmerking terug bij het punt.' : ''}</p>
       <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
+    ${ZONDER_PLEK.length ? `
+    <nldd-title size="5"><h3>Open, zonder plek op de pagina (${ZONDER_PLEK.length})</h3>
+      <p slot="subtitle">Deze opmerkingen zijn geplaatst op een plek die niet meer te vinden is.</p></nldd-title>
+    ${ZONDER_PLEK.map((o) => `
+    <nldd-list variant="box">
+      <nldd-list-item>
+        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+        <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-text-cell overline="Open" text="${esc(o.onderdeel)}"></nldd-text-cell>
+      </nldd-list-item>${threadRows(o)}${actionRow(o)}
+    </nldd-list>`).join('')}
+    <nldd-title size="5"><h3>Opgelost (${done.length})</h3></nldd-title>` : ''}
     ${done.length ? done.map((o) => {
       const rel = releaseOfAnchor(o.anker);
       return `
@@ -1240,7 +1253,7 @@ function renderDetail(laneId, code) {
 // Option/Alt + klik: opmerkingenveld op de geklikte plek
 const popover = document.getElementById('comment-popover');
 const popoverBody = document.getElementById('comment-popover-body');
-const PLACES = { roadmap: 'Roadmap per spoor', 'roadmap-table': 'Roadmap per spoor', 'wie-logt-in': 'Wie logt in met welk middel?', 'login-table': 'Wie logt in met welk middel?', 'wishes-table': 'Wanneer is een wens ingevuld?' };
+const PLACES = { intro: 'Bovenaan de pagina', wensen: 'Wanneer is een wens ingevuld?', roadmap: 'Roadmap per spoor', 'roadmap-table': 'Roadmap per spoor', 'wie-logt-in': 'Wie logt in met welk middel?', 'login-table': 'Wie logt in met welk middel?', 'wishes-table': 'Wanneer is een wens ingevuld?' };
 // Open-toestand van de verdieping: het 'open'-event komt niet altijd door, dus ook het interne dialoogvenster lezen
 let sheetOpenFlag = false;
 sheet.addEventListener('open', () => { sheetOpenFlag = true; });
@@ -1264,9 +1277,10 @@ const describeTarget = (path, e) => {
     return { anker: anchorOf(lane, r, 'algemeen'), onderdeel: `${lane.name} ${r.code} · ${r.title} · Algemeen` };
   }
   // Elders op de pagina: positie binnen de dichtstbijzijnde tegel of sectie
-  const host = path.find((el) => el.dataset?.release || PLACES[el.id] || (el.id && el.tagName === 'NLDD-SIMPLE-SECTION')) || document.querySelector('nldd-simple-section');
+  const host = path.find((el) => el.dataset?.release || PLACES[el.id] || (el.id && el.tagName === 'NLDD-SIMPLE-SECTION')) || document.getElementById('intro');
   const rect = host.getBoundingClientRect();
-  const pct = (v) => Math.round(v * 1000) / 10;
+  // Altijd een eindig percentage binnen de plek, ook als de plek (nog) geen afmeting heeft
+  const pct = (v) => (Number.isFinite(v) ? Math.min(100, Math.max(0, Math.round(v * 1000) / 10)) : 2);
   const sel = host.dataset?.release ? `[data-release="${host.dataset.release}"]` : `#${host.id}`;
   const hint = oneLine(path.find((el) => el.textContent?.trim() && el.textContent.trim().length < 200)?.textContent || '').slice(0, 80);
   const place = host.dataset?.release ? releaseRef(host.dataset.release) : null;
@@ -1376,16 +1390,24 @@ const openPinThread = (o, e) => {
     <nldd-container layout="wrap" gap="8">${actionButtons(o, 'sm').join('')}</nldd-container>`;
   showPopoverAt(e.clientX, e.clientY);
 };
+// Open opmerkingen op een plek die niet (meer) op de pagina te vinden is; staan in het opmerkingenarchief
+let ZONDER_PLEK = [];
+const pinPct = (v, fallback) => { const n = parseFloat(v); return Number.isFinite(n) ? Math.min(100, Math.max(0, n)) : fallback; };
 const renderPins = () => {
   document.querySelectorAll('[data-pin]').forEach((el) => el.remove());
+  ZONDER_PLEK = [];
   OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith('plek|')).forEach((o) => {
-    const [, sel, x, y] = o.anker.split('|');
+    const [, rawSel, rawX, rawY] = o.anker.split('|');
+    // Eerdere opmerkingen boven de tabel kregen een leeg anker ('#'): die horen bovenaan de pagina
+    const sel = rawSel === '#' ? '#intro' : rawSel;
+    const x = pinPct(rawX, 3);
+    const y = pinPct(rawY, 2);
     let host = null;
-    try { host = document.querySelector(sel); } catch { return; }
-    if (!host) return;
+    try { host = document.querySelector(sel); } catch { host = null; }
+    if (!host) { ZONDER_PLEK.push(o); return; }
     const done = o.status === 'opgelost';
     host.setAttribute('data-has-pins', '');
-    host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}"${done ? '' : ' data-open'} size="sm" style="left:${parseFloat(x)}%;top:${parseFloat(y)}%"
+    host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}"${done ? '' : ' data-open'} size="sm" style="left:${x}%;top:${y}%"
       variant="${done ? 'neutral-tinted' : 'inherit-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking van ${esc(o.auteur)}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
   });
 };
