@@ -11,7 +11,7 @@
 <nldd-app-view background="tinted">
   <nldd-page>
 
-    <nldd-simple-section>
+    <nldd-simple-section id="inhoud">
       <nldd-link size="sm" href="index.html" start-icon="chevron-left" text="Terug naar de roadmap"></nldd-link>
       <nldd-spacer size="24"></nldd-spacer>
       <picture>
@@ -25,16 +25,33 @@
         <p slot="subtitle">Achtergrondinformatie bij het spoor eHerkenning in de roadmap.</p>
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-banner variant="neutral" text="Inhoud volgt"
-        supporting-text="De achtergrondinformatie over eHerkenning wordt hier nog toegevoegd."></nldd-banner>
+      <nldd-list variant="box" type="navigation" aria-label="Achtergrond eHerkenning">
+        <nldd-list-item href="eherkenning-inlogflow.html">
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="check-list" color="accent" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen met eHerkenning: de bestaande flow**" supporting-text="Stap voor stap wat er gebeurt als een werknemer namens zijn bedrijf inlogt bij UWV, en wie na afloop wat weet."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item href="eherkenning-concept.html">
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="centralized-network" color="accent" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Concept: inloggen op MOZa met eHerkenning**" supporting-text="Schema van machtigen en inloggen nu, en hoe we het voor het MOZa portaal zouden willen: één keer inloggen met toegang tot de onderliggende diensten. Met open vragen."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <div id="opm-hint"></div>
     </nldd-simple-section>
 
     <nldd-page-footer>
-      <nldd-container padding="24">
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026.</p></nldd-rich-text>
       </nldd-container>
     </nldd-page-footer>
   </nldd-page>
 </nldd-app-view>
+<script type="module" src="opmerkingen.js"></script>
 </body>
 </html>
