@@ -50,12 +50,12 @@ Dat werkt op alle pagina's. De roadmap (`index.html`) heeft een eigen variant me
 
 - **Plaatsen:** Option (Mac) of Alt + klik ergens op de pagina, of de tekstballon bij een punt in de verdieping. Een opmerking bij een punt staat in de verdieping onder dat punt; een opmerking op een plek verschijnt als oranje markering. Tegels met open opmerkingen tonen een teller.
 - **Reageren:** knop *Reageren* bij een draadje.
-- **Oplossen** (editors): knop *Oplossen* met een conclusie; *Heropenen* kan altijd. Wie editor is, regelt de omgevingsvariabele `EDITORS` (komma-gescheiden e-mailadressen; leeg = iedereen).
+- **Oplossen** (editors): knop *Oplossen* met een conclusie; *Heropenen* kan altijd. Met *Verwijderen* haalt een editor een opmerking met alle reacties definitief weg (na bevestiging). Wie editor is, regelt de omgevingsvariabele `EDITORS` (komma-gescheiden e-mailadressen; leeg = iedereen).
 - **Via Claude:** Claude kan opmerkingen oplossen via het browserpaneel, nadat je daar met SSO Rijk bent ingelogd.
 
 ## Techniek
 
-- `server.py` levert de site en de API (`/api/ik`, `/api/opmerkingen`, `/api/opmerkingen/<id>/reacties|oplossen|heropenen`). Alleen de standaardbibliotheek; opslag in SQLite op het persistent volume `/data`.
+- `server.py` levert de site en de API (`/api/ik`, `/api/opmerkingen`, `/api/opmerkingen/<id>/reacties|oplossen|heropenen|verwijderen`). Alleen de standaardbibliotheek; opslag in SQLite op het persistent volume `/data`.
 - De identiteit komt uit de headers van de authorization-wall (oauth2-proxy met SSO Rijk). De app is alleen via die proxy bereikbaar.
 - `Containerfile` bouwt de zelfstandige pagina's en de server in één image. De workflow bouwt het image bij elke push op `main` en rolt het uit naar ZAD (secret `ZAD_API_KEY`).
 - Lokaal met opmerkingen:

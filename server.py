@@ -167,7 +167,7 @@ class Handler(SimpleHTTPRequestHandler):
                                 user['naam'], user['email'], now()))
                     DB.commit()
                 return self.send_json(HTTPStatus.CREATED, {'ok': True})
-            m = re.fullmatch(r'/api/opmerkingen/(\d+)/(reacties|oplossen|heropenen)', path)
+            m = re.fullmatch(r'/api/opmerkingen/(\d+)/(reacties|oplossen|heropenen|verwijderen)', path)
             if not m:
                 return self.send_json(HTTPStatus.NOT_FOUND, {'fout': 'Onbekend'})
             comment_id, action = int(m.group(1)), m.group(2)
@@ -178,7 +178,11 @@ class Handler(SimpleHTTPRequestHandler):
                     DB.execute('INSERT INTO reacties (opmerking_id, auteur, email, datum, tekst) VALUES (?,?,?,?,?)',
                                (comment_id, user['naam'], user['email'], now(), self.text(data, 'tekst')))
                 elif not user['editor']:
-                    return self.send_json(HTTPStatus.FORBIDDEN, {'fout': 'Alleen editors kunnen opmerkingen oplossen'})
+                    return self.send_json(HTTPStatus.FORBIDDEN, {'fout': 'Alleen editors kunnen opmerkingen oplossen of verwijderen'})
+                elif action == 'verwijderen':
+                    # Definitief: de opmerking en alle reacties erop
+                    DB.execute('DELETE FROM reacties WHERE opmerking_id = ?', (comment_id,))
+                    DB.execute('DELETE FROM opmerkingen WHERE id = ?', (comment_id,))
                 elif action == 'oplossen':
                     DB.execute("UPDATE opmerkingen SET status='opgelost', conclusie=?, opgelost_door=?, opgelost_op=? WHERE id=?",
                                (self.text(data, 'conclusie'), user['naam'], now(), comment_id))

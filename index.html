@@ -962,6 +962,7 @@ const actionButtons = (o, size = 'xs') => [
   `<nldd-button data-reply="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'primary'}" size="${size}" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
   IK?.editor && o.status === 'open' ? `<nldd-button data-resolve="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
   IK?.editor && o.status === 'opgelost' ? `<nldd-button data-reopen="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
+  IK?.editor ? `<nldd-button data-delete="${o.nummer}" variant="neutral-transparent" size="${size}" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
 ].filter(Boolean);
 const actionRow = (o) => `
     <nldd-list-item>
@@ -1183,6 +1184,7 @@ function renderArchive() {
         <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
         ${rel ? `<nldd-cell><nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="${esc(`Naar ${rel.lane.name} ${rel.r.code}`)}" data-lane="${rel.lane.id}" data-code="${rel.r.code}"></nldd-button></nldd-cell>` : ''}
         ${IK?.editor ? `<nldd-cell><nldd-button data-reopen="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button></nldd-cell>` : ''}
+        ${IK?.editor ? `<nldd-cell><nldd-button data-delete="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button></nldd-cell>` : ''}
       </nldd-list-item>
     </nldd-list>`;
     }).join('') : '<nldd-inline-dialog icon="file-box" text="Nog geen opgeloste opmerkingen" supporting-text="Een opmerking komt hier zodra een editor hem oplost met een conclusie."></nldd-inline-dialog>'}`;
@@ -1348,16 +1350,22 @@ const openResolveForm = (point, o) => openForm(point, {
 // Acties uit draadjes en markeringen
 document.addEventListener('click', async (e) => {
   const path = e.composedPath().filter((el) => el instanceof Element);
-  const btn = path.find((el) => el.dataset?.reply || el.dataset?.resolve || el.dataset?.reopen);
+  const btn = path.find((el) => el.dataset?.reply || el.dataset?.resolve || el.dataset?.reopen || el.dataset?.delete);
   if (!btn || e.altKey) return;
   e.stopPropagation();
-  const id = btn.dataset.reply || btn.dataset.resolve || btn.dataset.reopen;
+  const id = btn.dataset.reply || btn.dataset.resolve || btn.dataset.reopen || btn.dataset.delete;
   const o = OPMERKINGEN.find((x) => String(x.nummer) === id);
   if (!o) return;
   const rect = btn.getBoundingClientRect();
   if (btn.dataset.reply) openReplyForm({ x: rect.left, y: rect.bottom }, o);
   else if (btn.dataset.resolve) openResolveForm({ x: rect.left, y: rect.bottom }, o);
-  else {
+  else if (btn.dataset.delete) {
+    // Definitief verwijderen: eerst bevestigen
+    if (!window.confirm(`Opmerking van ${o.auteur} definitief verwijderen?\n\n"${oneLine(o.opmerking).slice(0, 200)}"\n\nDit kan niet ongedaan worden gemaakt; ook de reacties verdwijnen.`)) return;
+    btn.setAttribute('disabled', '');
+    try { await api(`opmerkingen/${o.nummer}/verwijderen`, {}); if (popover.matches(':popover-open')) popover.hidePopover(); commentsSignature = ''; await loadComments(); }
+    catch (err) { btn.removeAttribute('disabled'); window.alert(err.message); }
+  } else {
     btn.setAttribute('disabled', '');
     try { await api(`opmerkingen/${o.nummer}/heropenen`, {}); popover.hidePopover(); commentsSignature = ''; await loadComments(); }
     catch { btn.removeAttribute('disabled'); }

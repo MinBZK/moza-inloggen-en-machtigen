@@ -100,6 +100,7 @@ const actionButtons = (o) => [
   `<nldd-button data-opm-reply="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
   IK?.editor && o.status === 'open' ? `<nldd-button data-opm-resolve="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
   IK?.editor && o.status === 'opgelost' ? `<nldd-button data-opm-reopen="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
+  IK?.editor ? `<nldd-button data-opm-delete="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
   o.status === 'open' && hostOfAnchor(o.anker) ? `<nldd-button data-opm-show="${o.nummer}" variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Toon op de pagina"></nldd-button>` : '',
 ].filter(Boolean).join('');
 const threadBlock = (o) => `
@@ -250,10 +251,10 @@ document.addEventListener('click', async (e) => {
   }
   if (path.some((el) => el.hasAttribute('data-opm-close'))) { sheet.hide(); return; }
   const pin = path.find((el) => el.dataset?.opmPin);
-  const btn = path.find((el) => el.dataset?.opmReply || el.dataset?.opmResolve || el.dataset?.opmReopen || el.dataset?.opmShow);
+  const btn = path.find((el) => el.dataset?.opmReply || el.dataset?.opmResolve || el.dataset?.opmReopen || el.dataset?.opmShow || el.dataset?.opmDelete);
   if (!pin && !btn) return;
   e.stopPropagation();
-  const id = pin ? pin.dataset.opmPin : (btn.dataset.opmReply || btn.dataset.opmResolve || btn.dataset.opmReopen || btn.dataset.opmShow);
+  const id = pin ? pin.dataset.opmPin : (btn.dataset.opmReply || btn.dataset.opmResolve || btn.dataset.opmReopen || btn.dataset.opmShow || btn.dataset.opmDelete);
   const o = OPMERKINGEN.find((x) => String(x.nummer) === id);
   if (!o) return;
   if (pin) { openPinThread(o, { x: e.clientX, y: e.clientY }); return; }
@@ -273,6 +274,12 @@ document.addEventListener('click', async (e) => {
     const marker = document.querySelector(`[data-opm-pin="${o.nummer}"]`);
     marker?.scrollIntoView({ block: 'center' });
     marker?.focus?.();
+  } else if (btn.dataset.opmDelete) {
+    // Definitief verwijderen: eerst bevestigen
+    if (!window.confirm(`Opmerking van ${o.auteur} definitief verwijderen?\n\n"${oneLine(o.opmerking).slice(0, 200)}"\n\nDit kan niet ongedaan worden gemaakt; ook de reacties verdwijnen.`)) return;
+    btn.setAttribute('disabled', '');
+    try { await api(`opmerkingen/${o.nummer}/verwijderen`, {}); if (popover.matches(':popover-open')) popover.hidePopover(); signature = ''; await load(); }
+    catch (err) { btn.removeAttribute('disabled'); window.alert(err.message); }
   } else {
     btn.setAttribute('disabled', '');
     try { await api(`opmerkingen/${o.nummer}/heropenen`, {}); popover.hidePopover(); signature = ''; await load(); }
