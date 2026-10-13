@@ -55,13 +55,46 @@
     'gemachtigde': { u: 'Iemand die van een onderneming of persoon toestemming heeft om namens die ander zaken te regelen.' },
     'mandaat': { u: 'Vastgelegde bevoegdheid om namens een organisatie een bepaalde handeling te doen; in de wallet een attestatie.' },
     'SSO': { u: 'Single sign-on: één keer inloggen geeft toegang tot meerdere diensten.' },
+    // ---- Attestaties en vertrouwen (achtergrondpagina's)
+    'Pub-EAA': { u: 'Public Electronic Attestation of Attributes: attestatie uitgegeven door of namens een publieke bronhouder van een authentieke bron, zoals de KVK.' },
+    'PuB-EAA': { u: 'Public Electronic Attestation of Attributes: attestatie uitgegeven door of namens een publieke bronhouder van een authentieke bron, zoals de KVK.' },
+    'QEAA': { u: 'Qualified Electronic Attestation of Attributes: gekwalificeerde attestatie, uitgegeven door een QTSP.' },
+    'EAA': { u: 'Electronic Attestation of Attributes: elektronische attestatie van een gegeven of bevoegdheid, niet gekwalificeerd.' },
+    'QTSP': { u: 'Qualified Trust Service Provider: gekwalificeerde verlener van vertrouwensdiensten, die onder toezicht staat.' },
+    'QERDS': { u: 'Qualified Electronic Registered Delivery Service: gekwalificeerde dienst voor aangetekende elektronische bezorging.' },
+    'EBWOID': { u: 'De minimale identificatie van de organisatie die eigenaar is van een EBW: een officiële naam en een EU-uniek nummer (voorheen LPID).' },
+    'LPID': { u: 'Legal Person Identification Data: identificatiegegevens van een rechtspersoon; in WE BUILD nu EBWOID.' },
+    'EUCC': { u: 'EU Company Certificate: Europees bedrijfscertificaat uit het handelsregister.' },
+    'PoR': { u: 'Power of Representation: vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel (zoals een bestuurder).' },
+    'PoA': { u: 'Power of Attorney: volmacht voor een specifiek doel en een bepaalde periode.' },
+    'PoE': { u: 'Power of Employee: mandaat dat de onderneming zelf aan een medewerker geeft, zonder authentieke bron erachter.' },
+    'PoX': { u: 'Verzamelnaam in WE BUILD voor een attestatie met PoR, PoA en scope samen.' },
+    'OpenID4VCI': { u: 'OpenID for Verifiable Credential Issuance: het protocol waarmee een uitgever een attestatie in een wallet zet.' },
+    'OpenID4VP': { u: 'OpenID for Verifiable Presentations: het protocol waarmee een wallet een attestatie toont aan een dienst.' },
+    'ARF': { u: 'Architecture and Reference Framework: het Europese referentiekader voor de EUDI-wallet.' },
+    'SDG': { u: 'Single Digital Gateway: de Europese digitale toegangspoort tot overheidsdiensten, waar OOTS onderdeel van is.' },
+    'M2M': { u: 'Machine-to-machine: systemen wisselen gegevens uit zonder dat een mens inlogt.' },
+    'WE BUILD': { u: 'Europees consortium (Large Scale Pilot) dat de European Business Wallet in de praktijk beproeft, met use cases voor bedrijven, logistiek en betalingen.', l: 'https://www.webuildconsortium.eu/' },
+    'wallet-provider': { u: 'De partij die een wallet levert en onderhoudt. Hij staat onder toezicht en is wettelijk verantwoordelijk voor onder meer beveiliging en het intrekken van wallets.' },
+    'bronhouder': { u: 'De organisatie die een authentieke bron beheert, zoals de KVK voor het Handelsregister.' },
+    'RINIS': { u: 'Routeringsinstituut voor (inter)nationale informatiestromen: verzorgt veilige gegevensuitwisseling tussen overheden en is het Nederlandse OOTS-intermediairplatform.', l: 'https://www.rinis.nl/' },
+    'UWV': { u: 'Uitvoeringsinstituut Werknemersverzekeringen: voert werknemersverzekeringen uit, zoals WW en WIA.', l: 'https://www.uwv.nl/' },
+    'RVO': { u: 'Rijksdienst voor Ondernemend Nederland: voert subsidieregelingen voor ondernemers uit.', l: 'https://www.rvo.nl/' },
+    // ---- eHerkenning in detail (achtergrondpagina's)
+    'machtigingenregister': { u: 'Register van een eHerkenningsleverancier waarin staat welke medewerker namens welke onderneming welke dienst mag gebruiken.' },
+    'pseudoniem': { u: 'Uniek nummer dat een dienstverlener in plaats van de naam van de gebruiker krijgt. Het is per dienstverlener anders, zodat dienstverleners personen niet aan elkaar kunnen koppelen.' },
+    'assertion': { u: 'Het ondertekende bericht waarin de leverancier verklaart wie er is ingelogd, op welk niveau en namens welke onderneming.' },
+    'dienstbemiddelaar': { u: 'Partij die namens andere dienstverleners toegang tot hun diensten regelt, bijvoorbeeld een portaal.' },
   };
 
   // Schrijfwijzen die naar hetzelfde begrip verwijzen
   var ALIAS = { 'Business Wallet': 'business wallet', 'business wallets': 'business wallet', 'attestaties': 'attestatie', 'Attestatie': 'attestatie',
     'uitvoeringshandelingen': 'uitvoeringshandeling', 'Uitvoeringshandelingen': 'uitvoeringshandeling', 'mandaten': 'mandaat', 'Mandaat': 'mandaat', 'Mandaten': 'mandaat',
     'gemachtigden': 'gemachtigde', 'Gemachtigde': 'gemachtigde', 'Betrouwbaarheidsniveau': 'betrouwbaarheidsniveau', 'betrouwbaarheidsniveaus': 'betrouwbaarheidsniveau',
-    'Herkenningsmakelaar': 'herkenningsmakelaar', 'Dienstencatalogus': 'dienstencatalogus', 'EDI-wallets': 'EDI-wallet', 'handelsregister': 'Handelsregister' };
+    'Herkenningsmakelaar': 'herkenningsmakelaar', 'Dienstencatalogus': 'dienstencatalogus', 'EDI-wallets': 'EDI-wallet', 'handelsregister': 'Handelsregister',
+    "Pub-EAA's": 'Pub-EAA', "QEAA's": 'QEAA', "EAA's": 'EAA', "QTSP's": 'QTSP', 'EUDIW': 'EUDI-wallet', 'Wallet-provider': 'wallet-provider', 'Bronhouder': 'bronhouder',
+    'Machtigingenregister': 'machtigingenregister', 'Machtigingen-register': 'machtigingenregister', 'Pseudoniem': 'pseudoniem', 'pseudoniemen': 'pseudoniem', 'Assertion': 'assertion',
+    'Dienstbemiddelaar': 'dienstbemiddelaar', 'dienstbemiddeling': 'dienstbemiddelaar', 'Diensten- catalogus': 'dienstencatalogus', 'Business wallet': 'business wallet' };
 
   var KEYS = Object.keys(BEGRIPPEN).concat(Object.keys(ALIAS)).sort(function (a, b) { return b.length - a.length; });
   var esc = function (k) { return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
