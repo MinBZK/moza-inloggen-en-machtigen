@@ -102,13 +102,15 @@
   var begripVan = function (tekst) { return ALIAS[tekst] || tekst; };
 
   // Geen uitleg in knoppen, links, labels, overlines en de onderdelen van dit script zelf
-  var SKIP = 'a, button, script, style, kbd, svg, .afk, .afk-tip, nldd-tag, nldd-badge, nldd-button, nldd-link, nldd-icon-button, [slot="overline"], [id^="opm-"], #comment-popover';
+  var SKIP = 'a, button, script, style, kbd, title, desc, .afk, .afk-tip, nldd-tag, nldd-badge, nldd-button, nldd-link, nldd-icon-button, [slot="overline"], [id^="opm-"], #comment-popover';
   // Cellen van het design system waarvan de tekst in de shadow DOM staat
   var CELLEN = 'nldd-text-cell, nldd-title-cell';
   var STIJL = '.afk{font:inherit;color:inherit;letter-spacing:inherit;background:none;border:none;padding:0;margin:0;' +
     'border-bottom:1px dotted currentColor;cursor:help;border-radius:2px;text-align:inherit;}' +
     '.afk:focus-visible{outline:2px solid #ffbf00;outline-offset:1px;}' +
-    '@media print{.afk{border-bottom:none;}}';
+    // In een schema (SVG) is het begrip een stuk tekst binnen de regel: daar een gestippelde onderstreping
+    'tspan.afk{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:2px;cursor:help;border-bottom:none;}' +
+    '@media print{.afk{border-bottom:none;}tspan.afk{text-decoration:none;}}';
 
   // Eén uitleg per begrip per blok: alleen het eerste voorkomen in dat blok krijgt een stippellijn
   function wrap(root, gezien) {
@@ -123,7 +125,8 @@
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(function (node) {
-      var blok = gezien || blokVan(node);
+      var inSvg = node.parentElement.namespaceURI === SVG_NS;
+      var blok = gezien || blokVan(node, inSvg);
       var frag = document.createDocumentFragment();
       var rest = node.nodeValue;
       var gewijzigd = false;
@@ -138,9 +141,18 @@
         blok[sleutel] = true;
         gewijzigd = true;
         if (m.index > 0) frag.appendChild(document.createTextNode(rest.slice(0, m.index)));
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'afk';
+        // In een schema (SVG-tekst) kan geen knop staan: daar een tspan die net zo reageert
+        var b;
+        if (inSvg) {
+          b = document.createElementNS(SVG_NS, 'tspan');
+          b.setAttribute('class', 'afk');
+          b.setAttribute('tabindex', '0');
+          b.setAttribute('role', 'button');
+        } else {
+          b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'afk';
+        }
         b.dataset.afk = sleutel;
         b.setAttribute('aria-expanded', 'false');
         b.textContent = m[1];
@@ -153,9 +165,11 @@
     });
   }
   // Blok in de gewone pagina: een tegel, lijstregel, sectie of de verdieping
+  var SVG_NS = 'http://www.w3.org/2000/svg';
   var blokken = new WeakMap();
-  function blokVan(node) {
-    var el = node.parentElement.closest('nldd-card, nldd-box, nldd-list-item, nldd-table-row, nldd-banner, nldd-rich-text, nldd-title, nldd-page-footer') || document.body;
+  function blokVan(node, inSvg) {
+    // In een schema telt elke tekstregel apart: je wijst daar een los label aan
+    var el = inSvg ? (node.parentElement.closest('text') || node.parentElement) : node.parentElement.closest('nldd-card, nldd-box, nldd-list-item, nldd-table-row, nldd-banner, nldd-rich-text, nldd-title, nldd-page-footer') || document.body;
     if (!blokken.has(el)) blokken.set(el, {});
     return blokken.get(el);
   }
