@@ -112,66 +112,60 @@
     'tspan.afk{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:2px;cursor:help;border-bottom:none;}' +
     '@media print{.afk{border-bottom:none;}tspan.afk{text-decoration:none;}}';
 
-  // Eén uitleg per begrip per blok: alleen het eerste voorkomen in dat blok krijgt een stippellijn
-  function wrap(root, gezien) {
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        if (!n.nodeValue || !RE.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
-        var el = n.parentElement;
-        if (!el || el.closest(SKIP)) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    var nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(function (node) {
-      var inSvg = node.parentElement.namespaceURI === SVG_NS;
-      var blok = gezien || blokVan(node, inSvg);
-      var frag = document.createDocumentFragment();
-      var rest = node.nodeValue;
-      var gewijzigd = false;
-      var m;
-      while ((m = RE.exec(rest))) {
-        var sleutel = begripVan(m[1]);
-        if (blok[sleutel]) {
-          frag.appendChild(document.createTextNode(rest.slice(0, m.index + m[1].length)));
-          rest = rest.slice(m.index + m[1].length);
-          continue;
-        }
-        blok[sleutel] = true;
-        gewijzigd = true;
-        if (m.index > 0) frag.appendChild(document.createTextNode(rest.slice(0, m.index)));
-        // In een schema (SVG-tekst) kan geen knop staan: daar een tspan die net zo reageert
-        var b;
-        if (inSvg) {
-          b = document.createElementNS(SVG_NS, 'tspan');
-          b.setAttribute('class', 'afk');
-          b.setAttribute('tabindex', '0');
-          b.setAttribute('role', 'button');
-        } else {
-          b = document.createElement('button');
-          b.type = 'button';
-          b.className = 'afk';
-        }
-        b.dataset.afk = sleutel;
-        b.setAttribute('aria-expanded', 'false');
-        b.textContent = m[1];
-        frag.appendChild(b);
-        rest = rest.slice(m.index + m[1].length);
-      }
-      if (!gewijzigd) return;
-      if (rest) frag.appendChild(document.createTextNode(rest));
-      node.parentNode.replaceChild(frag, node);
-    });
-  }
-  // Blok in de gewone pagina: een tegel, lijstregel, sectie of de verdieping
+  // Eén uitleg per begrip per pagina: alleen het eerste voorkomen krijgt een stippellijn.
+  // Een paneel dat over de pagina heen ligt (verdieping, opmerkingenoverzicht) telt als eigen context.
   var SVG_NS = 'http://www.w3.org/2000/svg';
-  var blokken = new WeakMap();
-  function blokVan(node, inSvg) {
-    // In een schema telt elke tekstregel apart: je wijst daar een los label aan
-    var el = inSvg ? (node.parentElement.closest('text') || node.parentElement) : node.parentElement.closest('nldd-card, nldd-box, nldd-list-item, nldd-table-row, nldd-banner, nldd-rich-text, nldd-title, nldd-page-footer') || document.body;
-    if (!blokken.has(el)) blokken.set(el, {});
-    return blokken.get(el);
+  function contextVan(el) { return el && el.closest && el.closest('nldd-sheet') ? 'paneel' : 'pagina'; }
+  function bruikbaar(n) {
+    if (!n.nodeValue || !RE.test(n.nodeValue)) return false;
+    var el = n.parentElement;
+    return Boolean(el) && !el.closest(SKIP);
+  }
+  // Eén tekstknoop: begrippen die in deze context nog niet zijn uitgelegd krijgen een markering
+  function wrapNode(node, gezien) {
+    var inSvg = node.parentElement.namespaceURI === SVG_NS;
+    var frag = document.createDocumentFragment();
+    var rest = node.nodeValue;
+    var gewijzigd = false;
+    var m;
+    while ((m = RE.exec(rest))) {
+      var sleutel = begripVan(m[1]);
+      if (gezien[sleutel]) {
+        frag.appendChild(document.createTextNode(rest.slice(0, m.index + m[1].length)));
+        rest = rest.slice(m.index + m[1].length);
+        continue;
+      }
+      gezien[sleutel] = true;
+      gewijzigd = true;
+      if (m.index > 0) frag.appendChild(document.createTextNode(rest.slice(0, m.index)));
+      // In een schema (SVG-tekst) kan geen knop staan: daar een tspan die net zo reageert
+      var b;
+      if (inSvg) {
+        b = document.createElementNS(SVG_NS, 'tspan');
+        b.setAttribute('class', 'afk');
+        b.setAttribute('tabindex', '0');
+        b.setAttribute('role', 'button');
+      } else {
+        b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'afk';
+      }
+      b.dataset.afk = sleutel;
+      b.setAttribute('aria-expanded', 'false');
+      b.textContent = m[1];
+      frag.appendChild(b);
+      rest = rest.slice(m.index + m[1].length);
+    }
+    if (!gewijzigd) return;
+    if (rest) frag.appendChild(document.createTextNode(rest));
+    node.parentNode.replaceChild(frag, node);
+  }
+  // Alle tekstknopen binnen een cel van het design system (shadow DOM)
+  function wrapCel(sr, gezien) {
+    var walker = document.createTreeWalker(sr, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) if (bruikbaar(walker.currentNode)) nodes.push(walker.currentNode);
+    nodes.forEach(function (n) { wrapNode(n, gezien); });
   }
 
   var st = document.createElement('style');
@@ -277,20 +271,32 @@
 
   // Hele pagina doorlopen: gewone tekst en de tekst in cellen van het design system
   function verwerk() {
-    wrap(document.body);
-    document.querySelectorAll(CELLEN).forEach(function (cel) {
-      var sr = cel.shadowRoot;
-      if (!sr) return;
+    // Wat nu al een markering heeft, is in zijn context uitgelegd. Zo krijgt een begrip opnieuw uitleg
+    // als de plek waar het stond is vervangen (bijv. een andere stap of een andere verdieping).
+    var gezien = { pagina: {}, paneel: {} };
+    var cellen = document.querySelectorAll(CELLEN);
+    document.querySelectorAll('.afk').forEach(function (b) { gezien[contextVan(b)][b.dataset.afk] = true; });
+    cellen.forEach(function (cel) {
+      if (cel.shadowRoot) cel.shadowRoot.querySelectorAll('.afk').forEach(function (b) { gezien[contextVan(cel)][b.dataset.afk] = true; });
+    });
+    // In documentvolgorde: gewone tekst, tekst in schema's en de tekst in cellen van het design system
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+    var werk = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeType === 3) { if (bruikbaar(n)) werk.push(n); }
+      else if (n.shadowRoot && n.matches(CELLEN)) werk.push(n);
+    }
+    werk.forEach(function (w) {
+      if (w.nodeType === 3) { wrapNode(w, gezien[contextVan(w.parentElement)]); return; }
+      var sr = w.shadowRoot;
       if (!sr.querySelector('style[data-afk]')) {
         var s = document.createElement('style');
         s.setAttribute('data-afk', '');
         s.textContent = STIJL;
         sr.appendChild(s);
       }
-      // Eén uitleg per begrip per tabelrij of lijstregel, niet per cel: anders staat de tabel vol stippellijnen
-      var rij = cel.closest('nldd-table-row, nldd-list-item') || cel;
-      if (!rij.__afkGezien) rij.__afkGezien = {};
-      wrap(sr, rij.__afkGezien);
+      wrapCel(sr, gezien[contextVan(w)]);
     });
   }
   // De pagina wordt door script opgebouwd en de verdieping komt later: opnieuw doorlopen als er inhoud bijkomt
