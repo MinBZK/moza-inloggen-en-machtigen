@@ -47,7 +47,7 @@ root.insertAdjacentHTML('beforeend', `
     <nldd-container padding="16" gap="12" id="opm-popover-body"></nldd-container>
   </nldd-popover>
   <nldd-sheet id="opm-sheet" width="560px" accessible-label="Opmerkingen op deze pagina">
-    <nldd-container padding="24" gap="16" id="opm-sheet-body"></nldd-container>
+    <nldd-page><nldd-container padding="24" gap="16" id="opm-sheet-body"></nldd-container></nldd-page>
   </nldd-sheet>`);
 const popover = document.getElementById('opm-popover');
 const popoverBody = document.getElementById('opm-popover-body');
@@ -76,7 +76,7 @@ const renderChrome = () => {
     const done = OPMERKINGEN.length - open;
     buttonHost.innerHTML = AAN ? `<nldd-button id="opm-open" variant="neutral-tinted" size="sm" start-icon="message-rectangle-text"
       text="${esc(`Opmerkingen op deze pagina (${open} open, ${done} opgelost)`)}"></nldd-button>` : '';
-    buttonHost.querySelector('#opm-open')?.addEventListener('click', () => { renderSheet(); sheet.show(); });
+    buttonHost.querySelector('#opm-open')?.addEventListener('click', () => { renderSheet(); sheet.show(); const page = sheet.querySelector('nldd-page'); if (page) page.scrollTop = 0; });
   }
 };
 

@@ -252,7 +252,10 @@
     <nldd-container padding="16" gap="12" id="comment-popover-body"></nldd-container>
   </nldd-popover>
   <nldd-sheet id="detail" width="560px" accessible-label="Verdieping release">
-    <nldd-container padding="24" gap="16" id="detail-body"></nldd-container>
+    <!-- nldd-page is de scrollcontainer van het paneel; zonder knipt het paneel lange inhoud af -->
+    <nldd-page>
+      <nldd-container padding="24" gap="16" id="detail-body"></nldd-container>
+    </nldd-page>
   </nldd-sheet>
   </nldd-page>
 
@@ -1189,7 +1192,9 @@ function renderArchive() {
     </nldd-list>`;
     }).join('') : '<nldd-inline-dialog icon="file-box" text="Nog geen opgeloste opmerkingen" supporting-text="Een opmerking komt hier zodra een editor hem oplost met een conclusie."></nldd-inline-dialog>'}`;
 }
-archiveButton.addEventListener('click', () => { renderArchive(); sheet.show(); });
+// Een nieuw geopend paneel begint bovenaan (nldd-page is de scrollcontainer)
+const sheetToTop = () => { const page = sheet.querySelector('nldd-page'); if (page) page.scrollTop = 0; };
+archiveButton.addEventListener('click', () => { renderArchive(); sheet.show(); sheetToTop(); });
 
 function renderDetail(laneId, code) {
   archiveShown = false;
@@ -1444,6 +1449,7 @@ document.addEventListener('click', (e) => {
   if (!sheet.contains(btn)) lastTrigger = btn;
   renderDetail(btn.dataset.lane, btn.dataset.code);
   sheet.show();
+  sheetToTop();
 });
 sheet.addEventListener('close', () => lastTrigger?.focus?.());
 </script>
