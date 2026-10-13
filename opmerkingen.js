@@ -133,23 +133,35 @@ function renderSheet() {
 // Plek op de pagina: dichtstbijzijnde HTML-element met id (geen SVG, geen cel), anders de eerste sectie
 const HOST_TAGS = new Set(['DIV', 'SECTION', 'HEADER', 'FOOTER', 'MAIN', 'ARTICLE', 'NLDD-SIMPLE-SECTION', 'NLDD-CARD', 'NLDD-BOX']);
 const fallbackHost = () => document.querySelector('nldd-simple-section[id], .wrap, nldd-simple-section');
-const selectorOf = (el) => (el.id ? `#${CSS.escape(el.id)}` : (el.matches('.wrap') ? '.wrap' : 'nldd-simple-section'));
+// Selector waarmee de plek later terug te vinden is: id, anders een class die maar één keer voorkomt
+const uniqueClass = (el) => [...el.classList].find((c) => document.querySelectorAll(`.${CSS.escape(c)}`).length === 1);
+const selectorOf = (el) => {
+  if (el.id) return `#${CSS.escape(el.id)}`;
+  const cls = uniqueClass(el);
+  if (cls) return `.${CSS.escape(cls)}`;
+  return el.matches('.wrap') ? '.wrap' : 'nldd-simple-section';
+};
+// Onderdeel dat blijft staan of meeschuift bij scrollen (sticky of fixed), zoals een vaste kop
+const isPinned = (el) => ['sticky', 'fixed'].includes(getComputedStyle(el).position);
 const hostOfAnchor = (anker) => {
   const sel = anker.slice(PREFIX.length).split('|')[1];
   try { return sel ? document.querySelector(sel) : null; } catch { return null; }
 };
 const describeTarget = (path, e) => {
-  const host = path.find((el) => el instanceof HTMLElement && el.id && !el.id.startsWith('opm-') && HOST_TAGS.has(el.tagName)) || fallbackHost();
+  const html = path.filter((el) => el instanceof HTMLElement && !el.id.startsWith('opm-'));
+  // Een vaste kop schuift mee met het scherm: de opmerking hoort dan bij de kop zelf, niet bij wat eronder door schuift
+  const pinned = html.find((el) => isPinned(el) && (el.id || uniqueClass(el)));
+  const host = pinned || html.find((el) => el.id && HOST_TAGS.has(el.tagName)) || fallbackHost();
   const rect = host.getBoundingClientRect();
-  // Altijd een eindig percentage binnen de plek, ook als de plek (nog) geen afmeting heeft
-  const pct = (v) => (Number.isFinite(v) ? Math.min(100, Math.max(0, Math.round(v * 1000) / 10)) : 2);
+  // Positie binnen de plek, inclusief wat er al weggescrold is; altijd een eindig getal
+  const pct = (v) => (Number.isFinite(v) ? Math.min(5000, Math.max(0, Math.round(v * 1000) / 10)) : 2);
   const hint = oneLine(path.find((el) => el.textContent?.trim() && el.textContent.trim().length < 200)?.textContent || '').slice(0, 80);
   const heading = host.querySelector('h1, h2, h3, svg > title') || path.find((el) => el.querySelector?.('h1, h2'))?.querySelector('h1, h2');
   const section = oneLine(heading?.textContent || '');
   const step = /^#(moza|subsidie)-\d+$/.test(location.hash) ? ` (${location.hash.slice(1)})` : '';
   const label = [document.title + step, section].filter(Boolean).join(' · ');
   return {
-    anker: `${PREFIX}plek|${selectorOf(host)}|${pct((e.clientX - rect.left) / rect.width)}|${pct((e.clientY - rect.top) / rect.height)}`,
+    anker: `${PREFIX}plek|${selectorOf(host)}|${pct((e.clientX - rect.left + host.scrollLeft) / rect.width)}|${pct((e.clientY - rect.top + host.scrollTop) / rect.height)}`,
     onderdeel: hint ? `${label}: "${hint}"` : label,
   };
 };
@@ -205,7 +217,8 @@ const renderPins = () => {
     const [, , x, y] = o.anker.slice(PREFIX.length).split('|');
     const host = hostOfAnchor(o.anker);
     if (!host) return;
-    host.setAttribute('data-opm-host', '');
+    // Alleen een gewone (static) plek krijgt position: relative; een vaste kop blijft sticky
+    if (getComputedStyle(host).position === 'static') host.setAttribute('data-opm-host', '');
     host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-opm-pin="${o.nummer}" size="sm" style="left:${Number.isFinite(parseFloat(x)) ? parseFloat(x) : 3}%;top:${Number.isFinite(parseFloat(y)) ? parseFloat(y) : 2}%"
       variant="inherit-filled" icon="message-rectangle-text" text="Opmerking van ${esc(o.auteur)}"></nldd-icon-button>`);
   });
