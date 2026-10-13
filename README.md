@@ -18,6 +18,7 @@ Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project
 | `ebw-landschap.html` | Schema EBW-landschap (PuB- en Q-EBW). |
 | `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, NLDD alleen voor de opmerkingen). |
 | `webuild.html` | Analyses van WE BUILD-use cases BU3, BU4 en BU6 (op basis van D2.1 en D4.1). |
+| `begrippen.js` | Uitleg bij afkortingen en begrippen op de roadmap (stippellijn, uitleg bij aanwijzen). Nieuw begrip: toevoegen aan `BEGRIPPEN`. |
 | `opmerkingen.js` | Opmerkingen op de pagina's naast de roadmap. |
 | `avatars/` | Avatars van de persona's Karin Jansen en Bilal Yılmaz (van cx-moza.rijksapp.dev). |
 | `logos/` | Officiële logo's (licht en donker). |
