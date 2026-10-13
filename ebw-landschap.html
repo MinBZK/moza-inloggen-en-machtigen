@@ -36,7 +36,7 @@
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 900" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Nijmegen laat een commerciële QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Nijmegen neemt haar EBW af bij een commerciële wallet-provider. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Nijmegen met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Nijmegen laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Nijmegen neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Nijmegen met zijn mandaat.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -144,7 +144,7 @@
 
   <rect x="392" y="196" width="360" height="468" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
   <text x="408" y="221" font-size="14" font-weight="700" fill="#333">EBW van de onderneming</text>
-  <text x="408" y="239" font-size="12" fill="#5b3f68">Waalkade Installatietechniek BV, via een wallet-provider</text>
+  <text x="408" y="239" font-size="12" fill="#5b3f68">Waalkade Installatietechniek BV, via een aanbieder</text>
   <svg x="710" y="206" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
 
   <rect x="412" y="256" width="320" height="130" rx="8" fill="#fff" stroke="#9673a6"/>
@@ -233,20 +233,20 @@
   <g>
     <path d="M836 494H1252V540H1060L1044 554L1036 540H836Z" fill="#647687" stroke="#314354"/>
     <text x="1044" y="513" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">Keuze van de dienstverlener: zelf doen of uit handen geven</text>
-    <text x="1044" y="530" font-size="12" fill="#fff" text-anchor="middle">Pub-EAA of QEAA, eigen of commerciële wallet-provider</text>
+    <text x="1044" y="530" font-size="12" fill="#fff" text-anchor="middle">Pub-EAA of QEAA, eigen wallet of die van een business wallet-aanbieder</text>
   </g>
 
   <!-- Gemeente Nijmegen: QEAA via een QTSP, EBW via een commerciële wallet-provider -->
   <rect x="818" y="556" width="250" height="236" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
   <text x="834" y="581" font-size="14" font-weight="700" fill="#333">Gemeente Nijmegen</text>
-  <text x="834" y="599" font-size="12" fill="#1d3f6e">EBW van een commerciële</text>
-  <text x="834" y="614" font-size="12" fill="#1d3f6e">wallet-provider</text>
+  <text x="834" y="599" font-size="12" fill="#1d3f6e">EBW en QEAA's via een</text>
+  <text x="834" y="614" font-size="12" fill="#1d3f6e">business wallet-aanbieder</text>
   <svg x="1026" y="566" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <rect x="842" y="634" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf"/>
   <rect x="838" y="630" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf"/>
   <rect x="834" y="626" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
   <text x="846" y="645" font-size="13" font-weight="700" fill="#333">QEAA's</text>
-  <text x="1034" y="645" font-size="11" fill="#666" text-anchor="end">via QTSP</text>
+  <text x="1034" y="645" font-size="11" fill="#666" text-anchor="end">via aanbieder</text>
   <g font-size="11.5" fill="#333">
     <text x="846" y="663">• exploitatievergunning</text>
     <text x="846" y="678">• omgevingsvergunning</text>
@@ -259,27 +259,27 @@
     <text x="834" y="774">zijn: geeft het uit handen</text>
   </g>
 
-  <!-- Commerciële QTSP -->
-  <rect x="1092" y="556" width="152" height="136" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="1104" y="578" font-size="13" font-weight="700" fill="#333">QTSP</text>
-  <g font-size="11.5">
-    <text x="1104" y="596" fill="#333">bijv. KPN, Digidentity,</text>
-    <text x="1104" y="611" fill="#333">Cleverbase</text>
-    <text x="1104" y="631" fill="#7a4500">geeft QEAA uit namens</text>
-    <text x="1104" y="646" fill="#7a4500">de gemeente, incl. audits</text>
+  <!-- Business wallet-aanbieder: platform, inrichting en uitgifte van QEAA's in één -->
+  <rect x="1092" y="556" width="152" height="290" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
+  <text x="1104" y="578" font-size="13" font-weight="700" fill="#333">Business wallet-</text>
+  <text x="1104" y="594" font-size="13" font-weight="700" fill="#333">aanbieder</text>
+  <text x="1104" y="612" font-size="11.5" fill="#333">commercieel, bijv.</text>
+  <image href="logos/credenco.svg" x="1104" y="619" width="114" height="13"><title>Logo Credenco (voorbeeld van een business wallet-aanbieder)</title></image>
+  <text x="1104" y="656" font-size="12" font-weight="700" fill="#7a4500">1 Platform</text>
+  <g font-size="11.5" fill="#333">
+    <text x="1104" y="671">business wallet voor</text>
+    <text x="1104" y="686">onderneming of</text>
+    <text x="1104" y="701">dienstverlener</text>
   </g>
-  <text x="1104" y="676" font-size="12" font-weight="700" fill="#7a4500">Kosten: abonnement</text>
-
-  <!-- Commerciële wallet-provider -->
-  <rect x="1092" y="704" width="152" height="142" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="1104" y="726" font-size="13" font-weight="700" fill="#333">Wallet-provider</text>
-  <g font-size="11.5">
-    <text x="1104" y="744" fill="#333">bijv. Credenco,</text>
-    <text x="1104" y="759" fill="#333">iGrant.io, Sphereon</text>
-    <text x="1104" y="779" fill="#7a4500">levert en onderhoudt</text>
-    <text x="1104" y="794" fill="#7a4500">de EBW; onder toezicht</text>
+  <text x="1104" y="723" font-size="12" font-weight="700" fill="#7a4500">2 Inrichten en</text>
+  <text x="1114" y="738" font-size="12" font-weight="700" fill="#7a4500">onderhouden</text>
+  <text x="1104" y="760" font-size="12" font-weight="700" fill="#7a4500">3 QEAA's als QTSP</text>
+  <g font-size="11.5" fill="#333">
+    <text x="1104" y="775">vertaalt de business</text>
+    <text x="1104" y="790">case naar attestaties,</text>
+    <text x="1104" y="805">bijv. een vergunning</text>
   </g>
-  <text x="1104" y="828" font-size="12" font-weight="700" fill="#7a4500">Kosten: abonnement</text>
+  <text x="1104" y="830" font-size="12" font-weight="700" fill="#7a4500">Kosten: abonnement</text>
 
   <!-- ===== Verbindingen ===== -->
   <g fill="none" stroke-width="1.6">
@@ -298,10 +298,8 @@
     <path d="M215 92V66H1256V360H1246" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
     <path d="M215 712V860H943V794" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
     <!-- dienst van een commerciële partij -->
-    <path d="M1092 642H1062" stroke="#b46504" marker-end="url(#m-service)"/>
-    <path d="M1068 676H1090" stroke="#b46504" marker-end="url(#m-service)"/>
-    <path d="M1092 756H1070" stroke="#b46504" marker-end="url(#m-service)"/>
-    <path d="M1068 782H1090" stroke="#b46504" marker-end="url(#m-service)"/>
+    <path d="M1092 680H1070" stroke="#b46504" marker-end="url(#m-service)"/>
+    <path d="M1068 712H1090" stroke="#b46504" marker-end="url(#m-service)"/>
     <!-- wallet-provider levert ook de EBW van de onderneming (ligt voor de hand) -->
     <path d="M1092 812H572V666" stroke="#b46504" stroke-dasharray="6 4" marker-end="url(#m-service)"/>
   </g>
@@ -319,8 +317,7 @@
     <text x="640" y="70" fill="#2d7a46" text-anchor="middle">inloggen bij de Belastingdienst met de vertegenwoordigingsbevoegdheid</text>
     <rect x="490" y="851" width="300" height="18" fill="#fff"/>
     <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Nijmegen met het mandaat</text>
-    <text x="1080" y="669" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
-    <text x="1080" y="775" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
+    <text x="1080" y="705" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
   </g>
 </svg>
       </div>
@@ -337,8 +334,8 @@
           <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
           <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
           <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Nijmegen.</li>
-          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Nijmegen laat een commerciële QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
-          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Nijmegen neemt haar EBW af bij een commerciële wallet-provider. Voor een onderneming als Waalkade ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
+          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Nijmegen laat een business wallet-aanbieder als QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
+          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Nijmegen neemt haar EBW af bij dezelfde business wallet-aanbieder. Voor een onderneming als Waalkade ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
           <li>De Belastingdienst en de gemeente Nijmegen hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
         </ol>
       </nldd-rich-text>
@@ -372,7 +369,7 @@
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Wallet-provider, EBW afnemen; toont PID en bevoegdheid. Stap 4: Wallet-provider naar EBW Waalkade, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Waalkade naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Waalkade, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Waalkade naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Waalkade, btw-id en meer (Pub-EAA's). Stap 7a: EBW Waalkade naar Gemeente Nijmegen, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Nijmegen naar EBW Waalkade, vergunningen (QEAA's, door de QTSP). Stap 8: Karin Jansen naar EBW Waalkade, legt mandaten vast: wie mag wat. Stap 9: EBW Waalkade naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Waalkade naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Waalkade, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Waalkade naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Waalkade, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Waalkade naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Waalkade, btw-id en meer (Pub-EAA's). Stap 7a: EBW Waalkade naar Gemeente Nijmegen, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Nijmegen naar EBW Waalkade, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Waalkade, legt mandaten vast: wie mag wat. Stap 9: EBW Waalkade naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Waalkade naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -399,9 +396,9 @@
   <text x="266" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
   <path d="M460 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="375" y="18" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="460" y="41" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Wallet-provider</text>
+  <text x="460" y="41" font-size="12" font-weight="700" fill="#333" text-anchor="middle">Business wallet-aanbieder</text>
   <text x="390" y="63" font-size="11" fill="#555">bijv.</text>
-  <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een wallet-provider)</title></image>
+  <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een business wallet-aanbieder)</title></image>
   <path d="M640 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="555" y="18" width="170" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
   <svg x="686" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
@@ -416,7 +413,7 @@
   <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
   <svg x="1046" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="986" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Nijmegen</text>
-  <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via QTSP</text>
+  <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via aanbieder</text>
   <path d="M1180 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="1118" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
@@ -459,7 +456,7 @@
   <text x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont attestatie onderneming</text>
   <path d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle cx="1000" cy="672" r="12" fill="#1f5fa8"/><text x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
-  <text x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de QTSP)</text>
+  <text x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de aanbieder)</text>
   <path d="M116 732H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
   <circle cx="100" cy="732" r="12" fill="#7a4f8c"/><text x="100" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
   <text x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
@@ -491,7 +488,7 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**EBW afnemen.**" supporting-text="Karin kiest een commerciële wallet-provider en neemt een EBW af voor Waalkade. Ze toont haar PID en haar bevoegdheid, zodat de provider weet dat ze namens de onderneming mag handelen."></nldd-text-cell>
+          <nldd-text-cell text="**EBW afnemen.**" supporting-text="Karin kiest een business wallet-aanbieder en neemt een EBW af voor Waalkade. Ze toont haar PID en haar bevoegdheid, zodat de provider weet dat ze namens de onderneming mag handelen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -533,7 +530,7 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**7b**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Attestaties van de gemeente Nijmegen.**" supporting-text="De QTSP haalt de gegevens bij de gemeente op of controleert ze, en geeft namens de gemeente bijvoorbeeld vergunningen uit als QEAA."></nldd-text-cell>
+          <nldd-text-cell text="**Attestaties van de gemeente Nijmegen.**" supporting-text="De business wallet-aanbieder haalt als QTSP de gegevens bij de gemeente op of controleert ze, en geeft namens de gemeente bijvoorbeeld vergunningen uit als QEAA."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -584,16 +581,28 @@
     <nldd-simple-section id="vergelijking-sectie">
       <nldd-title size="2">
         <h2>Zelf doen of uit handen geven</h2>
-        <p slot="subtitle">Dit is een keuze van de dienstverlener: bij het uitgeven van attestaties (Pub-EAA of QEAA) en bij de wallet zelf (eigen of commerciële wallet-provider).</p>
+        <p slot="subtitle">Dit is een keuze van de dienstverlener: bij het uitgeven van attestaties (Pub-EAA of QEAA) en bij de wallet zelf (eigen wallet-provider of een business wallet-aanbieder).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-table id="vergelijking" columns="minmax(140px,1fr) minmax(200px,2fr) minmax(200px,2fr)" accessible-label="Vergelijking zelf doen en uit handen geven"></nldd-table>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="3" id="aanbieder"><h3>De business wallet-aanbieder</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Een business wallet-aanbieder, zoals Credenco, positioneert zich als aanbieder van drie dingen in één:</p>
+        <ol>
+          <li><strong>Platform voor een business wallet</strong>, dat een onderneming of een dienstverlener kan afnemen.</li>
+          <li><strong>Inrichten en onderhouden</strong> van die business wallet.</li>
+          <li><strong>Uitgeven van QEAA's als QTSP.</strong> De aanbieder vertaalt de business case van de dienstverlener naar attestaties, bijvoorbeeld een uitgegeven vergunning voor een onderneming.</li>
+        </ol>
+        <p>Daarom staan de wallet en de uitgifte in het schema bij één partij. Credenco beschrijft zijn platform zelf als drie diensten: uitgeven, houden en verifiëren van attestaties. Het kunnen ook twee partijen zijn: een wallet-aanbieder en een aparte QTSP. Dat een aanbieder zelf gekwalificeerd is als QTSP, is hier als positionering overgenomen en niet nagegaan.</p>
+      </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="3"><h3>En de wallet zelf?</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <p>Los daarvan wordt elke EBW geleverd door een wallet-provider. Wie een EBW bij een provider afneemt, besteedt niet uit maar neemt een dienst af. De eigenaar, bijvoorbeeld een gemeente, bepaalt wie namens haar de wallet gebruikt, welke attestaties ze ontvangt en presenteert, en met wie ze communiceert. De provider staat zelf onder toezicht en is wettelijk verantwoordelijk voor onder meer beveiliging, integriteit en het intrekken van wallet units. Die verplichtingen kan de eigenaar niet naar zich toe trekken of contractueel wegschuiven. Wil een gemeente, of de overheid gezamenlijk, het zelf doen, dan moet ze zelf genotificeerde provider worden, zoals de Belastingdienst in dit voorbeeld.</p>
-        <p>De genoemde aanbieders zijn voorbeelden. KPN, Digidentity en Cleverbase zijn nu QTSP voor gekwalificeerde certificaten; Credenco, iGrant.io en Sphereon bouwen zakelijke wallets. Of zij QEAA's gaan uitgeven of genotificeerd EBW-provider worden, is nog niet bekend.</p>
+        <p>De genoemde aanbieders zijn voorbeelden. Credenco, iGrant.io en Sphereon bouwen zakelijke wallets; KPN, Digidentity en Cleverbase zijn nu QTSP voor gekwalificeerde certificaten. Of zij QEAA's gaan uitgeven of genotificeerd EBW-provider worden, is nog niet bekend.</p>
       </nldd-rich-text>
     </nldd-simple-section>
 
@@ -627,7 +636,7 @@ const LEGEND = [
   ['#7a4f8c', '6 4', 'Eigenaar machtigt in de EBW'],
   ['#0e7c86', '', 'Mandaat vanuit de EBW naar de werknemer (EAA)'],
   ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of mandaat'],
-  ['#b46504', '', 'Dienst van een commerciële partij (QTSP of wallet-provider), tegen betaling'],
+  ['#b46504', '', 'Dienst van een business wallet-aanbieder, tegen betaling'],
   ['#d79b00', '5 4', 'Open punt: hier moet nog een besluit worden genomen'],
 ];
 const WALLETS = [
@@ -668,14 +677,14 @@ document.getElementById('houders').innerHTML = HOLDERS.map(([icon, title, text],
 
 
 const COMPARE = [
-  ['Attestaties uitgeven', 'Zelf, als bronhouder van een authentieke bron: Pub-EAA', 'Door een commerciële QTSP namens de gemeente: QEAA'],
-  ['De wallet (EBW)', 'Zelf genotificeerde wallet-provider', 'Afgenomen als dienst bij een commerciële wallet-provider'],
-  ['Inrichting en onderhoud', 'Eigen team', 'QTSP en wallet-provider'],
-  ['Audits, certificering en toezicht', 'Zelf regelen; staat zelf onder toezicht', 'Geregeld door QTSP en wallet-provider, die zelf onder toezicht staan'],
+  ['Attestaties uitgeven', 'Zelf, als bronhouder van een authentieke bron: Pub-EAA', 'Door de business wallet-aanbieder, als QTSP namens de gemeente: QEAA'],
+  ['De wallet (EBW)', 'Zelf genotificeerde wallet-provider', 'Afgenomen als dienst bij een business wallet-aanbieder'],
+  ['Inrichting en onderhoud', 'Eigen team', 'De business wallet-aanbieder'],
+  ['Audits, certificering en toezicht', 'Zelf regelen; staat zelf onder toezicht', 'Geregeld door de aanbieder, die zelf onder toezicht staat'],
   ['Wat blijft bij de organisatie', 'Alles', 'Wie de wallet gebruikt, welke attestaties ze ontvangt en presenteert, met wie ze communiceert'],
   ['Voorbeelden attestaties', 'Btw-identificatienummer, verklaring betalingsgedrag, loonheffingennummer', 'Exploitatievergunning, omgevingsvergunning, terrasvergunning'],
   ['Kosten', 'Eigen mankracht en kennis', 'Abonnementen'],
-  ['Voorbeelden aanbieders', 'Niet van toepassing', 'QTSP: KPN, Digidentity, Cleverbase. Wallet-provider: Credenco, iGrant.io, Sphereon'],
+  ['Voorbeelden aanbieders', 'Niet van toepassing', 'Business wallet-aanbieder: Credenco (platform, inrichting en uitgifte in één). Andere wallet-aanbieders: iGrant.io, Sphereon. QTSP\'s: KPN, Digidentity, Cleverbase'],
   ['Past bij', 'Een grote organisatie met eigen capaciteit', 'Een organisatie zonder mankracht om het zelf te doen'],
 ];
 document.getElementById('vergelijking').innerHTML = `
