@@ -95,6 +95,9 @@
 
     <nldd-simple-section id="schema-sectie">
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
+        accessible-label="Presenteer het schema stap voor stap"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
@@ -1012,6 +1015,8 @@ document.getElementById('vergelijking').innerHTML = `
     } else return;
     e.preventDefault();
   });
+
+  document.getElementById('presenteer')?.addEventListener('click', () => open(0));
 
   window.addEventListener('hashchange', () => {
     if (overlay && !overlay.hidden) naar(stapUitHash());
