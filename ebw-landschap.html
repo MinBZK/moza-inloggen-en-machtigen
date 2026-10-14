@@ -38,6 +38,7 @@
     .pres-rijen dt { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: clamp(12px, min(0.95vw, 1.7vh), 18px); padding-top: 0.45em; }
     .pres-rijen dd { margin: 0; font-size: clamp(15px, min(1.3vw, 2.3vh), 26px); line-height: 1.4; hyphens: auto; overflow-wrap: break-word; }
     .pres-rijen .is-eerder { opacity: 0.6; }
+    .pres-rijen dd em { display: block; margin-top: 1lh; }
     @keyframes pres-in { from { opacity: 0; transform: translateY(8px); } }
     .pres-logos { display: none; }
     #presentatie.is-intro { grid-template-columns: 55fr 45fr; }
@@ -804,7 +805,7 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
     { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen business wallet (EBW).' },
     { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
-    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA). De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.' },
+    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA).<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal.' },
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
@@ -937,7 +938,7 @@ document.getElementById('vergelijking').innerHTML = `
       dt.remove();
     }
     teller.textContent = `${stap + 1} / ${STAPPEN.length}`;
-    const uitleg = huidig.intro ? `In ontwerpfase, dit is nog een voorstel. ${huidig.rijen.map((r) => r.join(': ')).join('. ')}` : huidig.tekst;
+    const uitleg = huidig.intro ? `In ontwerpfase, dit is nog een voorstel. ${huidig.rijen.map((r) => r.join(': ')).join('. ')}` : huidig.tekst.replace(/<[^>]+>/g, ' ');
     status.textContent = `Stap ${stap + 1} van ${STAPPEN.length}: ${huidig.label}. ${uitleg}`;
     vorige.disabled = stap === 0;
     volgende.disabled = stap === STAPPEN.length - 1;
