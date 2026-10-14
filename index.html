@@ -78,15 +78,15 @@
       transform: translate(-50%, -50%);
       border-radius: 50%;
     }
-    /* Open opmerking: zeer opvallend oranje met witte rand en pulserende gloed */
+    /* Open opmerking: zeer opvallend oranje met zachte halo en pulserende gloed */
     [data-pin][data-open] {
       color: var(--primitives-color-oranje-500);
-      box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500);
+      box-shadow: 0 0 0 4px color-mix(in oklch, var(--primitives-color-oranje-500) 35%, transparent);
       animation: pin-pulse 1.6s ease-out infinite;
     }
     @keyframes pin-pulse {
-      0% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500), 0 0 0 6px color-mix(in oklch, var(--primitives-color-oranje-500) 60%, transparent); }
-      100% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500), 0 0 0 18px transparent; }
+      0% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primitives-color-oranje-500) 35%, transparent), 0 0 0 4px color-mix(in oklch, var(--primitives-color-oranje-500) 50%, transparent); }
+      100% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primitives-color-oranje-500) 35%, transparent), 0 0 0 16px transparent; }
     }
     @media (prefers-reduced-motion: reduce) {
       [data-pin][data-open] { animation: none; }

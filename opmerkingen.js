@@ -30,11 +30,11 @@ style.textContent = `
   [data-opm-host] { position: relative; }
   [data-opm-pin] { position: absolute; z-index: 4; transform: translate(-50%, -50%); border-radius: 50%;
     color: var(--primitives-color-oranje-500, #e17000);
-    box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500, #e17000);
+    box-shadow: 0 0 0 4px rgb(225 112 0 / .35);
     animation: opm-pulse 1.6s ease-out infinite; }
   @keyframes opm-pulse {
-    0% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500, #e17000), 0 0 0 6px rgb(225 112 0 / .6); }
-    100% { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--primitives-color-oranje-500, #e17000), 0 0 0 18px transparent; }
+    0% { box-shadow: 0 0 0 4px rgb(225 112 0 / .35), 0 0 0 4px rgb(225 112 0 / .5); }
+    100% { box-shadow: 0 0 0 4px rgb(225 112 0 / .35), 0 0 0 16px transparent; }
   }
   @media (prefers-reduced-motion: reduce) { [data-opm-pin] { animation: none; } }`;
 document.head.append(style);
