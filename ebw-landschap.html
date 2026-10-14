@@ -25,7 +25,7 @@
       <nldd-title size="1">
         <span slot="overline">European Business Wallet</span>
         <h1>Het EBW-landschap</h1>
-        <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een dienstverlener die attestaties uitgeeft, kiest zelf: als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens hem een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Nijmegen en een onderneming met twee mensen.</p>
+        <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een dienstverlener die attestaties uitgeeft, kiest zelf: als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens hem een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Rotterdam en een onderneming met twee mensen.</p>
       </nldd-title>
       <div id="opm-hint"></div>
     </nldd-simple-section>
@@ -36,7 +36,7 @@
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 900" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Nijmegen laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Nijmegen neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Nijmegen met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -125,7 +125,7 @@
     <rect x="112" y="520" width="206" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="124" y="537" fill="#1f4d1c">Belastingdienst · inzien</text>
     <rect x="112" y="552" width="206" height="40" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text x="124" y="568" fill="#1d3f6e">Gemeente Nijmegen ·</text>
+    <text x="124" y="568" fill="#1d3f6e">Gemeente Rotterdam ·</text>
     <text x="124" y="584" fill="#1d3f6e">vergunning aanvragen</text>
   </g>
   <rect x="120" y="610" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
@@ -155,7 +155,7 @@
     <rect x="424" y="322" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="436" y="339" fill="#1f4d1c">Belastingdienst · meerdere Pub-EAA's</text>
     <rect x="424" y="354" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text x="436" y="371" fill="#1d3f6e">Gemeente Nijmegen · meerdere QEAA's</text>
+    <text x="436" y="371" fill="#1d3f6e">Gemeente Rotterdam · meerdere QEAA's</text>
   </g>
 
   <rect x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
@@ -166,7 +166,7 @@
     <rect x="424" y="464" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="436" y="481" fill="#1f4d1c">Belastingdienst · inzien</text>
     <rect x="424" y="496" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text x="436" y="513" fill="#1d3f6e">Gemeente Nijmegen · vergunning aanvragen</text>
+    <text x="436" y="513" fill="#1d3f6e">Gemeente Rotterdam · vergunning aanvragen</text>
   </g>
   <text x="428" y="541" font-size="11.5" font-weight="700" fill="#555">Voor Karin</text>
   <rect x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
@@ -236,9 +236,9 @@
     <text x="1044" y="530" font-size="12" fill="#fff" text-anchor="middle">Pub-EAA of QEAA, eigen wallet of die van een business wallet-aanbieder</text>
   </g>
 
-  <!-- Gemeente Nijmegen: QEAA via een QTSP, EBW via een commerciële wallet-provider -->
+  <!-- Gemeente Rotterdam: QEAA via een QTSP, EBW via een commerciële wallet-provider -->
   <rect x="818" y="556" width="250" height="236" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="834" y="581" font-size="14" font-weight="700" fill="#333">Gemeente Nijmegen</text>
+  <text x="834" y="581" font-size="14" font-weight="700" fill="#333">Gemeente Rotterdam</text>
   <text x="834" y="599" font-size="12" fill="#1d3f6e">EBW en QEAA's via een</text>
   <text x="834" y="614" font-size="12" fill="#1d3f6e">business wallet-aanbieder</text>
   <svg x="1026" y="566" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
@@ -316,7 +316,7 @@
     <rect x="465" y="57" width="350" height="18" fill="#fff"/>
     <text x="640" y="70" fill="#2d7a46" text-anchor="middle">inloggen bij de Belastingdienst met de vertegenwoordigingsbevoegdheid</text>
     <rect x="490" y="851" width="300" height="18" fill="#fff"/>
-    <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Nijmegen met het mandaat</text>
+    <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Rotterdam met het mandaat</text>
     <text x="1080" y="705" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
   </g>
 </svg>
@@ -333,10 +333,10 @@
           <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de attestatie onderneming als Pub-EAA uit aan de EBW van Koffiezaak Noon, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
           <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
           <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
-          <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Nijmegen.</li>
-          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Nijmegen laat een business wallet-aanbieder als QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
-          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Nijmegen neemt haar EBW af bij dezelfde business wallet-aanbieder. Voor een onderneming als Koffiezaak Noon ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
-          <li>De Belastingdienst en de gemeente Nijmegen hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
+          <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Rotterdam.</li>
+          <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
+          <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Rotterdam neemt haar EBW af bij dezelfde business wallet-aanbieder. Voor een onderneming als Koffiezaak Noon ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
+          <li>De Belastingdienst en de gemeente Rotterdam hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
         </ol>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
@@ -369,7 +369,7 @@
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Nijmegen, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Nijmegen naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -411,8 +411,8 @@
   <text x="806" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
   <path d="M1000 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
-  <svg x="1046" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
-  <text x="986" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Nijmegen</text>
+  <svg x="1050" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
+  <text x="982" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Rotterdam</text>
   <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via aanbieder</text>
   <path d="M1180 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
@@ -524,19 +524,19 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**7a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Aanvragen bij de gemeente Nijmegen.**" supporting-text="Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente Nijmegen."></nldd-text-cell>
+          <nldd-text-cell text="**Aanvragen bij de gemeente Rotterdam.**" supporting-text="Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente Rotterdam."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**7b**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Attestaties van de gemeente Nijmegen.**" supporting-text="De business wallet-aanbieder haalt als QTSP de gegevens bij de gemeente op of controleert ze, en geeft namens de gemeente bijvoorbeeld vergunningen uit als QEAA."></nldd-text-cell>
+          <nldd-text-cell text="**Attestaties van de gemeente Rotterdam.**" supporting-text="De business wallet-aanbieder haalt als QTSP de gegevens bij de gemeente op of controleert ze, en geeft namens de gemeente bijvoorbeeld vergunningen uit als QEAA."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Mandaten vastleggen.**" supporting-text="Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Nijmegen een vergunning aanvragen."></nldd-text-cell>
+          <nldd-text-cell text="**Mandaten vastleggen.**" supporting-text="Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Rotterdam een vergunning aanvragen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -552,7 +552,7 @@
         </nldd-list-item>
       </nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Hoe haalt Karin de attestaties op?</h3><p slot="subtitle">De KVK, de Belastingdienst en de gemeente Nijmegen hebben elk een EBW en treden daarmee op als uitgever. Een EBW kan uitgever, houder en verifier zijn (WE BUILD D4.1 p. 57).</p></nldd-title>
+      <nldd-title size="4"><h3>Hoe haalt Karin de attestaties op?</h3><p slot="subtitle">De KVK, de Belastingdienst en de gemeente Rotterdam hebben elk een EBW en treden daarmee op als uitgever. Een EBW kan uitgever, houder en verifier zijn (WE BUILD D4.1 p. 57).</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
@@ -622,7 +622,7 @@
     <nldd-page-footer>
       <nldd-container padding="24" gap="16">
         <div id="opm-knop"></div>
-        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Nijmegen en Koffiezaak Noon zijn een voorbeeld.</p></nldd-rich-text>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Rotterdam en Koffiezaak Noon zijn een voorbeeld.</p></nldd-rich-text>
         <nldd-box data-ai-disclaimer>
           <nldd-container layout="row" gap="12" vertical-alignment="center">
             <nldd-icon name="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
@@ -697,7 +697,7 @@ document.getElementById('vergelijking').innerHTML = `
   <nldd-table-row slot="header">
     <nldd-text-cell text=""></nldd-text-cell>
     <nldd-text-cell text="**Belastingdienst**" supporting-text="zelf doen"></nldd-text-cell>
-    <nldd-text-cell text="**Gemeente Nijmegen**" supporting-text="uit handen geven"></nldd-text-cell>
+    <nldd-text-cell text="**Gemeente Rotterdam**" supporting-text="uit handen geven"></nldd-text-cell>
   </nldd-table-row>
   ${COMPARE.map(([what, pub, q]) => `
   <nldd-table-row>
