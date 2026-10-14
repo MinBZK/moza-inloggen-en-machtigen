@@ -74,7 +74,7 @@
     }
     [data-pin] {
       position: absolute;
-      z-index: 4;
+      z-index: 5;
       transform: translate(-50%, -50%);
       border-radius: 50%;
     }
@@ -92,7 +92,8 @@
       [data-pin][data-open] { animation: none; }
     }
     /* Sporen die nog nader te bepalen zijn (EBW, EDI-wallet): halfdoorzichtige laag met herhaald watermerk.
-       De vaste eerste kolom (z-index 2) blijft erboven; klikken gaat door de laag heen. */
+       De vaste eerste kolom (z-index 3) blijft erboven; klikken gaat door de laag heen.
+       Kaarten met data-vast (planning wel bepaald) staan boven de laag (z-index 2). */
     #roadmap-table > nldd-table-row[data-tbd] {
       position: relative;
     }
@@ -106,17 +107,21 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='120'%3E%3Ctext x='260' y='66' text-anchor='middle' font-family='RijksSans, system-ui, sans-serif' font-size='22' font-weight='700' letter-spacing='1' fill='%236b7280' fill-opacity='0.85'%3ENader te bepalen%3C/text%3E%3C/svg%3E") center / 520px 120px repeat,
         color-mix(in srgb, var(--semantics-surfaces-base-background-color) 72%, transparent);
     }
+    #roadmap-table > nldd-table-row[data-tbd] nldd-card[data-vast] {
+      position: relative;
+      z-index: 2;
+    }
     #roadmap-table > nldd-table-row[slot="header"] {
       position: sticky;
       top: 0;
-      z-index: 3;
+      z-index: 4;
       background-color: var(--semantics-surfaces-base-background-color);
       box-shadow: 0 1px 0 var(--semantics-tables-border-color);
     }
     #roadmap-table > nldd-table-row > :first-child {
       position: sticky;
       left: 0;
-      z-index: 2;
+      z-index: 3;
       align-self: stretch;
     }
     /* Dekkende achtergrond die ook de rij-padding afdekt, zodat scrollende kaarten er niet doorheen schijnen */
@@ -349,13 +354,13 @@ const LANES = [
     id: 'ebw', name: 'EBW', icon: 'apartment-building', color: 'donkergroen',
     tagline: 'European Business Wallet van de onderneming zelf',
     releases: [
-      { t: '2027-2', code: 'R0a', title: 'Eenmanszaak: inloggen met de persoonlijke wallet', horizon: 'gepland', fit: 'deels',
+      { t: '2027-2', code: 'R0a', title: 'Eenmanszaak: inloggen met de persoonlijke wallet', horizon: 'gepland', vast: true, fit: 'deels',
         summary: 'De eigenaar van een eenmanszaak logt in met de persoonlijke wallet; MOZa vindt de onderneming via het BSN in het Handelsregister.',
         features: ['Na de PID-presentatie bevraagt MOZa het Handelsregister op het BSN (KVK Zoeken op natuurlijk persoon)', 'MOZa krijgt alle ondernemingen waar de persoon eigenaar of functionaris is, met het KVK-nummer', 'Geen extra handeling voor de gebruiker; bij meerdere eenmanszaken volgt een keuzescherm'],
         experience: 'De eigenaar van een eenmanszaak logt in met de eigen wallet en ziet meteen de eigen onderneming, zonder EBW of eHerkenning.',
         gaps: ['Alleen voor eenmanszaken: namens een vof, bv of nv inloggen vraagt de vertegenwoordiging uit het Handelsregister (EDI-wallet R2)', 'Nog geen EBW van de onderneming zelf (volgt in R1)'],
         deps: ['EDI-wallet R1: PID met BSN', 'BSN-autorisatie bij KVK voor Zoeken op natuurlijk persoon'] },
-      { t: '2028-1', code: 'R0b', title: 'Eenmanszaak: KVK-attestatie geaccepteerd', horizon: 'gepland', fit: 'deels',
+      { t: '2028-1', code: 'R0b', title: 'Eenmanszaak: KVK-attestatie geaccepteerd', horizon: 'gepland', vast: true, fit: 'deels',
         summary: 'Aanvullend accepteert MOZa de KVK-attestatie van een eenmanszaak uit de persoonlijke wallet.',
         features: ['MOZa accepteert de KVK-attestatie voor eenmanszaken, naast de bevraging van het Handelsregister op het BSN', 'PID en KVK-attestatie in één presentatie', 'De eigenaar kiest zelf welke onderneming die toont'],
         experience: 'De eigenaar van een eenmanszaak toont de onderneming rechtstreeks vanuit de eigen wallet.',
@@ -631,7 +636,7 @@ const kaderItem = (lane, k) => `
   </nldd-container>`;
 
 const releaseCard = (lane, r) => `
-  <nldd-card data-release="${lane.id}:${r.code}" accessible-label="${esc(`${lane.name} ${r.code}: ${r.title}`)}">
+  <nldd-card data-release="${lane.id}:${r.code}"${r.vast ? ' data-vast' : ''} accessible-label="${esc(`${lane.name} ${r.code}: ${r.title}`)}">
     <nldd-container padding="16" gap="8">
       <nldd-title size="6">
         <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
