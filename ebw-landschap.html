@@ -801,7 +801,7 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
     { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen business wallet (EBW).' },
     { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
-    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA).' },
+    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA). De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal.' },
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
@@ -925,6 +925,13 @@ document.getElementById('vergelijking').innerHTML = `
         const klasse = vanaf + i < stap ? ' class="is-eerder"' : '';
         return `<dt${klasse}>${s.label}</dt><dd${klasse}>${s.tekst}</dd>`;
       }).join('');
+    }
+    // Past het niet, dan vallen de oudste eerdere stappen weg (marge voor de 8px van de in-animatie)
+    const tekstvak = overlay.querySelector('.pres-tekst');
+    while (tekstvak.scrollHeight - tekstvak.clientHeight > 12 && rijen.querySelector('dt.is-eerder')) {
+      const dt = rijen.querySelector('dt.is-eerder');
+      dt.nextElementSibling.remove();
+      dt.remove();
     }
     teller.textContent = `${stap + 1} / ${STAPPEN.length}`;
     const uitleg = huidig.intro ? `In ontwerpfase, dit is nog een voorstel. ${huidig.rijen.map((r) => r.join(': ')).join('. ')}` : huidig.tekst;
