@@ -34,6 +34,19 @@
     .pres-rijen dd { margin: 0; font-size: clamp(15px, min(1.3vw, 2.3vh), 26px); line-height: 1.4; hyphens: auto; overflow-wrap: break-word; }
     .pres-rijen .is-eerder { opacity: 0.6; }
     @keyframes pres-in { from { opacity: 0; transform: translateY(8px); } }
+    .pres-logos { display: none; }
+    #presentatie.is-intro { grid-template-columns: 55fr 45fr; }
+    #presentatie.is-intro .pres-rijen dt { font-size: clamp(13px, min(1.2vw, 2.1vh), 22px); }
+    #presentatie.is-intro .pres-rijen dd { font-size: clamp(18px, min(1.9vw, 3.3vh), 36px); }
+    #presentatie.is-intro .pres-kaart { display: none; }
+    #presentatie.is-intro .pres-logos { display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 4vh, 48px); }
+    .pres-logos div {
+      display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+      width: clamp(280px, 26vw, 520px); padding: clamp(20px, 3vh, 40px) clamp(24px, 3vw, 56px);
+      background: #fff; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35); animation: pres-in 0.6s ease both;
+    }
+    .pres-logos div + div { animation-delay: 0.15s; }
+    .pres-logos img { display: block; width: 100%; height: auto; }
     .pres-beeld { container-type: size; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
     .pres-kaart {
       --pres-ratio: calc(1280 / 980);
@@ -774,6 +787,9 @@ document.getElementById('vergelijking').innerHTML = `
 // De lagen staan als data-laag op de onderdelen van het schema; wat geen laag heeft verschijnt pas bij 'alles'.
 (() => {
   const STAPPEN = [
+    { intro: true, label: 'MOZa, de persoonlijke wallet en de business wallet',
+      titel: 'MOZa, de persoonlijke wallet <span>en de business wallet</span>',
+      rijen: [['Inloggen', 'Met de persoonlijke wallet (EUDI)'], ['Machtigen', 'Met de business wallet (EBW)']] },
     { laag: 'karin', label: 'Persoon', tekst: 'Karin Jansen, eigenaar van Koffiezaak Noon. Haar persoonlijke EUDI-wallet is nog leeg.' },
     { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID uitgeeft, met gegevens uit de BRP.' },
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
@@ -782,7 +798,9 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA).' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal.' },
   ];
-  const LAAG_STAP = { basis: 0, ...Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i])) };
+  const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
+  LAAG_STAP.basis = LAAG_STAP.karin;
+  const SCHEMA_TITEL = 'Van PID tot <span>mandaat</span>';
   const ZONDER_LAAG = new Set(['defs', 'title', 'desc']);
 
   let overlay, kaart, rijen, teller, status, vorige, volgende, svg, svgPlek, terugFocus;
@@ -809,10 +827,16 @@ document.getElementById('vergelijking').innerHTML = `
     overlay.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
     overlay.innerHTML = `
       <div class="pres-tekst">
-        <h2 class="pres-titel">Van PID tot <span>mandaat</span></h2>
+        <h2 class="pres-titel"></h2>
         <dl class="pres-rijen"></dl>
       </div>
-      <div class="pres-beeld"><div class="pres-kaart"></div></div>
+      <div class="pres-beeld">
+        <div class="pres-kaart"></div>
+        <div class="pres-logos">
+          <div><img src="logos/edi-wallet.png" alt="EU Digital Identity Wallet"></div>
+          <div><img src="logos/ebw.png" alt="European Business Wallet"></div>
+        </div>
+      </div>
       <div class="pres-voet">
         <span class="pres-teller" aria-hidden="true"></span>
         <button type="button" data-richting="-1" aria-label="Vorige stap">&#8592;</button>
@@ -877,18 +901,27 @@ document.getElementById('vergelijking').innerHTML = `
   };
 
   const toon = () => {
+    const huidig = STAPPEN[stap];
     svg.querySelectorAll('[data-pres-laag]').forEach((el) => {
       el.classList.toggle('pres-uit', LAAG_STAP[el.dataset.presLaag] > stap);
     });
-    zoom(doelKader());
-    // De huidige stap en de twee daarvoor, zodat de tekst naast het schema past
-    const vanaf = Math.max(0, stap - 2);
-    rijen.innerHTML = STAPPEN.slice(vanaf, stap + 1).map((s, i) => {
-      const klasse = vanaf + i < stap ? ' class="is-eerder"' : '';
-      return `<dt${klasse}>${s.label}</dt><dd${klasse}>${s.tekst}</dd>`;
-    }).join('');
+    overlay.classList.toggle('is-intro', Boolean(huidig.intro));
+    overlay.querySelector('.pres-titel').innerHTML = huidig.titel || SCHEMA_TITEL;
+    if (huidig.intro) {
+      // Eerste slide: titel met de twee wallets, nog zonder schema
+      rijen.innerHTML = huidig.rijen.map(([label, tekst]) => `<dt>${label}</dt><dd>${tekst}</dd>`).join('');
+    } else {
+      zoom(doelKader());
+      // De huidige stap en de twee daarvoor (niet de eerste slide), zodat de tekst naast het schema past
+      const vanaf = Math.max(1, stap - 2);
+      rijen.innerHTML = STAPPEN.slice(vanaf, stap + 1).map((s, i) => {
+        const klasse = vanaf + i < stap ? ' class="is-eerder"' : '';
+        return `<dt${klasse}>${s.label}</dt><dd${klasse}>${s.tekst}</dd>`;
+      }).join('');
+    }
     teller.textContent = `${stap + 1} / ${STAPPEN.length}`;
-    status.textContent = `Stap ${stap + 1} van ${STAPPEN.length}: ${STAPPEN[stap].label}. ${STAPPEN[stap].tekst}`;
+    const uitleg = huidig.intro ? huidig.rijen.map((r) => r.join(': ')).join('. ') : huidig.tekst;
+    status.textContent = `Stap ${stap + 1} van ${STAPPEN.length}: ${huidig.label}. ${uitleg}`;
     vorige.disabled = stap === 0;
     volgende.disabled = stap === STAPPEN.length - 1;
     history.replaceState(null, '', `${location.pathname}?presentatie#/${stap}`);
