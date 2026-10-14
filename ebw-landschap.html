@@ -37,7 +37,7 @@
     .pres-logos { display: none; }
     #presentatie.is-intro { grid-template-columns: 55fr 45fr; }
     #presentatie.is-intro .pres-rijen dt { font-size: clamp(13px, min(1.2vw, 2.1vh), 22px); }
-    #presentatie.is-intro .pres-rijen dd { font-size: clamp(18px, min(1.9vw, 3.3vh), 36px); }
+    #presentatie.is-intro .pres-rijen dd { font-size: clamp(18px, min(1.9vw, 3.3vh), 36px); hyphens: manual; }
     #presentatie.is-intro .pres-kaart { display: none; }
     #presentatie.is-intro .pres-logos { display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 4vh, 48px); }
     .pres-logos div {
@@ -789,7 +789,8 @@ document.getElementById('vergelijking').innerHTML = `
   const STAPPEN = [
     { intro: true, label: 'MOZa, de persoonlijke wallet en de business wallet',
       titel: 'MOZa, de persoonlijke wallet <span>en de business wallet</span>',
-      rijen: [['Inloggen', 'Met de persoonlijke wallet (EUDI)'], ['Machtigen', 'Met de business wallet (EBW)']] },
+      rijen: [['Inloggen', 'Bij MijnOverheid Zakelijk met de persoonlijke wallet (EUDI)'],
+        ['Machtigen', 'In de business wallet (EBW) zijn de machtigingen van de onderneming vastgelegd en toegekend door Karin, zodat elke werknemer de juiste rechten heeft binnen MOZa']] },
     { laag: 'karin', label: 'Persoon', tekst: 'Karin Jansen, eigenaar van Koffiezaak Noon. Haar persoonlijke EUDI-wallet is nog leeg.' },
     { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID uitgeeft, met gegevens uit de BRP.' },
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
