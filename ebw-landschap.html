@@ -64,6 +64,7 @@
     /* Laatste slide: wat nog niet besproken is, staat op de achtergrond */
     .pres-kaart .pres-achter { opacity: 0.35; filter: saturate(0.25); }
     .pres-kaart svg * { transition: opacity 0.6s ease, filter 0.6s ease; }
+    .pres-kaart svg.pres-terug * { transition: opacity 1.5s ease, filter 1.5s ease; }
     .pres-kaart tspan.afk { text-decoration: none; cursor: inherit; }
     .pres-voet { position: absolute; right: var(--pres-pad); bottom: calc(var(--pres-pad) / 3); display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
     .pres-voet button { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
@@ -808,7 +809,7 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen EBW.' },
     { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet, als Pub-EAA. Een EAA (Electronic Attestation of Attributes) is een digitale verklaring; een Pub-EAA komt van een publieke bronhouder, hier het Handelsregister. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
     { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit, ook als Pub-EAA.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
-    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken staat op de achtergrond.' },
+    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken komt na een paar seconden op de voorgrond.' },
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
   LAAG_STAP.basis = LAAG_STAP.karin;
@@ -913,8 +914,18 @@ document.getElementById('vergelijking').innerHTML = `
     return { x, y, w: Math.min(w, VOL.w - x), h };
   };
 
+  // Laatste slide: na een paar seconden komt ook wat nog niet besproken was op kleur
+  let achterTimer;
   const toon = () => {
     const huidig = STAPPEN[stap];
+    clearTimeout(achterTimer);
+    svg.classList.remove('pres-terug');
+    if (stap === LAAG_STAP.alles) {
+      achterTimer = setTimeout(() => {
+        svg.classList.add('pres-terug');
+        svg.querySelectorAll('.pres-achter').forEach((el) => el.classList.remove('pres-achter'));
+      }, 3000);
+    }
     svg.querySelectorAll('[data-pres-laag]').forEach((el) => {
       el.classList.toggle('pres-uit', LAAG_STAP[el.dataset.presLaag] > stap);
       el.classList.toggle('pres-achter', el.dataset.presLaag === 'alles' && stap === LAAG_STAP.alles);
@@ -978,6 +989,8 @@ document.getElementById('vergelijking').innerHTML = `
   const sluit = () => {
     if (!overlay || overlay.hidden) return;
     cancelAnimationFrame(animatie);
+    clearTimeout(achterTimer);
+    svg.classList.remove('pres-terug');
     svg.querySelectorAll('.pres-uit, .pres-achter').forEach((el) => el.classList.remove('pres-uit', 'pres-achter'));
     kader = { ...VOL };
     zet(kader);
