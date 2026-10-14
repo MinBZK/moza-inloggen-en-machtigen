@@ -155,8 +155,8 @@
     <text data-laag="bevoegdheid" x="124" y="199" fill="#5c4a00">Vertegenwoordigingsbevoegdheid</text>
     <text data-laag="bevoegdheid" x="124" y="215" fill="#5c4a00" font-size="11.5">Pub-EAA van de KVK</text>
   </g>
-  <rect data-laag="mandaat" x="112" y="232" width="206" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text data-laag="mandaat" x="124" y="249" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen?</text>
+  <rect x="112" y="232" width="206" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
+  <text x="124" y="249" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen?</text>
   <rect x="120" y="274" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
   <rect x="116" y="271" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
   <rect x="112" y="268" width="198" height="65" rx="8" fill="#fff" stroke="#999" stroke-dasharray="4 3"/>
@@ -214,9 +214,9 @@
     <text x="436" y="371" fill="#1d3f6e">Gemeente Rotterdam · meerdere QEAA's</text>
   </g>
 
-  <rect data-laag="mandaat" x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
-  <text data-laag="mandaat" x="428" y="421" font-size="13" font-weight="700" fill="#333">Afgegeven mandaten</text>
-  <text data-laag="mandaat" x="428" y="439" font-size="11.5" fill="#666">uitgegeven door de onderneming; de EBW houdt bij</text>
+  <rect x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
+  <text x="428" y="421" font-size="13" font-weight="700" fill="#333">Afgegeven mandaten</text>
+  <text x="428" y="439" font-size="11.5" fill="#666">uitgegeven door de onderneming; de EBW houdt bij</text>
   <text x="428" y="458" font-size="11.5" font-weight="700" fill="#555">Voor Bilal (afgeleid mandaat, EAA)</text>
   <g font-size="12">
     <rect x="424" y="464" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
@@ -224,9 +224,9 @@
     <rect x="424" y="496" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
     <text x="436" y="513" fill="#1d3f6e">Gemeente Rotterdam · vergunning aanvragen</text>
   </g>
-  <text data-laag="mandaat" x="428" y="541" font-size="11.5" font-weight="700" fill="#555">Voor Karin</text>
-  <rect data-laag="mandaat" x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text data-laag="mandaat" x="436" y="564" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen (open punt)</text>
+  <text x="428" y="541" font-size="11.5" font-weight="700" fill="#555">Voor Karin</text>
+  <rect x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
+  <text x="436" y="564" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen (open punt)</text>
   <rect x="424" y="584" width="296" height="56" rx="8" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
   <text x="436" y="601" font-size="11.5" font-weight="700" fill="#7a4500">Open punt: vorm van het mandaat</text>
   <text x="436" y="617" font-size="11.5" fill="#7a4500">een losse attestatie (EAA) in de wallet,</text>
@@ -345,7 +345,7 @@
     <path d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <!-- open punt: mandaat van de Belastingdienst voor de eigenaar? -->
-    <path data-laag="mandaat" d="M412 560H402V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
+    <path d="M412 560H402V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
     <!-- eigenaar machtigt in de EBW -->
     <path d="M330 300H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
     <!-- mandaat vanuit de EBW naar de werknemer -->
@@ -365,7 +365,7 @@
   <g font-size="11.5">
     <text data-laag="bevoegdheid" x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
     <text x="368" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
-    <text data-laag="mandaat" x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
+    <text x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
     <rect x="625" y="803" width="300" height="18" fill="#fff"/>
     <text x="775" y="816" fill="#b46504" text-anchor="middle">levert de EBW van Koffiezaak Noon (ligt voor de hand)</text>
     <text x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
@@ -780,7 +780,6 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen business wallet (EBW).' },
     { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
     { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA).' },
-    { laag: 'mandaat', label: 'Mandaat', tekst: 'Vanuit de EBW kan Koffiezaak Noon Karin een mandaat geven, bijvoorbeeld voor aangifte bij de Belastingdienst. Of dat nodig is, is nog een open punt.' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal.' },
   ];
   const LAAG_STAP = { basis: 0, ...Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i])) };
