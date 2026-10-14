@@ -34,9 +34,9 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
-<svg viewBox="0 0 1280 900" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -50,14 +50,14 @@
     <marker id="m-service" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
   </defs>
 
-  <rect width="1280" height="900" fill="#ffffff"/>
-  <rect width="1280" height="900" fill="url(#grid)"/>
+  <rect width="1280" height="980" fill="#ffffff"/>
+  <rect width="1280" height="980" fill="url(#grid)"/>
 
   <!-- Swimlanes -->
   <g fill="none" stroke="#666" stroke-width="1">
-    <rect x="16" y="12" width="330" height="872"/>
-    <rect x="362" y="12" width="420" height="872"/>
-    <rect x="798" y="12" width="466" height="872"/>
+    <rect x="16" y="12" width="330" height="952"/>
+    <rect x="362" y="12" width="420" height="952"/>
+    <rect x="798" y="12" width="466" height="952"/>
   </g>
   <g fill="#f5f5f5" stroke="#666" stroke-width="1">
     <rect x="16" y="12" width="330" height="34"/>
@@ -70,6 +70,21 @@
     <text x="1031" y="34">Dienstverleners</text>
   </g>
 
+  <!-- RvIG: geeft de PID uit aan de persoonlijke wallets -->
+  <rect x="818" y="56" width="426" height="72" rx="12" fill="#f5f5f5" stroke="#999"/>
+  <text x="834" y="81" font-size="14" font-weight="700" fill="#333">RvIG</text>
+  <text x="834" y="99" font-size="12" fill="#555">Rijksdienst voor Identiteitsgegevens</text>
+  <text x="834" y="116" font-size="12" fill="#555">PID-aanbieder, gegevens uit de BRP</text>
+  <g font-size="11.5" fill="#555">
+    <text x="1088" y="81">Dienstverlener; geeft</text>
+    <text x="1088" y="97">de PID uit aan elke</text>
+    <text x="1088" y="113">persoonlijke wallet</text>
+  </g>
+  <path d="M818 92H340V241H322M340 241V559H322" fill="none" stroke="#1f5fa8" stroke-width="1.6" marker-end="url(#m-issue)"/>
+  <path d="M340 241H322" fill="none" stroke="#1f5fa8" stroke-width="1.6" marker-end="url(#m-issue)"/>
+  <rect x="520" y="76" width="110" height="18" fill="#fff"/>
+  <text x="575" y="88" font-size="11.5" fill="#1f5fa8" text-anchor="middle">PID (persoonsgegevens)</text>
+  <g transform="translate(0 80)">
   <!-- ===== Personen ===== -->
   <!-- Persona's van de CX-site (cx-moza.rijksapp.dev/personas): Karin Jansen (eigenaar) en Bilal Yılmaz (werknemer) -->
   <defs>
@@ -308,8 +323,8 @@
   <!-- Labels op verbindingen -->
   <g font-size="11.5">
     <text x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
-    <text x="361" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
-    <text x="366" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
+    <text x="368" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
+    <text x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
     <rect x="625" y="803" width="300" height="18" fill="#fff"/>
     <text x="775" y="816" fill="#b46504" text-anchor="middle">levert de EBW van Koffiezaak Noon (ligt voor de hand)</text>
     <text x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
@@ -318,6 +333,7 @@
     <rect x="490" y="851" width="300" height="18" fill="#fff"/>
     <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Rotterdam met het mandaat</text>
     <text x="1080" y="705" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
+  </g>
   </g>
 </svg>
       </div>
@@ -330,6 +346,7 @@
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
+          <li>De RvIG (Rijksdienst voor Identiteitsgegevens) is de dienstverlener die de PID uitgeeft: de persoonsgegevens uit de BRP, in de persoonlijke EUDI-wallet van Karin en van Bilal. Met de PID tonen zij wie ze zijn, bijvoorbeeld bij het inloggen bij de KVK.</li>
           <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de attestatie onderneming als Pub-EAA uit aan de EBW van Koffiezaak Noon, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
           <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
           <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
@@ -638,7 +655,7 @@
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const LEGEND = [
-  ['#1f5fa8', '', 'Uitgifte van een attestatie (Pub-EAA of QEAA)'],
+  ['#1f5fa8', '', 'Uitgifte van de PID of van een attestatie (Pub-EAA of QEAA)'],
   ['#7a4f8c', '6 4', 'Eigenaar machtigt in de EBW'],
   ['#0e7c86', '', 'Mandaat vanuit de EBW naar de werknemer (EAA)'],
   ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of mandaat'],
