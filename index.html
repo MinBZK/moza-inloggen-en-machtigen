@@ -355,6 +355,12 @@ const LANES = [
         experience: 'Nog niets zichtbaar voor de ondernemer; dit is het fundament voor latere releases.',
         gaps: ['Geen functionaliteit voor ondernemers'],
         deps: ['Vaststelling EBW-verordening', 'Europese uitvoeringshandelingen'] },
+      { t: '2027-2', code: 'R0b', title: 'Eenmanszaak: inloggen met de persoonlijke wallet', horizon: 'gepland', fit: 'deels',
+        summary: 'De eigenaar van een eenmanszaak logt in met de persoonlijke wallet; MOZa vindt de onderneming via het BSN in het Handelsregister.',
+        features: ['Na de PID-presentatie bevraagt MOZa het Handelsregister op het BSN (KVK Zoeken op natuurlijk persoon)', 'MOZa krijgt alle ondernemingen waar de persoon eigenaar of functionaris is, met het KVK-nummer', 'Geen extra handeling voor de gebruiker; bij meerdere eenmanszaken volgt een keuzescherm'],
+        experience: 'De eigenaar van een eenmanszaak logt in met de eigen wallet en ziet meteen de eigen onderneming, zonder EBW of eHerkenning.',
+        gaps: ['Alleen voor eenmanszaken: namens een vof, bv of nv inloggen vraagt de vertegenwoordiging uit het Handelsregister (EDI-wallet R2)', 'Nog geen EBW van de onderneming zelf (volgt in R1)'],
+        deps: ['EDI-wallet R1: PID met BSN', 'BSN-autorisatie bij KVK voor Zoeken op natuurlijk persoon'] },
       { t: '2028-2', code: 'R1', title: 'Pilot inloggen als organisatie', horizon: 'gepland', fit: 'deels',
         summary: 'Een medewerker logt in namens de onderneming met de business wallet.',
         features: ['Organisatie-identiteit (KvK/EUID) uit de EBW', 'Medewerker identificeert zich met de EDI-wallet en handelt namens de onderneming', 'Pilot met een beperkte groep ondernemingen'],
@@ -570,7 +576,7 @@ LANES.sort((x, y) => LANE_ORDER.indexOf(x.id) - LANE_ORDER.indexOf(y.id));
 // Wat de ondernemer per tertiaal merkt (samenvatting over alle sporen; leeg = geen nieuwe verandering)
 const EXPERIENCE = {
   '2027-1': 'Nieuw middel: DigiD, eHerkenning en de EDI-wallet (als persoon) voor het MOZa-portaal; KvK-gegevens in beeld',
-  '2027-2': 'Eigen profiel (contactgegevens en voorkeuren) zichtbaar in het portaal',
+  '2027-2': 'Eigen profiel (contactgegevens en voorkeuren) zichtbaar in het portaal; eigenaar van een eenmanszaak logt in met de persoonlijke wallet en ziet meteen de eigen onderneming',
   '2028-1': 'Met DigiD in één keer ingelogd bij alle aangesloten dienstverleners; berichten van een eerste dienstverlener in het portaal; bestuurders loggen in met de wallet en een KvK-attestatie',
   '2028-3': 'Berichten van meerdere dienstverleners in het portaal',
   '2028-2': 'Nieuw middel: de business wallet (pilot)',
