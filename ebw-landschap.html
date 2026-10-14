@@ -60,8 +60,10 @@
       background: #fff; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
     }
     .pres-kaart > svg { display: block; width: 100%; height: auto; min-width: 0; }
-    .pres-kaart svg * { transition: opacity 0.6s ease; }
     .pres-kaart .pres-uit { opacity: 0; pointer-events: none; }
+    /* Laatste slide: wat nog niet besproken is, staat op de achtergrond */
+    .pres-kaart .pres-achter { opacity: 0.35; filter: saturate(0.25); }
+    .pres-kaart svg * { transition: opacity 0.6s ease, filter 0.6s ease; }
     .pres-kaart tspan.afk { text-decoration: none; cursor: inherit; }
     .pres-voet { position: absolute; right: var(--pres-pad); bottom: calc(var(--pres-pad) / 3); display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
     .pres-voet button { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
@@ -798,15 +800,15 @@ document.getElementById('vergelijking').innerHTML = `
   const STAPPEN = [
     { intro: true, label: 'MOZa, de persoonlijke wallet en de business wallet',
       titel: 'MOZa, de persoonlijke wallet <span>en de business wallet</span>',
-      rijen: [['Inloggen', 'Bij MijnOverheid Zakelijk met de persoonlijke wallet (EUDI)'],
-        ['Machtigen', 'In de business wallet (EBW) zijn de rollen en machtigingen van de onderneming vastgelegd en toegekend door Karin, zodat elke werknemer de juiste rechten heeft binnen MOZa']] },
+      rijen: [['Inloggen', 'Bij MijnOverheid Zakelijk met de persoonlijke wallet (European Digital Identity Wallet, EUDI)'],
+        ['Machtigen', 'In de business wallet (European Business Wallet, EBW) zijn de rollen en machtigingen van de onderneming vastgelegd en toegekend door Karin, zodat elke werknemer de juiste rechten heeft binnen MOZa']] },
     { laag: 'karin', label: 'Persoon', tekst: 'Karin Jansen, eigenaar van Koffiezaak Noon. Haar persoonlijke EUDI-wallet is nog leeg.' },
-    { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID uitgeeft, met gegevens uit de BRP.' },
+    { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID (Person Identification Data) uitgeeft, met gegevens uit de BRP (Basisregistratie Personen).' },
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
-    { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen business wallet (EBW).' },
-    { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
-    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit (Pub-EAA).<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
-    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal.' },
+    { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen EBW.' },
+    { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet, als Pub-EAA. Een EAA (Electronic Attestation of Attributes) is een digitale verklaring; een Pub-EAA komt van een publieke bronhouder, hier het Handelsregister. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.' },
+    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit, ook als Pub-EAA.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
+    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken staat op de achtergrond.' },
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
   LAAG_STAP.basis = LAAG_STAP.karin;
@@ -915,6 +917,7 @@ document.getElementById('vergelijking').innerHTML = `
     const huidig = STAPPEN[stap];
     svg.querySelectorAll('[data-pres-laag]').forEach((el) => {
       el.classList.toggle('pres-uit', LAAG_STAP[el.dataset.presLaag] > stap);
+      el.classList.toggle('pres-achter', el.dataset.presLaag === 'alles' && stap === LAAG_STAP.alles);
     });
     overlay.classList.toggle('is-intro', Boolean(huidig.intro));
     overlay.querySelector('.pres-titel').innerHTML = huidig.titel || SCHEMA_TITEL;
@@ -975,7 +978,7 @@ document.getElementById('vergelijking').innerHTML = `
   const sluit = () => {
     if (!overlay || overlay.hidden) return;
     cancelAnimationFrame(animatie);
-    svg.querySelectorAll('.pres-uit').forEach((el) => el.classList.remove('pres-uit'));
+    svg.querySelectorAll('.pres-uit, .pres-achter').forEach((el) => el.classList.remove('pres-uit', 'pres-achter'));
     kader = { ...VOL };
     zet(kader);
     svg.removeAttribute('aria-hidden');
