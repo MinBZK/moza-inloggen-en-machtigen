@@ -121,9 +121,7 @@
     #schema svg .pres-uit { opacity: 0.06; }
     #schema rect.pres-licht { stroke: #ffb612 !important; stroke-width: 4 !important; }
     #schema text.pres-licht { font-weight: 700; }
-    #schema svg.pres-dim [data-in-stap]:not(.pres-licht) { opacity: 0.35; }
-    #schema path.pres-licht { stroke-width: 3.5; }
-    #schema rect.pres-licht[height="26"], #schema rect.pres-licht[height="40"], #schema rect.pres-licht[height="42"] { stroke-width: 3 !important; }
+    #flow-schema svg.pres-dim [data-stap]:not(.pres-licht) { opacity: 0.2; }
     .att-rijen { display: grid; grid-template-columns: max-content 1fr; gap: 12px 20px; margin: 0 0 20px; }
     .att-rijen dt { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 13px; padding-top: 3px; }
     .att-rijen dd { margin: 0; font-size: 17px; line-height: 1.45; }
@@ -194,7 +192,7 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
-        accessible-label="Kies een presentatie: het landschap of van nieuwe EBW tot mandaat"></nldd-button>
+        accessible-label="Kies een van de drie presentaties over het EBW-landschap"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
@@ -267,14 +265,14 @@
   <text data-laag="karin" x="116" y="135" font-size="12" fill="#666">EUDI-wallet van Karin</text>
   <svg data-laag="karin" x="284" y="100" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
-    <rect data-in-stap="1 3 5a" data-laag="pid" data-att="pid-karin" x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
-    <text data-in-stap="1 3 5a" data-laag="pid" data-att="pid-karin" x="124" y="165" fill="#333">PID (persoonsgegevens)</text>
-    <rect data-in-stap="2 3 5a" data-laag="bevoegdheid" data-att="bevoegdheid" x="112" y="182" width="206" height="42" rx="13" fill="#fff2cc" stroke="#d6b656"/>
-    <text data-in-stap="2 3 5a" data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="199" fill="#5c4a00">Vertegenwoordigingsbevoegdheid</text>
-    <text data-in-stap="2 3 5a" data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="215" fill="#5c4a00" font-size="11.5">Pub-EAA van de KVK</text>
+    <rect data-laag="pid" data-att="pid-karin" x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
+    <text data-laag="pid" data-att="pid-karin" x="124" y="165" fill="#333">PID (persoonsgegevens)</text>
+    <rect data-laag="bevoegdheid" data-att="bevoegdheid" x="112" y="182" width="206" height="42" rx="13" fill="#fff2cc" stroke="#d6b656"/>
+    <text data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="199" fill="#5c4a00">Vertegenwoordigingsbevoegdheid</text>
+    <text data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="215" fill="#5c4a00" font-size="11.5">Pub-EAA van de KVK</text>
   </g>
-  <rect data-in-stap="10" x="112" y="232" width="206" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text data-in-stap="10" x="124" y="249" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen?</text>
+  <rect x="112" y="232" width="206" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
+  <text x="124" y="249" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen?</text>
   <rect x="120" y="274" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
   <rect x="116" y="271" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
   <rect x="112" y="268" width="198" height="65" rx="8" fill="#fff" stroke="#999" stroke-dasharray="4 3"/>
@@ -296,11 +294,11 @@
     <rect data-att="pid-bilal" x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
     <text data-att="pid-bilal" x="124" y="483" fill="#333">PID (persoonsgegevens)</text>
     <text x="116" y="512" font-size="11.5" fill="#666">Mandaten van Koffiezaak Noon (EAA):</text>
-    <rect data-in-stap="9" x="112" y="520" width="206" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
-    <text data-in-stap="9" x="124" y="537" fill="#1f4d1c">Belastingdienst · inzien</text>
-    <rect data-in-stap="9" x="112" y="552" width="206" height="40" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text data-in-stap="9" x="124" y="568" fill="#1d3f6e">Gemeente Rotterdam ·</text>
-    <text data-in-stap="9" x="124" y="584" fill="#1d3f6e">vergunning aanvragen</text>
+    <rect x="112" y="520" width="206" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
+    <text x="124" y="537" fill="#1f4d1c">Belastingdienst · inzien</text>
+    <rect x="112" y="552" width="206" height="40" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
+    <text x="124" y="568" fill="#1d3f6e">Gemeente Rotterdam ·</text>
+    <text x="124" y="584" fill="#1d3f6e">vergunning aanvragen</text>
   </g>
   <rect x="120" y="610" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
   <rect x="116" y="607" width="198" height="65" rx="8" fill="#fafafa" stroke="#bbb" stroke-dasharray="4 3"/>
@@ -316,7 +314,7 @@
 
   <!-- ===== Onderneming ===== -->
 
-  <rect data-in-stap="4 5a 6a 7a" data-laag="ebw" x="392" y="196" width="360" height="468" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
+  <rect data-laag="ebw" x="392" y="196" width="360" height="468" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
   <text data-laag="ebw" x="408" y="221" font-size="14" font-weight="700" fill="#333">EBW van de onderneming</text>
   <text data-laag="ebw" x="408" y="239" font-size="12" fill="#5b3f68">Koffiezaak Noon, via een aanbieder</text>
   <svg data-laag="ebw" x="710" y="206" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
@@ -324,27 +322,27 @@
   <rect data-laag="ebw" x="412" y="256" width="320" height="130" rx="8" fill="#fff" stroke="#9673a6"/>
   <text data-laag="ebw" x="428" y="279" font-size="13" font-weight="700" fill="#333">Ontvangen attestaties (van anderen)</text>
   <g font-size="12">
-    <rect data-in-stap="5b 6a 7a" data-laag="ebw" data-att="ebwoid" x="424" y="290" width="296" height="26" rx="13" fill="#fff2cc" stroke="#d6b656"/>
-    <text data-in-stap="5b 6a 7a" data-laag="ebw" data-att="ebwoid" x="436" y="307" fill="#5c4a00">EBWOID · Pub-EAA van de KVK</text>
-    <rect data-in-stap="6b" x="424" y="322" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
-    <text data-in-stap="6b" x="436" y="339" fill="#1f4d1c">Belastingdienst · meerdere Pub-EAA's</text>
-    <rect data-in-stap="7b" x="424" y="354" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text data-in-stap="7b" x="436" y="371" fill="#1d3f6e">Gemeente Rotterdam · meerdere QEAA's</text>
+    <rect data-laag="ebw" data-att="ebwoid" x="424" y="290" width="296" height="26" rx="13" fill="#fff2cc" stroke="#d6b656"/>
+    <text data-laag="ebw" data-att="ebwoid" x="436" y="307" fill="#5c4a00">EBWOID · Pub-EAA van de KVK</text>
+    <rect x="424" y="322" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
+    <text x="436" y="339" fill="#1f4d1c">Belastingdienst · meerdere Pub-EAA's</text>
+    <rect x="424" y="354" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
+    <text x="436" y="371" fill="#1d3f6e">Gemeente Rotterdam · meerdere QEAA's</text>
   </g>
 
-  <rect data-in-stap="8" x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
+  <rect x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
   <text x="428" y="421" font-size="13" font-weight="700" fill="#333">Afgegeven mandaten</text>
   <text x="428" y="439" font-size="11.5" fill="#666">uitgegeven door de onderneming; de EBW houdt bij</text>
   <text x="428" y="458" font-size="11.5" font-weight="700" fill="#555">Voor Bilal (afgeleid mandaat, EAA)</text>
   <g font-size="12">
-    <rect data-in-stap="8 9" x="424" y="464" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
-    <text data-in-stap="8 9" x="436" y="481" fill="#1f4d1c">Belastingdienst · inzien</text>
-    <rect data-in-stap="8 9" x="424" y="496" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
-    <text data-in-stap="8 9" x="436" y="513" fill="#1d3f6e">Gemeente Rotterdam · vergunning aanvragen</text>
+    <rect x="424" y="464" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
+    <text x="436" y="481" fill="#1f4d1c">Belastingdienst · inzien</text>
+    <rect x="424" y="496" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
+    <text x="436" y="513" fill="#1d3f6e">Gemeente Rotterdam · vergunning aanvragen</text>
   </g>
   <text x="428" y="541" font-size="11.5" font-weight="700" fill="#555">Voor Karin</text>
-  <rect data-in-stap="10" x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text data-in-stap="10" x="436" y="564" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen (open punt)</text>
+  <rect x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
+  <text x="436" y="564" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen (open punt)</text>
   <rect x="424" y="584" width="296" height="56" rx="8" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
   <text x="436" y="601" font-size="11.5" font-weight="700" fill="#7a4500">Open punt: vorm van het mandaat</text>
   <text x="436" y="617" font-size="11.5" fill="#7a4500">een losse attestatie (EAA) in de wallet,</text>
@@ -352,7 +350,7 @@
 
   <!-- ===== Dienstverleners ===== -->
   <!-- KVK: bronhouder handelsregister, geeft zelf Pub-EAA's uit -->
-  <rect data-in-stap="1 2 5a 5b" data-laag="kvk" x="818" y="92" width="426" height="140" rx="12" fill="#fff2cc" stroke="#d6b656"/>
+  <rect data-laag="kvk" x="818" y="92" width="426" height="140" rx="12" fill="#fff2cc" stroke="#d6b656"/>
   <text data-laag="kvk" x="834" y="117" font-size="14" font-weight="700" fill="#333">KVK</text>
   <text data-laag="kvk" x="834" y="135" font-size="12" fill="#5c4a00">bronhouder handelsregister</text>
   <svg data-laag="kvk" x="1200" y="102" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
@@ -362,8 +360,8 @@
   <text data-laag="kvk" x="846" y="167" font-size="13" font-weight="700" fill="#333">Pub-EAA's</text>
   <text data-laag="kvk" x="1052" y="167" font-size="11" fill="#666" text-anchor="end">als bronhouder</text>
   <g data-laag="kvk" font-size="11.5" fill="#333">
-    <text data-in-stap="2" data-att="bevoegdheid" x="846" y="184">• vertegenwoordigingsbevoegdheid</text>
-    <text data-in-stap="5a 5b" data-att="ebwoid" x="846" y="199">• EBWOID (alleen bij een EBW)</text>
+    <text data-att="bevoegdheid" x="846" y="184">• vertegenwoordigingsbevoegdheid</text>
+    <text data-att="ebwoid" x="846" y="199">• EBWOID (alleen bij een EBW)</text>
     <text data-att="eucc" x="846" y="214">• EUCC (bij vennootschappen)</text>
   </g>
   <g data-laag="kvk" font-size="11.5" fill="#5c4a00">
@@ -373,13 +371,13 @@
   </g>
 
   <!-- Belastingdienst: geeft zelf Pub-EAA uit -->
-  <rect data-in-stap="6a 6b" x="818" y="248" width="426" height="230" rx="12" fill="#d5e8d4" stroke="#82b366"/>
+  <rect x="818" y="248" width="426" height="230" rx="12" fill="#d5e8d4" stroke="#82b366"/>
   <text x="834" y="273" font-size="14" font-weight="700" fill="#333">Belastingdienst</text>
   <text x="834" y="291" font-size="12" fill="#1f4d1c">grote overheidsinstantie</text>
   <svg x="1200" y="258" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <rect x="842" y="316" width="190" height="96" rx="8" fill="#fff" stroke="#82b366"/>
   <rect x="838" y="312" width="190" height="96" rx="8" fill="#fff" stroke="#82b366"/>
-  <rect data-in-stap="6b" x="834" y="308" width="190" height="96" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <rect x="834" y="308" width="190" height="96" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
   <text x="846" y="328" font-size="13" font-weight="700" fill="#333">Pub-EAA's</text>
   <text x="1012" y="328" font-size="11" fill="#666" text-anchor="end">als bronhouder</text>
   <g font-size="11.5" fill="#333">
@@ -412,14 +410,14 @@
   </g>
 
   <!-- Gemeente Rotterdam: QEAA via een QTSP, EBW via een commerciële wallet-provider -->
-  <rect data-in-stap="7a 7b" x="818" y="556" width="250" height="236" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
+  <rect x="818" y="556" width="250" height="236" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
   <text x="834" y="581" font-size="14" font-weight="700" fill="#333">Gemeente Rotterdam</text>
   <text x="834" y="599" font-size="12" fill="#1d3f6e">EBW en QEAA's via een</text>
   <text x="834" y="614" font-size="12" fill="#1d3f6e">business wallet-aanbieder</text>
   <svg x="1026" y="566" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <rect x="842" y="634" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf"/>
   <rect x="838" y="630" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf"/>
-  <rect data-in-stap="7b" x="834" y="626" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <rect x="834" y="626" width="210" height="88" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
   <text x="846" y="645" font-size="13" font-weight="700" fill="#333">QEAA's</text>
   <text x="1034" y="645" font-size="11" fill="#666" text-anchor="end">via aanbieder</text>
   <g font-size="11.5" fill="#333">
@@ -435,7 +433,7 @@
   </g>
 
   <!-- Business wallet-aanbieder: platform, inrichting en uitgifte van QEAA's in één -->
-  <rect data-in-stap="3 4 7b" x="1092" y="556" width="152" height="290" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
+  <rect x="1092" y="556" width="152" height="290" rx="12" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="1104" y="578" font-size="13" font-weight="700" fill="#333">Business wallet-</text>
   <text x="1104" y="594" font-size="13" font-weight="700" fill="#333">aanbieder</text>
   <text x="1104" y="612" font-size="11.5" fill="#333">commercieel, bijv.</text>
@@ -459,16 +457,16 @@
   <!-- ===== Verbindingen ===== -->
   <g fill="none" stroke-width="1.6">
     <!-- uitgifte -->
-    <path data-in-stap="5b" data-laag="ebw" d="M834 195H780V303H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
-    <path data-in-stap="2" data-laag="bevoegdheid" d="M834 180H826V120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
-    <path data-in-stap="6b" d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
-    <path data-in-stap="7b" d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path data-laag="ebw" d="M834 195H780V303H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path data-laag="bevoegdheid" d="M834 180H826V120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <!-- open punt: mandaat van de Belastingdienst voor de eigenaar? -->
-    <path data-in-stap="10" d="M412 560H402V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
+    <path d="M412 560H402V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
     <!-- eigenaar machtigt in de EBW -->
-    <path data-in-stap="8" d="M330 300H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
+    <path d="M330 300H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
     <!-- mandaat vanuit de EBW naar de werknemer -->
-    <path data-in-stap="9" d="M392 533H332" stroke="#0e7c86" marker-end="url(#m-delegate)"/>
+    <path d="M392 533H332" stroke="#0e7c86" marker-end="url(#m-delegate)"/>
     <!-- inloggen -->
     <path d="M215 92V66H1256V360H1246" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
     <path d="M215 712V860H943V794" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
@@ -476,18 +474,18 @@
     <path d="M1092 680H1070" stroke="#b46504" marker-end="url(#m-service)"/>
     <path d="M1068 712H1090" stroke="#b46504" marker-end="url(#m-service)"/>
     <!-- wallet-provider levert ook de EBW van de onderneming (ligt voor de hand) -->
-    <path data-in-stap="3 4" d="M1092 812H572V666" stroke="#b46504" stroke-dasharray="6 4" marker-end="url(#m-service)"/>
+    <path d="M1092 812H572V666" stroke="#b46504" stroke-dasharray="6 4" marker-end="url(#m-service)"/>
   </g>
   <path d="M1044 356H1034" fill="none" stroke="#82b366" stroke-width="1.6" stroke-dasharray="5 4"/>
 
   <!-- Labels op verbindingen -->
   <g font-size="11.5">
-    <text data-in-stap="2" data-laag="bevoegdheid" x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
-    <text data-in-stap="8" x="368" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
-    <text data-in-stap="10" x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
+    <text data-laag="bevoegdheid" x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
+    <text x="368" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
+    <text x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
     <rect x="625" y="803" width="300" height="18" fill="#fff"/>
-    <text data-in-stap="3 4" x="775" y="816" fill="#b46504" text-anchor="middle">levert de EBW van Koffiezaak Noon (ligt voor de hand)</text>
-    <text data-in-stap="9" x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
+    <text x="775" y="816" fill="#b46504" text-anchor="middle">levert de EBW van Koffiezaak Noon (ligt voor de hand)</text>
+    <text x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
     <rect x="465" y="57" width="350" height="18" fill="#fff"/>
     <text x="640" y="70" fill="#2d7a46" text-anchor="middle">inloggen bij de Belastingdienst met de vertegenwoordigingsbevoegdheid</text>
     <rect x="490" y="851" width="300" height="18" fill="#fff"/>
@@ -1054,16 +1052,16 @@ const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'pe
 const LANDSCHAP = ['pid-karin', 'bevoegdheid', 'ebwoid', 'eucc', 'pid-bilal'].map((id) => ({ soort: 'att', id }));
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
 const FLOW = ['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
-const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie ervoor
-const PRESENTATIES = { landschap: { titel: 'Het landschap', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW } };
-let presKey = 'landschap', SLIDES = LANDSCHAP;
-const positie = { landschap: 0, flow: 0 };
+const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie (oude links #/8 e.v. wijzen naar de attestaties)
+const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW } };
+let presKey = 'attestaties', SLIDES = LANDSCHAP;
+const positie = { attestaties: 0, flow: 0 };
 const schemaSvg = document.querySelector('#schema svg');
 const flowSvg = document.querySelector('#flow-schema svg');
 
 const wisAccent = () => {
   document.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
-  schemaSvg.classList.remove('pres-dim');
+  flowSvg.classList.remove('pres-dim');
 };
 
 let paneel, terugFocus, huidig = 0;
@@ -1072,7 +1070,7 @@ const bouwPaneel = () => {
   paneel.id = 'att-overlay';
   paneel.hidden = true;
   paneel.tabIndex = -1;
-  paneel.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
+  paneel.setAttribute('aria-label', 'Presentatie');
   paneel.innerHTML = `
     <div class="att-kop"><button type="button" class="att-overzicht" data-overzicht>&#8592; Alle presentaties</button></div>
     <div class="att-inhoud" aria-live="polite"></div>
@@ -1127,26 +1125,25 @@ const toon = () => {
   } else {
     const d = STAP_DATA[sl.n];
     inhoud.innerHTML = gegevensHtml(d, d.kop, `Van nieuwe EBW tot mandaat · Stap ${sl.n}`);
-    schemaSvg.classList.add('pres-dim');
-    schemaSvg.querySelectorAll(`[data-in-stap~="${sl.n}"]`).forEach((el) => el.classList.add('pres-licht'));
-    inBeeld(document.getElementById('schema'));
+    flowSvg.classList.add('pres-dim');
+    const doel = flowSvg.querySelectorAll(`[data-stap="${sl.n}"]`);
+    doel.forEach((el) => el.classList.add('pres-licht'));
+    inBeeld(doel[0]);
   }
   inhoud.scrollTop = 0;
-  const voor = presKey === 'landschap' ? FS : 0;
-  paneel.querySelector('.att-teller').textContent = `${voor + huidig + 1} / ${voor + SLIDES.length}`;
+  paneel.querySelector('.att-teller').textContent = `${huidig + 1} / ${SLIDES.length}`;
   const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');
   vorige.disabled = false; // eerste slide: terug naar de vorige presentatie of naar slide 0
   volgende.disabled = huidig === SLIDES.length - 1;
   positie[presKey] = huidig;
-  history.replaceState(null, '', presKey === 'flow' ? `${location.pathname}?presentatie=flow#/${huidig}` : `${location.pathname}?presentatie#/${FS + huidig}`);
+  history.replaceState(null, '', `${location.pathname}?presentatie=${presKey}#/${huidig}`);
 };
 const naar = (i) => {
   // Terug vanaf de eerste gegevensslide: verder in de schermvullende presentatie
-  if (i < 0 && presKey === 'landschap' && FS) { sluit(); window.ebwPresentatie.open(FS - 1); return; }
-  if (i < 0 && presKey === 'flow') { openKeuze(); return; }
+  if (i < 0) { openKeuze(); return; } // terug vanaf de eerste slide: naar het overzicht
   huidig = Math.max(0, Math.min(SLIDES.length - 1, i)); toon();
 };
-const open = (key = 'landschap', i = 0) => {
+const open = (key = 'attestaties', i = 0) => {
   if (!paneel) bouwPaneel();
   presKey = key; SLIDES = PRESENTATIES[key].slides;
   if (paneel.hidden) terugFocus = document.activeElement;
@@ -1163,7 +1160,6 @@ const sluit = () => {
   history.replaceState(null, '', location.pathname);
   terugFocus?.focus?.({ preventScroll: true });
 };
-window.ebwGegevens = { open: (i) => open('landschap', i), aantal: LANDSCHAP.length };
 
 // Slide 0: kies de presentatie
 let keuze, keuzeFocus;
@@ -1178,20 +1174,25 @@ const openKeuze = () => {
     keuze.setAttribute('aria-modal', 'true');
     keuze.setAttribute('aria-label', 'Kies een presentatie');
     keuze.innerHTML = `
-      <h2 class="pres-titel">Het EBW-landschap <span>in twee presentaties</span></h2>
+      <h2 class="pres-titel">Het EBW-landschap <span>in drie presentaties</span></h2>
       <div class="keuze-opties">
         <button type="button" data-kies="landschap">
-          <span class="keuze-nr">Presentatie 1 · ${FS + LANDSCHAP.length} slides</span>
+          <span class="keuze-nr">Presentatie 1 · ${FS} slides</span>
           <span class="keuze-naam">Het landschap</span>
-          <span class="keuze-uitleg">Het schema stap voor stap: van Karin met een lege wallet tot het hele landschap. Daarna de gegevens per attestatie: PID, vertegenwoordigingsbevoegdheid, EBWOID en EUCC.</span>
+          <span class="keuze-uitleg">Het schema stap voor stap: van Karin met een lege wallet tot het hele landschap.</span>
+        </button>
+        <button type="button" data-kies="attestaties">
+          <span class="keuze-nr">Presentatie 2 · ${LANDSCHAP.length} slides</span>
+          <span class="keuze-naam">Gegevens per attestatie</span>
+          <span class="keuze-uitleg">Wat er in de PID, de vertegenwoordigingsbevoegdheid, de EBWOID en de EUCC staat, met het hele schema ernaast.</span>
         </button>
         <button type="button" data-kies="flow">
-          <span class="keuze-nr">Presentatie 2 · ${FLOW.length} slides</span>
+          <span class="keuze-nr">Presentatie 3 · ${FLOW.length} slides</span>
           <span class="keuze-naam">Van nieuwe EBW tot mandaat</span>
           <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
         </button>
       </div>
-      <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>1 of 2 kiest · Esc sluit</span></div>`;
+      <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>1, 2 of 3 kiest · Esc sluit</span></div>`;
     document.body.append(keuze);
     keuze.addEventListener('click', (e) => {
       const knop = e.target.closest('button');
@@ -1215,13 +1216,13 @@ const sluitKeuze = (terug = true) => {
 const kies = (key) => {
   sluitKeuze(false);
   if (key === 'flow') open('flow', 0);
-  else if (FS) window.ebwPresentatie.open(0);
-  else open('landschap', 0);
+  else if (key === 'attestaties') open('attestaties', 0);
+  else window.ebwPresentatie.open(0);
 };
 window.ebwKeuze = openKeuze;
 document.getElementById('presenteer')?.addEventListener('click', openKeuze);
 const slideVan = (soort, sleutel) => {
-  const key = soort === 'stap' ? 'flow' : 'landschap';
+  const key = soort === 'stap' ? 'flow' : 'attestaties';
   return [key, PRESENTATIES[key].slides.findIndex((sl) => sl.soort === soort && (sl.id === sleutel || sl.n === sleutel))];
 };
 
@@ -1233,7 +1234,7 @@ window.addEventListener('click', (e) => {
   const pad = e.composedPath().filter((el) => el instanceof Element);
   const att = pad.find((el) => el.dataset?.att);
   const bezig = paneel && !paneel.hidden; // tijdens een presentatie niet naar de andere springen
-  if (att && att.closest('#schema')) { e.stopPropagation(); if (!bezig || presKey === 'landschap') open(...slideVan('att', att.dataset.att)); return; }
+  if (att && att.closest('#schema')) { e.stopPropagation(); if (!bezig || presKey === 'attestaties') open(...slideVan('att', att.dataset.att)); return; }
   const stap = pad.find((el) => el.dataset?.stap);
   if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); if (!bezig || presKey === 'flow') open(...slideVan('stap', stap.dataset.stap)); }
 }, true);
@@ -1242,7 +1243,7 @@ const inInvoer = (e) => e.composedPath().some((el) => el instanceof HTMLElement 
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey || inInvoer(e)) return;
   if (keuze && !keuze.hidden) {
-    const acties = { 1: () => kies('landschap'), 2: () => kies('flow'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
+    const acties = { 1: () => kies('landschap'), 2: () => kies('attestaties'), 3: () => kies('flow'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
     if (e.key in acties) { e.preventDefault(); e.stopPropagation(); acties[e.key](); }
     else if (e.key === 'Tab') {
       e.preventDefault();
@@ -1265,7 +1266,7 @@ window.addEventListener('keydown', (e) => {
   const acties = { ArrowRight: 1, PageDown: 1, ArrowLeft: -1, PageUp: -1 };
   // stopPropagation: anders bladert de schermvullende presentatie met dezelfde toets meteen door
   if (e.key in acties) { e.preventDefault(); e.stopPropagation(); naar(huidig + acties[e.key]); }
-  else if (e.key === 'Home') { e.preventDefault(); e.stopPropagation(); presKey === 'landschap' && FS ? (sluit(), window.ebwPresentatie.open(0)) : naar(0); }
+  else if (e.key === 'Home') { e.preventDefault(); e.stopPropagation(); naar(0); }
   else if (e.key === 'End') { e.preventDefault(); naar(SLIDES.length - 1); }
   else if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); sluit(); }
 }, true);
@@ -1277,12 +1278,13 @@ schemaSvg.addEventListener('mouseover', (e) => {
 });
 // Direct openen via de link: pas na het laden, zodat de pagina naar de juiste plek kan scrollen
 if (new URLSearchParams(location.search).has('presentatie')) {
-  const flow = new URLSearchParams(location.search).get('presentatie') === 'flow';
+  const key = new URLSearchParams(location.search).get('presentatie');
   const n = Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0);
-  const start = () => (flow ? open('flow', n) : open('landschap', n - FS));
-  const zonderStap = !flow && !/^#\/\d+/.test(location.hash);
+  const eigen = key in PRESENTATIES;
+  const start = () => (eigen ? open(key, n) : open('attestaties', n - FS));
+  const zonderStap = !eigen && !/^#\/\d+/.test(location.hash);
   if (zonderStap) document.readyState === 'complete' ? openKeuze() : window.addEventListener('load', openKeuze, { once: true });
-  else if (flow || n >= FS) document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
+  else if (eigen || n >= FS) document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
 }
 </script>
 <script>
@@ -1444,19 +1446,17 @@ if (new URLSearchParams(location.search).has('presentatie')) {
       dt.nextElementSibling.remove();
       dt.remove();
     }
-    teller.textContent = `${stap + 1} / ${STAPPEN.length + extra()}`;
+    teller.textContent = `${stap + 1} / ${STAPPEN.length}`;
     const uitleg = huidig.intro ? `In ontwerpfase, dit is nog een voorstel. ${huidig.rijen.map((r) => r.join(': ')).join('. ')}` : huidig.tekst.replace(/<[^>]+>/g, ' ');
     status.textContent = `Stap ${stap + 1} van ${STAPPEN.length}: ${huidig.label}. ${uitleg}`;
     vorige.disabled = stap === 0 && !window.ebwKeuze;
-    volgende.disabled = stap === STAPPEN.length - 1 && !extra();
+    volgende.disabled = stap === STAPPEN.length - 1;
     history.replaceState(null, '', `${location.pathname}?presentatie#/${stap}`);
   };
 
-  const extra = () => window.ebwGegevens?.aantal || 0;
   const naar = (n) => {
     // Terug vanaf de eerste slide: naar slide 0, de keuze van de presentatie
     if (n < 0 && window.ebwKeuze) { sluit(); window.ebwKeuze(); return; }
-    if (n >= STAPPEN.length && extra()) { sluit(); window.ebwGegevens.open(n - STAPPEN.length); return; }
     const nieuw = Math.max(0, Math.min(STAPPEN.length - 1, n));
     if (nieuw === stap && overlay.dataset.getoond) return;
     stap = nieuw;
@@ -1517,7 +1517,7 @@ if (new URLSearchParams(location.search).has('presentatie')) {
     if (volgendeToetsen.includes(e.key) && !e.target.closest?.('button')) naar(stap + 1);
     else if (vorigeToetsen.includes(e.key)) naar(stap - 1);
     else if (e.key === 'Home') naar(0);
-    else if (e.key === 'End') naar(STAPPEN.length - 1 + extra());
+    else if (e.key === 'End') naar(STAPPEN.length - 1);
     else if (e.key === 'Escape') sluit();
     else if (e.key === 'Tab') {
       // Focus binnen de presentatie houden
@@ -1538,7 +1538,7 @@ if (new URLSearchParams(location.search).has('presentatie')) {
   });
 
   const q = new URLSearchParams(location.search);
-  if (q.has('presentatie') && q.get('presentatie') !== 'flow' && /^#\/\d+/.test(location.hash) && stapUitHash() < STAPPEN.length) {
+  if (q.has('presentatie') && !q.get('presentatie') && /^#\/\d+/.test(location.hash) && stapUitHash() < STAPPEN.length) {
     const start = () => open(stapUitHash());
     document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', start) : start();
   }
