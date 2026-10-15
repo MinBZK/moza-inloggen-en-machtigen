@@ -102,7 +102,7 @@
   var begripVan = function (tekst) { return ALIAS[tekst] || tekst; };
 
   // Geen uitleg in knoppen, links, labels, overlines en de onderdelen van dit script zelf
-  var SKIP = 'a, button, script, style, kbd, title, desc, .afk, .afk-tip, nldd-tag, nldd-badge, nldd-button, nldd-link, nldd-icon-button, [slot="overline"], [id^="opm-"], #comment-popover';
+  var SKIP = 'a, button, script, style, kbd, title, desc, [data-att], .afk, .afk-tip, nldd-tag, nldd-badge, nldd-button, nldd-link, nldd-icon-button, [slot="overline"], [id^="opm-"], #comment-popover';
   // Cellen van het design system waarvan de tekst in de shadow DOM staat
   var CELLEN = 'nldd-text-cell, nldd-title-cell';
   var STIJL = '.afk{font:inherit;color:inherit;letter-spacing:inherit;background:none;border:none;padding:0;margin:0;' +

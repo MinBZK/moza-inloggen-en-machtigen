@@ -80,6 +80,10 @@
       .pres-rijen dt, .pres-rijen dd { animation: none; }
       .pres-kaart svg * { transition: none; }
     }
+    /* Klikbare attestaties in het schema: openen het paneel met de gegevens */
+    #schema [data-att] { cursor: pointer; }
+    #schema rect[data-att]:hover, #schema rect[data-att].is-hover { stroke-width: 2.5; }
+    #schema text[data-att]:focus-visible { outline: 2px solid var(--semantics-focus-ring-color, #ffbf00); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -98,7 +102,7 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="schema-sectie">
-      <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2></nldd-title>
+      <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
         accessible-label="Presenteer het schema stap voor stap"></nldd-button>
@@ -106,7 +110,7 @@
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de attestatie onderneming als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de EBWOID (identificatie van de onderneming) als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -174,11 +178,11 @@
   <text data-laag="karin" x="116" y="135" font-size="12" fill="#666">EUDI-wallet van Karin</text>
   <svg data-laag="karin" x="284" y="100" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
-    <rect data-laag="pid" x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
-    <text data-laag="pid" x="124" y="165" fill="#333">PID (persoonsgegevens)</text>
-    <rect data-laag="bevoegdheid" x="112" y="182" width="206" height="42" rx="13" fill="#fff2cc" stroke="#d6b656"/>
-    <text data-laag="bevoegdheid" x="124" y="199" fill="#5c4a00">Vertegenwoordigingsbevoegdheid</text>
-    <text data-laag="bevoegdheid" x="124" y="215" fill="#5c4a00" font-size="11.5">Pub-EAA van de KVK</text>
+    <rect data-laag="pid" data-att="pid-karin" x="112" y="148" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
+    <text data-laag="pid" data-att="pid-karin" x="124" y="165" fill="#333">PID (persoonsgegevens)</text>
+    <rect data-laag="bevoegdheid" data-att="bevoegdheid" x="112" y="182" width="206" height="42" rx="13" fill="#fff2cc" stroke="#d6b656"/>
+    <text data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="199" fill="#5c4a00">Vertegenwoordigingsbevoegdheid</text>
+    <text data-laag="bevoegdheid" data-att="bevoegdheid" x="124" y="215" fill="#5c4a00" font-size="11.5">Pub-EAA van de KVK</text>
   </g>
   <rect x="112" y="232" width="206" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
   <text x="124" y="249" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen?</text>
@@ -200,8 +204,8 @@
   <text x="116" y="455" font-size="12" fill="#666">EUDI-wallet van Bilal</text>
   <svg x="284" y="420" width="36" height="25" viewBox="0 0 188 130"><title>EUDI-wallet (persoonlijk)</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <g font-size="12">
-    <rect x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
-    <text x="124" y="483" fill="#333">PID (persoonsgegevens)</text>
+    <rect data-att="pid-bilal" x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
+    <text data-att="pid-bilal" x="124" y="483" fill="#333">PID (persoonsgegevens)</text>
     <text x="116" y="512" font-size="11.5" fill="#666">Mandaten van Koffiezaak Noon (EAA):</text>
     <rect x="112" y="520" width="206" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="124" y="537" fill="#1f4d1c">Belastingdienst · inzien</text>
@@ -231,8 +235,8 @@
   <rect data-laag="ebw" x="412" y="256" width="320" height="130" rx="8" fill="#fff" stroke="#9673a6"/>
   <text data-laag="ebw" x="428" y="279" font-size="13" font-weight="700" fill="#333">Ontvangen attestaties (van anderen)</text>
   <g font-size="12">
-    <rect data-laag="ebw" x="424" y="290" width="296" height="26" rx="13" fill="#fff2cc" stroke="#d6b656"/>
-    <text data-laag="ebw" x="436" y="307" fill="#5c4a00">Onderneming · Pub-EAA van de KVK</text>
+    <rect data-laag="ebw" data-att="ebwoid" x="424" y="290" width="296" height="26" rx="13" fill="#fff2cc" stroke="#d6b656"/>
+    <text data-laag="ebw" data-att="ebwoid" x="436" y="307" fill="#5c4a00">EBWOID · Pub-EAA van de KVK</text>
     <rect x="424" y="322" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="436" y="339" fill="#1f4d1c">Belastingdienst · meerdere Pub-EAA's</text>
     <rect x="424" y="354" width="296" height="26" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
@@ -263,14 +267,15 @@
   <text data-laag="kvk" x="834" y="117" font-size="14" font-weight="700" fill="#333">KVK</text>
   <text data-laag="kvk" x="834" y="135" font-size="12" fill="#5c4a00">bronhouder handelsregister</text>
   <svg data-laag="kvk" x="1200" y="102" width="32" height="24" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
-  <rect data-laag="kvk" x="842" y="156" width="230" height="64" rx="8" fill="#fff" stroke="#d6b656"/>
-  <rect data-laag="kvk" x="838" y="152" width="230" height="64" rx="8" fill="#fff" stroke="#d6b656"/>
-  <rect data-laag="kvk" x="834" y="148" width="230" height="64" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <rect data-laag="kvk" x="842" y="156" width="230" height="72" rx="8" fill="#fff" stroke="#d6b656"/>
+  <rect data-laag="kvk" x="838" y="152" width="230" height="72" rx="8" fill="#fff" stroke="#d6b656"/>
+  <rect data-laag="kvk" x="834" y="148" width="230" height="72" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
   <text data-laag="kvk" x="846" y="167" font-size="13" font-weight="700" fill="#333">Pub-EAA's</text>
   <text data-laag="kvk" x="1052" y="167" font-size="11" fill="#666" text-anchor="end">als bronhouder</text>
   <g data-laag="kvk" font-size="11.5" fill="#333">
-    <text x="846" y="185">• uittreksel onderneming</text>
-    <text x="846" y="201">• vertegenwoordigingsbevoegdheid</text>
+    <text data-att="ebwoid" x="846" y="184">• EBWOID</text>
+    <text data-att="eucc" x="846" y="199">• EUCC (bij vennootschappen)</text>
+    <text data-att="bevoegdheid" x="846" y="214">• vertegenwoordigingsbevoegdheid</text>
   </g>
   <g data-laag="kvk" font-size="11.5" fill="#5c4a00">
     <text x="1088" y="167">Dienstverlener met</text>
@@ -418,7 +423,7 @@
       <nldd-rich-text>
         <ol>
           <li>De RvIG (Rijksdienst voor Identiteitsgegevens) is de dienstverlener die de PID uitgeeft: de persoonsgegevens uit de BRP, in de persoonlijke EUDI-wallet van Karin en van Bilal. Met de PID tonen zij wie ze zijn, bijvoorbeeld bij het inloggen bij de KVK.</li>
-          <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de attestatie onderneming als Pub-EAA uit aan de EBW van Koffiezaak Noon, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
+          <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de EBWOID, de identificatie van de onderneming, als Pub-EAA uit aan de EBW van Koffiezaak Noon. Bij een vennootschap komt daar de EUCC bij, met onder meer de bestuurders, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
           <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
           <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
           <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Rotterdam.</li>
@@ -457,7 +462,7 @@
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, attestatie onderneming (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont attestatie onderneming. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont attestatie onderneming. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -530,18 +535,18 @@
   <text x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid (OpenID4VP)</text>
   <path d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle cx="280" cy="432" r="12" fill="#1f5fa8"/><text x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
-  <text x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">attestatie onderneming (Pub-EAA, OpenID4VCI)</text>
+  <text x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">EBWOID (Pub-EAA, OpenID4VCI)</text>
   <path d="M656 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
   <circle cx="640" cy="492" r="12" fill="#2d7a46"/><text x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
   <text x="730" y="470" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan; toont</text>
-  <text x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">attestatie onderneming</text>
+  <text x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">EBWOID</text>
   <path d="M804 552H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle cx="820" cy="552" r="12" fill="#1f5fa8"/><text x="820" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
   <text x="730" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
   <path d="M656 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
   <circle cx="640" cy="612" r="12" fill="#2d7a46"/><text x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
   <text x="820" y="590" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan;</text>
-  <text x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont attestatie onderneming</text>
+  <text x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont EBWOID</text>
   <path d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle cx="1000" cy="672" r="12" fill="#1f5fa8"/><text x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
   <text x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de aanbieder)</text>
@@ -588,19 +593,19 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**5a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Attestatie onderneming aanvragen.**" supporting-text="Karin vraagt vanuit de EBW de attestatie onderneming aan bij de EBW van de KVK. De EBW heeft nog geen eigen attestaties, dus Karin toont haar PID en vertegenwoordigingsbevoegdheid uit haar EUDI-wallet (OpenID4VP)."></nldd-text-cell>
+          <nldd-text-cell text="**EBWOID aanvragen.**" supporting-text="Karin vraagt vanuit de EBW de EBWOID aan bij de EBW van de KVK. De EBW heeft nog geen eigen attestaties, dus Karin toont haar PID en vertegenwoordigingsbevoegdheid uit haar EUDI-wallet (OpenID4VP)."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**5b**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Attestatie onderneming ontvangen.**" supporting-text="De KVK controleert het handelsregister en geeft de attestatie onderneming (KVK-nummer, handelsnaam, rechtsvorm, tekenbevoegden) als Pub-EAA uit aan de EBW (OpenID4VCI)."></nldd-text-cell>
+          <nldd-text-cell text="**EBWOID ontvangen.**" supporting-text="De KVK controleert het handelsregister en geeft de EBWOID (officiële naam en EU-uniek nummer van de onderneming) als Pub-EAA aan de EBW. Bij een vennootschap geeft de KVK ook de EUCC uit, met onder meer rechtsvorm en bestuurders (OpenID4VCI)."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**6a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Aanvragen bij de Belastingdienst.**" supporting-text="Karin vraagt vanuit de EBW attestaties aan bij de EBW van de Belastingdienst. De EBW toont de attestatie onderneming, zodat de Belastingdienst weet om welke onderneming het gaat."></nldd-text-cell>
+          <nldd-text-cell text="**Aanvragen bij de Belastingdienst.**" supporting-text="Karin vraagt vanuit de EBW attestaties aan bij de EBW van de Belastingdienst. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -645,7 +650,7 @@
       <nldd-rich-text>
         <ol>
           <li><strong>Aanvraag starten.</strong> Karin kiest in de EBW van Koffiezaak Noon bij welke uitgever ze een attestatie wil ophalen. Dat kan ook via het portaal van de uitgever, dat dan een QR-code of link toont.</li>
-          <li><strong>Laten zien wie het is.</strong> De EBW presenteert de attestatie onderneming aan de EBW van de uitgever (OpenID4VP). Bij de allereerste attestatie heeft de EBW die nog niet; dan toont Karin haar PID en vertegenwoordigingsbevoegdheid.</li>
+          <li><strong>Laten zien wie het is.</strong> De EBW presenteert de EBWOID aan de EBW van de uitgever (OpenID4VP). Bij de allereerste attestatie heeft de EBW die nog niet; dan toont Karin haar PID en vertegenwoordigingsbevoegdheid.</li>
           <li><strong>Controle bij de uitgever.</strong> De uitgever controleert de presentatie en zoekt de onderneming op in de eigen registratie of authentieke bron.</li>
           <li><strong>Uitgifte.</strong> De uitgever geeft de attestatie uit aan de EBW van Koffiezaak Noon (OpenID4VCI). Is de attestatie nog niet klaar, dan volgt die later (uitgestelde uitgifte).</li>
         </ol>
@@ -719,6 +724,11 @@
         </nldd-box>
       </nldd-container>
     </nldd-page-footer>
+    <nldd-sheet id="att-sheet" width="680px" accessible-label="Gegevens in de attestatie">
+      <nldd-page>
+        <nldd-container padding="24" gap="16" id="att-body"></nldd-container>
+      </nldd-page>
+    </nldd-sheet>
   </nldd-page>
 </nldd-app-view>
 
@@ -808,7 +818,7 @@ document.getElementById('vergelijking').innerHTML = `
     { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
     { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen EBW.' },
     { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet, als Pub-EAA. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.<em>Een EAA (Electronic Attestation of Attributes) is een digitale verklaring; een Pub-EAA komt van een publieke bronhouder, hier het Handelsregister.</em>' },
-    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de attestatie onderneming uit, ook als Pub-EAA.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
+    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de EBWOID uit, de identificatie van de onderneming, ook als Pub-EAA. Bij een vennootschap komt daar de EUCC bij.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken komt na een paar seconden op de voorgrond.' },
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
@@ -1044,6 +1054,140 @@ document.getElementById('vergelijking').innerHTML = `
     document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', start) : start();
   }
 })();
+</script>
+<script type="module">
+// Gegevens per attestatie, te openen door in het schema op de attestatie te klikken.
+// Voorbeeldwaarden zijn fictief. [veld, voorbeeldwaarde, betekenis]
+const PID = (naam) => ({
+  titel: 'PID (Person Identification Data)',
+  sub: `De persoonsgegevens in de EUDI-wallet van ${naam.voluit}.`,
+  tags: [['PID', 'paars'], ['Uitgever: RvIG', 'neutral'], [`In de wallet van ${naam.voornaam}`, 'neutral']],
+  rijen: [
+    ['family_name', naam.achternaam, 'Achternaam (verplicht)'],
+    ['given_name', naam.voornaam, 'Voornamen (verplicht)'],
+    ['birth_date', naam.geboren, 'Geboortedatum (verplicht)'],
+    ['birth_place', naam.plaats, 'Geboorteplaats (verplicht)'],
+    ['nationality', 'NL', 'Nationaliteit (verplicht)'],
+    ['resident_address', naam.adres, 'Woonadres (optioneel)'],
+    ['personal_administrative_number', '999999990', 'Persoonsnummer, voor Nederland het BSN (optioneel). Of het BSN in de Nederlandse PID komt, is nog niet bevestigd.'],
+    ['issuing_authority', 'RvIG', 'Wie de PID heeft uitgegeven'],
+    ['issuing_country', 'NL', 'Land van uitgifte'],
+    ['expiry_date', '2031-10-01', 'Geldig tot'],
+  ],
+  bron: 'Verplichte en optionele attributen volgens Uitvoeringsverordening (EU) 2024/2977; veldnamen zoals in het PID-rulebook van het Europese referentiekader (ARF).',
+});
+const ATTESTATIES = {
+  'pid-karin': PID({ voluit: 'Karin Jansen', voornaam: 'Karin', achternaam: 'Jansen', geboren: '1981-05-14', plaats: 'Utrecht', adres: 'Voorbeeldstraat 12, 3011 AA Rotterdam' }),
+  'pid-bilal': PID({ voluit: 'Bilal Yılmaz', voornaam: 'Bilal', achternaam: 'Yılmaz', geboren: '1992-09-02', plaats: 'Rotterdam', adres: 'Voorbeeldlaan 5, 3021 BB Rotterdam' }),
+  ebwoid: {
+    titel: 'EBWOID (voorheen LPID)',
+    sub: 'European Business Wallet Owner ID: de identificatie van de onderneming die eigenaar is van de EBW. Bewust minimaal: alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen.',
+    tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK (nog niet vastgesteld)', 'neutral'], ['In de EBW van Koffiezaak Noon', 'neutral']],
+    rijen: [
+      ['legal_person_id', 'NLNHR.12345678', 'Unieke identificatie in EUID-structuur: landcode NL, registercode NHR (Handelsregister) en het KVK-nummer van 8 cijfers. Niet het vestigingsnummer of het RSIN (verplicht)'],
+      ['legal_person_name', 'Koffiezaak Noon', 'De officiële naam zoals in het Handelsregister, niet een handelsnaam (verplicht)'],
+      ['issuing_authority, issuing_authority_id', 'KVK', 'Wie de attestatie uitgeeft'],
+      ['issuing_country, issuing_jurisdiction', 'NL', 'Land en rechtsgebied van uitgifte'],
+      ['issuance_date, expiry_date', '2027-02-01 · 2028-02-01', 'Geldigheid'],
+      ['schema_id, revocation_id', '(technisch)', 'Welk schema, en waar de intrekkingsstatus staat'],
+      ['authentic_source_id, authentic_source_name', 'KVK · Handelsregister', 'Bronregister, als dat afwijkt van de uitgever (optioneel)'],
+    ],
+    noot: 'Niet in de EBWOID: vertegenwoordigingsbevoegdheid, mandaten, adres of SBI-code; die horen in aparte attestaties. Een dienst krijgt daarom een combinatie te zien: de EBWOID (welk bedrijf), de PID (welke persoon) en een bevoegdheidsbewijs (EUCC, vertegenwoordigingsbevoegdheid of mandaat). De attestatie is atomair: geen selective disclosure, want je hebt beide kernattributen nodig.',
+    open: 'Open punten: EUID\'s komen uit de koppeling van Europese handelsregisters (BRIS) en zijn gericht op vennootschappen. Of en hoe een eenmanszaak als Koffiezaak Noon een EUID krijgt, en welke partij in Nederland de EBWOID formeel uitgeeft, staat nog niet vast.',
+    bron: 'Velden volgens EWC RFC005 (Issue Legal Person Identification Data), de basis voor de pilots. De definitieve EBW-uitvoeringshandelingen kunnen ruimer uitvallen.',
+  },
+  eucc: {
+    titel: 'EUCC (EU Company Certificate)',
+    sub: 'Europees bedrijfscertificaat uit het handelsregister, voor vennootschappen zoals een bv of nv.',
+    tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK', 'neutral'], ['Bij vennootschappen', 'neutral']],
+    rijen: [
+      ['Naam', 'Koffiezaak Noon B.V.', 'Naam van de vennootschap'],
+      ['Rechtsvorm', 'Besloten vennootschap', ''],
+      ['EUID en KVK-nummer', 'NLNHR.12345678 · 12345678', 'Europees uniek nummer en registratienummer'],
+      ['Statutaire zetel en adres', 'Rotterdam · Voorbeeldstraat 1, 3011 AA Rotterdam', ''],
+      ['Datum inschrijving', '2021-03-01', ''],
+      ['Geplaatst kapitaal', '€ 10.000', 'Indien van toepassing'],
+      ['Status', 'Actief', 'Bijvoorbeeld actief, in liquidatie of ontbonden'],
+      ['Vertegenwoordigers', 'Karin Jansen, bestuurder, zelfstandig bevoegd', 'Wie de vennootschap mag vertegenwoordigen, en of dat alleen of samen is'],
+    ],
+    noot: 'Koffiezaak Noon is in dit voorbeeld een eenmanszaak en krijgt geen EUCC. De waarden laten zien hoe het eruit zou zien bij een bv.',
+    bron: 'Inhoud op hoofdlijnen volgens Richtlijn (EU) 2025/25 (digitale instrumenten in het vennootschapsrecht); de definitieve velden volgen in de uitvoering.',
+  },
+  bevoegdheid: {
+    titel: 'Vertegenwoordigingsbevoegdheid',
+    sub: 'Verklaring van de KVK dat Karin de onderneming mag vertegenwoordigen, bijvoorbeeld als eigenaar van een eenmanszaak. Bij een vennootschap staan de vertegenwoordigers in de EUCC.',
+    open: 'Voor een eenmanszaak bestaat voor zover bekend nog geen Europese attestatie over vertegenwoordiging. Dit zou een aparte KVK-attestatie moeten worden, bijvoorbeeld "persoon X is eigenaar van KVK-nummer Y". Juist hier vervult eHerkenning nu die rol.',
+    tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK', 'neutral'], ['In de wallet van Karin', 'neutral']],
+    rijen: [
+      ['Nummer rechtspersoon', 'NLNHR.12345678 (KVK-nummer 12345678)', 'Welke onderneming; de veldnaam is nog niet vastgesteld'],
+      ['Naam rechtspersoon', 'Koffiezaak Noon', 'Huidige juridische naam; de veldnaam is nog niet vastgesteld'],
+      ['full_powers', 'true', 'Volledig bevoegd voor de onderneming als geheel'],
+      ['eService', '(leeg)', 'Leeg bij volledige bevoegdheid; anders de dienst waarvoor de bevoegdheid geldt'],
+      ['effective_from_date', '2021-03-01', 'Ingangsdatum'],
+      ['effective_until_date', '(niet ingevuld)', 'Einddatum, optioneel'],
+      ['Houder', 'Karin Jansen', 'Gekoppeld aan de wallet en de PID van Karin (aanname)'],
+    ],
+    bron: 'Velden volgens het concept-rulebook Power of Representation uit WE BUILD BU4 (D2.1 p. 418-419).',
+  },
+};
+
+const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const attSheet = document.getElementById('att-sheet');
+const attBody = document.getElementById('att-body');
+const openAttestatie = (id) => {
+  const a = ATTESTATIES[id];
+  if (!a) return;
+  attSheet.setAttribute('accessible-label', `Gegevens in de ${a.titel}`);
+  attBody.innerHTML = `
+    <nldd-title size="3">
+      <span slot="overline">Attestatie</span>
+      <h2>${esc(a.titel)}</h2>
+      <p slot="subtitle">${esc(a.sub)}</p>
+      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-att-close></nldd-icon-button>
+    </nldd-title>
+    <nldd-container layout="wrap" gap="4">${a.tags.map(([t, c]) => `<nldd-tag size="md" color="${c}" text="${esc(t)}"></nldd-tag>`).join('')}</nldd-container>
+    <nldd-table columns="minmax(220px,1.3fr) minmax(150px,1.2fr) minmax(170px,1.5fr)" accessible-label="Gegevens in ${esc(a.titel)}">
+      <nldd-table-row slot="header">
+        <nldd-text-cell text="Veld"></nldd-text-cell>
+        <nldd-text-cell text="Voorbeeld"></nldd-text-cell>
+        <nldd-text-cell text="Betekenis"></nldd-text-cell>
+      </nldd-table-row>
+      ${a.rijen.map(([veld, waarde, uitleg]) => `
+      <nldd-table-row>
+        <nldd-text-cell vertical-alignment="top" text="**${esc(veld)}**"></nldd-text-cell>
+        <nldd-text-cell vertical-alignment="top" text="${esc(waarde)}"></nldd-text-cell>
+        <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(uitleg)}"></nldd-text-cell>
+      </nldd-table-row>`).join('')}
+    </nldd-table>
+    ${a.noot ? `<nldd-banner variant="neutral" icon="info-circle" text="${esc(a.noot)}"></nldd-banner>` : ''}
+    ${a.open ? `<nldd-banner variant="warning" text="${esc(a.open)}"></nldd-banner>` : ''}
+    <nldd-rich-text spacing="tight"><p><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron)}</p></nldd-rich-text>`;
+  attSheet.show();
+  const page = attSheet.querySelector('nldd-page');
+  if (page) page.scrollTop = 0;
+};
+
+// Klikken, en met het toetsenbord: tekst van een attestatie is focusbaar
+const schemaSvg = document.querySelector('#schema svg');
+schemaSvg.querySelectorAll('text[data-att]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); });
+const attVan = (e) => e.composedPath().find((el) => el instanceof Element && el.dataset?.att);
+document.addEventListener('click', (e) => {
+  if (e.composedPath().some((el) => el instanceof Element && el.hasAttribute?.('data-att-close'))) { attSheet.hide(); return; }
+  if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
+  const el = attVan(e);
+  if (el && el.closest('#schema, #presentatie')) openAttestatie(el.dataset.att);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const el = e.target instanceof Element && e.target.dataset?.att ? e.target : null;
+  if (el) { e.preventDefault(); openAttestatie(el.dataset.att); }
+});
+// Bij aanwijzen van de tekst licht ook de rand van het bijbehorende vlak op
+schemaSvg.addEventListener('mouseover', (e) => {
+  const el = e.target.closest?.('[data-att]');
+  schemaSvg.querySelectorAll('rect.is-hover').forEach((r) => r.classList.remove('is-hover'));
+  if (el) schemaSvg.querySelectorAll(`rect[data-att="${el.dataset.att}"]`).forEach((r) => r.classList.add('is-hover'));
+});
 </script>
 <script type="module" src="opmerkingen.js"></script>
 <script defer src="begrippen.js"></script>
