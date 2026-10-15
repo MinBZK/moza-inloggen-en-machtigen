@@ -80,47 +80,44 @@
       .pres-rijen dt, .pres-rijen dd { animation: none; }
       .pres-kaart svg * { transition: none; }
     }
-    /* Gegevens van een attestatie: overlay in de vorm van de presentatielaag. Links de uitleg op blauw,
-       rechts de attestatie als kaart, zoals hij in de wallet staat. */
+    /* Gegevens van een attestatie of stap: toelichtingspaneel links, zoals op proef.moza.rijksapp.dev.
+       De pagina blijft rechts zichtbaar en bruikbaar; een andere attestatie of stap vervangt de inhoud. */
     #att-overlay {
-      --pres-pad: clamp(24px, 3.5vw, 72px);
-      position: fixed; inset: 0; z-index: 2147483001; box-sizing: border-box;
-      display: grid; grid-template-columns: minmax(300px, 42fr) 58fr; grid-template-rows: minmax(0, 1fr); gap: clamp(24px, 3vw, 64px);
-      padding: var(--pres-pad); overflow: hidden; color: #fff;
-      font-family: "RijksSans", system-ui, sans-serif;
-      background: radial-gradient(120% 140% at 0% 0%, #1d4f86 0%, #1a3a66 48%, #172b4f 100%);
+      position: fixed; top: 0; bottom: 0; left: 0; z-index: 2147483001; box-sizing: border-box;
+      width: min(600px, 92vw); display: flex; flex-direction: column;
+      background: #154273; color: #fff; box-shadow: 0 0 24px rgb(0 0 0 / 0.35);
+      font-family: "RijksSans", system-ui, sans-serif; animation: att-in 0.25s ease both;
     }
     #att-overlay[hidden] { display: none; }
     #att-overlay:focus { outline: none; }
-    #att-overlay .pres-tekst { overflow: auto; }
-    .att-label {
-      display: inline-block; margin: 0 0 1.4em; padding: 0.35em 0.9em; border-radius: 999px;
-      background: rgb(255 255 255 / 0.14); font-weight: 700; font-size: clamp(13px, min(1vw, 1.8vh), 18px);
-    }
-    .att-lead { margin: 0 0 1.2em; font-size: clamp(16px, min(1.4vw, 2.5vh), 28px); line-height: 1.4; }
-    .att-punten { margin: 0 0 1.2em; padding-left: 1.2em; font-size: clamp(14px, min(1.05vw, 1.9vh), 20px); line-height: 1.45; }
-    .att-punten li { margin-bottom: 0.6em; animation: pres-in 0.6s ease both; }
+    @keyframes att-in { from { transform: translateX(-24px); opacity: 0; } }
+    .att-inhoud { flex: 1; overflow: auto; padding: 32px 32px 24px; }
+    .att-label { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: rgb(255 255 255 / 0.85); }
+    .att-titel { margin: 0 0 16px; font-size: 32px; line-height: 1.15; font-weight: 600; }
+    .att-titel span { display: block; color: #ffb612; font-size: 0.75em; }
+    .att-lead { margin: 0 0 16px; font-size: 18px; line-height: 1.5; }
+    .att-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 16px; line-height: 1.5; }
+    .att-punten li { margin-bottom: 8px; }
     .att-punten strong { color: #ffb612; }
-    .att-bron { margin: 0; padding-top: 1em; border-top: 1px solid rgb(255 255 255 / 0.3); font-size: clamp(12px, min(0.9vw, 1.6vh), 16px); color: rgb(255 255 255 / 0.8); line-height: 1.5; }
-    .att-beeld { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
-    .att-kaart {
-      box-sizing: border-box; width: min(100%, 760px); max-height: 100%; overflow: auto; padding: clamp(20px, 2.5vw, 36px);
-      background: #fff; color: #1a1a2e; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35); animation: pres-in 0.6s ease both;
-    }
-    .att-kaart-kop { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e3e6ea; }
-    .att-kaart-kop strong { font-size: clamp(18px, 1.5vw, 26px); }
-    .att-kaart-kop span { font-size: 13px; color: #5b6573; }
-    .att-velden { margin: 0; display: grid; gap: 12px; }
-    .att-velden div { display: grid; grid-template-columns: minmax(150px, 0.9fr) 1.6fr; gap: 2px 16px; padding-bottom: 12px; border-bottom: 1px solid #f0f2f4; }
-    .att-velden dt { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; color: #5b6573; overflow-wrap: anywhere; padding-top: 3px; }
-    .att-velden dd { margin: 0; font-size: clamp(16px, 1.2vw, 20px); font-weight: 700; overflow-wrap: anywhere; }
+    .att-kaart { margin: 0 0 20px; padding: 16px 20px; background: #fff; color: #1a1a2e; border-radius: 12px; }
+    .att-kaart-kop { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #e3e6ea; }
+    .att-kaart-kop strong { font-size: 17px; }
+    .att-kaart-kop span { font-size: 12px; color: #5b6573; text-align: right; }
+    .att-velden { margin: 0; display: grid; gap: 10px; }
+    .att-velden div { padding-bottom: 10px; border-bottom: 1px solid #f0f2f4; }
+    .att-velden div:last-child { border-bottom: none; padding-bottom: 0; }
+    .att-velden dt { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: #5b6573; overflow-wrap: anywhere; }
+    .att-velden dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
     .att-velden dd small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: #5b6573; }
-    #att-overlay .pres-voet { position: absolute; right: var(--pres-pad); bottom: calc(var(--pres-pad) / 3); }
-    @media (max-width: 800px) {
-      #att-overlay { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); overflow: auto; }
-    }
+    .att-bron { margin: 0; font-size: 13px; line-height: 1.5; color: rgb(255 255 255 / 0.8); }
+    .att-voet { display: flex; align-items: center; gap: 16px; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); font-size: 13px; color: rgb(255 255 255 / 0.8); }
+    .att-voet button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff; font: inherit; font-size: 18px; cursor: pointer; }
+    .att-voet button:hover { background: rgb(255 255 255 / 0.15); }
+    .att-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { #att-overlay { animation: none; } }
     /* Klikbare attestaties in het schema: openen de gegevens */
-    #schema [data-att] { cursor: pointer; }
+    #schema [data-att], #flow-schema [data-stap] { cursor: pointer; }
+    #flow-schema text[data-stap]:focus-visible { outline: 2px solid #ffbf00; outline-offset: 2px; }
     #schema rect[data-att]:hover, #schema rect[data-att].is-hover { stroke-width: 2.5; }
     #schema text[data-att]:focus-visible { outline: 2px solid var(--semantics-focus-ring-color, #ffbf00); outline-offset: 2px; }
   </style>
@@ -312,9 +309,9 @@
   <text data-laag="kvk" x="846" y="167" font-size="13" font-weight="700" fill="#333">Pub-EAA's</text>
   <text data-laag="kvk" x="1052" y="167" font-size="11" fill="#666" text-anchor="end">als bronhouder</text>
   <g data-laag="kvk" font-size="11.5" fill="#333">
-    <text data-att="ebwoid" x="846" y="184">• EBWOID</text>
-    <text data-att="eucc" x="846" y="199">• EUCC (bij vennootschappen)</text>
-    <text data-att="bevoegdheid" x="846" y="214">• vertegenwoordigingsbevoegdheid</text>
+    <text data-att="bevoegdheid" x="846" y="184">• vertegenwoordigingsbevoegdheid</text>
+    <text data-att="ebwoid" x="846" y="199">• EBWOID</text>
+    <text data-att="eucc" x="846" y="214">• EUCC (bij vennootschappen)</text>
   </g>
   <g data-laag="kvk" font-size="11.5" fill="#5c4a00">
     <text x="1088" y="167">Dienstverlener met</text>
@@ -409,8 +406,8 @@
   <!-- ===== Verbindingen ===== -->
   <g fill="none" stroke-width="1.6">
     <!-- uitgifte -->
-    <path data-laag="ebw" d="M818 196H780V303H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
-    <path data-laag="bevoegdheid" d="M818 120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path data-laag="ebw" d="M834 195H780V303H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
+    <path data-laag="bevoegdheid" d="M834 180H826V120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <!-- open punt: mandaat van de Belastingdienst voor de eigenaar? -->
@@ -495,7 +492,7 @@
     <nldd-simple-section id="flow-sectie">
       <nldd-title size="2">
         <h2>Van nieuwe EBW tot mandaat in de persoonlijke wallet</h2>
-        <p slot="subtitle">De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en mandaten, en de mandaten naar de persoonlijke wallets.</p>
+        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en mandaten, en de mandaten naar de persoonlijke wallets.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
@@ -553,51 +550,64 @@
   <svg x="1226" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <text x="1176" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
   <text x="1176" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
-  <path d="M116 132H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle cx="100" cy="132" r="12" fill="#2d7a46"/><text x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
-  <text x="190" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
-  <path d="M264 192H104" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="280" cy="192" r="12" fill="#1f5fa8"/><text x="280" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
-  <text x="190" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
-  <text x="190" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
-  <path d="M116 252H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
-  <circle cx="100" cy="252" r="12" fill="#b46504"/><text x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text x="280" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">EBW afnemen; toont PID</text>
-  <text x="280" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">en bevoegdheid</text>
-  <path d="M476 312H636" stroke="#b46504" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-service2)"/>
-  <circle cx="460" cy="312" r="12" fill="#b46504"/><text x="460" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-  <text x="550" y="290" font-size="11.5" fill="#b46504" text-anchor="middle">maakt de EBW aan;</text>
-  <text x="550" y="304" font-size="11.5" fill="#b46504" text-anchor="middle">Karin wordt beheerder</text>
-  <path d="M624 372H284" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle cx="640" cy="372" r="12" fill="#2d7a46"/><text x="640" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
-  <text x="460" y="350" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt vanuit de EBW aan;</text>
-  <text x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid (OpenID4VP)</text>
-  <path d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="280" cy="432" r="12" fill="#1f5fa8"/><text x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
-  <text x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">EBWOID (Pub-EAA, OpenID4VCI)</text>
-  <path d="M656 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle cx="640" cy="492" r="12" fill="#2d7a46"/><text x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
-  <text x="730" y="470" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan; toont</text>
-  <text x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">EBWOID</text>
-  <path d="M804 552H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="820" cy="552" r="12" fill="#1f5fa8"/><text x="820" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
-  <text x="730" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
-  <path d="M656 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle cx="640" cy="612" r="12" fill="#2d7a46"/><text x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
-  <text x="820" y="590" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan;</text>
-  <text x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont EBWOID</text>
-  <path d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle cx="1000" cy="672" r="12" fill="#1f5fa8"/><text x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
-  <text x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de aanbieder)</text>
-  <path d="M116 732H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
-  <circle cx="100" cy="732" r="12" fill="#7a4f8c"/><text x="100" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
-  <text x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
-  <path d="M656 792H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
-  <circle cx="640" cy="792" r="12" fill="#0e7c86"/><text x="640" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
-  <text x="910" y="784" font-size="11.5" fill="#0e7c86" text-anchor="middle">mandaten (EAA) naar Bilals wallet</text>
-  <path d="M624 852H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
-  <circle cx="640" cy="852" r="12" fill="#d79b00"/><text x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
-  <text x="370" y="844" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
+  <rect data-stap="1" x="86" y="94" width="220" height="54" fill="transparent"/>
+  <path data-stap="1" d="M116 132H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="1" cx="100" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="190" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
+  <rect data-stap="2" x="74" y="154" width="220" height="54" fill="transparent"/>
+  <path data-stap="2" d="M264 192H104" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle data-stap="2" cx="280" cy="192" r="12" fill="#1f5fa8"/><text data-stap="2" x="280" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-stap="2" x="190" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
+  <text data-stap="2" x="190" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
+  <rect data-stap="3" x="86" y="214" width="400" height="54" fill="transparent"/>
+  <path data-stap="3" d="M116 252H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
+  <circle data-stap="3" cx="100" cy="252" r="12" fill="#b46504"/><text data-stap="3" x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text data-stap="3" x="280" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">EBW afnemen; toont PID</text>
+  <text data-stap="3" x="280" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">en bevoegdheid</text>
+  <rect data-stap="4" x="446" y="274" width="220" height="54" fill="transparent"/>
+  <path data-stap="4" d="M476 312H636" stroke="#b46504" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-service2)"/>
+  <circle data-stap="4" cx="460" cy="312" r="12" fill="#b46504"/><text data-stap="4" x="460" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text data-stap="4" x="550" y="290" font-size="11.5" fill="#b46504" text-anchor="middle">maakt de EBW aan;</text>
+  <text data-stap="4" x="550" y="304" font-size="11.5" fill="#b46504" text-anchor="middle">Karin wordt beheerder</text>
+  <rect data-stap="5a" x="254" y="334" width="400" height="54" fill="transparent"/>
+  <path data-stap="5a" d="M624 372H284" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="5a" cx="640" cy="372" r="12" fill="#2d7a46"/><text data-stap="5a" x="640" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
+  <text data-stap="5a" x="460" y="350" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt vanuit de EBW aan;</text>
+  <text data-stap="5a" x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid (OpenID4VP)</text>
+  <rect data-stap="5b" x="266" y="394" width="400" height="54" fill="transparent"/>
+  <path data-stap="5b" d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle data-stap="5b" cx="280" cy="432" r="12" fill="#1f5fa8"/><text data-stap="5b" x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
+  <text data-stap="5b" x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">EBWOID (Pub-EAA, OpenID4VCI)</text>
+  <rect data-stap="6a" x="626" y="454" width="220" height="54" fill="transparent"/>
+  <path data-stap="6a" d="M656 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="6a" cx="640" cy="492" r="12" fill="#2d7a46"/><text data-stap="6a" x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
+  <text data-stap="6a" x="730" y="470" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan; toont</text>
+  <text data-stap="6a" x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">EBWOID</text>
+  <rect data-stap="6b" x="614" y="514" width="220" height="54" fill="transparent"/>
+  <path data-stap="6b" d="M804 552H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle data-stap="6b" cx="820" cy="552" r="12" fill="#1f5fa8"/><text data-stap="6b" x="820" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
+  <text data-stap="6b" x="730" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
+  <rect data-stap="7a" x="626" y="574" width="400" height="54" fill="transparent"/>
+  <path data-stap="7a" d="M656 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="7a" cx="640" cy="612" r="12" fill="#2d7a46"/><text data-stap="7a" x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
+  <text data-stap="7a" x="820" y="590" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan;</text>
+  <text data-stap="7a" x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont EBWOID</text>
+  <rect data-stap="7b" x="614" y="634" width="400" height="54" fill="transparent"/>
+  <path data-stap="7b" d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle data-stap="7b" cx="1000" cy="672" r="12" fill="#1f5fa8"/><text data-stap="7b" x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
+  <text data-stap="7b" x="820" y="664" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vergunningen (QEAA's, door de aanbieder)</text>
+  <rect data-stap="8" x="86" y="694" width="580" height="54" fill="transparent"/>
+  <path data-stap="8" d="M116 732H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
+  <circle data-stap="8" cx="100" cy="732" r="12" fill="#7a4f8c"/><text data-stap="8" x="100" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+  <text data-stap="8" x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
+  <rect data-stap="9" x="626" y="754" width="580" height="54" fill="transparent"/>
+  <path data-stap="9" d="M656 792H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
+  <circle data-stap="9" cx="640" cy="792" r="12" fill="#0e7c86"/><text data-stap="9" x="640" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
+  <text data-stap="9" x="910" y="784" font-size="11.5" fill="#0e7c86" text-anchor="middle">mandaten (EAA) naar Bilals wallet</text>
+  <rect data-stap="10" x="74" y="814" width="580" height="54" fill="transparent"/>
+  <path data-stap="10" d="M624 852H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
+  <circle data-stap="10" cx="640" cy="852" r="12" fill="#d79b00"/><text data-stap="10" x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text data-stap="10" x="370" y="844" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
@@ -1166,76 +1176,131 @@ const ATTESTATIES = {
 };
 
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Gegevens per stap in het volgordediagram: wat er wordt gevraagd en verstuurd. Voorbeeldwaarden zijn fictief.
+const A = ATTESTATIES;
+const PID_MATCH = [['given_name', 'Karin', 'Voornamen'], ['family_name', 'Jansen', 'Achternaam'], ['birth_date', '1981-05-14', 'Geboortedatum']];
+const BEVOEGD_KORT = [['Nummer rechtspersoon', 'NLNHR.12345678', 'Welke onderneming'], ['Naam rechtspersoon', 'Koffiezaak Noon', ''], ['full_powers', 'true', 'Volledig bevoegd']];
+const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['legal_person_name', 'Koffiezaak Noon', 'Officiële naam']];
+const STAP_DATA = {
+  '1': { kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
+    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']],
+    rijen: [...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de KVK daarop matcht (open punt)']],
+    noot: 'Niet gedeeld: adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure).',
+    bron: 'Matching op naam en geboortedatum is een aanname uit de wallet-flows; of het BSN nodig is, bepaalt de KVK.' },
+  '2': { kop: ['Stap 2', 'vertegenwoordigings&shy;bevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
+    tags: [['Verstuurd door de KVK', 'paars'], ['Naar de wallet van Karin', 'neutral']], rijen: A.bevoegdheid.rijen, open: A.bevoegdheid.open, bron: A.bevoegdheid.bron },
+  '3': { kop: ['Stap 3', 'EBW afnemen'], titel: 'Karin neemt een EBW af', sub: 'Karin laat de business wallet-aanbieder zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
+    tags: [['Gevraagd door de aanbieder', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
+    noot: 'Daarmee weet de aanbieder dat Karin de EBW voor Koffiezaak Noon mag afnemen.',
+    bron: 'Volgens het EBW-voorstel meldt de eigenaar zich met een eID op niveau substantieel of hoog (art. 6(1)(e)).' },
+  '4': { kop: ['Stap 4', 'EBW aanmaken'], titel: 'De aanbieder maakt de EBW aan', sub: 'De EBW is van Koffiezaak Noon; Karin wordt beheerder.',
+    tags: [['Bij de aanbieder', 'paars'], ['EBW van Koffiezaak Noon', 'neutral']],
+    rijen: [['Eigenaar', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Beheerder', 'Karin Jansen', 'Bepaalt wie de wallet mag gebruiken en met welke rechten'],
+      ['Wallet Unit Attestation', 'door de aanbieder ondertekend', 'Bewijs dat de wallet echt is en de sleutels veilig staan; gaat naar uitgevers, niet naar diensten']],
+    noot: 'De EBW heeft nog geen attestaties: die haalt Karin in de volgende stappen op.',
+    bron: 'WE BUILD D4.1 p. 43, 48 en 56-57; het EBW-voorstel art. 5(1)(j).' },
+  '5a': { kop: ['Stap 5a', 'EBWOID aanvragen'], titel: 'EBWOID aanvragen bij de KVK', sub: 'Karin vraagt vanuit de EBW de EBWOID aan. De EBW heeft nog geen eigen attestaties, dus Karin toont die uit haar persoonlijke wallet (OpenID4VP).',
+    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
+    noot: 'De KVK vergelijkt de persoon met de eigenaar in het Handelsregister. Die controle zit later niet in de EBWOID zelf.',
+    bron: 'Zie ook het open punt over de bevoegdheid bij de EBWOID.' },
+  '5b': { kop: ['Stap 5b', 'EBWOID'], titel: 'EBWOID ontvangen', sub: 'De KVK geeft de EBWOID als Pub-EAA uit aan de EBW van Koffiezaak Noon (OpenID4VCI).',
+    tags: [['Verstuurd door de KVK', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']], rijen: A.ebwoid.rijen, noot: A.ebwoid.noot, open: A.ebwoid.open, bron: A.ebwoid.bron },
+  '6a': { kop: ['Stap 6a', 'aanvragen'], titel: 'Aanvragen bij de Belastingdienst', sub: 'Karin vraagt vanuit de EBW attestaties aan. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat.',
+    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], rijen: EBWOID_KORT,
+    open: 'De EBWOID zegt alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen. Of de Belastingdienst ook de PID en de bevoegdheid van Karin vraagt, staat nog niet vast.',
+    bron: 'De EBWOID is atomair: beide velden gaan altijd samen mee.' },
+  '6b': { kop: ['Stap 6b', 'btw-ID-certificaat'], titel: 'Btw-ID-certificaat ontvangen', sub: 'De Belastingdienst geeft als bronhouder onder meer het btw-ID-certificaat uit als Pub-EAA (met gekwalificeerd zegel).',
+    tags: [['Verstuurd door de Belastingdienst', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
+    rijen: [['EUID', 'NLNHR.12345678', 'De onderneming waaraan het btw-nummer is toegekend'], ['Btw-identificatienummer', 'NL000099998B57', 'Het btw-nummer zelf'], ['Uitgever', 'Belastingdienst', 'Pub-EAA met gekwalificeerd zegel']],
+    bron: 'Volgens WE BUILD BU3 (D2.1 p. 261, 289); de overige attributen staan in een concept-rulebook.' },
+  '7a': { kop: ['Stap 7a', 'aanvragen'], titel: 'Aanvragen bij de gemeente Rotterdam', sub: 'Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente; de EBW toont de EBWOID.',
+    tags: [['Gevraagd door de gemeente', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], rijen: EBWOID_KORT,
+    open: 'Net als bij de Belastingdienst: of de gemeente ook de bevoegdheid van Karin vraagt, staat nog niet vast.', bron: '' },
+  '7b': { kop: ['Stap 7b', 'vergunning'], titel: 'Vergunning ontvangen', sub: 'De business wallet-aanbieder geeft als QTSP namens de gemeente bijvoorbeeld een vergunning uit als QEAA.',
+    tags: [['Verstuurd namens de gemeente', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
+    rijen: [['Soort vergunning', 'Exploitatievergunning horeca', ''], ['Vergunningnummer', 'ROT-2027-001234', ''], ['Houder', 'Koffiezaak Noon · NLNHR.12345678', ''],
+      ['Vestigingsadres', 'Voorbeeldstraat 1, 3011 AA Rotterdam', ''], ['Geldig', '2027-04-01 tot 2032-03-31', ''], ['Uitgever', 'Business wallet-aanbieder (QTSP), namens de gemeente Rotterdam', 'Een QEAA']],
+    noot: 'Illustratief: voor een vergunning als attestatie is nog geen standaard bekend.', bron: '' },
+  '8': { kop: ['Stap 8', 'mandaten vastleggen'], titel: 'Karin legt mandaten vast', sub: 'Als beheerder legt Karin in de EBW vast wie wat mag. Dat zijn nog geen attestaties, maar de afspraken waaruit de EBW de mandaten afgeeft.',
+    tags: [['In de EBW van Koffiezaak Noon', 'paars'], ['Door Karin, als beheerder', 'neutral']],
+    rijen: [['Gevolmachtigde', 'Bilal Yılmaz', 'Naam en geboortedatum, uit zijn PID'], ['Dienst en handeling', 'Belastingdienst · inzien', ''], ['Dienst en handeling', 'Gemeente Rotterdam · vergunning aanvragen', ''], ['Geldig vanaf', '2027-05-01', '']],
+    noot: 'Hoe het mandaat aan Bilal wordt gekoppeld, via naam en geboortedatum of direct aan zijn wallet, is een ontwerpkeuze.', bron: '' },
+  '9': { kop: ['Stap 9', 'mandaten naar Bilal'], titel: 'Mandaten in de wallet van Bilal', sub: 'De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
+    tags: [['Verstuurd door de EBW', 'paars'], ['Naar de wallet van Bilal', 'neutral']],
+    rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']],
+    open: 'Vorm van het mandaat: een losse attestatie (EAA) in de wallet, of alleen een rol binnen de EBW?',
+    bron: 'In WE BUILD heet dit een Power of Employee (PoE): een EAA van de onderneming zelf, zonder authentieke bron (D2.1 p. 38, 369). Veldnamen zijn illustratief.' },
+  '10': { kop: ['Stap 10', 'mandaat voor Karin?'], titel: 'Mandaat voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
+    tags: [['Open punt', 'paars'], ['Naar de wallet van Karin', 'neutral']],
+    rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', ''], ['Gevolmachtigde', 'Karin Jansen', ''], ['Scope', 'Belastingdienst · aangifte doen', '']],
+    open: 'In principe volstaat haar vertegenwoordigingsbevoegdheid. Een dienst kan toch een eigen mandaat willen, bijvoorbeeld bij beperkte bevoegdheid of rechten per dienst.', bron: '' },
+};
+
 // Kop in de stijl van de presentatie: tweede regel in geel
 const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'persoonsgegevens'], ebwoid: ['EBWOID', 'welk bedrijf het is'],
   eucc: ['EUCC', 'bedrijfscertificaat'], bevoegdheid: ['Vertegenwoordigings&shy;bevoegdheid', 'wie mag handelen'] };
 let attOverlay, attTerugFocus;
 const bouwOverlay = () => {
-  attOverlay = document.createElement('div');
+  attOverlay = document.createElement('aside');
   attOverlay.id = 'att-overlay';
   attOverlay.hidden = true;
   attOverlay.tabIndex = -1;
-  attOverlay.setAttribute('role', 'dialog');
-  attOverlay.setAttribute('aria-modal', 'true');
   attOverlay.innerHTML = `
-    <div class="pres-tekst"></div>
-    <div class="att-beeld"><div class="att-kaart"></div></div>
-    <div class="pres-voet"><button type="button" data-att-close aria-label="Gegevens sluiten (Esc)">Sluiten</button></div>`;
+    <div class="att-inhoud"></div>
+    <div class="att-voet"><button type="button" data-att-close aria-label="Toelichting sluiten (Esc)">&times;</button><span>Esc sluit · klik een andere attestatie of stap om te wisselen</span></div>`;
   document.body.append(attOverlay);
 };
 const sluitAttestatie = () => {
   if (!attOverlay || attOverlay.hidden) return;
   attOverlay.hidden = true;
-  if (!document.getElementById('presentatie') || document.getElementById('presentatie').hidden) document.documentElement.style.overflow = '';
   attTerugFocus?.focus?.();
 };
-const openAttestatie = (id) => {
-  const a = ATTESTATIES[id];
-  if (!a) return;
+const openAttestatie = (id) => { if (ATTESTATIES[id]) toonGegevens(ATTESTATIES[id], KOP[id], 'Attestatie'); };
+const openStap = (n) => { const d = STAP_DATA[n]; if (d) toonGegevens(d, d.kop, `Stap ${n}`); };
+const toonGegevens = (a, [kop, regel2], soort) => {
   if (!attOverlay) bouwOverlay();
-  const [kop, regel2] = KOP[id];
   const punten = [a.noot && `<li>${esc(a.noot)}</li>`, a.open && `<li><strong>Open punt.</strong> ${esc(a.open.replace(/^Open punten?: /, ''))}</li>`].filter(Boolean).join('');
-  attOverlay.setAttribute('aria-label', `Gegevens in de ${a.titel}`);
-  attOverlay.querySelector('.pres-tekst').innerHTML = `
-    <p class="att-label">Attestatie · ${a.tags.map(([t]) => esc(t)).join(' · ')}</p>
-    <h2 class="pres-titel">${kop} <span>${esc(regel2)}</span></h2>
+  attOverlay.setAttribute('aria-label', `Toelichting: ${a.titel}`);
+  attOverlay.querySelector('.att-inhoud').innerHTML = `
+    <p class="att-label">${esc(soort)} · ${a.tags.map(([t]) => esc(t)).join(' · ')}</p>
+    <h2 class="att-titel">${kop} <span>${esc(regel2)}</span></h2>
     <p class="att-lead">${esc(a.sub)}</p>
     ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
-    <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron)}</p>`;
-  attOverlay.querySelector('.att-kaart').innerHTML = `
-    <div class="att-kaart-kop"><strong>${esc(a.titel)}</strong><span>${esc(a.tags.slice(1).map(([t]) => t).join(' · '))}</span></div>
-    <dl class="att-velden">${a.rijen.map(([veld, waarde, uitleg]) => `
-      <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
-    </dl>`;
-  attTerugFocus = document.activeElement;
+    <div class="att-kaart">
+      <div class="att-kaart-kop"><strong>${esc(a.titel)}</strong><span>${esc(a.tags.map(([t]) => t).join(' · '))}</span></div>
+      <dl class="att-velden">${a.rijen.map(([veld, waarde, uitleg]) => `
+        <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
+      </dl>
+    </div>
+    <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron || '')}</p>`;
+  if (attOverlay.hidden) attTerugFocus = document.activeElement;
   attOverlay.hidden = false;
-  document.documentElement.style.overflow = 'hidden';
-  attOverlay.querySelector('.pres-tekst').scrollTop = 0;
-  attOverlay.querySelector('.att-kaart').scrollTop = 0;
+  attOverlay.querySelector('.att-inhoud').scrollTop = 0;
   attOverlay.focus();
 };
 
 // Klikken, en met het toetsenbord: tekst van een attestatie is focusbaar
 const schemaSvg = document.querySelector('#schema svg');
 schemaSvg.querySelectorAll('text[data-att]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); });
+// In het volgordediagram is het stapnummer focusbaar
+document.querySelectorAll('#flow-schema circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Gegevens bij stap ${t.dataset.stap}`); });
 const attVan = (e) => e.composedPath().find((el) => el instanceof Element && el.dataset?.att);
 window.addEventListener('click', (e) => {
   if (e.composedPath().some((el) => el instanceof Element && el.hasAttribute?.('data-att-close'))) { e.stopPropagation(); sluitAttestatie(); return; }
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
   const el = attVan(e);
-  if (el && el.closest('#schema, #presentatie')) { e.stopPropagation(); openAttestatie(el.dataset.att); }
+  if (el && el.closest('#schema, #presentatie')) { e.stopPropagation(); openAttestatie(el.dataset.att); return; }
+  const stapEl = e.composedPath().find((n) => n instanceof Element && n.dataset?.stap);
+  if (stapEl && stapEl.closest('#flow-schema')) { e.stopPropagation(); openStap(stapEl.dataset.stap); }
 }, true);
 window.addEventListener('keydown', (e) => {
-  if (attOverlay && !attOverlay.hidden) {
-    // Toetsen horen bij de gegevens, niet bij de presentatie eronder
-    if (e.key === 'Escape') { e.preventDefault(); sluitAttestatie(); }
-    if (e.key === 'Tab') { e.preventDefault(); attOverlay.querySelector('[data-att-close]').focus(); }
-    e.stopImmediatePropagation();
-    return;
+  if (attOverlay && !attOverlay.hidden && e.key === 'Escape') {
+    // Esc sluit eerst de toelichting, niet de presentatie eronder
+    e.preventDefault(); e.stopImmediatePropagation(); sluitAttestatie(); return;
   }
   if (e.key !== 'Enter' && e.key !== ' ') return;
-  const el = e.target instanceof Element && e.target.dataset?.att ? e.target : null;
-  if (el) { e.preventDefault(); e.stopImmediatePropagation(); openAttestatie(el.dataset.att); }
+  const el = e.target instanceof Element && (e.target.dataset?.att || e.target.dataset?.stap) ? e.target : null;
+  if (el) { e.preventDefault(); e.stopImmediatePropagation(); el.dataset.att ? openAttestatie(el.dataset.att) : openStap(el.dataset.stap); }
 }, true);
 // Bij aanwijzen van de tekst licht ook de rand van het bijbehorende vlak op
 schemaSvg.addEventListener('mouseover', (e) => {
