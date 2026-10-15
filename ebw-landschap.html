@@ -1033,7 +1033,10 @@ const STAP_DATA = {
     noot: 'Hoe het mandaat aan Bilal wordt gekoppeld, via naam en geboortedatum of direct aan zijn wallet, is een ontwerpkeuze.', bron: '' },
   '9': { kop: ['Stap 9', 'mandaten naar Bilal'], titel: 'Mandaten in de wallet van Bilal', sub: 'De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
     tags: [['Verstuurd door de EBW', 'paars'], ['Naar de wallet van Bilal', 'neutral']],
-    rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']],
+    kaarten: [
+      { titel: 'Mandaat 1 · Belastingdienst', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+      { titel: 'Mandaat 2 · Gemeente Rotterdam', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Gemeente Rotterdam · vergunning aanvragen', 'Bijvoorbeeld een terrasvergunning; daarmee logt hij in bij de gemeente'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+    ],
     open: 'Vorm van het mandaat: een losse attestatie (EAA) in de wallet, of alleen een rol binnen de EBW?',
     bron: 'In WE BUILD heet dit een Power of Employee (PoE): een EAA van de onderneming zelf, zonder authentieke bron (D2.1 p. 38, 369). Veldnamen zijn illustratief.' },
   '10': { kop: ['Stap 10', 'mandaat voor Karin?'], titel: 'Mandaat voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
@@ -1098,12 +1101,12 @@ const gegevensHtml = (a, [kop, regel2], soort) => {
     <h2 class="att-titel">${kop} <span>${esc(regel2)}</span></h2>
     <p class="att-lead">${esc(a.sub)}</p>
     ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
-    <div class="att-kaart">
-      <div class="att-kaart-kop"><strong>${esc(a.titel)}</strong><span>${esc(a.tags.map(([t]) => t).join(' · '))}</span></div>
-      <dl class="att-velden">${a.rijen.map(([veld, waarde, uitleg]) => `
+    ${(a.kaarten || [a]).map((k) => `<div class="att-kaart">
+      <div class="att-kaart-kop"><strong>${esc(k.titel)}</strong><span>${esc(a.tags.map(([t]) => t).join(' · '))}</span></div>
+      <dl class="att-velden">${k.rijen.map(([veld, waarde, uitleg]) => `
         <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
       </dl>
-    </div>
+    </div>`).join('')}
     <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron || '')}</p>`;
 };
 // Scrollen na de herindeling van de pagina (die wordt smaller bij het openen); vangnet als soepel scrollen wordt onderbroken
