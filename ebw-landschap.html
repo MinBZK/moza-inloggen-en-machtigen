@@ -553,7 +553,7 @@
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont PID en bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont alleen haar bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -628,7 +628,7 @@
   <path data-stap="5a" d="M624 372H284" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
   <circle data-stap="5a" cx="640" cy="372" r="12" fill="#2d7a46"/><text data-stap="5a" x="640" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
   <text data-stap="5a" x="460" y="350" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt vanuit de EBW aan;</text>
-  <text data-stap="5a" x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid (OpenID4VP)</text>
+  <text data-stap="5a" x="460" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont alleen haar bevoegdheid (OpenID4VP)</text>
   <rect data-stap="5b" x="266" y="394" width="400" height="54" fill="transparent"/>
   <path data-stap="5b" d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle data-stap="5b" cx="280" cy="432" r="12" fill="#1f5fa8"/><text data-stap="5b" x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
@@ -697,7 +697,7 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**5a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**EBWOID aanvragen.**" supporting-text="Karin vraagt vanuit de EBW de EBWOID aan bij de EBW van de KVK. De EBW heeft nog geen eigen attestaties, dus Karin toont haar PID en vertegenwoordigingsbevoegdheid uit haar EUDI-wallet (OpenID4VP)."></nldd-text-cell>
+          <nldd-text-cell text="**EBWOID aanvragen.**" supporting-text="Karin vraagt vanuit de EBW de EBWOID aan bij de EBW van de KVK. De EBW heeft nog geen eigen attestaties, dus Karin toont uit haar EUDI-wallet alleen haar vertegenwoordigingsbevoegdheid (OpenID4VP). Die heeft de KVK zelf uitgegeven; de PID is niet nodig."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -754,7 +754,7 @@
       <nldd-rich-text>
         <ol>
           <li><strong>Aanvraag starten.</strong> Karin kiest in de EBW van Koffiezaak Noon bij welke uitgever ze een attestatie wil ophalen. Dat kan ook via het portaal van de uitgever, dat dan een QR-code of link toont.</li>
-          <li><strong>Laten zien wie het is.</strong> De EBW presenteert de EBWOID aan de EBW van de uitgever (OpenID4VP). Bij de allereerste attestatie heeft de EBW die nog niet; dan toont Karin haar PID en vertegenwoordigingsbevoegdheid.</li>
+          <li><strong>Laten zien wie het is.</strong> De EBW presenteert de EBWOID aan de EBW van de uitgever (OpenID4VP). Bij de allereerste attestatie, de EBWOID, heeft de EBW die nog niet; dan toont Karin haar vertegenwoordigingsbevoegdheid.</li>
           <li><strong>Controle bij de uitgever.</strong> De uitgever controleert de presentatie en zoekt de onderneming op in de eigen registratie of authentieke bron.</li>
           <li><strong>Uitgifte.</strong> De uitgever geeft de attestatie uit aan de EBW van Koffiezaak Noon (OpenID4VCI). Is de attestatie nog niet klaar, dan volgt die later (uitgestelde uitgifte).</li>
         </ol>
@@ -1163,9 +1163,12 @@ const STAP_DATA = {
       ['Wallet Unit Attestation (WUA)', 'ondertekend door de aanbieder', 'Verklaring van de provider over deze wallet: welke provider en welke wallet-oplossing het is, en dat de sleutels in beveiligde hardware staan. De EBW laat die zien aan uitgevers, zodat zij weten dat ze een attestatie aan een echte, goedgekeurde wallet geven; diensten krijgen hem niet']],
     noot: 'De EBW heeft nog geen attestaties: die haalt Karin in de volgende stappen op.',
     bron: 'WE BUILD D4.1 p. 43, 48 en 56-57; het EBW-voorstel art. 5(1)(j).' },
-  '5a': { kop: ['Stap 5a', 'EBWOID aanvragen'], titel: 'EBWOID aanvragen bij de KVK', sub: 'Karin vraagt vanuit de EBW de EBWOID aan. De EBW heeft nog geen eigen attestaties, dus Karin toont die uit haar persoonlijke wallet (OpenID4VP).',
-    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
-    noot: 'Karin vult de EBW, als beheerder namens Koffiezaak Noon. De aanbieder (bijv. Credenco) levert en beheert de techniek, maar vraagt zelf geen attestaties aan en ziet niet wat erin staat. De KVK vergelijkt de persoon met de eigenaar in het Handelsregister; die controle zit later niet in de EBWOID zelf.',
+  '5a': { kop: ['Stap 5a', 'EBWOID aanvragen'], titel: 'EBWOID aanvragen bij de KVK', sub: 'Karin vraagt vanuit de EBW de EBWOID aan. De EBW heeft nog geen eigen attestaties, dus Karin toont uit haar persoonlijke wallet alleen haar vertegenwoordigingsbevoegdheid (OpenID4VP). Meer is niet nodig: die attestatie heeft de KVK zelf uitgegeven.',
+    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin en de EBW', 'neutral']],
+    rijen: [['legal_person_identifier', '12345678', 'KVK-nummer: voor welke onderneming de EBWOID is'], ['full_powers', 'true', 'Karin mag dit namens de onderneming aanvragen'],
+      ['Wallet Unit Attestation (WUA)', 'van de EBW, ondertekend door de aanbieder', 'Waar de EBWOID naartoe gaat: een echte, goedgekeurde EBW. Komt uit de EBW, niet uit de wallet van Karin']],
+    noot: 'Karin vult de EBW, als beheerder namens Koffiezaak Noon. De aanbieder (bijv. Credenco) levert en beheert de techniek, maar vraagt zelf geen attestaties aan en ziet niet wat erin staat. Niet nodig: de PID en de naam van de onderneming. De KVK controleert de eigen handtekening en de statuslijst, dus of de bevoegdheid nog geldt; de rest staat al in het Handelsregister.',
+    open: 'Aanname: de bevoegdheid is aan de wallet van Karin gekoppeld, zodat alleen zij hem kan tonen. Anders moet ze toch haar PID laten zien.',
     bron: 'Zie ook het open punt over de bevoegdheid bij de EBWOID.' },
   '5b': { kop: ['Stap 5b', 'EBWOID'], titel: 'EBWOID ontvangen', sub: 'De KVK geeft de EBWOID als Pub-EAA uit aan de EBW van Koffiezaak Noon (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']], rijen: A.ebwoid.rijen, noot: A.ebwoid.noot, open: A.ebwoid.open, bron: A.ebwoid.bron },
