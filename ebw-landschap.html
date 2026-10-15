@@ -1129,7 +1129,7 @@ const ATTESTATIES = {
       ['eService', '(leeg)', 'Leeg bij volledige bevoegdheid; anders de dienst waarvoor de bevoegdheid geldt'],
       ['effective_from_date', '2021-03-01', 'Ingangsdatum'],
       ['effective_until_date', '(niet ingevuld)', 'Einddatum, optioneel'],
-      ['Houder', 'Karin Jansen', 'Gekoppeld aan de wallet en de PID van Karin (aanname)'],
+      ['Houder', 'Karin Jansen', 'Gekoppeld aan dezelfde wallet als de PID van Karin (aanname); daardoor is geen geboortedatum nodig'],
     ],
     bron: 'Velden volgens het concept-rulebook Power of Representation uit WE BUILD BU4 (D2.1 p. 418-419).',
   },
@@ -1138,7 +1138,9 @@ const ATTESTATIES = {
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 // Gegevens per stap in het volgordediagram: wat er wordt gevraagd en verstuurd. Voorbeeldwaarden zijn fictief.
 const A = ATTESTATIES;
-const PID_MATCH = [['given_name', 'Karin', 'Voornamen'], ['family_name', 'Jansen', 'Achternaam'], ['birth_date', '1981-05-14', 'Geboortedatum']];
+// Naam volstaat: dat de PID en de bevoegdheid bij dezelfde persoon horen, blijkt uit de koppeling aan dezelfde wallet (aanname, zie BINDING)
+const PID_MATCH = [['given_name', 'Karin', 'Voornamen'], ['family_name', 'Jansen', 'Achternaam']];
+const BINDING = 'Geen geboortedatum (aanname): dat de PID en de bevoegdheid bij dezelfde persoon horen, blijkt uit de koppeling van beide attestaties aan dezelfde wallet (gecombineerde presentatie). Kan dat niet, dan is ook de geboortedatum nodig, want een naam is niet uniek. Het BSN mag een private partij als de aanbieder niet gebruiken.';
 const BEVOEGD_KORT = [['KVK-nummer onderneming', '12345678', 'Welke onderneming'], ['Naam onderneming', 'Koffiezaak Noon', ''], ['full_powers', 'true', 'Volledig bevoegd']];
 const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['legal_person_name', 'Koffiezaak Noon', 'Officiële naam']];
 const STAP_DATA = {
@@ -1151,7 +1153,7 @@ const STAP_DATA = {
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de wallet van Karin', 'neutral']], rijen: A.bevoegdheid.rijen, open: A.bevoegdheid.open, bron: A.bevoegdheid.bron },
   '3': { kop: ['Stap 3', 'EBW afnemen'], titel: 'Karin neemt een EBW af', sub: 'Karin laat de business wallet-aanbieder zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
     tags: [['Gevraagd door de aanbieder', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
-    noot: 'Daarmee weet de aanbieder dat Karin de EBW voor Koffiezaak Noon mag afnemen.',
+    noot: 'Daarmee weet de aanbieder dat Karin de EBW voor Koffiezaak Noon mag afnemen.', open: BINDING,
     bron: 'Volgens het EBW-voorstel meldt de eigenaar zich met een eID op niveau substantieel of hoog (art. 6(1)(e)).' },
   '4': { kop: ['Stap 4', 'EBW aanmaken'], titel: 'De aanbieder maakt de EBW aan', sub: 'De EBW is van Koffiezaak Noon; Karin wordt beheerder.',
     tags: [['Bij de aanbieder', 'paars'], ['EBW van Koffiezaak Noon', 'neutral']],
@@ -1208,7 +1210,7 @@ const LOGIN_DATA = {
   '2': { ...STAP_DATA['2'], sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.' },
   '3a': { kop: ['Stap 3a', 'inloggen bij MOZa'], titel: 'Inloggen bij MOZa', sub: 'MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.',
     tags: [['Gevraagd door MOZa', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
-    noot: 'Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.', bron: 'Veldnamen zijn illustratief.' },
+    noot: 'Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.', open: BINDING.replace(' Het BSN mag een private partij als de aanbieder niet gebruiken.', ''), bron: 'Veldnamen zijn illustratief.' },
   '3b': { kop: ['Stap 3b', 'ingelogd'], titel: 'Ingelogd bij MOZa', sub: 'MOZa controleert de handtekeningen van de RvIG en de KVK, of de attestaties niet zijn ingetrokken (statuslijst) en of de PID en de bevoegdheid over dezelfde persoon gaan.',
     tags: [['Sessie bij MOZa', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('MOZa', 'berichten en zaken van Koffiezaak Noon inzien'),
     open: 'Of MOZa Karin doorstuurt naar de KVK, de Belastingdienst en RVO (SSO), of dat ze bij elke dienst opnieuw haar wallet toont, staat nog niet vast. Hier is telkens opnieuw tonen uitgewerkt.', bron: '' },
