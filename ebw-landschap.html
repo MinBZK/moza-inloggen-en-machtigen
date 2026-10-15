@@ -104,8 +104,12 @@
     .keuze-naam { font-size: clamp(24px, min(2.4vw, 4.2vh), 44px); font-weight: 700; line-height: 1.1; }
     .keuze-uitleg { font-size: clamp(15px, min(1.2vw, 2.2vh), 22px); line-height: 1.45; color: rgb(255 255 255 / 0.85); }
     .keuze-voet { display: flex; align-items: center; gap: 16px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
-    .keuze-voet button, .pres-voet button[data-overzicht] { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
-    .att-voet button.att-overzicht { width: auto; border-radius: 18px; padding: 0 14px; font-size: 13px; }
+    .keuze-voet button { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+    .att-kop { padding: 16px 32px 0; }
+    .att-overzicht, .pres-overzicht { font: inherit; font-size: 14px; color: #fff; background: transparent; border: 1px solid rgb(255 255 255 / 0.45); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .att-overzicht:hover, .pres-overzicht:hover { background: rgb(255 255 255 / 0.15); }
+    .att-overzicht:focus-visible, .pres-overzicht:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
+    .pres-overzicht { position: absolute; top: calc(var(--pres-pad) / 3); left: var(--pres-pad); }
     @media (prefers-reduced-motion: reduce) { .keuze-opties button { animation: none; } }
     /* Na de schermvullende presentatie: de gegevens per attestatie in een paneel links,
        de pagina schuift op en schaalt mee, zodat het schema helemaal zichtbaar blijft. */
@@ -1067,10 +1071,10 @@ const bouwPaneel = () => {
   paneel.tabIndex = -1;
   paneel.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
   paneel.innerHTML = `
+    <div class="att-kop"><button type="button" class="att-overzicht" data-overzicht>&#8592; Alle presentaties</button></div>
     <div class="att-inhoud" aria-live="polite"></div>
     <div class="att-voet">
       <button type="button" data-att-close aria-label="Presentatie sluiten (Esc)">&times;</button>
-      <button type="button" class="att-overzicht" data-overzicht aria-label="Naar het overzicht van alle presentaties">Alle presentaties</button>
       <span class="att-teller"></span>
       <span>&#8592; &#8594; bladeren · Esc sluit</span>
       <span class="att-nav">
@@ -1339,9 +1343,9 @@ if (new URLSearchParams(location.search).has('presentatie')) {
         <span class="pres-teller" aria-hidden="true"></span>
         <button type="button" data-richting="-1" aria-label="Vorige stap">&#8592;</button>
         <button type="button" data-richting="1" aria-label="Volgende stap">&#8594;</button>
-        <button type="button" data-overzicht aria-label="Naar het overzicht van alle presentaties">Alle presentaties</button>
         <button type="button" data-sluit aria-label="Presentatie sluiten (Esc)">Sluiten</button>
       </div>
+      <button type="button" class="pres-overzicht" data-overzicht>&#8592; Alle presentaties</button>
       <p class="pres-sr" aria-live="polite"></p>`;
     document.body.append(overlay);
     kaart = overlay.querySelector('.pres-kaart');
