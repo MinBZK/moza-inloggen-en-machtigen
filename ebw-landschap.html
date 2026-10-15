@@ -13,7 +13,101 @@
     .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
     .legend-line { display: block; }
-    /* Eén presentatie (Shift+P, ?presentatie of klik op een attestatie of stap): toelichting links,
+    /* Presentatielaag (Shift+P of ?presentatie): het schema laag voor laag, in de stijl van de
+       MOZa-presentaties op plak.rijks.app. Eigen CSS, want dit is een schermvullende presentatie. */
+    #presentatie {
+      --pres-pad: clamp(24px, 3.5vw, 72px);
+      position: fixed; inset: 0; z-index: 2147483000; box-sizing: border-box;
+      display: grid; grid-template-columns: minmax(300px, 30fr) 70fr; grid-template-rows: minmax(0, 1fr); gap: clamp(24px, 3vw, 64px);
+      padding: var(--pres-pad); overflow: hidden; color: #fff; cursor: pointer;
+      font-family: "RijksSans", system-ui, sans-serif;
+      background: radial-gradient(120% 140% at 0% 0%, #1d4f86 0%, #1a3a66 48%, #172b4f 100%);
+    }
+    #presentatie[hidden] { display: none; }
+    #presentatie:focus { outline: none; }
+    .pres-tekst { align-self: center; min-width: 0; max-height: 100%; overflow: hidden; }
+    .pres-titel { margin: 0 0 0.75em; font-size: clamp(36px, min(4.4vw, 7.5vh), 92px); line-height: 1.04; font-weight: 700; letter-spacing: -0.01em; }
+    .pres-titel span { display: block; color: #ffb612; }
+    .pres-status { display: none; }
+    #presentatie.is-intro .pres-status {
+      display: inline-block; margin: 0 0 1.4em; padding: 0.35em 0.9em; border: 1.5px solid #ffb612; border-radius: 999px;
+      color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-size: clamp(12px, min(1vw, 1.8vh), 18px);
+    }
+    .pres-rijen { display: grid; grid-template-columns: max-content 1fr; gap: clamp(10px, 2vh, 26px) clamp(16px, 2vw, 40px); margin: 0; }
+    .pres-rijen dt, .pres-rijen dd { animation: pres-in 0.6s ease both; }
+    .pres-rijen dt { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: clamp(12px, min(0.95vw, 1.7vh), 18px); padding-top: 0.45em; }
+    .pres-rijen dd { margin: 0; font-size: clamp(15px, min(1.3vw, 2.3vh), 26px); line-height: 1.4; hyphens: auto; overflow-wrap: break-word; }
+    .pres-rijen .is-eerder { opacity: 0.6; }
+    .pres-rijen dd em { display: block; margin-top: 1lh; }
+    @keyframes pres-in { from { opacity: 0; transform: translateY(8px); } }
+    .pres-logos { display: none; }
+    #presentatie.is-intro { grid-template-columns: 55fr 45fr; }
+    #presentatie.is-intro .pres-rijen dt { font-size: clamp(13px, min(1.2vw, 2.1vh), 22px); }
+    #presentatie.is-intro .pres-rijen dd { font-size: clamp(18px, min(1.9vw, 3.3vh), 36px); hyphens: manual; }
+    #presentatie.is-intro .pres-kaart { display: none; }
+    #presentatie.is-intro .pres-logos { display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 4vh, 48px); }
+    .pres-logos div {
+      display: flex; align-items: center; justify-content: center; box-sizing: border-box;
+      width: clamp(280px, 26vw, 520px); padding: clamp(20px, 3vh, 40px) clamp(24px, 3vw, 56px);
+      background: #fff; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35); animation: pres-in 0.6s ease both;
+    }
+    .pres-logos div + div { animation-delay: 0.15s; }
+    .pres-logos img { display: block; width: 100%; height: auto; }
+    .pres-beeld { container-type: size; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+    .pres-kaart {
+      --pres-ratio: calc(1280 / 980);
+      box-sizing: border-box; width: min(100cqw, calc((100cqh - 24px) * var(--pres-ratio) + 24px)); padding: 12px;
+      background: #fff; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+    }
+    .pres-kaart > svg { display: block; width: 100%; height: auto; min-width: 0; }
+    .pres-kaart .pres-uit { opacity: 0; pointer-events: none; }
+    /* Laatste slide: wat nog niet besproken is, staat op de achtergrond */
+    .pres-kaart .pres-achter { opacity: 0.35; filter: saturate(0.25); }
+    .pres-kaart svg * { transition: opacity 0.6s ease, filter 0.6s ease; }
+    .pres-kaart svg.pres-terug * { transition: opacity 1.5s ease, filter 1.5s ease; }
+    .pres-kaart tspan.afk { text-decoration: none; cursor: inherit; }
+    .pres-voet { position: absolute; right: var(--pres-pad); bottom: calc(var(--pres-pad) / 3); display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
+    .pres-voet button { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+    .pres-voet button:hover { background: rgb(255 255 255 / 0.22); }
+    .pres-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
+    .pres-voet button:disabled { opacity: 0.35; cursor: default; }
+    .pres-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    @media (max-width: 800px) {
+      #presentatie { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+      .pres-titel { font-size: 32px; margin-bottom: 0.4em; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pres-rijen dt, .pres-rijen dd { animation: none; }
+      .pres-kaart svg * { transition: none; }
+    }
+    /* Slide 0: kies een van de twee presentaties (Shift+P, de knop Presenteer of ?presentatie zonder #/n) */
+    #pres-keuze {
+      --pres-pad: clamp(24px, 3.5vw, 72px);
+      position: fixed; inset: 0; z-index: 2147483002; box-sizing: border-box; overflow: auto;
+      display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4vh, 48px);
+      padding: var(--pres-pad); color: #fff; font-family: "RijksSans", system-ui, sans-serif;
+      background: radial-gradient(120% 140% at 0% 0%, #1d4f86 0%, #1a3a66 48%, #172b4f 100%);
+    }
+    #pres-keuze[hidden] { display: none; }
+    #pres-keuze:focus { outline: none; }
+    #pres-keuze .pres-titel { margin: 0; }
+    .keuze-opties { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(16px, 2vw, 32px); max-width: 1400px; }
+    .keuze-opties button {
+      display: flex; flex-direction: column; gap: 12px; text-align: left; font: inherit; color: #fff; cursor: pointer;
+      padding: clamp(20px, 2.5vw, 40px); background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.3);
+      border-radius: 16px; animation: pres-in 0.6s ease both;
+    }
+    .keuze-opties button + button { animation-delay: 0.1s; }
+    .keuze-opties button:hover { background: rgb(255 255 255 / 0.16); }
+    .keuze-opties button:focus-visible { outline: 3px solid #ffb612; outline-offset: 3px; }
+    .keuze-nr { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: clamp(12px, 1vw, 16px); }
+    .keuze-naam { font-size: clamp(24px, min(2.4vw, 4.2vh), 44px); font-weight: 700; line-height: 1.1; }
+    .keuze-uitleg { font-size: clamp(15px, min(1.2vw, 2.2vh), 22px); line-height: 1.45; color: rgb(255 255 255 / 0.85); }
+    .keuze-voet { display: flex; align-items: center; gap: 16px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
+    .keuze-voet button, .pres-voet button[data-overzicht] { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+    .att-voet button.att-overzicht { width: auto; border-radius: 18px; padding: 0 14px; font-size: 13px; }
+    @media (prefers-reduced-motion: reduce) { .keuze-opties button { animation: none; } }
+    /* Na de schermvullende presentatie: de gegevens per attestatie in een paneel links,
        de pagina schuift op en schaalt mee, zodat het schema helemaal zichtbaar blijft. */
     body.met-paneel nldd-app-view {
       margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw));
@@ -98,7 +192,7 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
-        accessible-label="Presenteer het landschap stap voor stap, met de gegevens per attestatie"></nldd-button>
+        accessible-label="Kies een presentatie: het landschap of van nieuwe EBW tot mandaat"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
@@ -949,59 +1043,23 @@ const STAP_DATA = {
 // Kop in de stijl van de presentatie: tweede regel in geel
 const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'persoonsgegevens'], ebwoid: ['EBWOID', 'welk bedrijf het is'],
   eucc: ['EUCC', 'bedrijfscertificaat'], bevoegdheid: ['Vertegenwoordigings&shy;bevoegdheid', 'wie mag handelen'] };
-// ---- Eén presentatie in het paneel links: eerst het landschap laag voor laag (met de attestaties op de plek
-// waar ze aan bod komen), daarna de stappen van het volgordediagram. Klik op een attestatie of stap opent de
-// presentatie op die plek. Shift+P of ?presentatie#/n opent hem ook; pijltjestoetsen bladeren, Esc sluit.
-const LAAG_STAPPEN = [
-    { intro: true, label: 'MOZa, de persoonlijke wallet en de business wallet',
-      titel: 'MOZa, de persoonlijke wallet <span>en de business wallet</span>',
-      rijen: [['Inloggen', 'Bij MijnOverheid Zakelijk met de persoonlijke wallet (European Digital Identity Wallet, EUDI)'],
-        ['Machtigen', 'In de business wallet (European Business Wallet, EBW) zijn de rollen en machtigingen van de onderneming vastgelegd en toegekend door Karin, zodat elke werknemer de juiste rechten heeft binnen MOZa']] },
-    { laag: 'karin', label: 'Persoon', tekst: 'Karin Jansen, eigenaar van Koffiezaak Noon. Haar persoonlijke EUDI-wallet is nog leeg.' },
-    { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID (Person Identification Data) uitgeeft, met gegevens uit de BRP (Basisregistratie Personen).' },
-    { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
-    { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen EBW.' },
-    { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet, als Pub-EAA. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.<em>Een EAA (Electronic Attestation of Attributes) is een digitale verklaring; een Pub-EAA komt van een publieke bronhouder, hier het Handelsregister.</em>' },
-    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de EBWOID uit, de identificatie van de onderneming, ook als Pub-EAA. Bij een vennootschap komt daar de EUCC bij.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
-    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken komt na een paar seconden op de voorgrond.' },
-  ];
-// Twee aparte presentaties; in het paneel wissel je ertussen
-const LANDSCHAP = [];
-LAAG_STAPPEN.forEach((st) => {
-  LANDSCHAP.push({ soort: st.intro ? 'intro' : 'laag', ...st });
-  ({ pid: ['pid-karin'], bevoegdheid: ['bevoegdheid'], ebw: ['ebwoid', 'eucc'], alles: ['pid-bilal'] }[st.laag] || [])
-    .forEach((id) => LANDSCHAP.push({ soort: 'att', id }));
-});
+// ---- Het paneel links: na de schermvullende presentatie de gegevens per attestatie (met het hele schema
+// rechts in beeld), en apart de stappen van het volgordediagram. Klik op een attestatie of stap opent het
+// paneel op die plek; pijltjestoetsen bladeren, Esc sluit.
+const LANDSCHAP = ['pid-karin', 'bevoegdheid', 'ebwoid', 'eucc', 'pid-bilal'].map((id) => ({ soort: 'att', id }));
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
 const FLOW = ['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
+const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie ervoor
 const PRESENTATIES = { landschap: { titel: 'Het landschap', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW } };
 let presKey = 'landschap', SLIDES = LANDSCHAP;
 const positie = { landschap: 0, flow: 0 };
-const LAAG_VOLGORDE = LAAG_STAPPEN.filter((st) => st.laag).map((st) => st.laag);
 const schemaSvg = document.querySelector('#schema svg');
 const flowSvg = document.querySelector('#flow-schema svg');
 
-// Elk onderdeel van het schema krijgt een laag: die van zichzelf, of 'alles'
-const verdeel = (el) => {
-  for (const kind of el.children) {
-    if (['defs', 'title', 'desc'].includes(kind.localName)) continue;
-    if (kind.dataset.laag) kind.dataset.presLaag = kind.dataset.laag;
-    else if (kind.localName === 'g' && kind.querySelector('[data-laag]')) verdeel(kind);
-    else kind.dataset.presLaag = 'alles';
-  }
-};
-verdeel(schemaSvg);
-const laagNr = (laag) => (laag === 'basis' ? 0 : LAAG_VOLGORDE.indexOf(laag));
-const toonLagen = (tot) => {
-  const grens = tot ? laagNr(tot) : Infinity;
-  schemaSvg.querySelectorAll('[data-pres-laag]').forEach((el) => el.classList.toggle('pres-uit', laagNr(el.dataset.presLaag) > grens));
-};
 const wisAccent = () => {
   document.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
   flowSvg.classList.remove('pres-dim');
 };
-// De laag die bij een slide hoort: de laatste laag-slide ervoor (attestaties tonen het schema tot daar)
-const laagBij = (i) => { for (let j = i; j >= 0; j--) if (SLIDES[j].soort === 'laag') return SLIDES[j].laag; return null; };
 
 let paneel, terugFocus, huidig = 0;
 const bouwPaneel = () => {
@@ -1018,6 +1076,7 @@ const bouwPaneel = () => {
     <div class="att-inhoud" aria-live="polite"></div>
     <div class="att-voet">
       <button type="button" data-att-close aria-label="Presentatie sluiten (Esc)">&times;</button>
+      <button type="button" class="att-overzicht" data-overzicht aria-label="Terug naar de keuze van de presentatie">Overzicht</button>
       <span class="att-teller"></span>
       <span>&#8592; &#8594; bladeren · Esc sluit</span>
       <span class="att-nav">
@@ -1030,6 +1089,7 @@ const bouwPaneel = () => {
     const knop = e.target.closest('button');
     if (!knop) return;
     if (knop.hasAttribute('data-att-close')) return sluit();
+    if (knop.hasAttribute('data-overzicht')) return openKeuze();
     if (knop.dataset.pres) return wissel(knop.dataset.pres);
     naar(huidig + Number(knop.dataset.richting));
   });
@@ -1059,30 +1119,12 @@ const toon = () => {
   const sl = SLIDES[huidig];
   const inhoud = paneel.querySelector('.att-inhoud');
   wisAccent();
-  if (sl.soort === 'intro') {
-    toonLagen(null);
-    inhoud.innerHTML = `
-      <p class="att-label">In ontwerpfase · dit is nog een voorstel</p>
-      <h2 class="att-titel">${sl.titel}</h2>
-      <div class="att-logos"><img src="logos/edi-wallet.png" alt="EU Digital Identity Wallet"><img src="logos/ebw.png" alt="European Business Wallet"></div>
-      <dl class="att-rijen">${sl.rijen.map(([l, t]) => `<dt>${l}</dt><dd>${t}</dd>`).join('')}</dl>`;
-    inBeeld(document.getElementById('intro'), 'start');
-  } else if (sl.soort === 'laag') {
-    toonLagen(sl.laag);
-    inhoud.innerHTML = `
-      <p class="att-label">Het landschap · ${esc(sl.label)}</p>
-      <h2 class="att-titel">${esc(sl.label)}</h2>
-      <p class="att-lead">${sl.tekst}</p>
-      <p class="att-bron">Klik op een attestatie in het schema om de gegevens te zien, of blader verder.</p>`;
-    inBeeld(document.getElementById('schema'), 'start');
-  } else if (sl.soort === 'att') {
-    toonLagen(laagBij(huidig));
+  if (sl.soort === 'att') {
     inhoud.innerHTML = gegevensHtml(ATTESTATIES[sl.id], KOP[sl.id], 'Attestatie');
     const doel = schemaSvg.querySelectorAll(`[data-att="${sl.id}"]`);
     doel.forEach((el) => el.classList.add('pres-licht'));
     inBeeld(doel[0]);
   } else {
-    toonLagen(null);
     const d = STAP_DATA[sl.n];
     inhoud.innerHTML = gegevensHtml(d, d.kop, `Van nieuwe EBW tot mandaat · Stap ${sl.n}`);
     flowSvg.classList.add('pres-dim');
@@ -1091,15 +1133,21 @@ const toon = () => {
     inBeeld(doel[0]);
   }
   inhoud.scrollTop = 0;
-  paneel.querySelector('.att-teller').textContent = `${huidig + 1} / ${SLIDES.length}`;
+  const voor = presKey === 'landschap' ? FS : 0;
+  paneel.querySelector('.att-teller').textContent = `${voor + huidig + 1} / ${voor + SLIDES.length}`;
   const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');
-  vorige.disabled = huidig === 0;
+  vorige.disabled = false; // eerste slide: terug naar de vorige presentatie of naar slide 0
   volgende.disabled = huidig === SLIDES.length - 1;
   paneel.querySelectorAll('[data-pres]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.pres === presKey)));
   positie[presKey] = huidig;
-  history.replaceState(null, '', `${location.pathname}?presentatie=${presKey}#/${huidig}`);
+  history.replaceState(null, '', presKey === 'flow' ? `${location.pathname}?presentatie=flow#/${huidig}` : `${location.pathname}?presentatie#/${FS + huidig}`);
 };
-const naar = (i) => { huidig = Math.max(0, Math.min(SLIDES.length - 1, i)); toon(); };
+const naar = (i) => {
+  // Terug vanaf de eerste gegevensslide: verder in de schermvullende presentatie
+  if (i < 0 && presKey === 'landschap' && FS) { sluit(); window.ebwPresentatie.open(FS - 1); return; }
+  if (i < 0 && presKey === 'flow') { openKeuze(); return; }
+  huidig = Math.max(0, Math.min(SLIDES.length - 1, i)); toon();
+};
 // Wisselen naar de andere presentatie: je komt terug waar je was
 const wissel = (key, i = positie[key]) => { presKey = key; SLIDES = PRESENTATIES[key].slides; naar(i); };
 const open = (key = 'landschap', i = 0) => {
@@ -1115,11 +1163,67 @@ const sluit = () => {
   if (!paneel || paneel.hidden) return;
   paneel.hidden = true;
   document.body.classList.remove('met-paneel');
-  toonLagen(null);
   wisAccent();
   history.replaceState(null, '', location.pathname);
   terugFocus?.focus?.({ preventScroll: true });
 };
+window.ebwGegevens = { open: (i) => open('landschap', i), aantal: LANDSCHAP.length };
+
+// Slide 0: kies de presentatie
+let keuze, keuzeFocus;
+const openKeuze = () => {
+  if (paneel && !paneel.hidden) sluit();
+  window.ebwPresentatie?.sluit();
+  if (!keuze) {
+    keuze = document.createElement('div');
+    keuze.id = 'pres-keuze';
+    keuze.tabIndex = -1;
+    keuze.setAttribute('role', 'dialog');
+    keuze.setAttribute('aria-modal', 'true');
+    keuze.setAttribute('aria-label', 'Kies een presentatie');
+    keuze.innerHTML = `
+      <h2 class="pres-titel">Het EBW-landschap <span>in twee presentaties</span></h2>
+      <div class="keuze-opties">
+        <button type="button" data-kies="landschap">
+          <span class="keuze-nr">Presentatie 1 · ${FS + LANDSCHAP.length} slides</span>
+          <span class="keuze-naam">Het landschap</span>
+          <span class="keuze-uitleg">Het schema stap voor stap: van Karin met een lege wallet tot het hele landschap. Daarna de gegevens per attestatie: PID, vertegenwoordigingsbevoegdheid, EBWOID en EUCC.</span>
+        </button>
+        <button type="button" data-kies="flow">
+          <span class="keuze-nr">Presentatie 2 · ${FLOW.length} slides</span>
+          <span class="keuze-naam">Van nieuwe EBW tot mandaat</span>
+          <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
+        </button>
+      </div>
+      <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>1 of 2 kiest · Esc sluit</span></div>`;
+    document.body.append(keuze);
+    keuze.addEventListener('click', (e) => {
+      const knop = e.target.closest('button');
+      if (!knop) return;
+      if (knop.hasAttribute('data-sluit')) return sluitKeuze();
+      kies(knop.dataset.kies);
+    });
+  }
+  if (keuze.hidden !== false) keuzeFocus = document.activeElement;
+  keuze.hidden = false;
+  document.documentElement.style.overflow = 'hidden';
+  history.replaceState(null, '', `${location.pathname}?presentatie`);
+  keuze.querySelector('[data-kies]').focus();
+};
+const sluitKeuze = (terug = true) => {
+  if (!keuze || keuze.hidden) return;
+  keuze.hidden = true;
+  document.documentElement.style.overflow = '';
+  if (terug) { history.replaceState(null, '', location.pathname); keuzeFocus?.focus?.({ preventScroll: true }); }
+};
+const kies = (key) => {
+  sluitKeuze(false);
+  if (key === 'flow') open('flow', 0);
+  else if (FS) window.ebwPresentatie.open(0);
+  else open('landschap', 0);
+};
+window.ebwKeuze = openKeuze;
+document.getElementById('presenteer')?.addEventListener('click', openKeuze);
 const slideVan = (soort, sleutel) => {
   const key = soort === 'stap' ? 'flow' : 'landschap';
   return [key, PRESENTATIES[key].slides.findIndex((sl) => sl.soort === soort && (sl.id === sleutel || sl.n === sleutel))];
@@ -1136,13 +1240,23 @@ window.addEventListener('click', (e) => {
   const stap = pad.find((el) => el.dataset?.stap);
   if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); open(...slideVan('stap', stap.dataset.stap)); }
 }, true);
-document.getElementById('presenteer')?.addEventListener('click', () => open('landschap', 0));
 document.getElementById('presenteer-flow')?.addEventListener('click', () => open('flow', 0));
 const inInvoer = (e) => e.composedPath().some((el) => el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)));
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey || inInvoer(e)) return;
+  if (keuze && !keuze.hidden) {
+    const acties = { 1: () => kies('landschap'), 2: () => kies('flow'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
+    if (e.key in acties) { e.preventDefault(); e.stopPropagation(); acties[e.key](); }
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      const knoppen = [...keuze.querySelectorAll('button')], i = knoppen.indexOf(document.activeElement);
+      knoppen[(i + (e.shiftKey ? -1 : 1) + knoppen.length) % knoppen.length].focus();
+    }
+    return;
+  }
   const actief = paneel && !paneel.hidden;
-  if (e.shiftKey && e.code === 'KeyP') { e.preventDefault(); actief ? sluit() : open('landschap', 0); return; }
+  // Shift+P opent de schermvullende presentatie (eigen script); is het paneel open, dan sluit het
+  if (e.shiftKey && e.code === 'KeyP') { if (actief) { e.preventDefault(); e.stopImmediatePropagation(); sluit(); } return; }
   const el = e.target instanceof Element && (e.target.dataset?.att || e.target.dataset?.stap) ? e.target : null;
   if (el && (e.key === 'Enter' || e.key === ' ')) {
     e.preventDefault();
@@ -1151,8 +1265,9 @@ window.addEventListener('keydown', (e) => {
   }
   if (!actief) return;
   const acties = { ArrowRight: 1, PageDown: 1, ArrowLeft: -1, PageUp: -1 };
-  if (e.key in acties) { e.preventDefault(); naar(huidig + acties[e.key]); }
-  else if (e.key === 'Home') { e.preventDefault(); naar(0); }
+  // stopPropagation: anders bladert de schermvullende presentatie met dezelfde toets meteen door
+  if (e.key in acties) { e.preventDefault(); e.stopPropagation(); naar(huidig + acties[e.key]); }
+  else if (e.key === 'Home') { e.preventDefault(); e.stopPropagation(); presKey === 'landschap' && FS ? (sluit(), window.ebwPresentatie.open(0)) : naar(0); }
   else if (e.key === 'End') { e.preventDefault(); naar(SLIDES.length - 1); }
   else if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); sluit(); }
 }, true);
@@ -1164,10 +1279,272 @@ schemaSvg.addEventListener('mouseover', (e) => {
 });
 // Direct openen via de link: pas na het laden, zodat de pagina naar de juiste plek kan scrollen
 if (new URLSearchParams(location.search).has('presentatie')) {
-  const key = new URLSearchParams(location.search).get('presentatie') === 'flow' ? 'flow' : 'landschap';
-  const start = () => open(key, Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0));
-  document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
+  const flow = new URLSearchParams(location.search).get('presentatie') === 'flow';
+  const n = Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0);
+  const start = () => (flow ? open('flow', n) : open('landschap', n - FS));
+  const zonderStap = !flow && !/^#\/\d+/.test(location.hash);
+  if (zonderStap) document.readyState === 'complete' ? openKeuze() : window.addEventListener('load', openKeuze, { once: true });
+  else if (flow || n >= FS) document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
 }
+</script>
+<script>
+// Presentatielaag: Shift+P (of ?presentatie in de URL) toont het schema stap voor stap, met #/n als stap.
+// De lagen staan als data-laag op de onderdelen van het schema; wat geen laag heeft verschijnt pas bij 'alles'.
+(() => {
+  const STAPPEN = [
+    { intro: true, label: 'MOZa, de persoonlijke wallet en de business wallet',
+      titel: 'MOZa, de persoonlijke wallet <span>en de business wallet</span>',
+      rijen: [['Inloggen', 'Bij MijnOverheid Zakelijk met de persoonlijke wallet (European Digital Identity Wallet, EUDI)'],
+        ['Machtigen', 'In de business wallet (European Business Wallet, EBW) zijn de rollen en machtigingen van de onderneming vastgelegd en toegekend door Karin, zodat elke werknemer de juiste rechten heeft binnen MOZa']] },
+    { laag: 'karin', label: 'Persoon', tekst: 'Karin Jansen, eigenaar van Koffiezaak Noon. Haar persoonlijke EUDI-wallet is nog leeg.' },
+    { laag: 'rvig', label: 'RvIG', tekst: 'De Rijksdienst voor Identiteitsgegevens is de dienstverlener die de PID (Person Identification Data) uitgeeft, met gegevens uit de BRP (Basisregistratie Personen).' },
+    { laag: 'pid', label: 'PID', tekst: 'Karin zet haar persoonsgegevens in haar wallet. Daarmee laat ze zien wie ze is.' },
+    { laag: 'kvk', label: 'KVK', tekst: 'De KVK is bronhouder van het Handelsregister en heeft een eigen EBW.' },
+    { laag: 'bevoegdheid', label: 'Bevoegdheid', tekst: 'Karin krijgt van de KVK haar vertegenwoordigingsbevoegdheid in haar persoonlijke wallet, als Pub-EAA. Daarmee kan ze een EBW afnemen voor Koffiezaak Noon.<em>Een EAA (Electronic Attestation of Attributes) is een digitale verklaring; een Pub-EAA komt van een publieke bronhouder, hier het Handelsregister.</em>' },
+    { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de EBWOID uit, de identificatie van de onderneming, ook als Pub-EAA. Bij een vennootschap komt daar de EUCC bij.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
+    { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken komt na een paar seconden op de voorgrond.' },
+  ];
+  const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
+  LAAG_STAP.basis = LAAG_STAP.karin;
+  const SCHEMA_TITEL = 'Van PID tot <span>mandaat</span>';
+  const ZONDER_LAAG = new Set(['defs', 'title', 'desc']);
+
+  let overlay, kaart, rijen, teller, status, vorige, volgende, svg, svgPlek, terugFocus;
+  let stap = 0;
+
+  // Elk onderdeel krijgt een laag: die van zichzelf, of 'alles'. Een groep met onderdelen in een laag
+  // blijft zelf zichtbaar en wordt verder verdeeld.
+  const verdeel = (el) => {
+    for (const kind of el.children) {
+      if (ZONDER_LAAG.has(kind.localName)) continue;
+      if (kind.dataset.laag) kind.dataset.presLaag = kind.dataset.laag;
+      else if (kind.localName === 'g' && kind.querySelector('[data-laag]')) verdeel(kind);
+      else kind.dataset.presLaag = 'alles';
+    }
+  };
+
+  const bouw = () => {
+    overlay = document.createElement('div');
+    overlay.id = 'presentatie';
+    overlay.hidden = true;
+    overlay.tabIndex = -1;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
+    overlay.innerHTML = `
+      <div class="pres-tekst">
+        <p class="pres-status">In ontwerpfase · dit is nog een voorstel</p>
+        <h2 class="pres-titel"></h2>
+        <dl class="pres-rijen"></dl>
+      </div>
+      <div class="pres-beeld">
+        <div class="pres-kaart"></div>
+        <div class="pres-logos">
+          <div><img src="logos/edi-wallet.png" alt="EU Digital Identity Wallet"></div>
+          <div><img src="logos/ebw.png" alt="European Business Wallet"></div>
+        </div>
+      </div>
+      <div class="pres-voet">
+        <span class="pres-teller" aria-hidden="true"></span>
+        <button type="button" data-richting="-1" aria-label="Vorige stap">&#8592;</button>
+        <button type="button" data-richting="1" aria-label="Volgende stap">&#8594;</button>
+        <button type="button" data-overzicht aria-label="Terug naar de keuze van de presentatie">Overzicht</button>
+        <button type="button" data-sluit aria-label="Presentatie sluiten (Esc)">Sluiten</button>
+      </div>
+      <p class="pres-sr" aria-live="polite"></p>`;
+    document.body.append(overlay);
+    kaart = overlay.querySelector('.pres-kaart');
+    rijen = overlay.querySelector('.pres-rijen');
+    teller = overlay.querySelector('.pres-teller');
+    status = overlay.querySelector('.pres-sr');
+    [vorige, volgende] = overlay.querySelectorAll('[data-richting]');
+    overlay.addEventListener('click', (e) => {
+      const knop = e.target.closest('button');
+      if (knop?.hasAttribute('data-sluit')) return sluit();
+      if (knop?.hasAttribute('data-overzicht')) { sluit(); return window.ebwKeuze?.(); }
+      if (knop) return naar(stap + Number(knop.dataset.richting));
+      naar(stap + 1);
+    });
+  };
+
+  // Camera: de viewBox kadert wat er in beeld is en schuift per stap mee, zodat het beeld zo groot mogelijk is
+  const VOL = { x: 0, y: 0, w: 1280, h: 980 };
+  let kader = { ...VOL }, animatie;
+  const zet = (k) => {
+    svg.setAttribute('viewBox', `${k.x} ${k.y} ${k.w} ${k.h}`);
+    kaart.style.setProperty('--pres-ratio', k.w / k.h);
+  };
+  const zoom = (doel) => {
+    cancelAnimationFrame(animatie);
+    const van = { ...kader }, begin = performance.now();
+    const snel = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const frame = (nu) => {
+      const t = snel ? 1 : Math.min(1, (nu - begin) / 700);
+      const e = 1 - (1 - t) ** 3;
+      kader = Object.fromEntries(Object.keys(VOL).map((k) => [k, van[k] + (doel[k] - van[k]) * e]));
+      zet(kader);
+      if (t < 1) animatie = requestAnimationFrame(frame);
+    };
+    animatie = requestAnimationFrame(frame);
+  };
+  const doelKader = () => {
+    if (stap === STAPPEN.length - 1) return { ...VOL };
+    const naarSvg = svg.getScreenCTM().inverse();
+    const b = { x1: Infinity, y1: Infinity, x2: -Infinity, y2: -Infinity };
+    svg.querySelectorAll('[data-pres-laag]').forEach((el) => {
+      const laag = el.dataset.presLaag;
+      if (laag === 'basis' || LAAG_STAP[laag] > stap) return;
+      const r = el.getBoundingClientRect();
+      const a = new DOMPoint(r.left, r.top).matrixTransform(naarSvg);
+      const z = new DOMPoint(r.right, r.bottom).matrixTransform(naarSvg);
+      b.x1 = Math.min(b.x1, a.x); b.y1 = Math.min(b.y1, a.y);
+      b.x2 = Math.max(b.x2, z.x); b.y2 = Math.max(b.y2, z.y);
+    });
+    // Ruimte rondom, de kop van de banen bovenaan in beeld, en niet verder inzoomen dan 2x
+    const marge = 28;
+    let x = Math.max(0, b.x1 - marge), y = 0;
+    let w = Math.min(VOL.w - x, b.x2 + marge - x), h = Math.min(VOL.h, b.y2 + marge);
+    if (w < VOL.w / 2) { const extra = VOL.w / 2 - w; x = Math.max(0, x - extra / 2); w = VOL.w / 2; }
+    if (h < VOL.h / 2) h = VOL.h / 2;
+    return { x, y, w: Math.min(w, VOL.w - x), h };
+  };
+
+  // Laatste slide: na een paar seconden komt ook wat nog niet besproken was op kleur
+  let achterTimer;
+  const toon = () => {
+    const huidig = STAPPEN[stap];
+    clearTimeout(achterTimer);
+    svg.classList.remove('pres-terug');
+    if (stap === LAAG_STAP.alles) {
+      achterTimer = setTimeout(() => {
+        svg.classList.add('pres-terug');
+        svg.querySelectorAll('.pres-achter').forEach((el) => el.classList.remove('pres-achter'));
+      }, 3000);
+    }
+    svg.querySelectorAll('[data-pres-laag]').forEach((el) => {
+      el.classList.toggle('pres-uit', LAAG_STAP[el.dataset.presLaag] > stap);
+      el.classList.toggle('pres-achter', el.dataset.presLaag === 'alles' && stap === LAAG_STAP.alles);
+    });
+    overlay.classList.toggle('is-intro', Boolean(huidig.intro));
+    overlay.querySelector('.pres-titel').innerHTML = huidig.titel || SCHEMA_TITEL;
+    if (huidig.intro) {
+      // Eerste slide: titel met de twee wallets, nog zonder schema
+      rijen.innerHTML = huidig.rijen.map(([label, tekst]) => `<dt>${label}</dt><dd>${tekst}</dd>`).join('');
+    } else {
+      zoom(doelKader());
+      // De huidige stap en de twee daarvoor (niet de eerste slide), zodat de tekst naast het schema past
+      const vanaf = Math.max(1, stap - 2);
+      rijen.innerHTML = STAPPEN.slice(vanaf, stap + 1).map((s, i) => {
+        const klasse = vanaf + i < stap ? ' class="is-eerder"' : '';
+        return `<dt${klasse}>${s.label}</dt><dd${klasse}>${s.tekst}</dd>`;
+      }).join('');
+    }
+    // Past het niet, dan vallen de oudste eerdere stappen weg (marge voor de 8px van de in-animatie)
+    const tekstvak = overlay.querySelector('.pres-tekst');
+    while (tekstvak.scrollHeight - tekstvak.clientHeight > 12 && rijen.querySelector('dt.is-eerder')) {
+      const dt = rijen.querySelector('dt.is-eerder');
+      dt.nextElementSibling.remove();
+      dt.remove();
+    }
+    teller.textContent = `${stap + 1} / ${STAPPEN.length + extra()}`;
+    const uitleg = huidig.intro ? `In ontwerpfase, dit is nog een voorstel. ${huidig.rijen.map((r) => r.join(': ')).join('. ')}` : huidig.tekst.replace(/<[^>]+>/g, ' ');
+    status.textContent = `Stap ${stap + 1} van ${STAPPEN.length}: ${huidig.label}. ${uitleg}`;
+    vorige.disabled = stap === 0 && !window.ebwKeuze;
+    volgende.disabled = stap === STAPPEN.length - 1 && !extra();
+    history.replaceState(null, '', `${location.pathname}?presentatie#/${stap}`);
+  };
+
+  const extra = () => window.ebwGegevens?.aantal || 0;
+  const naar = (n) => {
+    // Terug vanaf de eerste slide: naar slide 0, de keuze van de presentatie
+    if (n < 0 && window.ebwKeuze) { sluit(); window.ebwKeuze(); return; }
+    if (n >= STAPPEN.length && extra()) { sluit(); window.ebwGegevens.open(n - STAPPEN.length); return; }
+    const nieuw = Math.max(0, Math.min(STAPPEN.length - 1, n));
+    if (nieuw === stap && overlay.dataset.getoond) return;
+    stap = nieuw;
+    overlay.dataset.getoond = '1';
+    toon();
+  };
+
+  const open = (start = 0) => {
+    if (!overlay) bouw();
+    if (!overlay.hidden) return;
+    svg = document.querySelector('#schema > svg');
+    if (!svg) return;
+    // Het schema zelf verhuist tijdelijk naar de presentatie en gaat bij sluiten terug
+    svgPlek = document.createComment('schema');
+    svg.before(svgPlek);
+    verdeel(svg);
+    svg.setAttribute('aria-hidden', 'true');
+    kaart.append(svg);
+    terugFocus = document.activeElement;
+    overlay.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    delete overlay.dataset.getoond;
+    naar(start);
+    overlay.focus();
+  };
+
+  const sluit = () => {
+    if (!overlay || overlay.hidden) return;
+    cancelAnimationFrame(animatie);
+    clearTimeout(achterTimer);
+    svg.classList.remove('pres-terug');
+    svg.querySelectorAll('.pres-uit, .pres-achter').forEach((el) => el.classList.remove('pres-uit', 'pres-achter'));
+    kader = { ...VOL };
+    zet(kader);
+    svg.removeAttribute('aria-hidden');
+    svgPlek.replaceWith(svg);
+    overlay.hidden = true;
+    document.documentElement.style.overflow = '';
+    history.replaceState(null, '', location.pathname);
+    if (!terugFocus?.closest?.('#att-overlay')) terugFocus?.focus?.();
+  };
+
+  const stapUitHash = () => Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0);
+
+  const inInvoer = (e) => e.composedPath().some((el) =>
+    el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const actief = overlay && !overlay.hidden;
+    if (e.shiftKey && e.code === 'KeyP' && !inInvoer(e)) {
+      e.preventDefault();
+      return actief ? sluit() : (window.ebwKeuze ? window.ebwKeuze() : open(0));
+    }
+    if (!actief) return;
+    const volgendeToetsen = ['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'];
+    const vorigeToetsen = ['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'];
+    if (volgendeToetsen.includes(e.key) && !e.target.closest?.('button')) naar(stap + 1);
+    else if (vorigeToetsen.includes(e.key)) naar(stap - 1);
+    else if (e.key === 'Home') naar(0);
+    else if (e.key === 'End') naar(STAPPEN.length - 1 + extra());
+    else if (e.key === 'Escape') sluit();
+    else if (e.key === 'Tab') {
+      // Focus binnen de presentatie houden
+      const knoppen = [...overlay.querySelectorAll('button:not(:disabled)')];
+      const i = knoppen.indexOf(document.activeElement);
+      e.preventDefault();
+      knoppen[(i + (e.shiftKey ? -1 : 1) + knoppen.length) % knoppen.length]?.focus();
+      return;
+    } else return;
+    e.preventDefault();
+  });
+
+
+  window.ebwPresentatie = { open, sluit, aantal: STAPPEN.length };
+
+  window.addEventListener('hashchange', () => {
+    if (overlay && !overlay.hidden && stapUitHash() < STAPPEN.length) naar(stapUitHash());
+  });
+
+  const q = new URLSearchParams(location.search);
+  if (q.has('presentatie') && q.get('presentatie') !== 'flow' && /^#\/\d+/.test(location.hash) && stapUitHash() < STAPPEN.length) {
+    const start = () => open(stapUitHash());
+    document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', start) : start();
+  }
+})();
 </script>
 <script type="module" src="opmerkingen.js"></script>
 <script defer src="begrippen.js"></script>
