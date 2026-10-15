@@ -32,6 +32,10 @@
     .att-logos img { height: 44px; padding: 8px 12px; background: #fff; border-radius: 10px; }
     .att-nav { display: flex; gap: 8px; margin-left: auto; }
     .att-voet .att-teller { min-width: 4.5em; }
+    .att-tabs { display: flex; gap: 8px; padding: 16px 32px 0; flex-wrap: wrap; }
+    .att-tabs button { font: inherit; font-size: 14px; color: #fff; background: transparent; border: 1px solid rgb(255 255 255 / 0.45); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .att-tabs button[aria-selected="true"] { background: #fff; color: #154273; border-color: #fff; font-weight: 700; }
+    .att-tabs button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) { #schema svg *, #flow-schema svg * { transition: none; } }
     /* Gegevens van een attestatie of stap: toelichtingspaneel links, zoals op proef.moza.rijksapp.dev.
        De pagina blijft rechts zichtbaar en bruikbaar; een andere attestatie of stap vervangt de inhoud. */
@@ -94,7 +98,7 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
-        accessible-label="Presenteer het landschap en de stappen, met de gegevens per attestatie"></nldd-button>
+        accessible-label="Presenteer het landschap stap voor stap, met de gegevens per attestatie"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
@@ -184,8 +188,8 @@
     <text x="124" y="316">• diploma</text>
     <text x="124" y="331">• EHIC-zorgpas</text>
   </g>
-  <text x="116" y="354" font-size="11.5" fill="#666">Treedt hiermee op namens de</text>
-  <text x="116" y="369" font-size="11.5" fill="#666">onderneming. Machtigt in de EBW.</text>
+  <text x="116" y="354" font-size="11.5" fill="#666">Identificeert ook de onderneming;</text>
+  <text x="116" y="369" font-size="11.5" fill="#666">nodig als er geen EBW is.</text>
 
   <!-- Persoonlijke wallet werknemer -->
   <rect x="100" y="412" width="230" height="300" rx="16" fill="#fff" stroke="#666"/>
@@ -263,7 +267,7 @@
   <text data-laag="kvk" x="1052" y="167" font-size="11" fill="#666" text-anchor="end">als bronhouder</text>
   <g data-laag="kvk" font-size="11.5" fill="#333">
     <text data-att="bevoegdheid" x="846" y="184">• vertegenwoordigingsbevoegdheid</text>
-    <text data-att="ebwoid" x="846" y="199">• EBWOID</text>
+    <text data-att="ebwoid" x="846" y="199">• EBWOID (alleen bij een EBW)</text>
     <text data-att="eucc" x="846" y="214">• EUCC (bij vennootschappen)</text>
   </g>
   <g data-laag="kvk" font-size="11.5" fill="#5c4a00">
@@ -448,6 +452,9 @@
         <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en mandaten, en de mandaten naar de persoonlijke wallets.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-flow" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+        accessible-label="Presenteer de stappen van nieuwe EBW tot mandaat"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
@@ -827,7 +834,7 @@ const ATTESTATIES = {
   'pid-bilal': PID({ voluit: 'Bilal Yılmaz', voornaam: 'Bilal', achternaam: 'Yılmaz', geboren: '1992-09-02', plaats: 'Rotterdam', adres: 'Voorbeeldlaan 5, 3021 BB Rotterdam' }),
   ebwoid: {
     titel: 'EBWOID (voorheen LPID)',
-    sub: 'European Business Wallet Owner ID: de identificatie van de onderneming die eigenaar is van de EBW. Bewust minimaal: alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen.',
+    sub: 'European Business Wallet Owner ID: de identificatie van de onderneming die eigenaar is van de EBW, alleen als de onderneming een EBW afneemt. Bewust minimaal: alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen.',
     tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK (nog niet vastgesteld)', 'neutral'], ['In de EBW van Koffiezaak Noon', 'neutral']],
     rijen: [
       ['legal_person_id', 'NLNHR.12345678', 'Unieke identificatie in EUID-structuur: landcode NL, registercode NHR (Handelsregister) en het KVK-nummer van 8 cijfers. Niet het vestigingsnummer of het RSIN (verplicht)'],
@@ -839,7 +846,7 @@ const ATTESTATIES = {
       ['authentic_source_id, authentic_source_name', 'KVK · Handelsregister', 'Bronregister, als dat afwijkt van de uitgever (optioneel)'],
     ],
     noot: 'Niet in de EBWOID: vertegenwoordigingsbevoegdheid, mandaten, adres of SBI-code; die horen in aparte attestaties. Een dienst krijgt daarom een combinatie te zien: de EBWOID (welk bedrijf), de PID (welke persoon) en een bevoegdheidsbewijs (EUCC, vertegenwoordigingsbevoegdheid of mandaat). De attestatie is atomair: geen selective disclosure, want je hebt beide kernattributen nodig.',
-    open: 'Open punten: EUID\'s komen uit de koppeling van Europese handelsregisters (BRIS) en zijn gericht op vennootschappen. Of en hoe een eenmanszaak als Koffiezaak Noon een EUID krijgt, en welke partij in Nederland de EBWOID formeel uitgeeft, staat nog niet vast.',
+    open: 'Welke partij in Nederland de EBWOID formeel uitgeeft, staat nog niet vast. Aanname: een eenmanszaak krijgt alleen een EUID via de EBWOID, dus alleen als hij een EBW afneemt. Zonder EBW identificeert de vertegenwoordigingsbevoegdheid de onderneming, met het KVK-nummer.',
     bron: 'Velden volgens EWC RFC005 (Issue Legal Person Identification Data), de basis voor de pilots. De definitieve EBW-uitvoeringshandelingen kunnen ruimer uitvallen.',
   },
   eucc: {
@@ -861,12 +868,13 @@ const ATTESTATIES = {
   },
   bevoegdheid: {
     titel: 'Vertegenwoordigingsbevoegdheid',
-    sub: 'Verklaring van de KVK dat Karin de onderneming mag vertegenwoordigen, bijvoorbeeld als eigenaar van een eenmanszaak. Bij een vennootschap staan de vertegenwoordigers in de EUCC.',
+    sub: 'Verklaring van de KVK dat Karin de onderneming mag vertegenwoordigen, bijvoorbeeld als eigenaar van een eenmanszaak. De attestatie identificeert ook de onderneming: nodig als er geen EBW is. Bij een vennootschap staan de vertegenwoordigers in de EUCC.',
+    noot: 'Aanname voor nu: voor een eenmanszaak geeft de KVK één attestatie, met de onderneming en de bevoegdheid samen, in de persoonlijke wallet.',
     open: 'Voor een eenmanszaak bestaat voor zover bekend nog geen Europese attestatie over vertegenwoordiging. Dit zou een aparte KVK-attestatie moeten worden, bijvoorbeeld "persoon X is eigenaar van KVK-nummer Y". Juist hier vervult eHerkenning nu die rol.',
     tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK', 'neutral'], ['In de wallet van Karin', 'neutral']],
     rijen: [
-      ['Nummer rechtspersoon', 'NLNHR.12345678 (KVK-nummer 12345678)', 'Welke onderneming; de veldnaam is nog niet vastgesteld'],
-      ['Naam rechtspersoon', 'Koffiezaak Noon', 'Huidige juridische naam; de veldnaam is nog niet vastgesteld'],
+      ['KVK-nummer onderneming', '12345678', 'Welke onderneming. Geen EUID: dat krijgt een eenmanszaak alleen via de EBWOID (aanname); de veldnaam is nog niet vastgesteld'],
+      ['Naam onderneming', 'Koffiezaak Noon', 'De naam zoals in het Handelsregister; de veldnaam is nog niet vastgesteld'],
       ['full_powers', 'true', 'Volledig bevoegd voor de onderneming als geheel'],
       ['eService', '(leeg)', 'Leeg bij volledige bevoegdheid; anders de dienst waarvoor de bevoegdheid geldt'],
       ['effective_from_date', '2021-03-01', 'Ingangsdatum'],
@@ -881,7 +889,7 @@ const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 // Gegevens per stap in het volgordediagram: wat er wordt gevraagd en verstuurd. Voorbeeldwaarden zijn fictief.
 const A = ATTESTATIES;
 const PID_MATCH = [['given_name', 'Karin', 'Voornamen'], ['family_name', 'Jansen', 'Achternaam'], ['birth_date', '1981-05-14', 'Geboortedatum']];
-const BEVOEGD_KORT = [['Nummer rechtspersoon', 'NLNHR.12345678', 'Welke onderneming'], ['Naam rechtspersoon', 'Koffiezaak Noon', ''], ['full_powers', 'true', 'Volledig bevoegd']];
+const BEVOEGD_KORT = [['KVK-nummer onderneming', '12345678', 'Welke onderneming'], ['Naam onderneming', 'Koffiezaak Noon', ''], ['full_powers', 'true', 'Volledig bevoegd']];
 const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['legal_person_name', 'Koffiezaak Noon', 'Officiële naam']];
 const STAP_DATA = {
   '1': { kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
@@ -957,14 +965,18 @@ const LAAG_STAPPEN = [
     { laag: 'ebw', label: 'Onderneming', tekst: 'Koffiezaak Noon krijgt een EBW. De KVK geeft daarin de EBWOID uit, de identificatie van de onderneming, ook als Pub-EAA. Bij een vennootschap komt daar de EUCC bij.<em>De EBW is optioneel: die wordt relevant zodra de onderneming rollen en machtigingen wil toekennen.</em>' },
     { laag: 'alles', label: 'Landschap', tekst: 'Het hele beeld: ook de Belastingdienst, de gemeente Rotterdam, de business wallet-aanbieder en werknemer Bilal. Wat we nog niet bespraken komt na een paar seconden op de voorgrond.' },
   ];
-const SLIDES = [];
+// Twee aparte presentaties; in het paneel wissel je ertussen
+const LANDSCHAP = [];
 LAAG_STAPPEN.forEach((st) => {
-  SLIDES.push({ soort: st.intro ? 'intro' : 'laag', ...st });
+  LANDSCHAP.push({ soort: st.intro ? 'intro' : 'laag', ...st });
   ({ pid: ['pid-karin'], bevoegdheid: ['bevoegdheid'], ebw: ['ebwoid', 'eucc'], alles: ['pid-bilal'] }[st.laag] || [])
-    .forEach((id) => SLIDES.push({ soort: 'att', id }));
+    .forEach((id) => LANDSCHAP.push({ soort: 'att', id }));
 });
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
-['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].forEach((n) => SLIDES.push({ soort: 'stap', n }));
+const FLOW = ['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
+const PRESENTATIES = { landschap: { titel: 'Het landschap', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW } };
+let presKey = 'landschap', SLIDES = LANDSCHAP;
+const positie = { landschap: 0, flow: 0 };
 const LAAG_VOLGORDE = LAAG_STAPPEN.filter((st) => st.laag).map((st) => st.laag);
 const schemaSvg = document.querySelector('#schema svg');
 const flowSvg = document.querySelector('#flow-schema svg');
@@ -999,6 +1011,10 @@ const bouwPaneel = () => {
   paneel.tabIndex = -1;
   paneel.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
   paneel.innerHTML = `
+    <div class="att-tabs" role="tablist" aria-label="Presentaties">
+      <button type="button" role="tab" data-pres="landschap">Het landschap</button>
+      <button type="button" role="tab" data-pres="flow">Van nieuwe EBW tot mandaat</button>
+    </div>
     <div class="att-inhoud" aria-live="polite"></div>
     <div class="att-voet">
       <button type="button" data-att-close aria-label="Presentatie sluiten (Esc)">&times;</button>
@@ -1014,6 +1030,7 @@ const bouwPaneel = () => {
     const knop = e.target.closest('button');
     if (!knop) return;
     if (knop.hasAttribute('data-att-close')) return sluit();
+    if (knop.dataset.pres) return wissel(knop.dataset.pres);
     naar(huidig + Number(knop.dataset.richting));
   });
 };
@@ -1078,11 +1095,16 @@ const toon = () => {
   const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');
   vorige.disabled = huidig === 0;
   volgende.disabled = huidig === SLIDES.length - 1;
-  history.replaceState(null, '', `${location.pathname}?presentatie#/${huidig}`);
+  paneel.querySelectorAll('[data-pres]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.pres === presKey)));
+  positie[presKey] = huidig;
+  history.replaceState(null, '', `${location.pathname}?presentatie=${presKey}#/${huidig}`);
 };
 const naar = (i) => { huidig = Math.max(0, Math.min(SLIDES.length - 1, i)); toon(); };
-const open = (i = 0) => {
+// Wisselen naar de andere presentatie: je komt terug waar je was
+const wissel = (key, i = positie[key]) => { presKey = key; SLIDES = PRESENTATIES[key].slides; naar(i); };
+const open = (key = 'landschap', i = 0) => {
   if (!paneel) bouwPaneel();
+  presKey = key; SLIDES = PRESENTATIES[key].slides;
   if (paneel.hidden) terugFocus = document.activeElement;
   paneel.hidden = false;
   document.body.classList.add('met-paneel');
@@ -1098,7 +1120,10 @@ const sluit = () => {
   history.replaceState(null, '', location.pathname);
   terugFocus?.focus?.({ preventScroll: true });
 };
-const slideVan = (soort, sleutel) => SLIDES.findIndex((sl) => sl.soort === soort && (sl.id === sleutel || sl.n === sleutel));
+const slideVan = (soort, sleutel) => {
+  const key = soort === 'stap' ? 'flow' : 'landschap';
+  return [key, PRESENTATIES[key].slides.findIndex((sl) => sl.soort === soort && (sl.id === sleutel || sl.n === sleutel))];
+};
 
 // Klikken op een attestatie of stap opent de presentatie op die plek
 schemaSvg.querySelectorAll('text[data-att]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); });
@@ -1107,20 +1132,21 @@ window.addEventListener('click', (e) => {
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
   const pad = e.composedPath().filter((el) => el instanceof Element);
   const att = pad.find((el) => el.dataset?.att);
-  if (att && att.closest('#schema')) { e.stopPropagation(); open(slideVan('att', att.dataset.att)); return; }
+  if (att && att.closest('#schema')) { e.stopPropagation(); open(...slideVan('att', att.dataset.att)); return; }
   const stap = pad.find((el) => el.dataset?.stap);
-  if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); open(slideVan('stap', stap.dataset.stap)); }
+  if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); open(...slideVan('stap', stap.dataset.stap)); }
 }, true);
-document.getElementById('presenteer')?.addEventListener('click', () => open(0));
+document.getElementById('presenteer')?.addEventListener('click', () => open('landschap', 0));
+document.getElementById('presenteer-flow')?.addEventListener('click', () => open('flow', 0));
 const inInvoer = (e) => e.composedPath().some((el) => el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)));
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey || inInvoer(e)) return;
   const actief = paneel && !paneel.hidden;
-  if (e.shiftKey && e.code === 'KeyP') { e.preventDefault(); actief ? sluit() : open(0); return; }
+  if (e.shiftKey && e.code === 'KeyP') { e.preventDefault(); actief ? sluit() : open('landschap', 0); return; }
   const el = e.target instanceof Element && (e.target.dataset?.att || e.target.dataset?.stap) ? e.target : null;
   if (el && (e.key === 'Enter' || e.key === ' ')) {
     e.preventDefault();
-    open(el.dataset.att ? slideVan('att', el.dataset.att) : slideVan('stap', el.dataset.stap));
+    open(...(el.dataset.att ? slideVan('att', el.dataset.att) : slideVan('stap', el.dataset.stap)));
     return;
   }
   if (!actief) return;
@@ -1138,7 +1164,8 @@ schemaSvg.addEventListener('mouseover', (e) => {
 });
 // Direct openen via de link: pas na het laden, zodat de pagina naar de juiste plek kan scrollen
 if (new URLSearchParams(location.search).has('presentatie')) {
-  const start = () => open(Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0));
+  const key = new URLSearchParams(location.search).get('presentatie') === 'flow' ? 'flow' : 'landschap';
+  const start = () => open(key, Number((location.hash.match(/^#\/(\d+)/) || [])[1] || 0));
   document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
 }
 </script>
