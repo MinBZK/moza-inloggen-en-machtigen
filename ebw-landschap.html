@@ -1144,9 +1144,9 @@ const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['le
 const STAP_DATA = {
   '1': { kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
     tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']],
-    rijen: [...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de KVK daarop matcht (open punt)']],
-    noot: 'Niet gedeeld: adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure).',
-    bron: 'Matching op naam en geboortedatum is een aanname uit de wallet-flows; of het BSN nodig is, bepaalt de KVK.' },
+    rijen: [['personal_administrative_number', '999999990', 'BSN: hiermee vindt de KVK haar in het Handelsregister'], ['given_name', 'Karin', 'Voornamen, ter controle en om haar aan te spreken'], ['family_name', 'Jansen', 'Achternaam']],
+    noot: 'Geen geboortedatum: het BSN is uniek en staat bij de eigenaar in het Handelsregister, dus naam en geboortedatum zijn niet nodig om haar te vinden. Niet gedeeld: geboortedatum, adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure).',
+    bron: 'Het Handelsregister legt het BSN van eigenaren en bestuurders vast (niet openbaar); de PID van de Nederlandse wallet bevat het BSN als personal_administrative_number.' },
   '2': { kop: ['Stap 2', 'vertegenwoordigings&shy;bevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de wallet van Karin', 'neutral']], rijen: A.bevoegdheid.rijen, open: A.bevoegdheid.open, bron: A.bevoegdheid.bron },
   '3': { kop: ['Stap 3', 'EBW afnemen'], titel: 'Karin neemt een EBW af', sub: 'Karin laat de business wallet-aanbieder zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
