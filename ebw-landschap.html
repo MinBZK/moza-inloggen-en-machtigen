@@ -551,9 +551,9 @@
         accessible-label="Presenteer de stappen van nieuwe EBW tot mandaat"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
-<svg viewBox="0 0 1280 922" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1280 1042" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, EBW afnemen; toont PID en bevoegdheid. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont alleen haar bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar Business wallet-aanbieder, wil een EBW afnemen. Stap 2a: Business wallet-aanbieder naar Karin Jansen, vraagt PID en bevoegdheid (OpenID4VP). Stap 2b: Karin Jansen naar KVK, bevoegdheid ophalen; inloggen met PID. Stap 2c: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, toont PID en bevoegdheid; EBW afnemen. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont alleen haar bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -564,61 +564,71 @@
     <marker id="f-delegate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
     <marker id="f-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#d79b00"/></marker>
   </defs>
-  <rect width="1280" height="922" fill="#fff"/>
-  <rect width="1280" height="922" fill="url(#grid2)"/>
-  <path d="M100 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect width="1280" height="1042" fill="#fff"/>
+  <rect width="1280" height="1042" fill="url(#grid2)"/>
+  <path d="M100 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="15" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="38" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
   <svg x="22" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#fcp-karin)"/></svg>
   <svg x="146" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <text x="96" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
   <text x="96" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
-  <path d="M280 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M280 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="195" y="18" width="170" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <svg x="326" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="266" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
   <text x="266" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
-  <path d="M460 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M460 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="375" y="18" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="460" y="41" font-size="12" font-weight="700" fill="#333" text-anchor="middle">Business wallet-aanbieder</text>
   <text x="390" y="63" font-size="11" fill="#555">bijv.</text>
   <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een business wallet-aanbieder)</title></image>
-  <path d="M640 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M640 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="555" y="18" width="170" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
   <svg x="686" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="626" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">EBW Noon</text>
   <text x="626" y="63" font-size="11.5" fill="#555" text-anchor="middle">zakelijke wallet</text>
-  <path d="M820 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M820 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="735" y="18" width="170" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
   <svg x="866" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="806" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
   <text x="806" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
-  <path d="M1000 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M1000 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
   <svg x="1050" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="982" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Rotterdam</text>
   <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via aanbieder</text>
-  <path d="M1180 78V910" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M1180 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="1118" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
   <svg x="1102" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#fcp-bilal)"/></svg>
   <svg x="1226" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <text x="1176" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
   <text x="1176" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
-  <rect data-stap="1" x="86" y="94" width="220" height="54" fill="transparent"/>
-  <path data-stap="1" d="M116 132H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle data-stap="1" cx="100" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
-  <text data-stap="1" x="190" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
-  <rect data-stap="2" x="74" y="154" width="220" height="54" fill="transparent"/>
-  <path data-stap="2" d="M264 192H104" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
-  <circle data-stap="2" cx="280" cy="192" r="12" fill="#1f5fa8"/><text data-stap="2" x="280" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
-  <text data-stap="2" x="190" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
-  <text data-stap="2" x="190" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
-  <rect data-stap="3" x="86" y="214" width="400" height="54" fill="transparent"/>
-  <path data-stap="3" d="M116 252H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
-  <circle data-stap="3" cx="100" cy="252" r="12" fill="#b46504"/><text data-stap="3" x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text data-stap="3" x="280" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">EBW afnemen; toont PID</text>
-  <text data-stap="3" x="280" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">en bevoegdheid</text>
+  <rect data-stap="1" x="86" y="94" width="388" height="54" fill="transparent"/>
+  <path data-stap="1" d="M116 132H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
+  <circle data-stap="1" cx="100" cy="132" r="12" fill="#b46504"/><text data-stap="1" x="100" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="280" y="124" font-size="11.5" fill="#b46504" text-anchor="middle">wil een EBW afnemen</text>
+  <rect data-stap="2a" x="86" y="154" width="388" height="54" fill="transparent"/>
+  <path data-stap="2a" d="M444 192H104" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="2a" cx="460" cy="192" r="12" fill="#2d7a46"/><text data-stap="2a" x="460" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2a</text>
+  <text data-stap="2a" x="280" y="184" font-size="11.5" fill="#2d7a46" text-anchor="middle">vraagt PID en bevoegdheid (OpenID4VP)</text>
+  <rect data-stap="2b" x="86" y="214" width="208" height="54" fill="transparent"/>
+  <path data-stap="2b" d="M116 252H276" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="2b" cx="100" cy="252" r="12" fill="#2d7a46"/><text data-stap="2b" x="100" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2b</text>
+  <text data-stap="2b" x="190" y="230" font-size="11.5" fill="#2d7a46" text-anchor="middle">bevoegdheid ophalen;</text>
+  <text data-stap="2b" x="190" y="244" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
+  <rect data-stap="2c" x="86" y="274" width="208" height="54" fill="transparent"/>
+  <path data-stap="2c" d="M264 312H104" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
+  <circle data-stap="2c" cx="280" cy="312" r="12" fill="#1f5fa8"/><text data-stap="2c" x="280" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2c</text>
+  <text data-stap="2c" x="190" y="290" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
+  <text data-stap="2c" x="190" y="304" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
+  <rect data-stap="3" x="86" y="334" width="388" height="54" fill="transparent"/>
+  <path data-stap="3" d="M116 372H456" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#f-service)"/>
+  <circle data-stap="3" cx="100" cy="372" r="12" fill="#b46504"/><text data-stap="3" x="100" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text data-stap="3" x="280" y="350" font-size="11.5" fill="#b46504" text-anchor="middle">toont PID en bevoegdheid;</text>
+  <text data-stap="3" x="280" y="364" font-size="11.5" fill="#b46504" text-anchor="middle">EBW afnemen</text>
+  <g transform="translate(0 120)">
   <rect data-stap="4" x="446" y="274" width="220" height="54" fill="transparent"/>
   <path data-stap="4" d="M476 312H636" stroke="#b46504" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-service2)"/>
   <circle data-stap="4" cx="460" cy="312" r="12" fill="#b46504"/><text data-stap="4" x="460" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
@@ -663,35 +673,42 @@
   <path data-stap="10" d="M624 852H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
   <circle data-stap="10" cx="640" cy="852" r="12" fill="#d79b00"/><text data-stap="10" x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
   <text data-stap="10" x="370" y="844" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
+  </g>
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven; a is steeds de aanvraag, b de uitgifte.</p></nldd-title>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven; bij 5 tot en met 7 is a de aanvraag en b de uitgifte.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-list variant="box" aria-label="De stappen toegelicht">
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Inloggen bij de KVK.**" supporting-text="Karin logt met de PID uit haar EUDI-wallet in bij de KVK."></nldd-text-cell>
+          <nldd-text-cell text="**EBW afnemen.**" supporting-text="Karin kiest een business wallet-aanbieder, bijvoorbeeld Credenco, en wil een EBW afnemen voor Koffiezaak Noon."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Vertegenwoordigingsbevoegdheid.**" supporting-text="De KVK vindt haar in het handelsregister en geeft haar bevoegdheid als Pub-EAA in haar persoonlijke wallet."></nldd-text-cell>
+          <nldd-text-cell text="**De aanbieder vraagt wie ze is en of ze mag.**" supporting-text="De aanbieder vraagt haar PID en vertegenwoordigingsbevoegdheid (OpenID4VP). Die bevoegdheid heeft Karin nog niet; de aanbieder verwijst haar naar de KVK."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Bevoegdheid ophalen bij de KVK.**" supporting-text="Karin logt met de PID uit haar EUDI-wallet in bij de KVK."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2c**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Vertegenwoordigingsbevoegdheid.**" supporting-text="De KVK vindt haar in het Handelsregister en geeft haar bevoegdheid als Pub-EAA in haar persoonlijke wallet."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**EBW afnemen.**" supporting-text="Karin kiest een business wallet-aanbieder en neemt een EBW af voor Koffiezaak Noon. Ze toont haar PID en haar bevoegdheid, zodat de provider weet dat ze namens de onderneming mag handelen."></nldd-text-cell>
-        </nldd-list-item>
-        <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**EBW aanmaken.**" supporting-text="De provider maakt de EBW aan; Koffiezaak Noon is eigenaar en Karin wordt beheerder."></nldd-text-cell>
+          <nldd-text-cell text="**Bevoegdheid tonen.**" supporting-text="Karin gaat terug naar de aanbieder en toont haar PID en bevoegdheid. Zo weet de aanbieder dat ze namens de onderneming een EBW mag afnemen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -1144,14 +1161,23 @@ const BINDING = 'Geen geboortedatum (aanname): dat de PID en de bevoegdheid bij 
 const BEVOEGD_KORT = [['legal_person_identifier', '12345678', 'KVK-nummer: welke onderneming'], ['legal_name', 'Koffiezaak Noon', 'Naam van de onderneming'], ['full_powers', 'true', 'Volledig bevoegd']];
 const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['legal_person_name', 'Koffiezaak Noon', 'Officiële naam']];
 const STAP_DATA = {
-  '1': { kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
+  '1': { kop: ['Stap 1', 'EBW afnemen'], titel: 'Karin wil een EBW afnemen', sub: 'Karin kiest een business wallet-aanbieder, bijvoorbeeld Credenco, en start de aanvraag voor een EBW voor Koffiezaak Noon.',
+    tags: [['Bij de aanbieder', 'paars'], ['Door Karin', 'neutral']],
+    rijen: [['Dienst', 'EBW voor Koffiezaak Noon', 'Wat Karin wil afnemen'], ['Aanbieder', 'business wallet-aanbieder, bijv. Credenco', 'Wordt de wallet-provider van de onderneming']],
+    noot: 'Nog niets gecontroleerd: de aanbieder weet nog niet wie Karin is en of ze namens Koffiezaak Noon mag handelen.', bron: '' },
+  '2a': { kop: ['Stap 2a', 'de aanbieder vraagt'], titel: 'De aanbieder vraagt wie ze is en of ze mag', sub: 'De aanbieder vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Die bevoegdheid heeft Karin nog niet; de aanbieder verwijst haar naar de KVK.',
+    tags: [['Gevraagd door de aanbieder', 'paars'], ['Aan de wallet van Karin', 'neutral']],
+    rijen: [['PID', 'given_name, family_name', 'Wie ze is'], ['Vertegenwoordigingsbevoegdheid', 'legal_person_identifier, legal_name, full_powers', 'Of ze namens de onderneming mag handelen'],
+      ['Vrager', 'business wallet-aanbieder, bijv. Credenco', 'Karin ziet in haar wallet wie vraagt en waarvoor (registratiecertificaat)']],
+    noot: 'De bevoegdheid komt in de persoonlijke wallet van Karin, want hij gaat over haar. De aanbieder controleert hem alleen. In de EBW komt later de EBWOID (stap 5b), die alleen de KVK kan uitgeven.', bron: '' },
+  '2b': { kop: ['Stap 2b', 'inloggen bij de KVK'], titel: 'Bevoegdheid ophalen: inloggen bij de KVK', sub: 'Karin heeft de bevoegdheid nog niet. Ze logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
     tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']],
     rijen: [['personal_administrative_number', '999999990', 'BSN: hiermee vindt de KVK haar in het Handelsregister'], ['given_name', 'Karin', 'Voornamen, ter controle en om haar aan te spreken'], ['family_name', 'Jansen', 'Achternaam']],
     noot: 'Geen geboortedatum: het BSN is uniek en staat bij de eigenaar in het Handelsregister, dus naam en geboortedatum zijn niet nodig om haar te vinden. Niet gedeeld: geboortedatum, adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure).',
     bron: 'Het Handelsregister legt het BSN van eigenaren en bestuurders vast (niet openbaar); de PID van de Nederlandse wallet bevat het BSN als personal_administrative_number.' },
-  '2': { kop: ['Stap 2', 'vertegenwoordigings&shy;bevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
+  '2c': { kop: ['Stap 2c', 'vertegenwoordigings\u00adbevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de wallet van Karin', 'neutral']], rijen: A.bevoegdheid.rijen, open: A.bevoegdheid.open, bron: A.bevoegdheid.bron },
-  '3': { kop: ['Stap 3', 'EBW afnemen'], titel: 'Karin neemt een EBW af', sub: 'Karin laat de business wallet-aanbieder zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
+  '3': { kop: ['Stap 3', 'bevoegdheid tonen'], titel: 'Karin toont haar bevoegdheid', sub: 'Karin gaat terug naar de aanbieder en laat zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
     tags: [['Gevraagd door de aanbieder', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
     noot: 'Daarmee weet de aanbieder dat Karin de EBW voor Koffiezaak Noon mag afnemen.', open: BINDING,
     bron: 'Volgens het EBW-voorstel meldt de eigenaar zich met een eID op niveau substantieel of hoog (art. 6(1)(e)).' },
@@ -1211,8 +1237,8 @@ const INGELOGD = (dienst, voorbeeld) => [['Gebruiker', 'Karin Jansen', 'Uit de P
   ['Bevoegdheid', 'volledig (full_powers)', 'Eigenaar van een eenmanszaak'], ['Dienst', voorbeeld, `Wat Karin bij ${dienst} kan doen (voorbeeld)`]];
 const TOONT = [...PID_MATCH, ...BEVOEGD_KORT];
 const LOGIN_DATA = {
-  '1': { ...STAP_DATA['1'] },
-  '2': { ...STAP_DATA['2'], sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.' },
+  '1': { ...STAP_DATA['2b'], kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.' },
+  '2': { ...STAP_DATA['2c'], kop: ['Stap 2', 'vertegenwoordigings\u00adbevoegdheid'], sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.' },
   '3a': { kop: ['Stap 3a', 'inloggen bij MOZa'], titel: 'Inloggen bij MOZa', sub: 'MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.',
     tags: [['Gevraagd door MOZa', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
     noot: 'Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.', open: BINDING.replace(' Het BSN mag een private partij als de aanbieder niet gebruiken.', ''), bron: 'Veldnamen zijn illustratief.' },
@@ -1243,7 +1269,7 @@ const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'pe
 // paneel op die plek; pijltjestoetsen bladeren, Esc sluit.
 const LANDSCHAP = ['pid-karin', 'bevoegdheid', 'ebwoid', 'eucc', 'pid-bilal'].map((id) => ({ soort: 'att', id }));
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
-const FLOW = ['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
+const FLOW = ['1', '2a', '2b', '2c', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
 const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie (oude links #/8 e.v. wijzen naar de attestaties)
 const LOGIN = Object.keys(LOGIN_DATA).map((n) => ({ soort: 'login', n }));
 const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW },
