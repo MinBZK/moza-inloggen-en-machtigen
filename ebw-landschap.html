@@ -150,6 +150,16 @@
     .att-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 16px; line-height: 1.5; }
     .att-punten li { margin-bottom: 8px; }
     .att-punten strong { color: #ffb612; }
+    /* Soort stap en soort kaart: attestatie tonen, uitgeven, of een verzoek zonder attestatie */
+    .att-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
+    .att-soort strong { color: var(--soort-kleur); }
+    [data-soort="tonen"], [data-soort="vraag"] { --soort-kleur: #2d7a46; }
+    [data-soort="uitgifte"] { --soort-kleur: #1f5fa8; }
+    [data-soort="verzoek"] { --soort-kleur: #5b6573; }
+    [data-soort="sessie"] { --soort-kleur: #0e7c86; }
+    .att-kaart[data-soort] { border-left: 6px solid var(--soort-kleur); }
+    .att-kaart[data-soort="verzoek"], .att-kaart[data-soort="sessie"], .att-kaart[data-soort="vraag"] { background: #f4f6f8; border-left-style: dashed; }
+    .att-kaart-label { margin: 0 0 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soort-kleur, #5b6573); }
     .att-kaart { margin: 0 0 20px; padding: 16px 20px; background: #fff; color: #1a1a2e; border-radius: 12px; }
     .att-kaart-kop { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #e3e6ea; }
     .att-kaart-kop strong { font-size: 17px; }
@@ -1160,28 +1170,32 @@ const PID_MATCH = [['given_name', 'Karin', 'Voornamen'], ['family_name', 'Jansen
 const BINDING = 'Geen geboortedatum (aanname): dat de PID en de bevoegdheid bij dezelfde persoon horen, blijkt uit de koppeling van beide attestaties aan dezelfde wallet (gecombineerde presentatie). Kan dat niet, dan is ook de geboortedatum nodig, want een naam is niet uniek. Het BSN mag een private partij als de aanbieder niet gebruiken.';
 const BEVOEGD_KORT = [['legal_person_identifier', '12345678', 'KVK-nummer: welke onderneming'], ['legal_name', 'Koffiezaak Noon', 'Naam van de onderneming'], ['full_powers', 'true', 'Volledig bevoegd']];
 const EBWOID_KORT = [['legal_person_id', 'NLNHR.12345678', 'Welk bedrijf'], ['legal_person_name', 'Koffiezaak Noon', 'Officiële naam']];
+// Soort stap: tonen (OpenID4VP), uitgifte (OpenID4VCI), vraag (om te tonen), verzoek (geen attestatie), sessie (ingelogd)
+const K_PID = (rijen, waar = 'van de RvIG · uit de wallet van Karin') => ({ soort: 'tonen', label: 'Attestatie · PID', titel: 'PID', bij: waar, rijen });
+const K_BEV = (rijen) => ({ soort: 'tonen', label: 'Attestatie · Pub-EAA', titel: 'Vertegenwoordigingsbevoegdheid', bij: 'van de KVK · uit de wallet van Karin', rijen });
+const K_EBWOID = { soort: 'tonen', label: 'Attestatie · Pub-EAA', titel: 'EBWOID', bij: 'van de KVK · uit de EBW van Koffiezaak Noon', rijen: EBWOID_KORT };
 const STAP_DATA = {
-  '1': { kop: ['Stap 1', 'EBW afnemen'], titel: 'Karin wil een EBW afnemen', sub: 'Karin kiest een business wallet-aanbieder, bijvoorbeeld Credenco, en start de aanvraag voor een EBW voor Koffiezaak Noon.',
+  '1': { type: 'verzoek', kaartTitel: 'Aanvraag EBW', kop: ['Stap 1', 'EBW afnemen'], titel: 'Karin wil een EBW afnemen', sub: 'Karin kiest een business wallet-aanbieder, bijvoorbeeld Credenco, en start de aanvraag voor een EBW voor Koffiezaak Noon.',
     tags: [['Bij de aanbieder', 'paars'], ['Door Karin', 'neutral']],
     rijen: [['Dienst', 'EBW voor Koffiezaak Noon', 'Wat Karin wil afnemen'], ['Aanbieder', 'business wallet-aanbieder, bijv. Credenco', 'Wordt de wallet-provider van de onderneming']],
     noot: 'Nog niets gecontroleerd: de aanbieder weet nog niet wie Karin is en of ze namens Koffiezaak Noon mag handelen.', bron: '' },
-  '2a': { kop: ['Stap 2a', 'de aanbieder vraagt'], titel: 'De aanbieder vraagt wie ze is en of ze mag', sub: 'De aanbieder vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Die bevoegdheid heeft Karin nog niet; de aanbieder verwijst haar naar de KVK.',
+  '2a': { type: 'vraag', kaartTitel: 'Gevraagde attestaties', kop: ['Stap 2a', 'de aanbieder vraagt'], titel: 'De aanbieder vraagt wie ze is en of ze mag', sub: 'De aanbieder vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Die bevoegdheid heeft Karin nog niet; de aanbieder verwijst haar naar de KVK.',
     tags: [['Gevraagd door de aanbieder', 'paars'], ['Aan de wallet van Karin', 'neutral']],
     rijen: [['PID', 'given_name, family_name', 'Wie ze is'], ['Vertegenwoordigingsbevoegdheid', 'legal_person_identifier, legal_name, full_powers', 'Of ze namens de onderneming mag handelen'],
       ['Vrager', 'business wallet-aanbieder, bijv. Credenco', 'Karin ziet in haar wallet wie vraagt en waarvoor (registratiecertificaat)']],
     noot: 'De bevoegdheid komt in de persoonlijke wallet van Karin, want hij gaat over haar. De aanbieder controleert hem alleen. In de EBW komt later de EBWOID (stap 5b), die alleen de KVK kan uitgeven.', bron: '' },
-  '2b': { kop: ['Stap 2b', 'inloggen bij de KVK'], titel: 'Bevoegdheid ophalen: inloggen bij de KVK', sub: 'Karin heeft de bevoegdheid nog niet. Ze logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
+  '2b': { type: 'tonen', kop: ['Stap 2b', 'inloggen bij de KVK'], titel: 'Bevoegdheid ophalen: inloggen bij de KVK', sub: 'Karin heeft de bevoegdheid nog niet. Ze logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.',
     tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']],
-    rijen: [['personal_administrative_number', '999999990', 'BSN: hiermee vindt de KVK haar in het Handelsregister'], ['given_name', 'Karin', 'Voornamen, ter controle en om haar aan te spreken'], ['family_name', 'Jansen', 'Achternaam']],
+    kaarten: [K_PID([['personal_administrative_number', '999999990', 'BSN: hiermee vindt de KVK haar in het Handelsregister'], ['given_name', 'Karin', 'Voornamen, ter controle en om haar aan te spreken'], ['family_name', 'Jansen', 'Achternaam']])],
     noot: 'Geen geboortedatum: het BSN is uniek en staat bij de eigenaar in het Handelsregister, dus naam en geboortedatum zijn niet nodig om haar te vinden. Niet gedeeld: geboortedatum, adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure).',
     bron: 'Het Handelsregister legt het BSN van eigenaren en bestuurders vast (niet openbaar); de PID van de Nederlandse wallet bevat het BSN als personal_administrative_number.' },
-  '2c': { kop: ['Stap 2c', 'vertegenwoordigings\u00adbevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
+  '2c': { type: 'uitgifte', kaartTitel: 'Vertegenwoordigingsbevoegdheid', attType: 'Pub-EAA van de KVK', kop: ['Stap 2c', 'vertegenwoordigings\u00adbevoegdheid'], titel: 'Vertegenwoordigingsbevoegdheid', sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de wallet van Karin', 'neutral']], rijen: A.bevoegdheid.rijen, open: A.bevoegdheid.open, bron: A.bevoegdheid.bron },
-  '3': { kop: ['Stap 3', 'bevoegdheid tonen'], titel: 'Karin toont haar bevoegdheid', sub: 'Karin gaat terug naar de aanbieder en laat zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
-    tags: [['Gevraagd door de aanbieder', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: [...PID_MATCH, ...BEVOEGD_KORT],
+  '3': { type: 'tonen', kop: ['Stap 3', 'bevoegdheid tonen'], titel: 'Karin toont haar bevoegdheid', sub: 'Karin gaat terug naar de aanbieder en laat zien wie ze is en dat ze namens Koffiezaak Noon mag handelen.',
+    tags: [['Gevraagd door de aanbieder', 'paars'], ['Uit de wallet van Karin', 'neutral']], kaarten: [K_PID(PID_MATCH), K_BEV(BEVOEGD_KORT)],
     noot: 'Daarmee weet de aanbieder dat Karin de EBW voor Koffiezaak Noon mag afnemen.', open: BINDING,
     bron: 'Volgens het EBW-voorstel meldt de eigenaar zich met een eID op niveau substantieel of hoog (art. 6(1)(e)).' },
-  '4': { kop: ['Stap 4', 'EBW aanmaken'], titel: 'De aanbieder maakt de EBW aan', sub: 'De EBW is van Koffiezaak Noon; Karin wordt beheerder.',
+  '4': { type: 'verzoek', kaartTitel: 'Nieuwe EBW bij de aanbieder', kop: ['Stap 4', 'EBW aanmaken'], titel: 'De aanbieder maakt de EBW aan', sub: 'De EBW is van Koffiezaak Noon; Karin wordt beheerder.',
     tags: [['Bij de aanbieder', 'paars'], ['EBW van Koffiezaak Noon', 'neutral']],
     rijen: [['Eigenaar', 'Koffiezaak Noon · KVK-nummer 12345678', 'Uit de vertegenwoordigingsbevoegdheid van stap 3. De EUID (NLNHR.12345678) komt pas met de EBWOID in stap 5b'],
       ['Beheerder', 'Karin Jansen', 'Bepaalt wie de wallet mag gebruiken en met welke rechten'],
@@ -1189,44 +1203,46 @@ const STAP_DATA = {
       ['Wallet Unit Attestation (WUA)', 'ondertekend door de aanbieder', 'Verklaring van de provider over deze wallet: welke provider en welke wallet-oplossing het is, en dat de sleutels in beveiligde hardware staan. De EBW laat die zien aan uitgevers, zodat zij weten dat ze een attestatie aan een echte, goedgekeurde wallet geven; diensten krijgen hem niet']],
     noot: 'De EBW heeft nog geen attestaties: die haalt Karin in de volgende stappen op.',
     bron: 'WE BUILD D4.1 p. 43, 48 en 56-57; het EBW-voorstel art. 5(1)(j).' },
-  '5a': { kop: ['Stap 5a', 'EBWOID aanvragen'], titel: 'EBWOID aanvragen bij de KVK', sub: 'Karin vraagt vanuit de EBW de EBWOID aan. De EBW heeft nog geen eigen attestaties, dus Karin toont uit haar persoonlijke wallet alleen haar vertegenwoordigingsbevoegdheid (OpenID4VP). Meer is niet nodig: die attestatie heeft de KVK zelf uitgegeven.',
+  '5a': { type: 'tonen', kop: ['Stap 5a', 'EBWOID aanvragen'], titel: 'EBWOID aanvragen bij de KVK', sub: 'Karin vraagt vanuit de EBW de EBWOID aan. De EBW heeft nog geen eigen attestaties, dus Karin toont uit haar persoonlijke wallet alleen haar vertegenwoordigingsbevoegdheid (OpenID4VP). Meer is niet nodig: die attestatie heeft de KVK zelf uitgegeven.',
     tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin en de EBW', 'neutral']],
-    rijen: [['legal_person_identifier', '12345678', 'KVK-nummer: voor welke onderneming de EBWOID is'], ['full_powers', 'true', 'Karin mag dit namens de onderneming aanvragen'],
-      ['Wallet Unit Attestation (WUA)', 'van de EBW, ondertekend door de aanbieder', 'Waar de EBWOID naartoe gaat: een echte, goedgekeurde EBW. Komt uit de EBW, niet uit de wallet van Karin']],
+    kaarten: [K_BEV([['legal_person_identifier', '12345678', 'KVK-nummer: voor welke onderneming de EBWOID is'], ['full_powers', 'true', 'Karin mag dit namens de onderneming aanvragen']]),
+      { soort: 'tonen', label: 'Wallet Unit Attestation (WUA)', titel: 'WUA van de EBW', bij: 'van de aanbieder · uit de EBW, niet uit de wallet van Karin', rijen: [
+        ['Wallet-provider', 'business wallet-aanbieder, bijv. Credenco', 'Ondertekent de WUA'],
+        ['Wallet-oplossing en sleutels', 'goedgekeurd, sleutels in beveiligde hardware', 'Waar de EBWOID naartoe gaat: een echte, goedgekeurde EBW']] }],
     noot: 'Karin vult de EBW, als beheerder namens Koffiezaak Noon. De aanbieder (bijv. Credenco) levert en beheert de techniek, maar vraagt zelf geen attestaties aan en ziet niet wat erin staat. Niet nodig: de PID en de naam van de onderneming. De KVK controleert de eigen handtekening en de statuslijst, dus of de bevoegdheid nog geldt; de rest staat al in het Handelsregister.',
     open: 'Aanname: de bevoegdheid is aan de wallet van Karin gekoppeld, zodat alleen zij hem kan tonen. Anders moet ze toch haar PID laten zien.',
     bron: 'Zie ook het open punt over de bevoegdheid bij de EBWOID.' },
-  '5b': { kop: ['Stap 5b', 'EBWOID'], titel: 'EBWOID ontvangen', sub: 'De KVK geeft de EBWOID als Pub-EAA uit aan de EBW van Koffiezaak Noon (OpenID4VCI).',
+  '5b': { type: 'uitgifte', kaartTitel: 'EBWOID', attType: 'Pub-EAA van de KVK', kop: ['Stap 5b', 'EBWOID'], titel: 'EBWOID ontvangen', sub: 'De KVK geeft de EBWOID als Pub-EAA uit aan de EBW van Koffiezaak Noon (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']], rijen: A.ebwoid.rijen, noot: A.ebwoid.noot, open: A.ebwoid.open, bron: A.ebwoid.bron },
-  '6a': { kop: ['Stap 6a', 'aanvragen'], titel: 'Aanvragen bij de Belastingdienst', sub: 'Karin vraagt vanuit de EBW attestaties aan. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat.',
-    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], rijen: EBWOID_KORT,
+  '6a': { type: 'tonen', kop: ['Stap 6a', 'aanvragen'], titel: 'Aanvragen bij de Belastingdienst', sub: 'Karin vraagt vanuit de EBW attestaties aan. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat.',
+    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], kaarten: [K_EBWOID],
     open: 'De EBWOID zegt alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen. Of de Belastingdienst ook de PID en de bevoegdheid van Karin vraagt, staat nog niet vast.',
     bron: 'De EBWOID is atomair: beide velden gaan altijd samen mee.' },
-  '6b': { kop: ['Stap 6b', 'btw-ID-certificaat'], titel: 'Btw-ID-certificaat ontvangen', sub: 'De Belastingdienst geeft als bronhouder onder meer het btw-ID-certificaat uit als Pub-EAA (met gekwalificeerd zegel).',
+  '6b': { type: 'uitgifte', kaartTitel: 'Btw-ID-certificaat', attType: 'Pub-EAA van de Belastingdienst', kop: ['Stap 6b', 'btw-ID-certificaat'], titel: 'Btw-ID-certificaat ontvangen', sub: 'De Belastingdienst geeft als bronhouder onder meer het btw-ID-certificaat uit als Pub-EAA (met gekwalificeerd zegel).',
     tags: [['Verstuurd door de Belastingdienst', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
     rijen: [['EUID', 'NLNHR.12345678', 'De onderneming waaraan het btw-nummer is toegekend'], ['Btw-identificatienummer', 'NL000099998B57', 'Het btw-nummer zelf'], ['Uitgever', 'Belastingdienst', 'Pub-EAA met gekwalificeerd zegel']],
     bron: 'Volgens WE BUILD BU3 (D2.1 p. 261, 289); de overige attributen staan in een concept-rulebook.' },
-  '7a': { kop: ['Stap 7a', 'aanvragen'], titel: 'Aanvragen bij de gemeente Rotterdam', sub: 'Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente; de EBW toont de EBWOID.',
-    tags: [['Gevraagd door de gemeente', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], rijen: EBWOID_KORT,
+  '7a': { type: 'tonen', kop: ['Stap 7a', 'aanvragen'], titel: 'Aanvragen bij de gemeente Rotterdam', sub: 'Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente; de EBW toont de EBWOID.',
+    tags: [['Gevraagd door de gemeente', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], kaarten: [K_EBWOID],
     open: 'Net als bij de Belastingdienst: of de gemeente ook de bevoegdheid van Karin vraagt, staat nog niet vast.', bron: '' },
-  '7b': { kop: ['Stap 7b', 'vergunning'], titel: 'Vergunning ontvangen', sub: 'De business wallet-aanbieder geeft als QTSP namens de gemeente bijvoorbeeld een vergunning uit als QEAA.',
+  '7b': { type: 'uitgifte', kaartTitel: 'Exploitatievergunning', attType: 'QEAA, namens de gemeente Rotterdam', kop: ['Stap 7b', 'vergunning'], titel: 'Vergunning ontvangen', sub: 'De business wallet-aanbieder geeft als QTSP namens de gemeente bijvoorbeeld een vergunning uit als QEAA.',
     tags: [['Verstuurd namens de gemeente', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
     rijen: [['Soort vergunning', 'Exploitatievergunning horeca', ''], ['Vergunningnummer', 'ROT-2027-001234', ''], ['Houder', 'Koffiezaak Noon · NLNHR.12345678', ''],
       ['Vestigingsadres', 'Voorbeeldstraat 1, 3011 AA Rotterdam', ''], ['Geldig', '2027-04-01 tot 2032-03-31', ''], ['Uitgever', 'Business wallet-aanbieder (QTSP), namens de gemeente Rotterdam', 'Een QEAA']],
     noot: 'Illustratief: voor een vergunning als attestatie is nog geen standaard bekend.', bron: '' },
-  '8': { kop: ['Stap 8', 'mandaten vastleggen'], titel: 'Karin legt mandaten vast', sub: 'Als beheerder legt Karin in de EBW vast wie wat mag. Dat zijn nog geen attestaties, maar de afspraken waaruit de EBW de mandaten afgeeft.',
+  '8': { type: 'verzoek', kaartTitel: 'Mandaten in de EBW', kop: ['Stap 8', 'mandaten vastleggen'], titel: 'Karin legt mandaten vast', sub: 'Als beheerder legt Karin in de EBW vast wie wat mag. Dat zijn nog geen attestaties, maar de afspraken waaruit de EBW de mandaten afgeeft.',
     tags: [['In de EBW van Koffiezaak Noon', 'paars'], ['Door Karin, als beheerder', 'neutral']],
     rijen: [['Gevolmachtigde', 'Bilal Yılmaz', 'Naam en geboortedatum, uit zijn PID'], ['Dienst en handeling', 'Belastingdienst · inzien', ''], ['Dienst en handeling', 'Gemeente Rotterdam · vergunning aanvragen', ''], ['Geldig vanaf', '2027-05-01', '']],
     noot: 'Hoe het mandaat aan Bilal wordt gekoppeld, via naam en geboortedatum of direct aan zijn wallet, is een ontwerpkeuze.', bron: '' },
-  '9': { kop: ['Stap 9', 'mandaten naar Bilal'], titel: 'Mandaten in de wallet van Bilal', sub: 'De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
+  '9': { type: 'uitgifte', kop: ['Stap 9', 'mandaten naar Bilal'], titel: 'Mandaten in de wallet van Bilal', sub: 'De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
     tags: [['Verstuurd door de EBW', 'paars'], ['Naar de wallet van Bilal', 'neutral']],
     kaarten: [
-      { titel: 'Mandaat 1 · Belastingdienst', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
-      { titel: 'Mandaat 2 · Gemeente Rotterdam', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Gemeente Rotterdam · vergunning aanvragen', 'Bijvoorbeeld een terrasvergunning; daarmee logt hij in bij de gemeente'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Mandaat 1 · Belastingdienst', bij: 'naar de wallet van Bilal', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Mandaat 2 · Gemeente Rotterdam', bij: 'naar de wallet van Bilal', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Gemeente Rotterdam · vergunning aanvragen', 'Bijvoorbeeld een terrasvergunning; daarmee logt hij in bij de gemeente'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
     ],
     open: 'Vorm van het mandaat: een losse attestatie (EAA) in de wallet, of alleen een rol binnen de EBW?',
     bron: 'In WE BUILD heet dit een Power of Employee (PoE): een EAA van de onderneming zelf, zonder authentieke bron (D2.1 p. 38, 369). Veldnamen zijn illustratief.' },
-  '10': { kop: ['Stap 10', 'mandaat voor Karin?'], titel: 'Mandaat voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
+  '10': { type: 'uitgifte', kaartTitel: 'Mandaat Belastingdienst (open punt)', attType: 'EAA van Koffiezaak Noon', kop: ['Stap 10', 'mandaat voor Karin?'], titel: 'Mandaat voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
     tags: [['Open punt', 'paars'], ['Naar de wallet van Karin', 'neutral']],
     rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', ''], ['Gevolmachtigde', 'Karin Jansen', ''], ['Scope', 'Belastingdienst · aangifte doen', '']],
     open: 'In principe volstaat haar vertegenwoordigingsbevoegdheid. Een dienst kan toch een eigen mandaat willen, bijvoorbeeld bij beperkte bevoegdheid of rechten per dienst.', bron: '' },
@@ -1235,31 +1251,31 @@ const STAP_DATA = {
 // Kop in de stijl van de presentatie: tweede regel in geel
 const INGELOGD = (dienst, voorbeeld) => [['Gebruiker', 'Karin Jansen', 'Uit de PID'], ['Namens', 'Koffiezaak Noon · KVK 12345678', 'Uit de vertegenwoordigingsbevoegdheid'],
   ['Bevoegdheid', 'volledig (full_powers)', 'Eigenaar van een eenmanszaak'], ['Dienst', voorbeeld, `Wat Karin bij ${dienst} kan doen (voorbeeld)`]];
-const TOONT = [...PID_MATCH, ...BEVOEGD_KORT];
+const TOONT = [K_PID(PID_MATCH), K_BEV(BEVOEGD_KORT)];
 const LOGIN_DATA = {
   '1': { ...STAP_DATA['2b'], kop: ['Stap 1', 'inloggen met PID'], titel: 'Inloggen bij de KVK', sub: 'Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.' },
   '2': { ...STAP_DATA['2c'], kop: ['Stap 2', 'vertegenwoordigings\u00adbevoegdheid'], sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.' },
-  '3a': { kop: ['Stap 3a', 'inloggen bij MOZa'], titel: 'Inloggen bij MOZa', sub: 'MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.',
-    tags: [['Gevraagd door MOZa', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+  '3a': { type: 'tonen', kop: ['Stap 3a', 'inloggen bij MOZa'], titel: 'Inloggen bij MOZa', sub: 'MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.',
+    tags: [['Gevraagd door MOZa', 'paars'], ['Uit de wallet van Karin', 'neutral']], kaarten: TOONT,
     noot: 'Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.', open: BINDING.replace(' Het BSN mag een private partij als de aanbieder niet gebruiken.', ''), bron: 'Veldnamen zijn illustratief.' },
-  '3b': { kop: ['Stap 3b', 'ingelogd'], titel: 'Ingelogd bij MOZa', sub: 'MOZa controleert de handtekeningen van de RvIG en de KVK, of de attestaties niet zijn ingetrokken (statuslijst) en of de PID en de bevoegdheid over dezelfde persoon gaan.',
+  '3b': { type: 'sessie', kaartTitel: 'Sessie bij MOZa', kop: ['Stap 3b', 'ingelogd'], titel: 'Ingelogd bij MOZa', sub: 'MOZa controleert de handtekeningen van de RvIG en de KVK, of de attestaties niet zijn ingetrokken (statuslijst) en of de PID en de bevoegdheid over dezelfde persoon gaan.',
     tags: [['Sessie bij MOZa', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('MOZa', 'berichten en zaken van Koffiezaak Noon inzien'),
     open: 'Of MOZa Karin doorstuurt naar de KVK, de Belastingdienst en RVO (SSO), of dat ze bij elke dienst opnieuw haar wallet toont, staat nog niet vast. Hier is telkens opnieuw tonen uitgewerkt.', bron: '' },
-  '4a': { kop: ['Stap 4a', 'inloggen bij de KVK'], titel: 'Inloggen bij de KVK als vertegenwoordiger', sub: 'Nu niet om de bevoegdheid op te halen, maar om namens Koffiezaak Noon iets te regelen, bijvoorbeeld een wijziging in het Handelsregister. De KVK vraagt dezelfde twee attestaties.',
-    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+  '4a': { type: 'tonen', kop: ['Stap 4a', 'inloggen bij de KVK'], titel: 'Inloggen bij de KVK als vertegenwoordiger', sub: 'Nu niet om de bevoegdheid op te halen, maar om namens Koffiezaak Noon iets te regelen, bijvoorbeeld een wijziging in het Handelsregister. De KVK vraagt dezelfde twee attestaties.',
+    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']], kaarten: TOONT,
     noot: 'De KVK is hier uitgever van de bevoegdheid en ook de dienst die hem controleert.', bron: 'Veldnamen zijn illustratief.' },
-  '4b': { kop: ['Stap 4b', 'ingelogd'], titel: 'Ingelogd bij de KVK', sub: 'De KVK laat Karin binnen namens Koffiezaak Noon.',
+  '4b': { type: 'sessie', kaartTitel: 'Sessie bij de KVK', kop: ['Stap 4b', 'ingelogd'], titel: 'Ingelogd bij de KVK', sub: 'De KVK laat Karin binnen namens Koffiezaak Noon.',
     tags: [['Sessie bij de KVK', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('de KVK', 'wijziging doorgeven in het Handelsregister'), bron: '' },
-  '5a': { kop: ['Stap 5a', 'inloggen bij de Belastingdienst'], titel: 'Inloggen bij de Belastingdienst', sub: 'De Belastingdienst vraagt dezelfde twee attestaties.',
+  '5a': { type: 'tonen', kop: ['Stap 5a', 'inloggen bij de Belastingdienst'], titel: 'Inloggen bij de Belastingdienst', sub: 'De Belastingdienst vraagt dezelfde twee attestaties.',
     tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de wallet van Karin', 'neutral']],
-    rijen: [...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de Belastingdienst daarom vraagt (open punt)'], ...BEVOEGD_KORT],
+    kaarten: [K_PID([...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de Belastingdienst daarom vraagt (open punt)']]), K_BEV(BEVOEGD_KORT)],
     open: 'Of de Belastingdienst ook het BSN vraagt, en of de volledige bevoegdheid volstaat of er een mandaat per dienst nodig is, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
-  '5b': { kop: ['Stap 5b', 'ingelogd'], titel: 'Ingelogd bij de Belastingdienst', sub: 'De Belastingdienst laat Karin binnen namens Koffiezaak Noon.',
+  '5b': { type: 'sessie', kaartTitel: 'Sessie bij de Belastingdienst', kop: ['Stap 5b', 'ingelogd'], titel: 'Ingelogd bij de Belastingdienst', sub: 'De Belastingdienst laat Karin binnen namens Koffiezaak Noon.',
     tags: [['Sessie bij de Belastingdienst', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('de Belastingdienst', 'btw-aangifte doen'), bron: '' },
-  '6a': { kop: ['Stap 6a', 'inloggen bij RVO'], titel: 'Inloggen bij RVO', sub: 'RVO vraagt dezelfde twee attestaties, bijvoorbeeld om subsidie aan te vragen.',
-    tags: [['Gevraagd door RVO', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+  '6a': { type: 'tonen', kop: ['Stap 6a', 'inloggen bij RVO'], titel: 'Inloggen bij RVO', sub: 'RVO vraagt dezelfde twee attestaties, bijvoorbeeld om subsidie aan te vragen.',
+    tags: [['Gevraagd door RVO', 'paars'], ['Uit de wallet van Karin', 'neutral']], kaarten: TOONT,
     open: 'RVO werkt nu met eHerkenning en machtigingen per dienst. Hoe dat zich verhoudt tot de bevoegdheid uit de wallet, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
-  '6b': { kop: ['Stap 6b', 'ingelogd'], titel: 'Ingelogd bij RVO', sub: 'RVO laat Karin binnen namens Koffiezaak Noon.',
+  '6b': { type: 'sessie', kaartTitel: 'Sessie bij RVO', kop: ['Stap 6b', 'ingelogd'], titel: 'Ingelogd bij RVO', sub: 'RVO laat Karin binnen namens Koffiezaak Noon.',
     tags: [['Sessie bij RVO', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('RVO', 'subsidie aanvragen'), bron: '' },
 };
 const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'persoonsgegevens'], ebwoid: ['EBWOID', 'welk bedrijf het is'],
@@ -1314,15 +1330,26 @@ const bouwPaneel = () => {
     naar(huidig + Number(knop.dataset.richting));
   });
 };
+const SOORTEN = {
+  tonen: ['Attestaties tonen', 'OpenID4VP: gegevens uit attestaties die er al zijn'],
+  uitgifte: ['Attestatie uitgeven', 'OpenID4VCI: er komt een nieuwe attestatie bij'],
+  vraag: ['Verzoek om attestaties', 'er worden nog geen gegevens gedeeld'],
+  verzoek: ['Verzoek of handeling', 'geen attestatie'],
+  sessie: ['Resultaat: ingelogd', 'geen attestatie, een sessie bij de dienst'],
+};
+const KAART_LABEL = { uitgifte: (a) => `Nieuwe attestatie · ${a.attType || ''}`, vraag: () => 'Verzoek · nog geen gegevens gedeeld',
+  verzoek: () => 'Gegevens van het verzoek · geen attestatie', sessie: () => 'Sessie · geen attestatie' };
 const gegevensHtml = (a, [kop, regel2], soort) => {
   const punten = [a.noot && `<li>${esc(a.noot)}</li>`, a.open && `<li><strong>Open punt.</strong> ${esc(a.open.replace(/^Open punten?: /, ''))}</li>`].filter(Boolean).join('');
   return `
     <p class="att-label">${esc(soort)} · ${a.tags.map(([t]) => esc(t)).join(' · ')}</p>
     <h2 class="att-titel">${kop} <span>${esc(regel2)}</span></h2>
+    ${a.type ? `<p class="att-soort" data-soort="${a.type}"><strong>${SOORTEN[a.type][0]}</strong><span>${SOORTEN[a.type][1]}</span></p>` : ''}
     <p class="att-lead">${esc(a.sub)}</p>
     ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
-    ${(a.kaarten || [a]).map((k) => `<div class="att-kaart">
-      <div class="att-kaart-kop"><strong>${esc(k.titel)}</strong><span>${esc(a.tags.map(([t]) => t).join(' · '))}</span></div>
+    ${(a.kaarten || [{ ...a, soort: a.type, titel: a.kaartTitel || a.titel, label: a.type && KAART_LABEL[a.type]?.(a) }]).map((k) => `<div class="att-kaart"${k.soort ? ` data-soort="${k.soort}"` : ''}>
+      ${k.label ? `<p class="att-kaart-label">${esc(k.label)}</p>` : ''}
+      <div class="att-kaart-kop"><strong>${esc(k.titel)}</strong><span>${esc(k.bij || a.tags.map(([t]) => t).join(' · '))}</span></div>
       <dl class="att-velden">${k.rijen.map(([veld, waarde, uitleg]) => `
         <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
       </dl>
