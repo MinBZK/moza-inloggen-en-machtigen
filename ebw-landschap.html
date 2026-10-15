@@ -80,7 +80,46 @@
       .pres-rijen dt, .pres-rijen dd { animation: none; }
       .pres-kaart svg * { transition: none; }
     }
-    /* Klikbare attestaties in het schema: openen het paneel met de gegevens */
+    /* Gegevens van een attestatie: overlay in de vorm van de presentatielaag. Links de uitleg op blauw,
+       rechts de attestatie als kaart, zoals hij in de wallet staat. */
+    #att-overlay {
+      --pres-pad: clamp(24px, 3.5vw, 72px);
+      position: fixed; inset: 0; z-index: 2147483001; box-sizing: border-box;
+      display: grid; grid-template-columns: minmax(300px, 42fr) 58fr; grid-template-rows: minmax(0, 1fr); gap: clamp(24px, 3vw, 64px);
+      padding: var(--pres-pad); overflow: hidden; color: #fff;
+      font-family: "RijksSans", system-ui, sans-serif;
+      background: radial-gradient(120% 140% at 0% 0%, #1d4f86 0%, #1a3a66 48%, #172b4f 100%);
+    }
+    #att-overlay[hidden] { display: none; }
+    #att-overlay:focus { outline: none; }
+    #att-overlay .pres-tekst { overflow: auto; }
+    .att-label {
+      display: inline-block; margin: 0 0 1.4em; padding: 0.35em 0.9em; border-radius: 999px;
+      background: rgb(255 255 255 / 0.14); font-weight: 700; font-size: clamp(13px, min(1vw, 1.8vh), 18px);
+    }
+    .att-lead { margin: 0 0 1.2em; font-size: clamp(16px, min(1.4vw, 2.5vh), 28px); line-height: 1.4; }
+    .att-punten { margin: 0 0 1.2em; padding-left: 1.2em; font-size: clamp(14px, min(1.05vw, 1.9vh), 20px); line-height: 1.45; }
+    .att-punten li { margin-bottom: 0.6em; animation: pres-in 0.6s ease both; }
+    .att-punten strong { color: #ffb612; }
+    .att-bron { margin: 0; padding-top: 1em; border-top: 1px solid rgb(255 255 255 / 0.3); font-size: clamp(12px, min(0.9vw, 1.6vh), 16px); color: rgb(255 255 255 / 0.8); line-height: 1.5; }
+    .att-beeld { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+    .att-kaart {
+      box-sizing: border-box; width: min(100%, 760px); max-height: 100%; overflow: auto; padding: clamp(20px, 2.5vw, 36px);
+      background: #fff; color: #1a1a2e; border-radius: 16px; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35); animation: pres-in 0.6s ease both;
+    }
+    .att-kaart-kop { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e3e6ea; }
+    .att-kaart-kop strong { font-size: clamp(18px, 1.5vw, 26px); }
+    .att-kaart-kop span { font-size: 13px; color: #5b6573; }
+    .att-velden { margin: 0; display: grid; gap: 12px; }
+    .att-velden div { display: grid; grid-template-columns: minmax(150px, 0.9fr) 1.6fr; gap: 2px 16px; padding-bottom: 12px; border-bottom: 1px solid #f0f2f4; }
+    .att-velden dt { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; color: #5b6573; overflow-wrap: anywhere; padding-top: 3px; }
+    .att-velden dd { margin: 0; font-size: clamp(16px, 1.2vw, 20px); font-weight: 700; overflow-wrap: anywhere; }
+    .att-velden dd small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: #5b6573; }
+    #att-overlay .pres-voet { position: absolute; right: var(--pres-pad); bottom: calc(var(--pres-pad) / 3); }
+    @media (max-width: 800px) {
+      #att-overlay { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); overflow: auto; }
+    }
+    /* Klikbare attestaties in het schema: openen de gegevens */
     #schema [data-att] { cursor: pointer; }
     #schema rect[data-att]:hover, #schema rect[data-att].is-hover { stroke-width: 2.5; }
     #schema text[data-att]:focus-visible { outline: 2px solid var(--semantics-focus-ring-color, #ffbf00); outline-offset: 2px; }
@@ -724,11 +763,6 @@
         </nldd-box>
       </nldd-container>
     </nldd-page-footer>
-    <nldd-sheet id="att-sheet" width="680px" accessible-label="Gegevens in de attestatie">
-      <nldd-page>
-        <nldd-container padding="24" gap="16" id="att-body"></nldd-container>
-      </nldd-page>
-    </nldd-sheet>
   </nldd-page>
 </nldd-app-view>
 
@@ -1132,56 +1166,77 @@ const ATTESTATIES = {
 };
 
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const attSheet = document.getElementById('att-sheet');
-const attBody = document.getElementById('att-body');
+// Kop in de stijl van de presentatie: tweede regel in geel
+const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'persoonsgegevens'], ebwoid: ['EBWOID', 'welk bedrijf het is'],
+  eucc: ['EUCC', 'bedrijfscertificaat'], bevoegdheid: ['Vertegenwoordigings&shy;bevoegdheid', 'wie mag handelen'] };
+let attOverlay, attTerugFocus;
+const bouwOverlay = () => {
+  attOverlay = document.createElement('div');
+  attOverlay.id = 'att-overlay';
+  attOverlay.hidden = true;
+  attOverlay.tabIndex = -1;
+  attOverlay.setAttribute('role', 'dialog');
+  attOverlay.setAttribute('aria-modal', 'true');
+  attOverlay.innerHTML = `
+    <div class="pres-tekst"></div>
+    <div class="att-beeld"><div class="att-kaart"></div></div>
+    <div class="pres-voet"><button type="button" data-att-close aria-label="Gegevens sluiten (Esc)">Sluiten</button></div>`;
+  document.body.append(attOverlay);
+};
+const sluitAttestatie = () => {
+  if (!attOverlay || attOverlay.hidden) return;
+  attOverlay.hidden = true;
+  if (!document.getElementById('presentatie') || document.getElementById('presentatie').hidden) document.documentElement.style.overflow = '';
+  attTerugFocus?.focus?.();
+};
 const openAttestatie = (id) => {
   const a = ATTESTATIES[id];
   if (!a) return;
-  attSheet.setAttribute('accessible-label', `Gegevens in de ${a.titel}`);
-  attBody.innerHTML = `
-    <nldd-title size="3">
-      <span slot="overline">Attestatie</span>
-      <h2>${esc(a.titel)}</h2>
-      <p slot="subtitle">${esc(a.sub)}</p>
-      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-att-close></nldd-icon-button>
-    </nldd-title>
-    <nldd-container layout="wrap" gap="4">${a.tags.map(([t, c]) => `<nldd-tag size="md" color="${c}" text="${esc(t)}"></nldd-tag>`).join('')}</nldd-container>
-    <nldd-table columns="minmax(220px,1.3fr) minmax(150px,1.2fr) minmax(170px,1.5fr)" accessible-label="Gegevens in ${esc(a.titel)}">
-      <nldd-table-row slot="header">
-        <nldd-text-cell text="Veld"></nldd-text-cell>
-        <nldd-text-cell text="Voorbeeld"></nldd-text-cell>
-        <nldd-text-cell text="Betekenis"></nldd-text-cell>
-      </nldd-table-row>
-      ${a.rijen.map(([veld, waarde, uitleg]) => `
-      <nldd-table-row>
-        <nldd-text-cell vertical-alignment="top" text="**${esc(veld)}**"></nldd-text-cell>
-        <nldd-text-cell vertical-alignment="top" text="${esc(waarde)}"></nldd-text-cell>
-        <nldd-text-cell vertical-alignment="top" color="secondary" text="${esc(uitleg)}"></nldd-text-cell>
-      </nldd-table-row>`).join('')}
-    </nldd-table>
-    ${a.noot ? `<nldd-banner variant="neutral" icon="info-circle" text="${esc(a.noot)}"></nldd-banner>` : ''}
-    ${a.open ? `<nldd-banner variant="warning" text="${esc(a.open)}"></nldd-banner>` : ''}
-    <nldd-rich-text spacing="tight"><p><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron)}</p></nldd-rich-text>`;
-  attSheet.show();
-  const page = attSheet.querySelector('nldd-page');
-  if (page) page.scrollTop = 0;
+  if (!attOverlay) bouwOverlay();
+  const [kop, regel2] = KOP[id];
+  const punten = [a.noot && `<li>${esc(a.noot)}</li>`, a.open && `<li><strong>Open punt.</strong> ${esc(a.open.replace(/^Open punten?: /, ''))}</li>`].filter(Boolean).join('');
+  attOverlay.setAttribute('aria-label', `Gegevens in de ${a.titel}`);
+  attOverlay.querySelector('.pres-tekst').innerHTML = `
+    <p class="att-label">Attestatie · ${a.tags.map(([t]) => esc(t)).join(' · ')}</p>
+    <h2 class="pres-titel">${kop} <span>${esc(regel2)}</span></h2>
+    <p class="att-lead">${esc(a.sub)}</p>
+    ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
+    <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron)}</p>`;
+  attOverlay.querySelector('.att-kaart').innerHTML = `
+    <div class="att-kaart-kop"><strong>${esc(a.titel)}</strong><span>${esc(a.tags.slice(1).map(([t]) => t).join(' · '))}</span></div>
+    <dl class="att-velden">${a.rijen.map(([veld, waarde, uitleg]) => `
+      <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
+    </dl>`;
+  attTerugFocus = document.activeElement;
+  attOverlay.hidden = false;
+  document.documentElement.style.overflow = 'hidden';
+  attOverlay.querySelector('.pres-tekst').scrollTop = 0;
+  attOverlay.querySelector('.att-kaart').scrollTop = 0;
+  attOverlay.focus();
 };
 
 // Klikken, en met het toetsenbord: tekst van een attestatie is focusbaar
 const schemaSvg = document.querySelector('#schema svg');
 schemaSvg.querySelectorAll('text[data-att]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); });
 const attVan = (e) => e.composedPath().find((el) => el instanceof Element && el.dataset?.att);
-document.addEventListener('click', (e) => {
-  if (e.composedPath().some((el) => el instanceof Element && el.hasAttribute?.('data-att-close'))) { attSheet.hide(); return; }
+window.addEventListener('click', (e) => {
+  if (e.composedPath().some((el) => el instanceof Element && el.hasAttribute?.('data-att-close'))) { e.stopPropagation(); sluitAttestatie(); return; }
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
   const el = attVan(e);
-  if (el && el.closest('#schema, #presentatie')) openAttestatie(el.dataset.att);
-});
-document.addEventListener('keydown', (e) => {
+  if (el && el.closest('#schema, #presentatie')) { e.stopPropagation(); openAttestatie(el.dataset.att); }
+}, true);
+window.addEventListener('keydown', (e) => {
+  if (attOverlay && !attOverlay.hidden) {
+    // Toetsen horen bij de gegevens, niet bij de presentatie eronder
+    if (e.key === 'Escape') { e.preventDefault(); sluitAttestatie(); }
+    if (e.key === 'Tab') { e.preventDefault(); attOverlay.querySelector('[data-att-close]').focus(); }
+    e.stopImmediatePropagation();
+    return;
+  }
   if (e.key !== 'Enter' && e.key !== ' ') return;
   const el = e.target instanceof Element && e.target.dataset?.att ? e.target : null;
-  if (el) { e.preventDefault(); openAttestatie(el.dataset.att); }
-});
+  if (el) { e.preventDefault(); e.stopImmediatePropagation(); openAttestatie(el.dataset.att); }
+}, true);
 // Bij aanwijzen van de tekst licht ook de rand van het bijbehorende vlak op
 schemaSvg.addEventListener('mouseover', (e) => {
   const el = e.target.closest?.('[data-att]');
