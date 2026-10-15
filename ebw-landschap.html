@@ -117,11 +117,11 @@
       margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw));
     }
     body.met-paneel .canvas > svg { min-width: 0; }
-    #schema svg *, #flow-schema svg * { transition: opacity 0.4s ease; }
+    #schema svg *, #flow-schema svg *, #login-schema svg * { transition: opacity 0.4s ease; }
     #schema svg .pres-uit { opacity: 0.06; }
     #schema rect.pres-licht { stroke: #ffb612 !important; stroke-width: 4 !important; }
     #schema text.pres-licht { font-weight: 700; }
-    #flow-schema svg.pres-dim [data-stap]:not(.pres-licht) { opacity: 0.2; }
+    #flow-schema svg.pres-dim [data-stap]:not(.pres-licht), #login-schema svg.pres-dim [data-login]:not(.pres-licht) { opacity: 0.2; }
     .att-rijen { display: grid; grid-template-columns: max-content 1fr; gap: 12px 20px; margin: 0 0 20px; }
     .att-rijen dt { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 13px; padding-top: 3px; }
     .att-rijen dd { margin: 0; font-size: 17px; line-height: 1.45; }
@@ -167,7 +167,8 @@
     .att-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) { #att-overlay { animation: none; } }
     /* Klikbare attestaties in het schema: openen de gegevens */
-    #schema [data-att], #flow-schema [data-stap] { cursor: pointer; }
+    #schema [data-att], #flow-schema [data-stap], #login-schema [data-login] { cursor: pointer; }
+    #login-schema text[data-login]:focus-visible { outline: 2px solid #ffbf00; outline-offset: 2px; }
     #flow-schema text[data-stap]:focus-visible { outline: 2px solid #ffbf00; outline-offset: 2px; }
     #schema rect[data-att]:hover, #schema rect[data-att].is-hover { stroke-width: 2.5; }
     #schema text[data-att]:focus-visible { outline: 2px solid var(--semantics-focus-ring-color, #ffbf00); outline-offset: 2px; }
@@ -192,7 +193,7 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
-        accessible-label="Kies een van de drie presentaties over het EBW-landschap"></nldd-button>
+        accessible-label="Kies een van de vier presentaties over het EBW-landschap"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
@@ -761,6 +762,161 @@
       </nldd-rich-text>
     </nldd-simple-section>
 
+    <nldd-simple-section id="login-sectie">
+      <nldd-title size="2">
+        <h2>Inloggen bij MOZa zonder eigen EBW</h2>
+        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. Koffiezaak Noon heeft geen EBW: Karin logt alleen met haar persoonlijke wallet in, bij MOZa, de KVK, de Belastingdienst en RVO. Haar vertegenwoordigingsbevoegdheid zegt namens welke onderneming ze handelt.</p>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-login" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+        accessible-label="Presenteer de stappen van inloggen bij MOZa zonder eigen EBW"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
+      <div class="canvas" id="login-schema" role="img" aria-labelledby="login-titel login-uitleg">
+<svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
+  <title id="login-titel">Volgordediagram: inloggen bij MOZa en andere dienstverleners zonder eigen EBW</title>
+  <desc id="login-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3a: Karin Jansen naar MOZa, toont PID en bevoegdheid (OpenID4VP). Stap 3b: MOZa naar Karin Jansen, ingelogd namens Koffiezaak Noon. Stap 4a: Karin Jansen naar KVK, toont PID en bevoegdheid. Stap 4b: KVK naar Karin Jansen, ingelogd namens de onderneming. Stap 5a: Karin Jansen naar Belastingdienst, toont PID en bevoegdheid. Stap 5b: Belastingdienst naar Karin Jansen, ingelogd namens Koffiezaak Noon. Stap 6a: Karin Jansen naar RVO, toont PID en bevoegdheid. Stap 6b: RVO naar Karin Jansen, ingelogd namens Koffiezaak Noon.</desc>
+  <defs>
+    <pattern id="grid3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="l-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
+    <marker id="l-login" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
+    <marker id="l-sessie" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
+  </defs>
+  <rect width="1280" height="730" fill="#fff"/>
+  <rect width="1280" height="730" fill="url(#grid3)"/>
+  <path d="M128 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="18" y="18" width="220" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <circle cx="44" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
+  <svg x="28" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="lcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#lcp-karin)"/></svg>
+  <svg x="196" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
+  <text x="128" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
+  <text x="128" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
+  <path d="M384 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="274" y="18" width="220" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="384" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
+  <text x="384" y="63" font-size="11.5" fill="#555" text-anchor="middle">uitgever en dienstverlener</text>
+  <path d="M640 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="530" y="18" width="220" height="60" rx="10" fill="#e8eef6" stroke="#154273"/>
+  <text x="640" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">MOZa</text>
+  <text x="640" y="63" font-size="11.5" fill="#555" text-anchor="middle">MijnOverheid Zakelijk</text>
+  <path d="M896 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="786" y="18" width="220" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="896" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
+  <text x="896" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstverlener</text>
+  <path d="M1152 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="1042" y="18" width="220" height="60" rx="10" fill="#f8cecc" stroke="#b85450"/>
+  <text x="1152" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">RVO</text>
+  <text x="1152" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstverlener</text>
+  <rect data-login="1" x="114" y="94" width="284" height="54" fill="transparent"/>
+  <path data-login="1" d="M144 132H380" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-login="1" cx="128" cy="132" r="12" fill="#2d7a46"/><text data-login="1" x="128" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-login="1" x="256" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
+  <rect data-login="2" x="114" y="154" width="284" height="54" fill="transparent"/>
+  <path data-login="2" d="M368 192H132" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#l-issue)"/>
+  <circle data-login="2" cx="384" cy="192" r="12" fill="#1f5fa8"/><text data-login="2" x="384" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-login="2" x="256" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
+  <text data-login="2" x="256" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
+  <rect data-login="3a" x="114" y="214" width="540" height="54" fill="transparent"/>
+  <path data-login="3a" d="M144 252H636" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-login="3a" cx="128" cy="252" r="12" fill="#2d7a46"/><text data-login="3a" x="128" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3a</text>
+  <text data-login="3a" x="384" y="230" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid</text>
+  <text data-login="3a" x="384" y="244" font-size="11.5" fill="#2d7a46" text-anchor="middle">(OpenID4VP)</text>
+  <rect data-login="3b" x="114" y="274" width="540" height="54" fill="transparent"/>
+  <path data-login="3b" d="M624 312H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-login="3b" cx="640" cy="312" r="12" fill="#0e7c86"/><text data-login="3b" x="640" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3b</text>
+  <text data-login="3b" x="384" y="304" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd namens Koffiezaak Noon</text>
+  <rect data-login="4a" x="114" y="334" width="284" height="54" fill="transparent"/>
+  <path data-login="4a" d="M144 372H380" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-login="4a" cx="128" cy="372" r="12" fill="#2d7a46"/><text data-login="4a" x="128" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4a</text>
+  <text data-login="4a" x="256" y="364" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid</text>
+  <rect data-login="4b" x="114" y="394" width="284" height="54" fill="transparent"/>
+  <path data-login="4b" d="M368 432H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-login="4b" cx="384" cy="432" r="12" fill="#0e7c86"/><text data-login="4b" x="384" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4b</text>
+  <text data-login="4b" x="256" y="424" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd namens de onderneming</text>
+  <rect data-login="5a" x="114" y="454" width="796" height="54" fill="transparent"/>
+  <path data-login="5a" d="M144 492H892" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-login="5a" cx="128" cy="492" r="12" fill="#2d7a46"/><text data-login="5a" x="128" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
+  <text data-login="5a" x="512" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid</text>
+  <rect data-login="5b" x="114" y="514" width="796" height="54" fill="transparent"/>
+  <path data-login="5b" d="M880 552H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-login="5b" cx="896" cy="552" r="12" fill="#0e7c86"/><text data-login="5b" x="896" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
+  <text data-login="5b" x="512" y="544" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd namens Koffiezaak Noon</text>
+  <rect data-login="6a" x="114" y="574" width="1052" height="54" fill="transparent"/>
+  <path data-login="6a" d="M144 612H1148" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-login="6a" cx="128" cy="612" r="12" fill="#2d7a46"/><text data-login="6a" x="128" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
+  <text data-login="6a" x="640" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid</text>
+  <rect data-login="6b" x="114" y="634" width="1052" height="54" fill="transparent"/>
+  <path data-login="6b" d="M1136 672H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-login="6b" cx="1152" cy="672" r="12" fill="#0e7c86"/><text data-login="6b" x="1152" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
+  <text data-login="6b" x="640" y="664" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd namens Koffiezaak Noon</text>
+</svg>
+      </div>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">a is steeds wat Karin toont, b het resultaat: ze is ingelogd namens de onderneming.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-list variant="box" aria-label="De stappen van inloggen zonder eigen EBW">
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij de KVK.**" supporting-text="Karin logt met de PID uit haar EUDI-wallet in bij de KVK."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Vertegenwoordigingsbevoegdheid.**" supporting-text="De KVK vindt haar in het handelsregister en geeft haar bevoegdheid als Pub-EAA in haar persoonlijke wallet. Die identificeert ook de onderneming; een EBW is niet nodig."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**3a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij MOZa.**" supporting-text="MOZa vraagt de PID en de vertegenwoordigingsbevoegdheid. Karin ziet in haar wallet wat er gevraagd wordt en deelt ze (OpenID4VP)."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**3b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Ingelogd bij MOZa.**" supporting-text="MOZa controleert beide attestaties en laat Karin binnen als Karin Jansen, namens Koffiezaak Noon."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**4a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij de KVK als vertegenwoordiger.**" supporting-text="Nu namens de onderneming, bijvoorbeeld om een wijziging door te geven. Ze toont dezelfde twee attestaties."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**4b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Ingelogd bij de KVK.**" supporting-text="De KVK laat Karin binnen namens Koffiezaak Noon."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**5a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij de Belastingdienst.**" supporting-text="Dezelfde twee attestaties; of de Belastingdienst ook het BSN vraagt, staat nog niet vast."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**5b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Ingelogd bij de Belastingdienst.**" supporting-text="Karin kan bijvoorbeeld btw-aangifte doen voor Koffiezaak Noon."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**6a**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij RVO.**" supporting-text="Dezelfde twee attestaties, bijvoorbeeld om subsidie aan te vragen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**6b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Ingelogd bij RVO.**" supporting-text="RVO laat Karin binnen namens Koffiezaak Noon."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+
     <nldd-simple-section id="ebw-houders">
       <nldd-title size="2"><h2>Wie kan een EBW hebben</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
@@ -1044,6 +1200,35 @@ const STAP_DATA = {
 };
 
 // Kop in de stijl van de presentatie: tweede regel in geel
+const INGELOGD = (dienst, voorbeeld) => [['Gebruiker', 'Karin Jansen', 'Uit de PID'], ['Namens', 'Koffiezaak Noon · KVK 12345678', 'Uit de vertegenwoordigingsbevoegdheid'],
+  ['Bevoegdheid', 'volledig (full_powers)', 'Eigenaar van een eenmanszaak'], ['Dienst', voorbeeld, `Wat Karin bij ${dienst} kan doen (voorbeeld)`]];
+const TOONT = [...PID_MATCH, ...BEVOEGD_KORT];
+const LOGIN_DATA = {
+  '1': { ...STAP_DATA['1'] },
+  '2': { ...STAP_DATA['2'], sub: 'De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.' },
+  '3a': { kop: ['Stap 3a', 'inloggen bij MOZa'], titel: 'Inloggen bij MOZa', sub: 'MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.',
+    tags: [['Gevraagd door MOZa', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+    noot: 'Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.', bron: 'Veldnamen zijn illustratief.' },
+  '3b': { kop: ['Stap 3b', 'ingelogd'], titel: 'Ingelogd bij MOZa', sub: 'MOZa controleert de handtekeningen van de RvIG en de KVK, of de attestaties niet zijn ingetrokken (statuslijst) en of de PID en de bevoegdheid over dezelfde persoon gaan.',
+    tags: [['Sessie bij MOZa', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('MOZa', 'berichten en zaken van Koffiezaak Noon inzien'),
+    open: 'Of MOZa Karin doorstuurt naar de KVK, de Belastingdienst en RVO (SSO), of dat ze bij elke dienst opnieuw haar wallet toont, staat nog niet vast. Hier is telkens opnieuw tonen uitgewerkt.', bron: '' },
+  '4a': { kop: ['Stap 4a', 'inloggen bij de KVK'], titel: 'Inloggen bij de KVK als vertegenwoordiger', sub: 'Nu niet om de bevoegdheid op te halen, maar om namens Koffiezaak Noon iets te regelen, bijvoorbeeld een wijziging in het Handelsregister. De KVK vraagt dezelfde twee attestaties.',
+    tags: [['Gevraagd door de KVK', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+    noot: 'De KVK is hier uitgever van de bevoegdheid en ook de dienst die hem controleert.', bron: 'Veldnamen zijn illustratief.' },
+  '4b': { kop: ['Stap 4b', 'ingelogd'], titel: 'Ingelogd bij de KVK', sub: 'De KVK laat Karin binnen namens Koffiezaak Noon.',
+    tags: [['Sessie bij de KVK', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('de KVK', 'wijziging doorgeven in het Handelsregister'), bron: '' },
+  '5a': { kop: ['Stap 5a', 'inloggen bij de Belastingdienst'], titel: 'Inloggen bij de Belastingdienst', sub: 'De Belastingdienst vraagt dezelfde twee attestaties.',
+    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de wallet van Karin', 'neutral']],
+    rijen: [...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de Belastingdienst daarom vraagt (open punt)'], ...BEVOEGD_KORT],
+    open: 'Of de Belastingdienst ook het BSN vraagt, en of de volledige bevoegdheid volstaat of er een mandaat per dienst nodig is, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
+  '5b': { kop: ['Stap 5b', 'ingelogd'], titel: 'Ingelogd bij de Belastingdienst', sub: 'De Belastingdienst laat Karin binnen namens Koffiezaak Noon.',
+    tags: [['Sessie bij de Belastingdienst', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('de Belastingdienst', 'btw-aangifte doen'), bron: '' },
+  '6a': { kop: ['Stap 6a', 'inloggen bij RVO'], titel: 'Inloggen bij RVO', sub: 'RVO vraagt dezelfde twee attestaties, bijvoorbeeld om subsidie aan te vragen.',
+    tags: [['Gevraagd door RVO', 'paars'], ['Uit de wallet van Karin', 'neutral']], rijen: TOONT,
+    open: 'RVO werkt nu met eHerkenning en machtigingen per dienst. Hoe dat zich verhoudt tot de bevoegdheid uit de wallet, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
+  '6b': { kop: ['Stap 6b', 'ingelogd'], titel: 'Ingelogd bij RVO', sub: 'RVO laat Karin binnen namens Koffiezaak Noon.',
+    tags: [['Sessie bij RVO', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('RVO', 'subsidie aanvragen'), bron: '' },
+};
 const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'persoonsgegevens'], ebwoid: ['EBWOID', 'welk bedrijf het is'],
   eucc: ['EUCC', 'bedrijfscertificaat'], bevoegdheid: ['Vertegenwoordigings&shy;bevoegdheid', 'wie mag handelen'] };
 // ---- Het paneel links: na de schermvullende presentatie de gegevens per attestatie (met het hele schema
@@ -1053,15 +1238,19 @@ const LANDSCHAP = ['pid-karin', 'bevoegdheid', 'ebwoid', 'eucc', 'pid-bilal'].ma
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
 const FLOW = ['1', '2', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
 const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie (oude links #/8 e.v. wijzen naar de attestaties)
-const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW } };
+const LOGIN = Object.keys(LOGIN_DATA).map((n) => ({ soort: 'login', n }));
+const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW },
+  inloggen: { titel: 'Inloggen zonder eigen EBW', slides: LOGIN } };
 let presKey = 'attestaties', SLIDES = LANDSCHAP;
-const positie = { attestaties: 0, flow: 0 };
+const positie = { attestaties: 0, flow: 0, inloggen: 0 };
 const schemaSvg = document.querySelector('#schema svg');
 const flowSvg = document.querySelector('#flow-schema svg');
+const loginSvg = document.querySelector('#login-schema svg');
 
 const wisAccent = () => {
   document.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
   flowSvg.classList.remove('pres-dim');
+  loginSvg.classList.remove('pres-dim');
 };
 
 let paneel, terugFocus, huidig = 0;
@@ -1122,6 +1311,13 @@ const toon = () => {
     const doel = schemaSvg.querySelectorAll(`[data-att="${sl.id}"]`);
     doel.forEach((el) => el.classList.add('pres-licht'));
     inBeeld(doel[0]);
+  } else if (sl.soort === 'login') {
+    const d = LOGIN_DATA[sl.n];
+    inhoud.innerHTML = gegevensHtml(d, d.kop, `Inloggen zonder eigen EBW · Stap ${sl.n}`);
+    loginSvg.classList.add('pres-dim');
+    const doel = loginSvg.querySelectorAll(`[data-login="${sl.n}"]`);
+    doel.forEach((el) => el.classList.add('pres-licht'));
+    inBeeld(doel[0]);
   } else {
     const d = STAP_DATA[sl.n];
     inhoud.innerHTML = gegevensHtml(d, d.kop, `Van nieuwe EBW tot mandaat · Stap ${sl.n}`);
@@ -1174,7 +1370,7 @@ const openKeuze = () => {
     keuze.setAttribute('aria-modal', 'true');
     keuze.setAttribute('aria-label', 'Kies een presentatie');
     keuze.innerHTML = `
-      <h2 class="pres-titel">Het EBW-landschap <span>in drie presentaties</span></h2>
+      <h2 class="pres-titel">Het EBW-landschap <span>in vier presentaties</span></h2>
       <div class="keuze-opties">
         <button type="button" data-kies="landschap">
           <span class="keuze-nr">Presentatie 1 · ${FS} slides</span>
@@ -1191,8 +1387,13 @@ const openKeuze = () => {
           <span class="keuze-naam">Van nieuwe EBW tot mandaat</span>
           <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
         </button>
+        <button type="button" data-kies="inloggen">
+          <span class="keuze-nr">Presentatie 4 · ${LOGIN.length} slides</span>
+          <span class="keuze-naam">Inloggen zonder eigen EBW</span>
+          <span class="keuze-uitleg">Karin logt met alleen haar persoonlijke wallet in bij MOZa, de KVK, de Belastingdienst en RVO.</span>
+        </button>
       </div>
-      <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>1, 2 of 3 kiest · Esc sluit</span></div>`;
+      <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>Kies met 1 tot en met 4 · Esc sluit</span></div>`;
     document.body.append(keuze);
     keuze.addEventListener('click', (e) => {
       const knop = e.target.closest('button');
@@ -1215,19 +1416,20 @@ const sluitKeuze = (terug = true) => {
 };
 const kies = (key) => {
   sluitKeuze(false);
-  if (key === 'flow') open('flow', 0);
+  if (key === 'flow' || key === 'inloggen') open(key, 0);
   else if (key === 'attestaties') open('attestaties', 0);
   else window.ebwPresentatie.open(0);
 };
 window.ebwKeuze = openKeuze;
 document.getElementById('presenteer')?.addEventListener('click', openKeuze);
 const slideVan = (soort, sleutel) => {
-  const key = soort === 'stap' ? 'flow' : 'attestaties';
+  const key = { stap: 'flow', login: 'inloggen' }[soort] || 'attestaties';
   return [key, PRESENTATIES[key].slides.findIndex((sl) => sl.soort === soort && (sl.id === sleutel || sl.n === sleutel))];
 };
 
 // Klikken op een attestatie of stap opent de presentatie op die plek
 schemaSvg.querySelectorAll('text[data-att]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); });
+loginSvg.querySelectorAll('circle[data-login] + text[data-login]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Gegevens bij stap ${t.dataset.login}`); });
 flowSvg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Gegevens bij stap ${t.dataset.stap}`); });
 window.addEventListener('click', (e) => {
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
@@ -1236,14 +1438,17 @@ window.addEventListener('click', (e) => {
   const bezig = paneel && !paneel.hidden; // tijdens een presentatie niet naar de andere springen
   if (att && att.closest('#schema')) { e.stopPropagation(); if (!bezig || presKey === 'attestaties') open(...slideVan('att', att.dataset.att)); return; }
   const stap = pad.find((el) => el.dataset?.stap);
-  if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); if (!bezig || presKey === 'flow') open(...slideVan('stap', stap.dataset.stap)); }
+  if (stap && stap.closest('#flow-schema')) { e.stopPropagation(); if (!bezig || presKey === 'flow') open(...slideVan('stap', stap.dataset.stap)); return; }
+  const login = pad.find((el) => el.dataset?.login);
+  if (login && login.closest('#login-schema')) { e.stopPropagation(); if (!bezig || presKey === 'inloggen') open(...slideVan('login', login.dataset.login)); }
 }, true);
 document.getElementById('presenteer-flow')?.addEventListener('click', () => open('flow', 0));
+document.getElementById('presenteer-login')?.addEventListener('click', () => open('inloggen', 0));
 const inInvoer = (e) => e.composedPath().some((el) => el instanceof HTMLElement && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)));
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey || inInvoer(e)) return;
   if (keuze && !keuze.hidden) {
-    const acties = { 1: () => kies('landschap'), 2: () => kies('attestaties'), 3: () => kies('flow'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
+    const acties = { 1: () => kies('landschap'), 2: () => kies('attestaties'), 3: () => kies('flow'), 4: () => kies('inloggen'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
     if (e.key in acties) { e.preventDefault(); e.stopPropagation(); acties[e.key](); }
     else if (e.key === 'Tab') {
       e.preventDefault();
@@ -1255,10 +1460,10 @@ window.addEventListener('keydown', (e) => {
   const actief = paneel && !paneel.hidden;
   // Shift+P opent de schermvullende presentatie (eigen script); is het paneel open, dan sluit het
   if (e.shiftKey && e.code === 'KeyP') { if (actief) { e.preventDefault(); e.stopImmediatePropagation(); sluit(); } return; }
-  const el = e.target instanceof Element && (e.target.dataset?.att || e.target.dataset?.stap) ? e.target : null;
+  const el = e.target instanceof Element && (e.target.dataset?.att || e.target.dataset?.stap || e.target.dataset?.login) ? e.target : null;
   if (el && (e.key === 'Enter' || e.key === ' ')) {
     e.preventDefault();
-    const [key, i] = el.dataset.att ? slideVan('att', el.dataset.att) : slideVan('stap', el.dataset.stap);
+    const [key, i] = el.dataset.att ? slideVan('att', el.dataset.att) : el.dataset.login ? slideVan('login', el.dataset.login) : slideVan('stap', el.dataset.stap);
     if (!actief || presKey === key) open(key, i);
     return;
   }
