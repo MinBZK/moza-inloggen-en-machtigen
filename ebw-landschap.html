@@ -208,7 +208,7 @@
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
   <title id="schema-titel">Schema van het EBW-landschap</title>
-  <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de EBWOID (identificatie van de onderneming) als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide mandaten (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn mandaat.</desc>
+  <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de EBWOID (identificatie van de onderneming) als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide machtigingen (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn machtiging.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/>
@@ -304,7 +304,7 @@
   <g font-size="12">
     <rect data-att="pid-bilal" x="112" y="466" width="206" height="26" rx="13" fill="#f5f5f5" stroke="#999"/>
     <text data-att="pid-bilal" x="124" y="483" fill="#333">PID (persoonsgegevens)</text>
-    <text x="116" y="512" font-size="11.5" fill="#666">Mandaten van Koffiezaak Noon (EAA):</text>
+    <text x="116" y="512" font-size="11.5" fill="#666">Machtigingen van Koffiezaak Noon (EAA):</text>
     <rect x="112" y="520" width="206" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="124" y="537" fill="#1f4d1c">Belastingdienst · inzien</text>
     <rect x="112" y="552" width="206" height="40" rx="13" fill="#dae8fc" stroke="#6c8ebf"/>
@@ -320,7 +320,7 @@
     <text x="124" y="652">• verklaring omtrent het gedrag (VOG)</text>
     <text x="124" y="667">• EHIC-zorgpas</text>
   </g>
-  <text x="116" y="686" font-size="11.5" fill="#666">Alleen de eigen mandaten,</text>
+  <text x="116" y="686" font-size="11.5" fill="#666">Alleen de eigen machtigingen,</text>
   <text x="116" y="701" font-size="11.5" fill="#666">niet die van collega's</text>
 
   <!-- ===== Onderneming ===== -->
@@ -342,9 +342,9 @@
   </g>
 
   <rect x="412" y="398" width="320" height="252" rx="8" fill="#fff" stroke="#9673a6"/>
-  <text x="428" y="421" font-size="13" font-weight="700" fill="#333">Afgegeven mandaten</text>
+  <text x="428" y="421" font-size="13" font-weight="700" fill="#333">Afgegeven machtigingen</text>
   <text x="428" y="439" font-size="11.5" fill="#666">uitgegeven door de onderneming; de EBW houdt bij</text>
-  <text x="428" y="458" font-size="11.5" font-weight="700" fill="#555">Voor Bilal (afgeleid mandaat, EAA)</text>
+  <text x="428" y="458" font-size="11.5" font-weight="700" fill="#555">Voor Bilal (afgeleide machtiging, EAA)</text>
   <g font-size="12">
     <rect x="424" y="464" width="296" height="26" rx="13" fill="#d5e8d4" stroke="#82b366"/>
     <text x="436" y="481" fill="#1f4d1c">Belastingdienst · inzien</text>
@@ -355,7 +355,7 @@
   <rect x="424" y="547" width="296" height="26" rx="13" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
   <text x="436" y="564" font-size="12" fill="#7a4500">Belastingdienst · aangifte doen (open punt)</text>
   <rect x="424" y="584" width="296" height="56" rx="8" fill="#fff" stroke="#d79b00" stroke-dasharray="4 3"/>
-  <text x="436" y="601" font-size="11.5" font-weight="700" fill="#7a4500">Open punt: vorm van het mandaat</text>
+  <text x="436" y="601" font-size="11.5" font-weight="700" fill="#7a4500">Open punt: vorm van de machtiging</text>
   <text x="436" y="617" font-size="11.5" fill="#7a4500">een losse attestatie (EAA) in de wallet,</text>
   <text x="436" y="632" font-size="11.5" fill="#7a4500">of alleen een rol binnen de EBW?</text>
 
@@ -472,11 +472,11 @@
     <path data-laag="bevoegdheid" d="M834 180H826V120H377V203H332" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 388H790V335H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
     <path d="M818 586H800V367H722" stroke="#1f5fa8" marker-end="url(#m-issue)"/>
-    <!-- open punt: mandaat van de Belastingdienst voor de eigenaar? -->
+    <!-- open punt: machtiging van de Belastingdienst voor de eigenaar? -->
     <path d="M412 560H402V245H322" stroke="#d79b00" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#m-open)"/>
     <!-- eigenaar machtigt in de EBW -->
     <path d="M330 300H390" stroke="#7a4f8c" stroke-dasharray="6 4" marker-end="url(#m-manage)"/>
-    <!-- mandaat vanuit de EBW naar de werknemer -->
+    <!-- machtiging vanuit de EBW naar de werknemer -->
     <path d="M392 533H332" stroke="#0e7c86" marker-end="url(#m-delegate)"/>
     <!-- inloggen -->
     <path d="M215 92V66H1256V360H1246" stroke="#2d7a46" stroke-dasharray="6 4" marker-end="url(#m-login)"/>
@@ -493,14 +493,14 @@
   <g font-size="11.5">
     <text data-laag="bevoegdheid" x="574" y="113" fill="#1f5fa8" text-anchor="middle">Pub-EAA vertegenwoordigingsbevoegdheid</text>
     <text x="368" y="293" fill="#7a4f8c" text-anchor="middle">machtigt</text>
-    <text x="372" y="238" fill="#7a4500" text-anchor="middle" font-weight="700">mandaat?</text>
+    <text x="361" y="238" font-size="10.5" fill="#7a4500" text-anchor="middle" font-weight="700">machtiging?</text>
     <rect x="625" y="803" width="300" height="18" fill="#fff"/>
     <text x="775" y="816" fill="#b46504" text-anchor="middle">levert de EBW van Koffiezaak Noon (ligt voor de hand)</text>
-    <text x="372" y="526" fill="#0e7c86" text-anchor="middle">mandaat</text>
+    <text x="361" y="526" font-size="10.5" fill="#0e7c86" text-anchor="middle">machtiging</text>
     <rect x="465" y="57" width="350" height="18" fill="#fff"/>
     <text x="640" y="70" fill="#2d7a46" text-anchor="middle">inloggen bij de Belastingdienst met de vertegenwoordigingsbevoegdheid</text>
     <rect x="490" y="851" width="300" height="18" fill="#fff"/>
-    <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Rotterdam met het mandaat</text>
+    <text x="640" y="864" fill="#2d7a46" text-anchor="middle">inloggen bij de gemeente Rotterdam met de machtiging</text>
     <text x="1080" y="705" fill="#b46504" text-anchor="middle" font-weight="700">€</text>
   </g>
   </g>
@@ -522,9 +522,9 @@
         <ol>
           <li>De RvIG (Rijksdienst voor Identiteitsgegevens) is de dienstverlener die de PID uitgeeft: de persoonsgegevens uit de BRP, in de persoonlijke EUDI-wallet van Karin en van Bilal. Met de PID tonen zij wie ze zijn, bijvoorbeeld bij het inloggen bij de KVK.</li>
           <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de EBWOID, de identificatie van de onderneming, als Pub-EAA uit aan de EBW van Koffiezaak Noon. Bij een vennootschap komt daar de EUCC bij, met onder meer de bestuurders, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
-          <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen apart mandaat nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
-          <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleid mandaat per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
-          <li>De werknemer ontvangt alleen zijn eigen mandaten in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Rotterdam.</li>
+          <li>Met die bevoegdheid treedt de eigenaar zelf op namens de onderneming, ook bij de Belastingdienst. In principe is geen aparte machtiging nodig, omdat de bevoegdheid uit het handelsregister volgt; zie de open punten bij het schema.</li>
+          <li>Vanuit de EBW machtigt de eigenaar de werknemer: een afgeleide machtiging per dienst. Dat is een gewone EAA, of een QEAA als het via een QTSP loopt.</li>
+          <li>De werknemer ontvangt alleen zijn eigen machtigingen in zijn persoonlijke EUDI-wallet en logt daarmee in bij de gemeente Rotterdam.</li>
           <li>De Belastingdienst geeft zelf als bronhouder meerdere attestaties uit als Pub-EAA, bijvoorbeeld een btw-identificatienummer of een verklaring betalingsgedrag. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar attestaties uitgeven, bijvoorbeeld vergunningen; dat zijn dan QEAA's. De voorbeelden zijn illustratief.</li>
           <li>Ook de wallet zelf: de Belastingdienst is zijn eigen, genotificeerde wallet-provider. De gemeente Rotterdam neemt haar EBW af bij dezelfde business wallet-aanbieder. Voor een onderneming als Koffiezaak Noon ligt dat ook voor de hand: zij neemt de EBW als dienst af en blijft zelf eigenaar; zij bepaalt wie wat mag.</li>
           <li>De Belastingdienst en de gemeente Rotterdam hebben zelf ook een EBW. Daarin ontvangen en presenteren ze attestaties, en ze communiceren ermee met andere EBW's.</li>
@@ -533,37 +533,37 @@
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4"><h3>Open punten in het schema</h3><p slot="subtitle">Gestippeld oranje in het schema. Zie ook <nldd-link href="webuild.html#open-punten" text="wat WE BUILD erover zegt"></nldd-link>.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
-      <nldd-banner variant="warning" heading-level="4" text="Mandaat voor Karin? Heeft Karin naast haar vertegenwoordigingsbevoegdheid ook een mandaat nodig, net als Bilal?">
+      <nldd-banner variant="warning" heading-level="4" text="Machtiging voor Karin? Heeft Karin naast haar vertegenwoordigingsbevoegdheid ook een machtiging nodig, net als Bilal?">
         <nldd-rich-text>
-          <p>Als dat zo is, werkt het net als bij Bilal: het mandaat staat in de EBW van de onderneming en Karin laadt het in haar persoonlijke wallet. In principe is het niet nodig: haar bevoegdheid volgt uit het handelsregister en de KVK geeft die als Pub-EAA. Toch kan een dienstverlener een eigen mandaat willen:</p>
+          <p>Als dat zo is, werkt het net als bij Bilal: de machtiging staat in de EBW van de onderneming en Karin laadt het in haar persoonlijke wallet. In principe is het niet nodig: haar bevoegdheid volgt uit het handelsregister en de KVK geeft die als Pub-EAA. Toch kan een dienstverlener een eigen machtiging willen:</p>
           <ul>
             <li><strong>Beperkte bevoegdheid.</strong> Is een eigenaar alleen samen met een andere bestuurder bevoegd (bijvoorbeeld bij een bv), of tot een bepaald bedrag, dan volstaat de KVK-attestatie niet zonder meer. De dienstverlener moet bepalen wat hij accepteert.</li>
             <li><strong>Koppeling met de eigen registratie.</strong> De Belastingdienst werkt met het omzetbelastingnummer, niet met het KVK-nummer. Die koppeling kan bij de dienstverlener zelf liggen, of via een attestatie zoals het btw-identificatienummer; die gaat over de onderneming en staat dan in de EBW, niet in Karins wallet.</li>
-            <li><strong>Rechten per dienst.</strong> Een dienstverlener kan onderscheid willen maken tussen bijvoorbeeld aangifte doen en inzien. In de flow <a href="ebw-flows.html#moza-3">Inloggen op MOZa</a> werkt het zo: daar krijgt Karin, ondanks haar tekenbevoegdheid, een mandaat van de Belastingdienst en van RVO.</li>
+            <li><strong>Rechten per dienst.</strong> Een dienstverlener kan onderscheid willen maken tussen bijvoorbeeld aangifte doen en inzien. In de flow <a href="ebw-flows.html#moza-3">Inloggen op MOZa</a> werkt het zo: daar krijgt Karin, ondanks haar tekenbevoegdheid, een machtiging van de Belastingdienst en van RVO.</li>
           </ul>
         </nldd-rich-text>
       </nldd-banner>
       <nldd-spacer size="12"></nldd-spacer>
-      <nldd-banner variant="warning" heading-level="4" text="Vorm van het mandaat: een losse attestatie in de wallet van de werknemer, of alleen een rol binnen de EBW?">
+      <nldd-banner variant="warning" heading-level="4" text="Vorm van de machtiging: een losse attestatie in de wallet van de werknemer, of alleen een rol binnen de EBW?">
         <nldd-rich-text>
-          <p>Een afgeleid mandaat kan op twee manieren worden vormgegeven. Als <strong>losse attestatie (EAA)</strong>: de EBW geeft Bilal een mandaat in zijn persoonlijke wallet, dat hij zelf toont bij het inloggen. Of als <strong>interne gebruikersrol</strong> binnen de EBW: Bilal krijgt geen eigen attestatie, maar mag namens de onderneming handelen met de EBW. Welke van de twee het wordt, is in de uitwerking van de EBW nog niet duidelijk.</p>
+          <p>Een afgeleide machtiging kan op twee manieren worden vormgegeven. Als <strong>losse attestatie (EAA)</strong>: de EBW geeft Bilal een machtiging in zijn persoonlijke wallet, dat hij zelf toont bij het inloggen. Of als <strong>interne gebruikersrol</strong> binnen de EBW: Bilal krijgt geen eigen attestatie, maar mag namens de onderneming handelen met de EBW. Welke van de twee het wordt, is in de uitwerking van de EBW nog niet duidelijk.</p>
         </nldd-rich-text>
       </nldd-banner>
     </nldd-simple-section>
 
     <nldd-simple-section id="flow-sectie">
       <nldd-title size="2">
-        <h2>Van nieuwe EBW tot mandaat in de persoonlijke wallet</h2>
-        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en mandaten, en de mandaten naar de persoonlijke wallets.</p>
+        <h2>Van nieuwe EBW tot machtiging in de persoonlijke wallet</h2>
+        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en machtigingen, en de machtigingen naar de persoonlijke wallets.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-button id="presenteer-flow" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
-        accessible-label="Presenteer de stappen van nieuwe EBW tot mandaat"></nldd-button>
+        accessible-label="Presenteer de stappen van nieuwe EBW tot machtiging"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
-<svg viewBox="0 0 1280 1042" xmlns="http://www.w3.org/2000/svg">
-  <title id="flow-titel">Volgordediagram: van nieuwe EBW tot mandaat in de persoonlijke wallet</title>
-  <desc id="flow-uitleg">Stap 1: Karin Jansen naar Business wallet-aanbieder, wil een EBW afnemen. Stap 2a: Business wallet-aanbieder naar Karin Jansen, vraagt PID en bevoegdheid (OpenID4VP). Stap 2b: Karin Jansen naar KVK, bevoegdheid ophalen; inloggen met PID. Stap 2c: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, toont PID en bevoegdheid; EBW afnemen. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont alleen haar bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: EBW Koffiezaak Noon naar Belastingdienst, Karin vraagt aan; toont EBWOID. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: EBW Koffiezaak Noon naar Gemeente Rotterdam, Karin vraagt aan; toont EBWOID. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt mandaten vast: wie mag wat. Stap 9: EBW Koffiezaak Noon naar Bilal Yılmaz, mandaten (EAA) naar Bilals wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, mandaat Belastingdienst? (open punt).</desc>
+<svg viewBox="0 0 1280 1102" xmlns="http://www.w3.org/2000/svg">
+  <title id="flow-titel">Volgordediagram: van nieuwe EBW tot machtiging in de persoonlijke wallet</title>
+  <desc id="flow-uitleg">Stap 1: Karin Jansen naar Business wallet-aanbieder, wil een EBW afnemen. Stap 2a: Business wallet-aanbieder naar Karin Jansen, vraagt PID en bevoegdheid (OpenID4VP). Stap 2b: Karin Jansen naar KVK, bevoegdheid ophalen; inloggen met PID. Stap 2c: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3: Karin Jansen naar Business wallet-aanbieder, toont PID en bevoegdheid; EBW afnemen. Stap 4: Business wallet-aanbieder naar EBW Koffiezaak Noon, maakt de EBW aan; Karin wordt beheerder. Stap 5a: EBW Koffiezaak Noon naar KVK, Karin vraagt vanuit de EBW aan; toont alleen haar bevoegdheid (OpenID4VP). Stap 5b: KVK naar EBW Koffiezaak Noon, EBWOID (Pub-EAA, OpenID4VCI). Stap 6a: Karin Jansen naar Belastingdienst, logt in met haar persoonlijke wallet; toont bevoegdheid. Stap 6b: Belastingdienst naar EBW Koffiezaak Noon, btw-id en meer (Pub-EAA's). Stap 7a: Karin Jansen naar Gemeente Rotterdam, logt in met haar persoonlijke wallet; toont bevoegdheid. Stap 7b: Gemeente Rotterdam naar EBW Koffiezaak Noon, vergunningen (QEAA's, door de aanbieder). Stap 8: Karin Jansen naar EBW Koffiezaak Noon, legt machtigingen vast: wie mag wat. Stap 9a: Bilal Yılmaz naar EBW Koffiezaak Noon, logt in op de EBW met zijn persoonlijke wallet (PID). Stap 9b: EBW Koffiezaak Noon naar Bilal Yılmaz, machtigingen (EAA) naar zijn wallet. Stap 10: EBW Koffiezaak Noon naar Karin Jansen, machtiging Belastingdienst? (open punt).</desc>
   <defs>
     <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="f-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
@@ -574,41 +574,41 @@
     <marker id="f-delegate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
     <marker id="f-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#d79b00"/></marker>
   </defs>
-  <rect width="1280" height="1042" fill="#fff"/>
-  <rect width="1280" height="1042" fill="url(#grid2)"/>
-  <path d="M100 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect width="1280" height="1102" fill="#fff"/>
+  <rect width="1280" height="1102" fill="url(#grid2)"/>
+  <path d="M100 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="15" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="38" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
   <svg x="22" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#fcp-karin)"/></svg>
   <svg x="146" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
   <text x="96" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
   <text x="96" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
-  <path d="M280 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M280 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="195" y="18" width="170" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <svg x="326" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="266" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
   <text x="266" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
-  <path d="M460 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M460 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="375" y="18" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="460" y="41" font-size="12" font-weight="700" fill="#333" text-anchor="middle">Business wallet-aanbieder</text>
   <text x="390" y="63" font-size="11" fill="#555">bijv.</text>
   <image href="logos/credenco.svg" x="418" y="52" width="114" height="13"><title>Logo Credenco (voorbeeld van een business wallet-aanbieder)</title></image>
-  <path d="M640 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M640 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="555" y="18" width="170" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
   <svg x="686" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="626" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">EBW Noon</text>
   <text x="626" y="63" font-size="11.5" fill="#555" text-anchor="middle">zakelijke wallet</text>
-  <path d="M820 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M820 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="735" y="18" width="170" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
   <svg x="866" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="806" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
   <text x="806" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgever</text>
-  <path d="M1000 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M1000 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="915" y="18" width="170" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
   <svg x="1050" y="37" width="30" height="22" viewBox="6 0 98 72"><title>European Business Wallet</title><image href="logos/ebw.png" width="455" height="72"/></svg>
   <text x="982" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Gemeente Rotterdam</text>
   <text x="986" y="63" font-size="11.5" fill="#555" text-anchor="middle">EBW, uitgifte via aanbieder</text>
-  <path d="M1180 78V1030" stroke="#bbb" stroke-dasharray="4 4"/>
+  <path d="M1180 78V1090" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="1095" y="18" width="170" height="60" rx="10" fill="#fff" stroke="#666"/>
   <circle cx="1118" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
   <svg x="1102" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="fcp-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#fcp-bilal)"/></svg>
@@ -653,20 +653,18 @@
   <path data-stap="5b" d="M296 432H636" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle data-stap="5b" cx="280" cy="432" r="12" fill="#1f5fa8"/><text data-stap="5b" x="280" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
   <text data-stap="5b" x="460" y="424" font-size="11.5" fill="#1f5fa8" text-anchor="middle">EBWOID (Pub-EAA, OpenID4VCI)</text>
-  <rect data-stap="6a" x="626" y="454" width="220" height="54" fill="transparent"/>
-  <path data-stap="6a" d="M656 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle data-stap="6a" cx="640" cy="492" r="12" fill="#2d7a46"/><text data-stap="6a" x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
-  <text data-stap="6a" x="730" y="470" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan; toont</text>
-  <text data-stap="6a" x="730" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">EBWOID</text>
+  <rect data-stap="6a" x="86" y="454" width="748" height="54" fill="transparent"/>
+  <path data-stap="6a" d="M116 492H816" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="6a" cx="100" cy="492" r="12" fill="#2d7a46"/><text data-stap="6a" x="100" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
+  <text data-stap="6a" x="460" y="484" font-size="11.5" fill="#2d7a46" text-anchor="middle">logt in met haar persoonlijke wallet; toont bevoegdheid</text>
   <rect data-stap="6b" x="614" y="514" width="220" height="54" fill="transparent"/>
   <path data-stap="6b" d="M804 552H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle data-stap="6b" cx="820" cy="552" r="12" fill="#1f5fa8"/><text data-stap="6b" x="820" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
   <text data-stap="6b" x="730" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">btw-id en meer (Pub-EAA's)</text>
-  <rect data-stap="7a" x="626" y="574" width="400" height="54" fill="transparent"/>
-  <path data-stap="7a" d="M656 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
-  <circle data-stap="7a" cx="640" cy="612" r="12" fill="#2d7a46"/><text data-stap="7a" x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
-  <text data-stap="7a" x="820" y="590" font-size="11.5" fill="#2d7a46" text-anchor="middle">Karin vraagt aan;</text>
-  <text data-stap="7a" x="820" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont EBWOID</text>
+  <rect data-stap="7a" x="86" y="574" width="928" height="54" fill="transparent"/>
+  <path data-stap="7a" d="M116 612H996" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="7a" cx="100" cy="612" r="12" fill="#2d7a46"/><text data-stap="7a" x="100" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7a</text>
+  <text data-stap="7a" x="550" y="604" font-size="11.5" fill="#2d7a46" text-anchor="middle">logt in met haar persoonlijke wallet; toont bevoegdheid</text>
   <rect data-stap="7b" x="614" y="634" width="400" height="54" fill="transparent"/>
   <path data-stap="7b" d="M984 672H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#f-issue)"/>
   <circle data-stap="7b" cx="1000" cy="672" r="12" fill="#1f5fa8"/><text data-stap="7b" x="1000" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7b</text>
@@ -674,15 +672,19 @@
   <rect data-stap="8" x="86" y="694" width="580" height="54" fill="transparent"/>
   <path data-stap="8" d="M116 732H636" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-manage)"/>
   <circle data-stap="8" cx="100" cy="732" r="12" fill="#7a4f8c"/><text data-stap="8" x="100" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
-  <text data-stap="8" x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt mandaten vast: wie mag wat</text>
-  <rect data-stap="9" x="626" y="754" width="580" height="54" fill="transparent"/>
-  <path data-stap="9" d="M656 792H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
-  <circle data-stap="9" cx="640" cy="792" r="12" fill="#0e7c86"/><text data-stap="9" x="640" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
-  <text data-stap="9" x="910" y="784" font-size="11.5" fill="#0e7c86" text-anchor="middle">mandaten (EAA) naar Bilals wallet</text>
-  <rect data-stap="10" x="74" y="814" width="580" height="54" fill="transparent"/>
-  <path data-stap="10" d="M624 852H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
-  <circle data-stap="10" cx="640" cy="852" r="12" fill="#d79b00"/><text data-stap="10" x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
-  <text data-stap="10" x="370" y="844" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">mandaat Belastingdienst? (open punt)</text>
+  <text data-stap="8" x="370" y="724" font-size="11.5" fill="#7a4f8c" text-anchor="middle">legt machtigingen vast: wie mag wat</text>
+  <rect data-stap="9a" x="626" y="754" width="568" height="54" fill="transparent"/>
+  <path data-stap="9a" d="M1164 792H644" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#f-login)"/>
+  <circle data-stap="9a" cx="1180" cy="792" r="12" fill="#2d7a46"/><text data-stap="9a" x="1180" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9a</text>
+  <text data-stap="9a" x="910" y="784" font-size="11.5" fill="#2d7a46" text-anchor="middle">logt in op de EBW met zijn persoonlijke wallet (PID)</text>
+  <rect data-stap="9b" x="626" y="814" width="580" height="54" fill="transparent"/>
+  <path data-stap="9b" d="M656 852H1176" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#f-delegate)"/>
+  <circle data-stap="9b" cx="640" cy="852" r="12" fill="#0e7c86"/><text data-stap="9b" x="640" y="856" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9b</text>
+  <text data-stap="9b" x="910" y="844" font-size="11.5" fill="#0e7c86" text-anchor="middle">machtigingen (EAA) naar zijn wallet</text>
+  <rect data-stap="10" x="74" y="874" width="580" height="54" fill="transparent"/>
+  <path data-stap="10" d="M624 912H104" stroke="#d79b00" stroke-width="1.8" fill="none" stroke-dasharray="5 4" marker-end="url(#f-open)"/>
+  <circle data-stap="10" cx="640" cy="912" r="12" fill="#d79b00"/><text data-stap="10" x="640" y="916" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text data-stap="10" x="370" y="904" font-size="11.5" fill="#d79b00" text-anchor="middle" font-weight="700">machtiging Belastingdienst? (open punt)</text>
   </g>
 </svg>
       </div>
@@ -736,19 +738,19 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**6a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Aanvragen bij de Belastingdienst.**" supporting-text="Karin vraagt vanuit de EBW attestaties aan bij de EBW van de Belastingdienst. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat."></nldd-text-cell>
+          <nldd-text-cell text="**Inloggen bij de Belastingdienst.**" supporting-text="Karin logt met haar persoonlijke wallet in en toont haar vertegenwoordigingsbevoegdheid. Daaruit weet de Belastingdienst om welke onderneming het gaat en dat zij namens die onderneming mag handelen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**6b**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Attestaties van de Belastingdienst.**" supporting-text="De Belastingdienst zoekt de onderneming op in zijn eigen registratie en geeft als bronhouder bijvoorbeeld het btw-identificatienummer uit als Pub-EAA."></nldd-text-cell>
+          <nldd-text-cell text="**Attestaties van de Belastingdienst.**" supporting-text="De Belastingdienst zoekt de onderneming op in zijn eigen registratie en geeft als bronhouder bijvoorbeeld het btw-identificatienummer uit als Pub-EAA, aan de EBW van Koffiezaak Noon. De EBW laat daarbij zijn EBWOID zien, zodat de Belastingdienst weet dat het de juiste EBW is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**7a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Aanvragen bij de gemeente Rotterdam.**" supporting-text="Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente Rotterdam."></nldd-text-cell>
+          <nldd-text-cell text="**Inloggen bij de gemeente Rotterdam.**" supporting-text="Op dezelfde manier logt Karin met haar persoonlijke wallet in bij de gemeente Rotterdam en toont haar bevoegdheid."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -760,19 +762,25 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Mandaten vastleggen.**" supporting-text="Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Rotterdam een vergunning aanvragen."></nldd-text-cell>
+          <nldd-text-cell text="**Machtigingen vastleggen.**" supporting-text="Karin legt als beheerder in de EBW vast wie wat mag: Bilal mag bij de Belastingdienst inzien en bij de gemeente Rotterdam een vergunning aanvragen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**9**"></nldd-text-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**9a**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Mandaten naar Bilal.**" supporting-text="De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet. Alleen zijn eigen mandaten, niet die van collega's."></nldd-text-cell>
+          <nldd-text-cell text="**Bilal logt in op de EBW.**" supporting-text="Bilal logt met zijn persoonlijke wallet in op de EBW van Koffiezaak Noon en toont zijn PID. Zo koppelt de EBW de machtigingen die Karin vastlegde aan hem."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**9b**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Machtigingen naar Bilal.**" supporting-text="De EBW geeft Bilal zijn machtigingen als EAA in zijn persoonlijke wallet. Alleen zijn eigen machtigingen, niet die van collega's."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**10**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Mandaat voor Karin? (open punt)**" supporting-text="Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net zo: vanuit de EBW naar haar persoonlijke wallet. Zie de open punten bij het schema."></nldd-text-cell>
+          <nldd-text-cell text="**Machtiging voor Karin? (open punt)**" supporting-text="Heeft Karin naast haar bevoegdheid ook een machtiging nodig, dan gaat het net zo: vanuit de EBW naar haar persoonlijke wallet. Zie de open punten bij het schema."></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
@@ -952,7 +960,7 @@
       <nldd-title size="3"><h3>Wat zit er in een wallet</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
-        <p>Een wallet bevat vooral attestaties die <strong>aan</strong> de wallethouder zijn uitgegeven. Zelf attestaties uitgeven aan anderen is een aparte rol: uitgever (issuer). Wel kan een onderneming vanuit haar EBW mandaten afgeven en delegeren aan haar medewerkers.</p>
+        <p>Een wallet bevat vooral attestaties die <strong>aan</strong> de wallethouder zijn uitgegeven. Zelf attestaties uitgeven aan anderen is een aparte rol: uitgever (issuer). Wel kan een onderneming vanuit haar EBW machtigingen afgeven en delegeren aan haar medewerkers.</p>
       </nldd-rich-text>
     </nldd-simple-section>
 
@@ -1019,8 +1027,8 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const LEGEND = [
   ['#1f5fa8', '', 'Uitgifte van de PID of van een attestatie (Pub-EAA of QEAA)'],
   ['#7a4f8c', '6 4', 'Eigenaar machtigt in de EBW'],
-  ['#0e7c86', '', 'Mandaat vanuit de EBW naar de werknemer (EAA)'],
-  ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of mandaat'],
+  ['#0e7c86', '', 'Machtiging vanuit de EBW naar de werknemer (EAA)'],
+  ['#2d7a46', '6 4', 'Inloggen met bevoegdheid of machtiging'],
   ['#b46504', '', 'Dienst van een business wallet-aanbieder, tegen betaling'],
   ['#d79b00', '5 4', 'Open punt: hier moet nog een besluit worden genomen'],
 ];
@@ -1049,7 +1057,7 @@ const HOLDERS = [
   ['house', 'Publieke organisaties', 'De Belastingdienst, gemeentes en andere overheidsinstanties.'],
   ['flag', 'EU-instellingen', 'Voor hen geeft de Europese Commissie de identificatiegegevens uit.'],
   ['person', 'Eenmanszaken en zzp\'ers', 'Kunnen ook hun persoonlijke EUDI-wallet gebruiken voor zakelijke vertrouwensdiensten.'],
-  ['person-2', 'Geen EBW: natuurlijke personen', 'De eigenaar of bestuurder heeft een persoonlijke EUDI-wallet en treedt via zijn vertegenwoordigingsbevoegdheid of een mandaat op namens de onderneming.'],
+  ['person-2', 'Geen EBW: natuurlijke personen', 'De eigenaar of bestuurder heeft een persoonlijke EUDI-wallet en treedt via zijn vertegenwoordigingsbevoegdheid of een machtiging op namens de onderneming.'],
 ];
 document.getElementById('houders').innerHTML = HOLDERS.map(([icon, title, text], i) => `
   <nldd-list-item>
@@ -1122,7 +1130,7 @@ const ATTESTATIES = {
       ['schema_id, revocation_id', '(technisch)', 'Welk schema, en waar de intrekkingsstatus staat'],
       ['authentic_source_id, authentic_source_name', 'KVK · Handelsregister', 'Bronregister, als dat afwijkt van de uitgever (optioneel)'],
     ],
-    noot: 'Niet in de EBWOID: vertegenwoordigingsbevoegdheid, mandaten, adres of SBI-code; die horen in aparte attestaties. Een dienst krijgt daarom een combinatie te zien: de EBWOID (welk bedrijf), de PID (welke persoon) en een bevoegdheidsbewijs (EUCC, vertegenwoordigingsbevoegdheid of mandaat). De attestatie is atomair: geen selective disclosure, want je hebt beide kernattributen nodig.',
+    noot: 'Niet in de EBWOID: vertegenwoordigingsbevoegdheid, machtigingen, adres of SBI-code; die horen in aparte attestaties. Een dienst krijgt daarom een combinatie te zien: de EBWOID (welk bedrijf), de PID (welke persoon) en een bevoegdheidsbewijs (EUCC, vertegenwoordigingsbevoegdheid of machtiging). De attestatie is atomair: geen selective disclosure, want je hebt beide kernattributen nodig.',
     open: 'Welke partij in Nederland de EBWOID formeel uitgeeft, staat nog niet vast. Aanname: een eenmanszaak krijgt alleen een EUID via de EBWOID, dus alleen als hij een EBW afneemt. Zonder EBW identificeert de vertegenwoordigingsbevoegdheid de onderneming, met het KVK-nummer.',
     bron: 'Velden volgens EWC RFC005 (Issue Legal Person Identification Data), de basis voor de pilots. De definitieve EBW-uitvoeringshandelingen kunnen ruimer uitvallen.',
   },
@@ -1214,38 +1222,45 @@ const STAP_DATA = {
     bron: 'Zie ook het open punt over de bevoegdheid bij de EBWOID.' },
   '5b': { type: 'uitgifte', kaartTitel: 'EBWOID', attType: 'Pub-EAA van de KVK', kop: ['Stap 5b', 'EBWOID'], titel: 'EBWOID ontvangen', sub: 'De KVK geeft de EBWOID als Pub-EAA uit aan de EBW van Koffiezaak Noon (OpenID4VCI).',
     tags: [['Verstuurd door de KVK', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']], rijen: A.ebwoid.rijen, noot: A.ebwoid.noot, open: A.ebwoid.open, bron: A.ebwoid.bron },
-  '6a': { type: 'tonen', kop: ['Stap 6a', 'aanvragen'], titel: 'Aanvragen bij de Belastingdienst', sub: 'Karin vraagt vanuit de EBW attestaties aan. De EBW toont de EBWOID, zodat de Belastingdienst weet om welke onderneming het gaat.',
-    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], kaarten: [K_EBWOID],
-    open: 'De EBWOID zegt alleen welk bedrijf het is, niet wie namens het bedrijf mag handelen. Of de Belastingdienst ook de PID en de bevoegdheid van Karin vraagt, staat nog niet vast.',
-    bron: 'De EBWOID is atomair: beide velden gaan altijd samen mee.' },
+  '6a': { type: 'tonen', kop: ['Stap 6a', 'inloggen bij de Belastingdienst'], titel: 'Inloggen bij de Belastingdienst', sub: 'Karin logt met haar persoonlijke wallet in bij de Belastingdienst en toont haar vertegenwoordigingsbevoegdheid (OpenID4VP). Daaruit weet de Belastingdienst om welke onderneming het gaat en dat Karin namens die onderneming mag handelen.',
+    tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de wallet van Karin', 'neutral']],
+    kaarten: [K_BEV([['legal_person_identifier', '12345678', 'KVK-nummer: om welke onderneming het gaat'], ['full_powers', 'true', 'Karin mag namens de onderneming attestaties aanvragen']])],
+    noot: 'Dat is genoeg om de attestaties aan de EBW van de onderneming uit te geven. Of de Belastingdienst ook de PID vraagt, om vast te leggen wie het deed, is een keuze van de dienst.',
+    open: 'Eenvoudiger: Karin doet dit één keer voor alle dienstverleners, bijvoorbeeld via MOZa, in plaats van per dienst. Welke dienstverleners relevant zijn, kan blijken uit wat er over de onderneming bekend is (rechtsvorm en activiteiten in het Handelsregister, btw-plicht, vergunningen), of de uitgevers sturen de EBW zelf een aanbod. Hoe dat werkt, staat nog niet vast.', bron: '' },
   '6b': { type: 'uitgifte', kaartTitel: 'Btw-ID-certificaat', attType: 'Pub-EAA van de Belastingdienst', kop: ['Stap 6b', 'btw-ID-certificaat'], titel: 'Btw-ID-certificaat ontvangen', sub: 'De Belastingdienst geeft als bronhouder onder meer het btw-ID-certificaat uit als Pub-EAA (met gekwalificeerd zegel).',
     tags: [['Verstuurd door de Belastingdienst', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
     rijen: [['EUID', 'NLNHR.12345678', 'De onderneming waaraan het btw-nummer is toegekend'], ['Btw-identificatienummer', 'NL000099998B57', 'Het btw-nummer zelf'], ['Uitgever', 'Belastingdienst', 'Pub-EAA met gekwalificeerd zegel']],
+    noot: 'De attestaties gaan naar de EBW van Koffiezaak Noon. Bij het ontvangen laat de EBW zijn EBWOID en WUA zien, zodat de Belastingdienst weet dat het de echte EBW van deze onderneming is. Dat gaat tussen de wallets; Karin accepteert alleen.',
     bron: 'Volgens WE BUILD BU3 (D2.1 p. 261, 289); de overige attributen staan in een concept-rulebook.' },
-  '7a': { type: 'tonen', kop: ['Stap 7a', 'aanvragen'], titel: 'Aanvragen bij de gemeente Rotterdam', sub: 'Op dezelfde manier vraagt Karin vanuit de EBW attestaties aan bij de gemeente; de EBW toont de EBWOID.',
-    tags: [['Gevraagd door de gemeente', 'paars'], ['Uit de EBW van Koffiezaak Noon', 'neutral']], kaarten: [K_EBWOID],
-    open: 'Net als bij de Belastingdienst: of de gemeente ook de bevoegdheid van Karin vraagt, staat nog niet vast.', bron: '' },
+  '7a': { type: 'tonen', kop: ['Stap 7a', 'inloggen bij de gemeente'], titel: 'Inloggen bij de gemeente Rotterdam', sub: 'Op dezelfde manier logt Karin met haar persoonlijke wallet in bij de gemeente Rotterdam en toont haar vertegenwoordigingsbevoegdheid (OpenID4VP).',
+    tags: [['Gevraagd door de gemeente', 'paars'], ['Uit de wallet van Karin', 'neutral']],
+    kaarten: [K_BEV([['legal_person_identifier', '12345678', 'KVK-nummer: om welke onderneming het gaat'], ['full_powers', 'true', 'Karin mag namens de onderneming attestaties aanvragen']])],
+    open: 'Net als bij de Belastingdienst: of de gemeente ook de PID vraagt, is een keuze van de dienst.', bron: '' },
   '7b': { type: 'uitgifte', kaartTitel: 'Exploitatievergunning', attType: 'QEAA, namens de gemeente Rotterdam', kop: ['Stap 7b', 'vergunning'], titel: 'Vergunning ontvangen', sub: 'De business wallet-aanbieder geeft als QTSP namens de gemeente bijvoorbeeld een vergunning uit als QEAA.',
     tags: [['Verstuurd namens de gemeente', 'paars'], ['Naar de EBW van Koffiezaak Noon', 'neutral']],
     rijen: [['Soort vergunning', 'Exploitatievergunning horeca', ''], ['Vergunningnummer', 'ROT-2027-001234', ''], ['Houder', 'Koffiezaak Noon · NLNHR.12345678', ''],
       ['Vestigingsadres', 'Voorbeeldstraat 1, 3011 AA Rotterdam', ''], ['Geldig', '2027-04-01 tot 2032-03-31', ''], ['Uitgever', 'Business wallet-aanbieder (QTSP), namens de gemeente Rotterdam', 'Een QEAA']],
-    noot: 'Illustratief: voor een vergunning als attestatie is nog geen standaard bekend.', bron: '' },
-  '8': { type: 'verzoek', kaartTitel: 'Mandaten in de EBW', kop: ['Stap 8', 'mandaten vastleggen'], titel: 'Karin legt mandaten vast', sub: 'Als beheerder legt Karin in de EBW vast wie wat mag. Dat zijn nog geen attestaties, maar de afspraken waaruit de EBW de mandaten afgeeft.',
+    noot: 'Illustratief: voor een vergunning als attestatie is nog geen standaard bekend. Ook hier laat de EBW bij het ontvangen zijn EBWOID en WUA zien.', bron: '' },
+  '8': { type: 'verzoek', kaartTitel: 'Machtigingen in de EBW', kop: ['Stap 8', 'machtigingen vastleggen'], titel: 'Karin legt machtigingen vast', sub: 'Als beheerder legt Karin in de EBW vast wie wat mag. Dat zijn nog geen attestaties, maar de afspraken waaruit de EBW de machtigingen afgeeft.',
     tags: [['In de EBW van Koffiezaak Noon', 'paars'], ['Door Karin, als beheerder', 'neutral']],
-    rijen: [['Gevolmachtigde', 'Bilal Yılmaz', 'Naam en geboortedatum, uit zijn PID'], ['Dienst en handeling', 'Belastingdienst · inzien', ''], ['Dienst en handeling', 'Gemeente Rotterdam · vergunning aanvragen', ''], ['Geldig vanaf', '2027-05-01', '']],
-    noot: 'Hoe het mandaat aan Bilal wordt gekoppeld, via naam en geboortedatum of direct aan zijn wallet, is een ontwerpkeuze.', bron: '' },
-  '9': { type: 'uitgifte', kop: ['Stap 9', 'mandaten naar Bilal'], titel: 'Mandaten in de wallet van Bilal', sub: 'De EBW geeft Bilal zijn mandaten als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
+    rijen: [['Gemachtigde', 'Bilal Yılmaz', 'Naam en geboortedatum, uit zijn PID'], ['Dienst en handeling', 'Belastingdienst · inzien', ''], ['Dienst en handeling', 'Gemeente Rotterdam · vergunning aanvragen', ''], ['Geldig vanaf', '2027-05-01', '']],
+    noot: 'Hoe de machtiging aan Bilal wordt gekoppeld, via naam en geboortedatum of direct aan zijn wallet, is een ontwerpkeuze.', bron: '' },
+  '9a': { type: 'tonen', kop: ['Stap 9a', 'inloggen op de EBW'], titel: 'Bilal logt in op de EBW', sub: 'Bilal logt met zijn persoonlijke wallet in op de EBW van Koffiezaak Noon en toont zijn PID (OpenID4VP). Zo koppelt de EBW de machtigingen die Karin vastlegde aan hem.',
+    tags: [['Gevraagd door de EBW', 'paars'], ['Uit de wallet van Bilal', 'neutral']],
+    kaarten: [K_PID([['given_name', 'Bilal', 'Voornamen'], ['family_name', 'Yılmaz', 'Achternaam'], ['birth_date', '1994-09-02', 'Geboortedatum: samen met de naam koppelt de EBW hem aan wat Karin vastlegde']], 'van de RvIG · uit de wallet van Bilal')],
+    noot: 'Karin legde in stap 8 de naam en geboortedatum van Bilal vast. Een uitnodiging die Karin hem vanuit de EBW stuurt, kan het koppelen eenvoudiger maken.', bron: '' },
+  '9b': { type: 'uitgifte', kop: ['Stap 9b', 'machtigingen naar Bilal'], titel: 'Machtigingen in de wallet van Bilal', sub: 'Daarna geeft de EBW Bilal zijn machtigingen als EAA in zijn persoonlijke wallet: per dienst een aparte attestatie.',
     tags: [['Verstuurd door de EBW', 'paars'], ['Naar de wallet van Bilal', 'neutral']],
     kaarten: [
-      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Mandaat 1 · Belastingdienst', bij: 'naar de wallet van Bilal', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
-      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Mandaat 2 · Gemeente Rotterdam', bij: 'naar de wallet van Bilal', rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gevolmachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Gemeente Rotterdam · vergunning aanvragen', 'Bijvoorbeeld een terrasvergunning; daarmee logt hij in bij de gemeente'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Machtiging 1 · Belastingdienst', bij: 'naar de wallet van Bilal', rijen: [['Machtiginggever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gemachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Belastingdienst · inzien', 'Wat hij mag; de betekenis is vooraf met de dienst afgesproken'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
+      { soort: 'uitgifte', label: 'Nieuwe attestatie · EAA van Koffiezaak Noon', titel: 'Machtiging 2 · Gemeente Rotterdam', bij: 'naar de wallet van Bilal', rijen: [['Machtiginggever', 'Koffiezaak Noon · NLNHR.12345678', 'De onderneming'], ['Gemachtigde', 'Bilal Yılmaz', 'Gekoppeld aan zijn PID of wallet'], ['Scope', 'Gemeente Rotterdam · vergunning aanvragen', 'Bijvoorbeeld een terrasvergunning; daarmee logt hij in bij de gemeente'], ['Geldig vanaf', '2027-05-01', ''], ['Status', 'statuslijst van de EBW', 'Zodat intrekken direct werkt']] },
     ],
-    open: 'Vorm van het mandaat: een losse attestatie (EAA) in de wallet, of alleen een rol binnen de EBW?',
+    open: 'Vorm van de machtiging: een losse attestatie (EAA) in de wallet, of alleen een rol binnen de EBW?',
     bron: 'In WE BUILD heet dit een Power of Employee (PoE): een EAA van de onderneming zelf, zonder authentieke bron (D2.1 p. 38, 369). Veldnamen zijn illustratief.' },
-  '10': { type: 'uitgifte', kaartTitel: 'Mandaat Belastingdienst (open punt)', attType: 'EAA van Koffiezaak Noon', kop: ['Stap 10', 'mandaat voor Karin?'], titel: 'Mandaat voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een mandaat nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
+  '10': { type: 'uitgifte', kaartTitel: 'Machtiging Belastingdienst (open punt)', attType: 'EAA van Koffiezaak Noon', kop: ['Stap 10', 'machtiging voor Karin?'], titel: 'Machtiging voor Karin (open punt)', sub: 'Heeft Karin naast haar bevoegdheid ook een machtiging nodig, dan gaat het net als bij Bilal: vanuit de EBW naar haar persoonlijke wallet.',
     tags: [['Open punt', 'paars'], ['Naar de wallet van Karin', 'neutral']],
-    rijen: [['Mandaatgever', 'Koffiezaak Noon · NLNHR.12345678', ''], ['Gevolmachtigde', 'Karin Jansen', ''], ['Scope', 'Belastingdienst · aangifte doen', '']],
-    open: 'In principe volstaat haar vertegenwoordigingsbevoegdheid. Een dienst kan toch een eigen mandaat willen, bijvoorbeeld bij beperkte bevoegdheid of rechten per dienst.', bron: '' },
+    rijen: [['Machtiginggever', 'Koffiezaak Noon · NLNHR.12345678', ''], ['Gemachtigde', 'Karin Jansen', ''], ['Scope', 'Belastingdienst · aangifte doen', '']],
+    open: 'In principe volstaat haar vertegenwoordigingsbevoegdheid. Een dienst kan toch een eigen machtiging willen, bijvoorbeeld bij beperkte bevoegdheid of rechten per dienst.', bron: '' },
 };
 
 // Kop in de stijl van de presentatie: tweede regel in geel
@@ -1269,7 +1284,7 @@ const LOGIN_DATA = {
   '5a': { type: 'tonen', kop: ['Stap 5a', 'inloggen bij de Belastingdienst'], titel: 'Inloggen bij de Belastingdienst', sub: 'De Belastingdienst vraagt dezelfde twee attestaties.',
     tags: [['Gevraagd door de Belastingdienst', 'paars'], ['Uit de wallet van Karin', 'neutral']],
     kaarten: [K_PID([...PID_MATCH, ['personal_administrative_number', '999999990', 'BSN, alleen als de Belastingdienst daarom vraagt (open punt)']]), K_BEV(BEVOEGD_KORT)],
-    open: 'Of de Belastingdienst ook het BSN vraagt, en of de volledige bevoegdheid volstaat of er een mandaat per dienst nodig is, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
+    open: 'Of de Belastingdienst ook het BSN vraagt, en of de volledige bevoegdheid volstaat of er een machtiging per dienst nodig is, staat nog niet vast.', bron: 'Veldnamen zijn illustratief.' },
   '5b': { type: 'sessie', kaartTitel: 'Sessie bij de Belastingdienst', kop: ['Stap 5b', 'ingelogd'], titel: 'Ingelogd bij de Belastingdienst', sub: 'De Belastingdienst laat Karin binnen namens Koffiezaak Noon.',
     tags: [['Sessie bij de Belastingdienst', 'paars'], ['Voor Karin', 'neutral']], rijen: INGELOGD('de Belastingdienst', 'btw-aangifte doen'), bron: '' },
   '6a': { type: 'tonen', kop: ['Stap 6a', 'inloggen bij RVO'], titel: 'Inloggen bij RVO', sub: 'RVO vraagt dezelfde twee attestaties, bijvoorbeeld om subsidie aan te vragen.',
@@ -1285,10 +1300,10 @@ const KOP = { 'pid-karin': ['PID', 'persoonsgegevens'], 'pid-bilal': ['PID', 'pe
 // paneel op die plek; pijltjestoetsen bladeren, Esc sluit.
 const LANDSCHAP = ['pid-karin', 'bevoegdheid', 'ebwoid', 'eucc', 'pid-bilal'].map((id) => ({ soort: 'att', id }));
 // Vaste volgorde: Object.keys zet '8' vóór '5a'
-const FLOW = ['1', '2a', '2b', '2c', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9', '10'].map((n) => ({ soort: 'stap', n }));
+const FLOW = ['1', '2a', '2b', '2c', '3', '4', '5a', '5b', '6a', '6b', '7a', '7b', '8', '9a', '9b', '10'].map((n) => ({ soort: 'stap', n }));
 const FS = window.ebwPresentatie?.aantal || 0; // slides van de schermvullende presentatie (oude links #/8 e.v. wijzen naar de attestaties)
 const LOGIN = Object.keys(LOGIN_DATA).map((n) => ({ soort: 'login', n }));
-const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot mandaat', slides: FLOW },
+const PRESENTATIES = { attestaties: { titel: 'Gegevens per attestatie', slides: LANDSCHAP }, flow: { titel: 'Van nieuwe EBW tot machtiging', slides: FLOW },
   inloggen: { titel: 'Inloggen zonder eigen EBW', slides: LOGIN } };
 let presKey = 'attestaties', SLIDES = LANDSCHAP;
 const positie = { attestaties: 0, flow: 0, inloggen: 0 };
@@ -1380,7 +1395,7 @@ const toon = () => {
     inBeeld(doel[0]);
   } else {
     const d = STAP_DATA[sl.n];
-    inhoud.innerHTML = gegevensHtml(d, d.kop, `Van nieuwe EBW tot mandaat · Stap ${sl.n}`);
+    inhoud.innerHTML = gegevensHtml(d, d.kop, `Van nieuwe EBW tot machtiging · Stap ${sl.n}`);
     flowSvg.classList.add('pres-dim');
     const doel = flowSvg.querySelectorAll(`[data-stap="${sl.n}"]`);
     doel.forEach((el) => el.classList.add('pres-licht'));
@@ -1444,7 +1459,7 @@ const openKeuze = () => {
         </button>
         <button type="button" data-kies="flow">
           <span class="keuze-nr">Presentatie 3 · ${FLOW.length} slides</span>
-          <span class="keuze-naam">Van nieuwe EBW tot mandaat</span>
+          <span class="keuze-naam">Van nieuwe EBW tot machtiging</span>
           <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
         </button>
         <button type="button" data-kies="inloggen">
@@ -1571,7 +1586,7 @@ if (new URLSearchParams(location.search).has('presentatie')) {
   ];
   const LAAG_STAP = Object.fromEntries(STAPPEN.map((s, i) => [s.laag, i]));
   LAAG_STAP.basis = LAAG_STAP.karin;
-  const SCHEMA_TITEL = 'Van PID tot <span>mandaat</span>';
+  const SCHEMA_TITEL = 'Van PID tot <span>machtiging</span>';
   const ZONDER_LAAG = new Set(['defs', 'title', 'desc']);
 
   let overlay, kaart, rijen, teller, status, vorige, volgende, svg, svgPlek, terugFocus;
