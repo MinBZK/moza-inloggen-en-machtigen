@@ -17,8 +17,8 @@ PAGES = ['index.html', 'eherkenning.html', 'ebw.html', 'ebw-landschap.html', 'eb
 COMMENTS_JS = '<script type="module" src="opmerkingen.js"></script>'
 TERMS_JS = '<script defer src="begrippen.js"></script>'
 
-CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">'
-CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>'
+CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">'
+CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>'
 MIME = {'.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml'}
 
 

@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WE BUILD-analyses</title>
-  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
-  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
 </head>
 <body>
-<nldd-app-view background="tinted">
+<nldd-shell background="tinted">
   <nldd-page>
 
     <nldd-simple-section id="intro">
@@ -17,7 +17,7 @@
       <nldd-title size="1">
         <span slot="overline">European Business Wallet</span>
         <h1>WE BUILD: analyses van de use cases</h1>
-        <p slot="subtitle">Wat het WE BUILD-consortium uitwerkt voor buitenlandse belastingaangifte (BU3), vertegenwoordiging van een onderneming (BU4) en toegang tot het Once-Only Technical System (BU6), en wat dat betekent voor MOZa.</p>
+        <p slot="supporting-text">Wat het WE BUILD-consortium uitwerkt voor buitenlandse belastingaangifte (BU3), vertegenwoordiging van een onderneming (BU4) en toegang tot het Once-Only Technical System (BU6), en wat dat betekent voor MOZa.</p>
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Pilot, geen productie"
@@ -32,14 +32,14 @@
     <nldd-simple-section id="kort">
       <nldd-title size="2"><h2>In het kort voor MOZa</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-list variant="box" id="takeaways" aria-label="Belangrijkste lessen voor MOZa"></nldd-list>
+      <nldd-list appearance="box-tinted" id="takeaways" aria-label="Belangrijkste lessen voor MOZa"></nldd-list>
     </nldd-simple-section>
 
     <nldd-simple-section id="bu3">
       <nldd-title size="2">
         <span slot="overline">BU3</span>
         <h2>Foreign Tax Declaration</h2>
-        <p slot="subtitle">Grensoverschrijdend btw-aangifte doen en een btw-ID-certificaat uitgeven als verifieerbare attestatie, via een portaal of machine-to-machine (D2.1 p. 18-21, 211-301).</p>
+        <p slot="supporting-text">Grensoverschrijdend btw-aangifte doen en een btw-ID-certificaat uitgeven als verifieerbare attestatie, via een portaal of machine-to-machine (D2.1 p. 18-21, 211-301).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-container layout="wrap" gap="4" id="bu3-tags"></nldd-container>
@@ -74,20 +74,20 @@
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4" id="bu3-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-title size="4" id="bu3-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="supporting-text">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-table id="bu3-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU3"></nldd-table>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen en de subset per scenario; de attributen van de EBWOID behalve de EUID; schema en formaat van de machtigingsattestatie en de PoA; de overige velden van het btw-ID-certificaat; de inhoud van de aangifte en de ontvangstbevestiging; identity matching. Dit staat in losse rulebooks en in specificaties die elke belastingdienst nog maakt (p. 221, 228, 276)."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-list variant="box" id="bu3-moza" aria-label="Betekenis van BU3 voor MOZa"></nldd-list>
+      <nldd-list appearance="box-tinted" id="bu3-moza" aria-label="Betekenis van BU3 voor MOZa"></nldd-list>
     </nldd-simple-section>
 
     <nldd-simple-section id="bu4">
       <nldd-title size="2">
         <span slot="overline">BU4</span>
         <h2>Company Representative acting on behalf of a Company</h2>
-        <p slot="subtitle">Een persoon rechtsgeldig en verifieerbaar laten handelen namens een onderneming, met gestandaardiseerde machtiging-attestaties. BU4 is de autorisatielaag onder de andere use cases (D2.1 p. 21-24, 304-384).</p>
+        <p slot="supporting-text">Een persoon rechtsgeldig en verifieerbaar laten handelen namens een onderneming, met gestandaardiseerde machtiging-attestaties. BU4 is de autorisatielaag onder de andere use cases (D2.1 p. 21-24, 304-384).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-container layout="wrap" gap="4" id="bu4-tags"></nldd-container>
@@ -121,29 +121,29 @@
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4" id="bu4-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-title size="4" id="bu4-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="supporting-text">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-table id="bu4-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU4"></nldd-table>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen; veldnamen, verplicht of optioneel en datatypes van PoA, PoX, PoE, EBWOID en EUCC; welk nummer de gevolmachtigde identificeert en de regels voor matching; het statusmechanisme. De rulebooks zijn aparte documenten (p. 324, 355, 377)."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-list variant="box" id="bu4-moza" aria-label="Betekenis van BU4 voor MOZa"></nldd-list>
+      <nldd-list appearance="box-tinted" id="bu4-moza" aria-label="Betekenis van BU4 voor MOZa"></nldd-list>
     </nldd-simple-section>
 
     <nldd-simple-section id="bu6">
       <nldd-title size="2">
         <span slot="overline">BU6</span>
         <h2>Business Access to Once-Only Technical System (OOTS)</h2>
-        <p slot="subtitle">De EUDI-wallet koppelen aan OOTS: in één interactie identiteit, vertegenwoordiging en bedrijfsgegevens leveren aan een publieke dienst in een andere lidstaat (D2.1 p. 25-27, 404-421).</p>
+        <p slot="supporting-text">De EUDI-wallet koppelen aan OOTS: in één interactie identiteit, vertegenwoordiging en bedrijfsgegevens leveren aan een publieke dienst in een andere lidstaat (D2.1 p. 25-27, 404-421).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-container layout="wrap" gap="4" id="bu6-tags"></nldd-container>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-box id="oots-definitie">
-        <nldd-container gap="12">
+        <nldd-container padding="16" gap="12">
           <nldd-title size="4">
             <h3>Wat is OOTS?</h3>
-            <p slot="subtitle">Once-Only Technical System: het Europese systeem voor het eenmalig aanleveren van gegevens.</p>
+            <p slot="supporting-text">Once-Only Technical System: het Europese systeem voor het eenmalig aanleveren van gegevens.</p>
           </nldd-title>
           <nldd-rich-text>
             <p>OOTS verbindt overheden in de EU, zodat zij op uitdrukkelijk verzoek van een burger of onderneming officiële documenten en gegevens rechtstreeks bij elkaar kunnen ophalen. Het idee is <strong>eenmalig aanleveren</strong> (once-only): wat een overheid in de ene lidstaat al heeft, hoef je in een andere lidstaat niet opnieuw in te leveren. De gebruiker logt in, kiest welk bewijs uit welk land nodig is, ziet het bewijs eerst zelf (preview) en geeft dan toestemming om het te delen.</p>
@@ -172,7 +172,7 @@
             <p>Inhoudelijk overlappen ze: de attestatie onderneming in de EBW en het OOTS-bewijs dat de rechtspersoon bestaat bevatten grotendeels dezelfde gegevens, en in beide gevallen is de KVK de bron. Het zijn dus twee kanalen voor dezelfde gegevens. De attestatie geeft de KVK één keer uit en de onderneming toont hem zelf, aan elke partij en ook binnen Nederland. Via OOTS haalt een buitenlandse overheid de gegevens op het moment zelf op, alleen tussen overheden en alleen bij grensoverschrijdende procedures.</p>
           </nldd-rich-text>
           <nldd-title size="5"><h4>Wanneer is OOTS relevant voor MOZa?</h4></nldd-title>
-          <nldd-list variant="box" id="oots-moza" aria-label="Wanneer is OOTS relevant voor MOZa"></nldd-list>
+          <nldd-list appearance="box-tinted" id="oots-moza" aria-label="Wanneer is OOTS relevant voor MOZa"></nldd-list>
           <nldd-title size="5"><h4>Waarom een tussenlaag, en niet direct bij de bron ophalen?</h4></nldd-title>
           <nldd-rich-text>
             <p>Direct ophalen kan, en dat is de wallet-route: het buitenlandse register geeft een attestatie rechtstreeks uit aan de EBW van de onderneming, zonder OOTS ertussen. Het verschil zit in wie ophaalt. Bij de wallet haalt de onderneming zelf haar attestatie op; zij weet bij welk register ze staat. Bij OOTS haalt de ene overheid het bewijs op bij de andere, en dan is een tussenlaag nodig:</p>
@@ -211,20 +211,20 @@
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4" id="bu6-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="subtitle">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
+      <nldd-title size="4" id="bu6-gegevens"><h3>Gegevens: PID en attestaties</h3><p slot="supporting-text">Wat de documenten over de inhoud zeggen. Veldnamen staan er letterlijk zoals in de bron.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-table id="bu6-data" columns="minmax(150px,1fr) minmax(170px,1.2fr) minmax(260px,2.4fr)" accessible-label="Gegevens in BU6"></nldd-table>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-banner variant="neutral" icon="info-circle" heading-level="4" text="Niet gespecificeerd in D2.1" supporting-text="Concrete PID-attributen en de optionele attributen per lidstaat; de veldnamen van het nummer en de naam van de rechtspersoon in de PoR, het formaat en de toegestane waarden van eService; het datamodel van het OOTS-bewijs; welke velden de identity swap-check precies vergelijkt (p. 414, 418-420)."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-list variant="box" id="bu6-moza" aria-label="Betekenis van BU6 voor MOZa"></nldd-list>
+      <nldd-list appearance="box-tinted" id="bu6-moza" aria-label="Betekenis van BU6 voor MOZa"></nldd-list>
     </nldd-simple-section>
 
     <nldd-simple-section id="architectuur">
       <nldd-title size="2">
         <span slot="overline">D4.1</span>
         <h2>Architectuur en vertrouwen</h2>
-        <p slot="subtitle">Wat het architectuurdocument zegt over rollen, attestaties, machtigingen en communicatie (D4.1 v1.0).</p>
+        <p slot="supporting-text">Wat het architectuurdocument zegt over rollen, attestaties, machtigingen en communicatie (D4.1 v1.0).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
@@ -255,7 +255,7 @@
     <nldd-simple-section id="open-punten">
       <nldd-title size="2">
         <h2>WE BUILD en onze open punten</h2>
-        <p slot="subtitle">Wat de documenten zeggen over de open punten in het <nldd-link href="ebw-landschap.html" text="EBW-landschap"></nldd-link>.</p>
+        <p slot="supporting-text">Wat de documenten zeggen over de open punten in het <nldd-link href="ebw-landschap.html" text="EBW-landschap"></nldd-link>.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-table id="open-tabel" columns="minmax(180px,1.2fr) minmax(240px,2fr)" accessible-label="Open punten en wat WE BUILD erover zegt"></nldd-table>
@@ -285,15 +285,15 @@
         <div id="opm-knop"></div>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Samenvatting van publieke WE BUILD-documenten; de bron blijft leidend.</p></nldd-rich-text>
         <nldd-box data-ai-disclaimer>
-          <nldd-container layout="row" gap="12" vertical-alignment="center">
-            <nldd-icon name="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
+          <nldd-container padding="16" layout="row" gap="12" vertical-alignment="center">
+            <nldd-icon icon="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
             <nldd-rich-text spacing="tight"><p>Bij het maken van deze content is gebruikgemaakt van AI.</p></nldd-rich-text>
           </nldd-container>
         </nldd-box>
       </nldd-container>
     </nldd-page-footer>
   </nldd-page>
-</nldd-app-view>
+</nldd-shell>
 
 <script type="module">
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

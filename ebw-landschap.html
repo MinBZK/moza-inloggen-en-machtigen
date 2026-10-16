@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EBW-landschap</title>
-  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
-  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
   <style>
     /* Uitzondering op NLDD-only: het schema is een SVG-tekening op een 'papieren' canvas in draw.io-stijl
        (bewust licht, ook in donkere modus). Alleen horizontaal scrollen op smalle schermen. */
@@ -113,7 +113,7 @@
     @media (prefers-reduced-motion: reduce) { .keuze-opties button { animation: none; } }
     /* Na de schermvullende presentatie: de gegevens per attestatie in een paneel links,
        de pagina schuift op en schaalt mee, zodat het schema helemaal zichtbaar blijft. */
-    body.met-paneel nldd-app-view {
+    body.met-paneel nldd-shell {
       margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw));
     }
     body.met-paneel .canvas > svg { min-width: 0; }
@@ -186,7 +186,7 @@
   </style>
 </head>
 <body>
-<nldd-app-view background="tinted">
+<nldd-shell background="tinted">
   <nldd-page>
 
     <nldd-simple-section id="intro">
@@ -195,15 +195,15 @@
       <nldd-title size="1">
         <span slot="overline">European Business Wallet</span>
         <h1>Het EBW-landschap</h1>
-        <p slot="subtitle">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een dienstverlener die attestaties uitgeeft, kiest zelf: als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens hem een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Rotterdam en een onderneming met twee mensen.</p>
+        <p slot="supporting-text">Ondernemingen en publieke organisaties, zoals de Belastingdienst en gemeentes, kunnen een EBW hebben. Personen, zoals de eigenaar van een onderneming, hebben geen EBW maar een persoonlijke EUDI-wallet. Een dienstverlener die attestaties uitgeeft, kiest zelf: als bronhouder een Pub-EAA uitgeven, of een commerciële QTSP namens hem een QEAA laten uitgeven. Een voorbeeld met de Belastingdienst, de gemeente Rotterdam en een onderneming met twee mensen.</p>
       </nldd-title>
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
     <nldd-simple-section id="schema-sectie">
-      <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="subtitle">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
+      <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="supporting-text">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
-      <nldd-button id="presenteer" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
+      <nldd-button id="presenteer" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
         accessible-label="Kies een van de vier presentaties over het EBW-landschap"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
@@ -515,9 +515,9 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-title size="4"><h3>Legenda</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
-      <nldd-list variant="simple" id="legend" aria-label="Legenda"></nldd-list>
+      <nldd-list appearance="simple" id="legend" aria-label="Legenda"></nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4" id="keten"><h3>Toelichting bij het schema</h3><p slot="subtitle">Zo lees je het schema hierboven, van links naar rechts.</p></nldd-title>
+      <nldd-title size="4" id="keten"><h3>Toelichting bij het schema</h3><p slot="supporting-text">Zo lees je het schema hierboven, van links naar rechts.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
@@ -532,7 +532,7 @@
         </ol>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Open punten in het schema</h3><p slot="subtitle">Gestippeld oranje in het schema. Zie ook <nldd-link href="webuild.html#open-punten" text="wat WE BUILD erover zegt"></nldd-link>.</p></nldd-title>
+      <nldd-title size="4"><h3>Open punten in het schema</h3><p slot="supporting-text">Gestippeld oranje in het schema. Zie ook <nldd-link href="webuild.html#open-punten" text="wat WE BUILD erover zegt"></nldd-link>.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-banner variant="warning" heading-level="4" text="Machtiging voor Karin? Heeft Karin naast haar vertegenwoordigingsbevoegdheid ook een machtiging nodig, net als Bilal?">
         <nldd-rich-text>
@@ -555,10 +555,10 @@
     <nldd-simple-section id="flow-sectie">
       <nldd-title size="2">
         <h2>Van nieuwe EBW tot machtiging in de persoonlijke wallet</h2>
-        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en machtigingen, en de machtigingen naar de persoonlijke wallets.</p>
+        <p slot="supporting-text">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. De volgorde voor Koffiezaak Noon: de EBW aanmaken, vullen met attestaties en machtigingen, en de machtigingen naar de persoonlijke wallets.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-button id="presenteer-flow" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+      <nldd-button id="presenteer-flow" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
         accessible-label="Presenteer de stappen van nieuwe EBW tot machtiging"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
@@ -690,9 +690,9 @@
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">De nummers horen bij de pijlen in het diagram hierboven; bij 5 tot en met 7 is a de aanvraag en b de uitgifte.</p></nldd-title>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="supporting-text">De nummers horen bij de pijlen in het diagram hierboven; bij 5 tot en met 7 is a de aanvraag en b de uitgifte.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
-      <nldd-list variant="box" aria-label="De stappen toegelicht">
+      <nldd-list appearance="box-tinted" aria-label="De stappen toegelicht">
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
@@ -785,7 +785,7 @@
         </nldd-list-item>
       </nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Hoe haalt Karin de attestaties op?</h3><p slot="subtitle">De KVK, de Belastingdienst en de gemeente Rotterdam hebben elk een EBW en treden daarmee op als uitgever. Een EBW kan uitgever, houder en verifier zijn (WE BUILD D4.1 p. 57).</p></nldd-title>
+      <nldd-title size="4"><h3>Hoe haalt Karin de attestaties op?</h3><p slot="supporting-text">De KVK, de Belastingdienst en de gemeente Rotterdam hebben elk een EBW en treden daarmee op als uitgever. Een EBW kan uitgever, houder en verifier zijn (WE BUILD D4.1 p. 57).</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
         <ol>
@@ -801,10 +801,10 @@
     <nldd-simple-section id="login-sectie">
       <nldd-title size="2">
         <h2>Inloggen bij MOZa zonder eigen EBW</h2>
-        <p slot="subtitle">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. Koffiezaak Noon heeft geen EBW. Karin logt één keer in bij MOZa met haar persoonlijke wallet; MOZa geeft haar vertegenwoordigingsbevoegdheid onder water door aan de KVK, de Belastingdienst en RVO. Zo is ze in één keer bij alle drie ingelogd.</p>
+        <p slot="supporting-text">Klik op een stap om te zien welke gegevens er worden gevraagd en verstuurd. Koffiezaak Noon heeft geen EBW. Karin logt één keer in bij MOZa met haar persoonlijke wallet; MOZa geeft haar vertegenwoordigingsbevoegdheid onder water door aan de KVK, de Belastingdienst en RVO. Zo is ze in één keer bij alle drie ingelogd.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-button id="presenteer-login" variant="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+      <nldd-button id="presenteer-login" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
         accessible-label="Presenteer de stappen van inloggen bij MOZa zonder eigen EBW"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="login-schema" role="img" aria-labelledby="login-titel login-uitleg">
@@ -888,9 +888,9 @@
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="subtitle">Vanaf stap 4 is a wat MOZa onder water doorgeeft en b het resultaat: Karin is ingelogd zonder iets te doen.</p></nldd-title>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="supporting-text">Vanaf stap 4 is a wat MOZa onder water doorgeeft en b het resultaat: Karin is ingelogd zonder iets te doen.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
-      <nldd-list variant="box" aria-label="De stappen van inloggen zonder eigen EBW">
+      <nldd-list appearance="box-tinted" aria-label="De stappen van inloggen zonder eigen EBW">
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
@@ -957,7 +957,7 @@
     <nldd-simple-section id="ebw-houders">
       <nldd-title size="2"><h2>Wie kan een EBW hebben</h2></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-list variant="box" id="houders" aria-label="Wie kan een EBW hebben"></nldd-list>
+      <nldd-list appearance="box-tinted" id="houders" aria-label="Wie kan een EBW hebben"></nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="3"><h3>Wat zit er in een wallet</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
@@ -970,7 +970,7 @@
     <nldd-simple-section id="vergelijking-sectie">
       <nldd-title size="2">
         <h2>Zelf doen of uit handen geven</h2>
-        <p slot="subtitle">Dit is een keuze van de dienstverlener: bij het uitgeven van attestaties (Pub-EAA of QEAA) en bij de wallet zelf (eigen wallet-provider of een business wallet-aanbieder).</p>
+        <p slot="supporting-text">Dit is een keuze van de dienstverlener: bij het uitgeven van attestaties (Pub-EAA of QEAA) en bij de wallet zelf (eigen wallet-provider of een business wallet-aanbieder).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-table id="vergelijking" columns="minmax(140px,1fr) minmax(200px,2fr) minmax(200px,2fr)" accessible-label="Vergelijking zelf doen en uit handen geven"></nldd-table>
@@ -1020,15 +1020,15 @@
         <div id="opm-knop"></div>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Rotterdam en Koffiezaak Noon zijn een voorbeeld.</p></nldd-rich-text>
         <nldd-box data-ai-disclaimer>
-          <nldd-container layout="row" gap="12" vertical-alignment="center">
-            <nldd-icon name="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
+          <nldd-container padding="16" layout="row" gap="12" vertical-alignment="center">
+            <nldd-icon icon="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
             <nldd-rich-text spacing="tight"><p>Bij het maken van deze content is gebruikgemaakt van AI.</p></nldd-rich-text>
           </nldd-container>
         </nldd-box>
       </nldd-container>
     </nldd-page-footer>
   </nldd-page>
-</nldd-app-view>
+</nldd-shell>
 
 <script type="module">
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

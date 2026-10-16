@@ -74,14 +74,14 @@ const renderChrome = () => {
   if (buttonHost) {
     const open = OPMERKINGEN.filter((o) => o.status === 'open').length;
     const done = OPMERKINGEN.length - open;
-    buttonHost.innerHTML = AAN ? `<nldd-button id="opm-open" variant="neutral-tinted" size="sm" start-icon="message-rectangle-text"
+    buttonHost.innerHTML = AAN ? `<nldd-button id="opm-open" appearance="neutral-tinted" size="sm" start-icon="message-rectangle-text"
       text="${esc(`Opmerkingen op deze pagina (${open} open, ${done} opgelost)`)}"></nldd-button>` : '';
     buttonHost.querySelector('#opm-open')?.addEventListener('click', () => { renderSheet(); sheet.show(); const page = sheet.querySelector('nldd-page'); if (page) page.scrollTop = 0; });
   }
 };
 
 // Draadje: opmerking, reacties en conclusie
-const row = (icon, color, overline, text, textColor = 'default') => `
+const row = (icon, color, overline, text, textColor = 'content') => `
   <nldd-list-item>
     <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
     <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
@@ -91,20 +91,20 @@ const row = (icon, color, overline, text, textColor = 'default') => `
 const threadRows = (o) => {
   const done = o.status === 'opgelost';
   return [
-    row(done ? 'check-mark-circle' : 'message-rectangle-text', done ? 'success' : 'accent', `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking), done ? 'secondary' : 'default'),
-    ...o.reacties.map((c) => row('arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'default')),
+    row(done ? 'check-mark-circle' : 'message-rectangle-text', done ? 'success' : 'accent', `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking), done ? 'secondary' : 'content'),
+    ...o.reacties.map((c) => row('arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'content')),
     done ? row('check-mark', 'success', `Opgelost door ${o.opgelost_door || 'een editor'}`, `Conclusie: ${oneLine(o.conclusie)}`, 'success') : '',
   ].join('');
 };
 const actionButtons = (o) => [
-  `<nldd-button data-opm-reply="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
-  IK?.editor && o.status === 'open' ? `<nldd-button data-opm-resolve="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
-  IK?.editor && o.status === 'opgelost' ? `<nldd-button data-opm-reopen="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
-  IK?.editor ? `<nldd-button data-opm-delete="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
-  o.status === 'open' && hostOfAnchor(o.anker) ? `<nldd-button data-opm-show="${o.nummer}" variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Toon op de pagina"></nldd-button>` : '',
+  `<nldd-button data-opm-reply="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
+  IK?.editor && o.status === 'open' ? `<nldd-button data-opm-resolve="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
+  IK?.editor && o.status === 'opgelost' ? `<nldd-button data-opm-reopen="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
+  IK?.editor ? `<nldd-button data-opm-delete="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
+  o.status === 'open' && hostOfAnchor(o.anker) ? `<nldd-button data-opm-show="${o.nummer}" appearance="neutral-transparent" size="xs" end-icon="chevron-right" text="Toon op de pagina"></nldd-button>` : '',
 ].filter(Boolean).join('');
 const threadBlock = (o) => `
-  <nldd-list variant="box">${threadRows(o)}
+  <nldd-list appearance="box-tinted">${threadRows(o)}
     <nldd-list-item>
       <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
       <nldd-cell><nldd-container layout="wrap" gap="4">${actionButtons(o)}</nldd-container></nldd-cell>
@@ -121,8 +121,8 @@ function renderSheet() {
     <nldd-title size="3">
       <span slot="overline">${esc(document.title)}</span>
       <h2>Opmerkingen op deze pagina</h2>
-      <p slot="subtitle">${esc(`${isMac ? 'Option (⌥)' : 'Alt'} + klik ergens op de pagina plaatst een nieuwe opmerking.`)}</p>
-      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-opm-close></nldd-icon-button>
+      <p slot="supporting-text">${esc(`${isMac ? 'Option (⌥)' : 'Alt'} + klik ergens op de pagina plaatst een nieuwe opmerking.`)}</p>
+      <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-opm-close></nldd-icon-button>
     </nldd-title>
     <nldd-title size="5"><h3>Open (${open.length})</h3></nldd-title>
     ${open.length ? group(open) : '<nldd-inline-dialog icon="message-rectangle-text" text="Geen open opmerkingen"></nldd-inline-dialog>'}
@@ -177,13 +177,13 @@ const showPopoverAt = (x, y) => {
 const openForm = (point, { label, overline = '', title, subtitle, field, submitText, note, send }) => {
   popover.setAttribute('accessible-label', label);
   popoverBody.innerHTML = `
-    <nldd-title size="6">${overline ? `<span slot="overline">${esc(overline)}</span>` : ''}<h2>${esc(title)}</h2><p slot="subtitle">${esc(subtitle)}</p></nldd-title>
+    <nldd-title size="6">${overline ? `<span slot="overline">${esc(overline)}</span>` : ''}<h2>${esc(title)}</h2><p slot="supporting-text">${esc(subtitle)}</p></nldd-title>
     <nldd-form-field label="${esc(field)}"><nldd-multi-line-text-field id="opm-text" rows="4" autofocus></nldd-multi-line-text-field></nldd-form-field>
     <nldd-container layout="wrap" gap="8">
-      <nldd-button id="opm-submit" variant="primary" size="sm" text="${esc(submitText)}"></nldd-button>
-      <nldd-button id="opm-cancel" variant="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
+      <nldd-button id="opm-submit" appearance="primary" size="sm" text="${esc(submitText)}"></nldd-button>
+      <nldd-button id="opm-cancel" appearance="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
     </nldd-container>
-    <nldd-title size="6"><p slot="subtitle" id="opm-note">${esc(note)}</p></nldd-title>`;
+    <nldd-title size="6"><p slot="supporting-text" id="opm-note">${esc(note)}</p></nldd-title>`;
   const textField = popoverBody.querySelector('#opm-text');
   const submit = popoverBody.querySelector('#opm-submit');
   submit.addEventListener('click', async () => {
@@ -220,7 +220,7 @@ const renderPins = () => {
     // Alleen een gewone (static) plek krijgt position: relative; een vaste kop blijft sticky
     if (getComputedStyle(host).position === 'static') host.setAttribute('data-opm-host', '');
     host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-opm-pin="${o.nummer}" size="sm" style="left:${Number.isFinite(parseFloat(x)) ? parseFloat(x) : 3}%;top:${Number.isFinite(parseFloat(y)) ? parseFloat(y) : 2}%"
-      variant="inherit-filled" icon="message-rectangle-text" text="Opmerking van ${esc(o.auteur)}"></nldd-icon-button>`);
+      appearance="inherit-filled" icon="message-rectangle-text" text="Opmerking van ${esc(o.auteur)}"></nldd-icon-button>`);
   });
 };
 
