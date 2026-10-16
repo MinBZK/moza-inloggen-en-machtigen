@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Roadmap inloggen en machtigen</title>
-  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.62/dist/css/global.css">
-  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.62"></script>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
   <style>
     /* Bewuste uitzondering op NLDD: nldd-table kent geen bevroren kolom of kopregel.
        Alleen voor de roadmaptabel, alleen DS-tokens. Niet uitbreiden. */
@@ -142,7 +142,7 @@
   </style>
 </head>
 <body>
-<nldd-app-view background="tinted">
+<nldd-shell background="tinted">
   <nldd-page>
 
     <nldd-simple-section width="full" id="intro">
@@ -150,7 +150,7 @@
       <nldd-title size="1">
         <span slot="overline">MijnOverheid Zakelijk</span>
         <h1>Roadmap inlog- en machtigings&shy;middelen 2027-2032</h1>
-        <p slot="subtitle">Hoe DigiD, eHerkenning en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p>
+        <p slot="supporting-text">Hoe DigiD, eHerkenning en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p>
       </nldd-title>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Concept - indicatieve planning"
@@ -170,43 +170,43 @@
 
       <nldd-container layout="grid" column-count="3" md-column-count="2" sm-column-count="1" gap="16">
         <nldd-box>
-          <nldd-container gap="8">
+          <nldd-container padding="16" gap="8">
             <nldd-title size="6"><h2>Horizon</h2></nldd-title>
             <nldd-container gap="8" id="legend-horizon"></nldd-container>
           </nldd-container>
         </nldd-box>
         <nldd-box>
-          <nldd-container gap="8">
+          <nldd-container padding="16" gap="8">
             <nldd-title size="6"><h2>Soort mijlpaal</h2></nldd-title>
             <nldd-container gap="4">
               <nldd-tag size="md" color="robijnrood" icon="flag-filled" text="Extern kader"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">Wet- of regelgeving, buiten invloed van MOZa</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">Wet- of regelgeving, buiten invloed van MOZa</p></nldd-title>
             </nldd-container>
             <nldd-container gap="4">
               <nldd-tag size="md" color="neutral" icon="link" text="Randvoorwaarde"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">EDI-wallet: maakt de EBW mogelijk, ingetogen weergegeven</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">EDI-wallet: maakt de EBW mogelijk, ingetogen weergegeven</p></nldd-title>
             </nldd-container>
             <nldd-container gap="4">
               <nldd-tag size="md" color="neutral" icon="arrow-up" text="Stippellijn"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">EDI-release maakt EBW-release mogelijk; wijs een kaart aan om de relatie te markeren</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">EDI-release maakt EBW-release mogelijk; wijs een kaart aan om de relatie te markeren</p></nldd-title>
             </nldd-container>
-            <nldd-title size="6"><p slot="subtitle">Kaarten zijn mijlpalen die MOZa zelf in de hand heeft.</p></nldd-title>
+            <nldd-title size="6"><p slot="supporting-text">Kaarten zijn mijlpalen die MOZa zelf in de hand heeft.</p></nldd-title>
           </nldd-container>
         </nldd-box>
         <nldd-box>
-          <nldd-container gap="8">
+          <nldd-container padding="16" gap="8">
             <nldd-title size="6"><h2>Bereik van de inlog</h2></nldd-title>
             <nldd-container gap="4">
               <nldd-tag size="md" color="paars" icon="house" text="Alleen MOZa-portaal"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">Middel geïntegreerd in MOZa; inloggen in het portaal</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">Middel geïntegreerd in MOZa; inloggen in het portaal</p></nldd-title>
             </nldd-container>
             <nldd-container gap="4">
               <nldd-tag size="md" color="paars" icon="link" text="Portaal + 1 dienstverlener"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">Met dezelfde inlog door naar een eerste dienstverlener</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">Met dezelfde inlog door naar een eerste dienstverlener</p></nldd-title>
             </nldd-container>
             <nldd-container gap="4">
               <nldd-tag size="md" color="paars" icon="centralized-network" text="Alle dienstverleners"></nldd-tag>
-              <nldd-title size="6"><p slot="subtitle">Eén keer inloggen voor alle aangesloten dienstverleners</p></nldd-title>
+              <nldd-title size="6"><p slot="supporting-text">Eén keer inloggen voor alle aangesloten dienstverleners</p></nldd-title>
             </nldd-container>
           </nldd-container>
         </nldd-box>
@@ -215,10 +215,10 @@
 
     <nldd-simple-section width="full" id="roadmap">
       <nldd-container slot="header" layout="wrap" gap="16" vertical-alignment="bottom">
-        <nldd-title size="3"><h2>Roadmap per spoor</h2><p slot="subtitle">Per tertiaal, vanaf februari 2027. Sleep de tijdlijn of gebruik de knoppen om door de jaren te bewegen; sporen en tertialen blijven in beeld.</p></nldd-title>
+        <nldd-title size="3"><h2>Roadmap per spoor</h2><p slot="supporting-text">Per tertiaal, vanaf februari 2027. Sleep de tijdlijn of gebruik de knoppen om door de jaren te bewegen; sporen en tertialen blijven in beeld.</p></nldd-title>
         <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
-        <nldd-button id="pan-prev" variant="secondary" size="sm" start-icon="chevron-left" text="Eerder"></nldd-button>
-        <nldd-button id="pan-next" variant="secondary" size="sm" end-icon="chevron-right" text="Later"></nldd-button>
+        <nldd-button id="pan-prev" appearance="secondary" size="sm" start-icon="chevron-left" text="Eerder"></nldd-button>
+        <nldd-button id="pan-next" appearance="secondary" size="sm" end-icon="chevron-right" text="Later"></nldd-button>
       </nldd-container>
       <nldd-table id="roadmap-table" accessible-label="Roadmap inlog- en machtigingsmiddelen per tertiaal"
         columns="minmax(184px,208px) repeat(18, minmax(216px,1fr))" sm-columns="156px repeat(18, 216px)"></nldd-table>
@@ -227,7 +227,7 @@
     <nldd-simple-section width="full" id="wie-logt-in">
       <nldd-title size="3" slot="header">
         <h2>Wie logt in met welk middel?</h2>
-        <p slot="subtitle">Indeling zoals bij Mijn Belastingdienst Zakelijk: eerst voor welke onderneming, dan de rol. Per middel vanaf wanneer het in MOZa werkt. Groen: kan; oranje: beperkt; grijs: niet voorzien of nog uit te werken. Ondernemers uit andere EU-landen loggen in met een Europees middel: nu European login (eIDAS), straks hun eigen EDI-wallet of business wallet.</p>
+        <p slot="supporting-text">Indeling zoals bij Mijn Belastingdienst Zakelijk: eerst voor welke onderneming, dan de rol. Per middel vanaf wanneer het in MOZa werkt. Groen: kan; oranje: beperkt; grijs: niet voorzien of nog uit te werken. Ondernemers uit andere EU-landen loggen in met een Europees middel: nu European login (eIDAS), straks hun eigen EDI-wallet of business wallet.</p>
       </nldd-title>
       <nldd-table id="login-table" accessible-label="Wie logt in met welk middel"
         columns="minmax(170px,1fr) minmax(200px,1.2fr) repeat(4, minmax(180px,1fr))"></nldd-table>
@@ -236,7 +236,7 @@
     <nldd-simple-section width="full" id="wensen">
       <nldd-title size="3" slot="header">
         <h2>Wanneer is een wens ingevuld?</h2>
-        <p slot="subtitle">Een eerste versie bedient de ondernemer vaak deels. Dit overzicht laat zien in welke release een wens voor het eerst en wanneer volledig wordt ingevuld.</p>
+        <p slot="supporting-text">Een eerste versie bedient de ondernemer vaak deels. Dit overzicht laat zien in welke release een wens voor het eerst en wanneer volledig wordt ingevuld.</p>
       </nldd-title>
       <nldd-table id="wishes-table" accessible-label="Wensen van de ondernemer en wanneer ze worden ingevuld"
         columns="minmax(240px,2fr) minmax(200px,1.5fr) minmax(200px,1.5fr) minmax(160px,1fr)"></nldd-table>
@@ -262,12 +262,12 @@
     <nldd-page-footer>
       <nldd-container padding="24" gap="16">
         <nldd-container layout="wrap" gap="8" id="archive-entry" hidden>
-          <nldd-button id="archive-open" variant="neutral-tinted" size="sm" start-icon="file-box" text="Opmerkingenarchief"></nldd-button>
+          <nldd-button id="archive-open" appearance="neutral-tinted" size="sm" start-icon="file-box" text="Opmerkingenarchief"></nldd-button>
         </nldd-container>
         <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026.</p><p>Externe kaders volgen eIDAS 2.0 (<a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" target="_blank" rel="noopener noreferrer">Verordening (EU) 2024/1183</a>) en het EBW-voorstel <a href="https://digitalpolicyalert.org/event/35575-european-commission-published-proposal-for-a-regulation-on-the-establishment-of-european-business-wallets" target="_blank" rel="noopener noreferrer">COM(2025) 838</a>; mijlpalen van MOZa zijn een werkvoorstel.</p></nldd-rich-text>
         <nldd-box data-ai-disclaimer>
-          <nldd-container layout="row" gap="12" vertical-alignment="center">
-            <nldd-icon name="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
+          <nldd-container padding="16" layout="row" gap="12" vertical-alignment="center">
+            <nldd-icon icon="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
             <nldd-rich-text spacing="tight"><p>Bij het maken van deze content is gebruikgemaakt van AI.</p></nldd-rich-text>
           </nldd-container>
         </nldd-box>
@@ -286,7 +286,7 @@
   </nldd-sheet>
   </nldd-page>
 
-</nldd-app-view>
+</nldd-shell>
 
 <script type="module">
 // Tertialen vanaf februari 2027: T1 feb-mei, T2 jun-sep, T3 okt-jan. T1 2027 is fase 6, daarna doortellen.
@@ -551,7 +551,7 @@ const infoLink = (id) => LOGOS[id]?.info
   : '';
 const laneLogo = (lane) => {
   const l = LOGOS[lane.id];
-  if (!l) return `<nldd-icon name="${lane.icon}" size="32" color="${lane.color}"></nldd-icon>`;
+  if (!l) return `<nldd-icon icon="${lane.icon}" size="32" color="${lane.color}"></nldd-icon>`;
   return `<picture>${l.dark ? `<source media="(prefers-color-scheme: dark)" srcset="${l.dark}">` : ''}<img src="${l.src}" alt="${l.alt}" height="${l.height}"></picture>`;
 };
 
@@ -630,7 +630,7 @@ const tag = (cfg, size = 'sm') =>
 
 // Legenda
 document.getElementById('legend-horizon').innerHTML = Object.values(HORIZON)
-  .map((h) => `<nldd-container gap="4">${tag(h, 'md')}<nldd-title size="6"><p slot="subtitle">${esc(h.help)}</p></nldd-title></nldd-container>`).join('');
+  .map((h) => `<nldd-container gap="4">${tag(h, 'md')}<nldd-title size="6"><p slot="supporting-text">${esc(h.help)}</p></nldd-title></nldd-container>`).join('');
 
 // Roadmaptabel
 const kaderTag = (code, size = 'sm') => {
@@ -647,7 +647,7 @@ const kaderItem = (lane, k) => `
       <span slot="overline">${esc(`Extern kader · ${k.status}`)}</span>
       <h4>${esc(k.title)}</h4>
     </nldd-title>
-    <nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Toelichting"
+    <nldd-button appearance="neutral-transparent" size="xs" end-icon="chevron-right" text="Toelichting"
       data-lane="${lane.id}" data-code="${k.code}"></nldd-button>
   </nldd-container>`;
 
@@ -661,7 +661,7 @@ const releaseCard = (lane, r) => `
       <nldd-container layout="wrap" gap="4">${tag(HORIZON[r.horizon])}${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}</nldd-container>
     </nldd-container>
     <nldd-container slot="footer" padding="16" padding-top="0">
-      <nldd-button variant="neutral-tinted" size="sm" end-icon="chevron-right" text="Verdieping"
+      <nldd-button appearance="neutral-tinted" size="sm" end-icon="chevron-right" text="Verdieping"
         data-lane="${lane.id}" data-code="${r.code}"></nldd-button>
     </nldd-container>
   </nldd-card>`;
@@ -669,7 +669,7 @@ const releaseCard = (lane, r) => `
 // Randvoorwaardelijk spoor: vlak, getint en zonder klantwaarde-label
 const prerequisiteItem = (lane, r) => `
   <nldd-box data-release="${lane.id}:${r.code}">
-    <nldd-container gap="4">
+    <nldd-container padding="16" gap="4">
       <nldd-title size="6">
         <span slot="overline">${esc(`${lane.name} ${r.code}`)}</span>
         <h4>${esc(r.title)}</h4>
@@ -677,7 +677,7 @@ const prerequisiteItem = (lane, r) => `
       <nldd-container layout="wrap" gap="4" vertical-alignment="center">
         <nldd-tag size="sm" color="neutral" icon="link" text="${esc(`Voor ${r.enables}`)}"></nldd-tag>${r.reach ? tag(REACH[r.reach]) : ''}${kaderTags(r)}
         <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
-        <nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="Details"
+        <nldd-button appearance="neutral-transparent" size="xs" end-icon="chevron-right" text="Details"
           data-lane="${lane.id}" data-code="${r.code}"></nldd-button>
       </nldd-container>
     </nldd-container>
@@ -695,25 +695,25 @@ const laneHeader = (lane) => lane.kader ? `
       <nldd-title size="5">
         <span slot="overline">Extern</span>
         <h3>${esc(lane.name)}</h3>
-        <p slot="subtitle">${esc(lane.tagline)}</p>
+        <p slot="supporting-text">${esc(lane.tagline)}</p>
       </nldd-title>
     </nldd-container>` : lane.prerequisite ? `
     <nldd-container role="rowheader" gap="4" padding-block="12">
       ${laneLogo(lane)}
       ${tbdTag(lane)}
-      <nldd-title size="6"><span slot="overline">Randvoorwaarde</span><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
+      <nldd-title size="6"><span slot="overline">Randvoorwaarde</span><p slot="supporting-text">${esc(lane.tagline)}</p></nldd-title>
     </nldd-container>` : !LOGOS[lane.id] ? `
     <nldd-container role="rowheader" gap="8" padding-block="12">
       ${laneLogo(lane)}
       <nldd-title size="5">
         <h3>${esc(lane.name)}</h3>
-        <p slot="subtitle">${esc(lane.tagline)}</p>
+        <p slot="supporting-text">${esc(lane.tagline)}</p>
       </nldd-title>
     </nldd-container>` : `
     <nldd-container role="rowheader" gap="8" padding-block="12">
       ${laneLogo(lane)}
       ${tbdTag(lane)}
-      <nldd-title size="6"><p slot="subtitle">${esc(lane.tagline)}</p></nldd-title>
+      <nldd-title size="6"><p slot="supporting-text">${esc(lane.tagline)}</p></nldd-title>
       ${infoLink(lane.id)}
     </nldd-container>`;
 
@@ -977,7 +977,7 @@ const fmtDate = (iso) => new Date(iso).toLocaleDateString('nl-NL', { day: 'numer
 const oneLine = (t) => String(t).replace(/\s+/g, ' ').trim();
 
 // Een draadje als ingesprongen regels direct onder het punt
-const threadRow = (icon, color, overline, text, textColor = 'default') => `
+const threadRow = (icon, color, overline, text, textColor = 'content') => `
     <nldd-list-item>
       <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
       <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
@@ -988,17 +988,17 @@ const threadRows = (o) => {
   const done = o.status === 'opgelost';
   return [
     threadRow(done ? 'check-mark-circle' : 'message-rectangle-text', done ? 'success' : 'accent',
-      `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking), done ? 'secondary' : 'default'),
-    ...o.reacties.map((c) => threadRow('arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'default')),
+      `${o.auteur} · ${fmtDate(o.datum)}`, oneLine(o.opmerking), done ? 'secondary' : 'content'),
+    ...o.reacties.map((c) => threadRow('arrow-u-turn-forward', 'secondary', `${c.auteur} · ${fmtDate(c.datum)}`, oneLine(c.tekst), done ? 'secondary' : 'content')),
     done ? threadRow('check-mark', 'success', `Opgelost door ${o.opgelost_door || 'een editor'}`, `Conclusie: ${oneLine(o.conclusie)}`, 'success') : '',
   ].join('');
 };
 // Acties bij een draadje: reageren voor iedereen, oplossen of heropenen voor editors
 const actionButtons = (o, size = 'xs') => [
-  `<nldd-button data-reply="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'primary'}" size="${size}" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
-  IK?.editor && o.status === 'open' ? `<nldd-button data-resolve="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
-  IK?.editor && o.status === 'opgelost' ? `<nldd-button data-reopen="${o.nummer}" variant="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
-  IK?.editor ? `<nldd-button data-delete="${o.nummer}" variant="neutral-transparent" size="${size}" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
+  `<nldd-button data-reply="${o.nummer}" appearance="${size === 'xs' ? 'neutral-transparent' : 'primary'}" size="${size}" start-icon="arrow-u-turn-forward" text="Reageren"></nldd-button>`,
+  IK?.editor && o.status === 'open' ? `<nldd-button data-resolve="${o.nummer}" appearance="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="check-mark" text="Oplossen"></nldd-button>` : '',
+  IK?.editor && o.status === 'opgelost' ? `<nldd-button data-reopen="${o.nummer}" appearance="${size === 'xs' ? 'neutral-transparent' : 'secondary'}" size="${size}" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button>` : '',
+  IK?.editor ? `<nldd-button data-delete="${o.nummer}" appearance="neutral-transparent" size="${size}" start-icon="trash" text="Verwijderen"></nldd-button>` : '',
 ].filter(Boolean);
 const actionRow = (o) => `
     <nldd-list-item>
@@ -1012,12 +1012,12 @@ const threads = (anchor) => commentsAt(anchor).filter((o) => o.status === 'open'
 const commentButton = (anchor, where, label) => {
   if (!COMMENTS_ON) return '';
   const open = commentsAt(anchor).filter((o) => o.status === 'open').length;
-  return `<nldd-cell vertical-alignment="top"><nldd-icon-button data-comment-anchor="${esc(anchor)}" data-comment-label="${esc(where)}" size="sm" variant="neutral-transparent"
+  return `<nldd-cell vertical-alignment="top"><nldd-icon-button data-comment-anchor="${esc(anchor)}" data-comment-label="${esc(where)}" size="sm" appearance="neutral-transparent"
     icon="message-rectangle-text" text="${esc(open ? `${label} (${open} open)` : label)}"></nldd-icon-button></nldd-cell>`;
 };
 
 const list = (items, icon, color, ctx) => `
-  <nldd-list variant="box">
+  <nldd-list appearance="box-tinted">
     ${items.map((t) => {
       const anchor = ctx && anchorOf(ctx.lane, ctx.r, ctx.section, t);
       return `
@@ -1039,8 +1039,8 @@ const generalComments = (lane, r, currentAnchors) => {
   const orphans = [...new Set(OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith(prefix) && o.anker !== general && !currentAnchors.includes(o.anker)).map((o) => o.anker))];
   return `
     <nldd-title size="5"><h3>Opmerkingen bij deze release</h3>
-      <p slot="subtitle">Plaats een opmerking met de knop bij een punt of met Option (Mac) of Alt + klik. Je naam komt uit je rijksaccount. Een editor lost een opmerking op met een conclusie.</p></nldd-title>
-    <nldd-list variant="box">
+      <p slot="supporting-text">Plaats een opmerking met de knop bij een punt of met Option (Mac) of Alt + klik. Je naam komt uit je rijksaccount. Een editor lost een opmerking op met een conclusie.</p></nldd-title>
+    <nldd-list appearance="box-tinted">
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
         <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
@@ -1115,8 +1115,8 @@ function renderKader(lane, idx) {
     <nldd-title size="3">
       <span slot="overline">${esc(`${lane.name} · ${k.when}`)}</span>
       <h2>${esc(k.title)}</h2>
-      <p slot="subtitle">${esc(k.summary)}</p>
-      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+      <p slot="supporting-text">${esc(k.summary)}</p>
+      <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
     <nldd-container layout="wrap" gap="8">
       <nldd-tag size="md" color="robijnrood" icon="flag-filled" text="Extern kader"></nldd-tag>
@@ -1128,12 +1128,12 @@ function renderKader(lane, idx) {
     ${affected.length ? `
     <nldd-title size="5"><h3>Raakt deze MOZa-releases</h3></nldd-title>
     <nldd-container layout="wrap" gap="8">
-      ${affected.map(({ lane: l, r }) => `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(`${l.name} ${r.code}: ${r.title}`)}" data-lane="${l.id}" data-code="${r.code}"></nldd-button>`).join('')}
+      ${affected.map(({ lane: l, r }) => `<nldd-button appearance="secondary" end-icon="chevron-right" text="${esc(`${l.name} ${r.code}: ${r.title}`)}" data-lane="${l.id}" data-code="${r.code}"></nldd-button>`).join('')}
     </nldd-container>` : ''}
     <nldd-container layout="wrap" gap="8">
-      ${prev ? `<nldd-button variant="secondary" start-icon="chevron-left" text="${esc(prev.title)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
+      ${prev ? `<nldd-button appearance="secondary" start-icon="chevron-left" text="${esc(prev.title)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
       <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
-      ${next ? `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(next.title)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
+      ${next ? `<nldd-button appearance="secondary" end-icon="chevron-right" text="${esc(next.title)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
     </nldd-container>`;
 }
 
@@ -1146,7 +1146,7 @@ const depSection = (lane, r) => {
   const heading = lane.id === 'edi' ? 'Maakt mogelijk in EBW' : 'Steunt op de EDI-wallet';
   return `<nldd-title size="5"><h3>${heading}</h3></nldd-title>
     <nldd-container layout="wrap" gap="8">
-      ${links.map(releaseRef).map(({ lane: l, r: x }) => `<nldd-button variant="secondary" start-icon="link" text="${esc(`${l.name} ${x.code}: ${x.title}`)}" data-lane="${l.id}" data-code="${x.code}"></nldd-button>`).join('')}
+      ${links.map(releaseRef).map(({ lane: l, r: x }) => `<nldd-button appearance="secondary" start-icon="link" text="${esc(`${l.name} ${x.code}: ${x.title}`)}" data-lane="${l.id}" data-code="${x.code}"></nldd-button>`).join('')}
     </nldd-container>`;
 };
 
@@ -1190,14 +1190,14 @@ function renderArchive() {
     <nldd-title size="3">
       <span slot="overline">Opmerkingen</span>
       <h2>Opmerkingenarchief</h2>
-      <p slot="subtitle">Opgeloste opmerkingen met hun conclusie, nieuwste eerst.${IK?.editor ? ' Heropenen zet een opmerking terug bij het punt.' : ''}</p>
-      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+      <p slot="supporting-text">Opgeloste opmerkingen met hun conclusie, nieuwste eerst.${IK?.editor ? ' Heropenen zet een opmerking terug bij het punt.' : ''}</p>
+      <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
     ${ZONDER_PLEK.length ? `
     <nldd-title size="5"><h3>Open, zonder plek op de pagina (${ZONDER_PLEK.length})</h3>
-      <p slot="subtitle">Deze opmerkingen zijn geplaatst op een plek die niet meer te vinden is.</p></nldd-title>
+      <p slot="supporting-text">Deze opmerkingen zijn geplaatst op een plek die niet meer te vinden is.</p></nldd-title>
     ${ZONDER_PLEK.map((o) => `
-    <nldd-list variant="box">
+    <nldd-list appearance="box-tinted">
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
         <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
@@ -1209,7 +1209,7 @@ function renderArchive() {
     ${done.length ? done.map((o) => {
       const rel = releaseOfAnchor(o.anker);
       return `
-    <nldd-list variant="box">
+    <nldd-list appearance="box-tinted">
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
         <nldd-icon-cell slot="start" icon="file-box" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
@@ -1218,9 +1218,9 @@ function renderArchive() {
       </nldd-list-item>${threadRows(o)}
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
-        ${rel ? `<nldd-cell><nldd-button variant="neutral-transparent" size="xs" end-icon="chevron-right" text="${esc(`Naar ${rel.lane.name} ${rel.r.code}`)}" data-lane="${rel.lane.id}" data-code="${rel.r.code}"></nldd-button></nldd-cell>` : ''}
-        ${IK?.editor ? `<nldd-cell><nldd-button data-reopen="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button></nldd-cell>` : ''}
-        ${IK?.editor ? `<nldd-cell><nldd-button data-delete="${o.nummer}" variant="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button></nldd-cell>` : ''}
+        ${rel ? `<nldd-cell><nldd-button appearance="neutral-transparent" size="xs" end-icon="chevron-right" text="${esc(`Naar ${rel.lane.name} ${rel.r.code}`)}" data-lane="${rel.lane.id}" data-code="${rel.r.code}"></nldd-button></nldd-cell>` : ''}
+        ${IK?.editor ? `<nldd-cell><nldd-button data-reopen="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button></nldd-cell>` : ''}
+        ${IK?.editor ? `<nldd-cell><nldd-button data-delete="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button></nldd-cell>` : ''}
       </nldd-list-item>
     </nldd-list>`;
     }).join('') : '<nldd-inline-dialog icon="file-box" text="Nog geen opgeloste opmerkingen" supporting-text="Een opmerking komt hier zodra een editor hem oplost met een conclusie."></nldd-inline-dialog>'}`;
@@ -1250,8 +1250,8 @@ function renderDetail(laneId, code) {
     <nldd-title size="3">
       <span slot="overline">${esc(`${lane.name} · ${r.code} · Fase ${t.phase} · ${t.label} (${t.months})`)}</span>
       <h2>${esc(r.title)}</h2>
-      <p slot="subtitle">${esc(r.summary)}</p>
-      <nldd-icon-button slot="actions" icon="dismiss" variant="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
+      <p slot="supporting-text">${esc(r.summary)}</p>
+      <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
     <nldd-container layout="wrap" gap="8">${tags}${r.reach ? tag(REACH[r.reach], 'md') : ''}${(r.kader || []).map((c) => kaderTag(c, 'md')).join('')}</nldd-container>
     ${banner}
@@ -1259,23 +1259,23 @@ function renderDetail(laneId, code) {
     ${(r.kader || []).map((c) => {
       const k = KADERS.find((x) => x.code === c);
       return `<nldd-banner variant="warning" icon="flag" heading-level="3" text="${esc(`Extern kader: ${k.title} (${k.when})`)}" supporting-text="${esc(k.impact)}">
-        <nldd-button slot="actions" variant="neutral-tinted" size="sm" text="Toelichting kader" data-lane="kader" data-code="${k.code}"></nldd-button>
+        <nldd-button slot="actions" appearance="neutral-tinted" size="sm" text="Toelichting kader" data-lane="kader" data-code="${k.code}"></nldd-button>
       </nldd-banner>`;
     }).join('')}
     <nldd-title size="5"><h3>Wat wordt opgeleverd</h3></nldd-title>
     ${list(r.features, 'check-mark', 'success', { lane, r, section: 'opgeleverd' })}
     ${r.reach ? `
     <nldd-title size="5"><h3>Bereik van de inlog</h3></nldd-title>
-    <nldd-list variant="box">
+    <nldd-list appearance="box-tinted">
       ${REACH_STEPS.map((step, i) => `
       <nldd-list-item>
         <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
         <nldd-icon-cell slot="start" icon="${i < REACH[r.reach].level ? 'check-mark-circle' : 'circle-dashed'}" color="${i < REACH[r.reach].level ? 'success' : 'secondary'}" size="20" vertical-alignment="top"></nldd-icon-cell>
         <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
-        <nldd-text-cell text="${esc(step)}" color="${i < REACH[r.reach].level ? 'default' : 'secondary'}"></nldd-text-cell>
+        <nldd-text-cell text="${esc(step)}" color="${i < REACH[r.reach].level ? 'content' : 'secondary'}"></nldd-text-cell>
       </nldd-list-item>`).join('')}
     </nldd-list>` : ''}
-    <nldd-title size="5"><h3>Nog niet in deze release</h3>${lane.prerequisite ? '' : '<p slot="subtitle">Waar de ondernemer zich nog niet volledig gezien voelt</p>'}</nldd-title>
+    <nldd-title size="5"><h3>Nog niet in deze release</h3>${lane.prerequisite ? '' : '<p slot="supporting-text">Waar de ondernemer zich nog niet volledig gezien voelt</p>'}</nldd-title>
     ${list(r.gaps, 'exclamation-triangle', 'warning', { lane, r, section: 'nog-niet' })}
     <nldd-title size="5"><h3>Afhankelijkheden</h3></nldd-title>
     ${list(r.deps, 'link', 'secondary', { lane, r, section: 'afhankelijkheden' })}
@@ -1286,9 +1286,9 @@ function renderDetail(laneId, code) {
       ...r.deps.map((x) => anchorOf(lane, r, 'afhankelijkheden', x)),
     ])}
     <nldd-container layout="wrap" gap="8">
-      ${prev ? `<nldd-button variant="secondary" start-icon="chevron-left" text="${esc(`${prev.code} ${prev.title}`)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
+      ${prev ? `<nldd-button appearance="secondary" start-icon="chevron-left" text="${esc(`${prev.code} ${prev.title}`)}" data-lane="${lane.id}" data-code="${prev.code}"></nldd-button>` : ''}
       <nldd-spacer size="flexible" direction="horizontal"></nldd-spacer>
-      ${next ? `<nldd-button variant="secondary" end-icon="chevron-right" text="${esc(`${next.code} ${next.title}`)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
+      ${next ? `<nldd-button appearance="secondary" end-icon="chevron-right" text="${esc(`${next.code} ${next.title}`)}" data-lane="${lane.id}" data-code="${next.code}"></nldd-button>` : ''}
     </nldd-container>`;
 }
 
@@ -1350,13 +1350,13 @@ const describeTarget = (path, e) => {
 const openForm = (point, { label, overline = '', title, subtitle, field, submitText, note, send }) => {
   popover.setAttribute('accessible-label', label);
   popoverBody.innerHTML = `
-    <nldd-title size="6">${overline ? `<span slot="overline">${esc(overline)}</span>` : ''}<h2>${esc(title)}</h2><p slot="subtitle">${esc(subtitle)}</p></nldd-title>
+    <nldd-title size="6">${overline ? `<span slot="overline">${esc(overline)}</span>` : ''}<h2>${esc(title)}</h2><p slot="supporting-text">${esc(subtitle)}</p></nldd-title>
     <nldd-form-field label="${esc(field)}"><nldd-multi-line-text-field id="form-text" rows="4" autofocus></nldd-multi-line-text-field></nldd-form-field>
     <nldd-container layout="wrap" gap="8">
-      <nldd-button id="form-submit" variant="primary" size="sm" text="${esc(submitText)}"></nldd-button>
-      <nldd-button id="form-cancel" variant="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
+      <nldd-button id="form-submit" appearance="primary" size="sm" text="${esc(submitText)}"></nldd-button>
+      <nldd-button id="form-cancel" appearance="neutral-tinted" size="sm" text="Annuleren"></nldd-button>
     </nldd-container>
-    <nldd-title size="6"><p slot="subtitle" id="form-note">${esc(note)}</p></nldd-title>`;
+    <nldd-title size="6"><p slot="supporting-text" id="form-note">${esc(note)}</p></nldd-title>`;
   const textField = popoverBody.querySelector('#form-text');
   const submit = popoverBody.querySelector('#form-submit');
   submit.addEventListener('click', async () => {
@@ -1440,7 +1440,7 @@ const openPinThread = (o, e) => {
   popoverBody.innerHTML = `
     <nldd-title size="6"><span slot="overline">${esc(o.onderdeel)}</span><h2>Opmerking van ${esc(o.auteur)}</h2></nldd-title>
     <nldd-container layout="wrap" gap="4"><nldd-tag size="sm" color="${done ? 'success' : 'accent'}" text="${done ? 'Opgelost' : 'Open'}"></nldd-tag></nldd-container>
-    <nldd-list variant="box">${threadRows(o)}</nldd-list>
+    <nldd-list appearance="box-tinted">${threadRows(o)}</nldd-list>
     <nldd-container layout="wrap" gap="8">${actionButtons(o, 'sm').join('')}</nldd-container>`;
   showPopoverAt(e.clientX, e.clientY);
 };
@@ -1462,7 +1462,7 @@ const renderPins = () => {
     const done = o.status === 'opgelost';
     if (getComputedStyle(host).position === 'static') host.setAttribute('data-has-pins', '');
     host.insertAdjacentHTML('beforeend', `<nldd-icon-button data-pin="${o.nummer}"${done ? '' : ' data-open'} size="sm" style="left:${x}%;top:${y}%"
-      variant="${done ? 'neutral-tinted' : 'inherit-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking van ${esc(o.auteur)}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
+      appearance="${done ? 'neutral-tinted' : 'inherit-filled'}" icon="${done ? 'check-mark' : 'message-rectangle-text'}" text="Opmerking van ${esc(o.auteur)}${done ? ' (opgelost)' : ''}"></nldd-icon-button>`);
   });
 };
 document.addEventListener('click', (e) => {
