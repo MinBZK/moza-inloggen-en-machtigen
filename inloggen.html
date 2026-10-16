@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inloggen nodig</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+</head>
+<body>
+<!-- De server toont deze pagina in plaats van een pagina die achter de inlog zit (status 401). -->
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="inhoud">
+      <nldd-title size="1">
+        <span slot="overline">Roadmap inlog- en machtigingsmiddelen MOZa</span>
+        <h1>Inloggen nodig</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Deze pagina is alleen voor medewerkers van de Rijksoverheid. Log in met je rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op deze pagina.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-button id="inloggen" appearance="primary" start-icon="person" text="Inloggen met je rijksaccount" href="/auth/login"></nldd-button>
+      <!--OPENBAAR-->
+    </nldd-simple-section>
+
+  </nldd-page>
+</nldd-shell>
+<script>
+  // Na het inloggen terug naar de pagina die werd opgevraagd, inclusief een eventuele #
+  document.getElementById('inloggen').setAttribute('href',
+    `/auth/login?rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`);
+</script>
+</body>
+</html>
