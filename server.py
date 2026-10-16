@@ -164,6 +164,32 @@ def end_session(token: str) -> None:
             DB.commit()
 
 
+_login_page = {}
+
+
+def login_page() -> bytes:
+    """De tussenpagina 'Inloggen nodig', met links naar de pagina's die zonder inloggen te zien zijn."""
+    if 'html' not in _login_page:
+        try:
+            html = open(os.path.join(SITE_DIR, 'inloggen.html'), encoding='utf-8').read()
+        except OSError:
+            html = '<!doctype html><meta charset="utf-8"><title>Inloggen nodig</title><p><a href="/auth/login">Inloggen met je rijksaccount</a></p>'
+        links = []
+        for page in sorted(PUBLIC_PAGES):
+            try:
+                with open(os.path.join(SITE_DIR, page), encoding='utf-8') as f:
+                    m = re.search(r'<title>(.*?)</title>', f.read(4000), re.S)
+                title = m.group(1).strip() if m else page
+            except OSError:
+                continue
+            links.append(f'<li><a href="/{page}">{title}</a></li>')
+        if links:
+            html = html.replace('<!--OPENBAAR-->', '<nldd-spacer size="32"></nldd-spacer><nldd-rich-text><p>Zonder inloggen te bekijken:</p><ul>'
+                                + ''.join(links) + '</ul></nldd-rich-text>')
+        _login_page['html'] = html.encode()
+    return _login_page['html']
+
+
 def all_comments() -> list:
     with DB_LOCK:
         rows = DB.execute('SELECT * FROM opmerkingen ORDER BY id').fetchall()
@@ -319,7 +345,14 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_json(HTTPStatus.NOT_FOUND, {'fout': 'Onbekend'})
         # Pagina's: openbaar of achter de inlog
         if LOGIN and not self.is_public(path) and not self.user():
-            return self.redirect(f"/auth/login?{urllib.parse.urlencode({'rd': self.path})}")
+            # Eerst uitleggen dat inloggen nodig is, niet meteen naar de organisatiekeuze van SSO Rijk
+            body = login_page()
+            self.send_response(HTTPStatus.UNAUTHORIZED)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            return self.wfile.write(body)
         return super().do_GET()
 
     def do_HEAD(self):

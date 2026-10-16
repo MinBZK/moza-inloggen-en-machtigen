@@ -1,10 +1,10 @@
 # Roadmap met opmerkingen: zelfstandige pagina's (build.py) plus server.py (site + API).
-# Draait op ZAD achter de authorization-wall (SSO Rijk). Het cluster draait met een alleen-lezen
+# Draait op ZAD met Keycloak (SSO Rijk); server.py doet het inloggen (AUTH=app). Het cluster draait met een alleen-lezen
 # root-bestandssysteem en een willekeurige uid; alleen /data (persistent volume) is schrijfbaar.
 
 FROM python:3.12-slim AS bouw
 WORKDIR /src
-COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.html webuild.html eherkenning-inlogflow.html eherkenning-concept.html opmerkingen.js begrippen.js ./
+COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.html webuild.html eherkenning-inlogflow.html eherkenning-concept.html inloggen.html opmerkingen.js begrippen.js ./
 COPY logos logos
 COPY avatars avatars
 COPY vendor vendor
