@@ -87,37 +87,37 @@
       <nldd-title size="2">
         <span slot="overline">BU4</span>
         <h2>Company Representative acting on behalf of a Company</h2>
-        <p slot="subtitle">Een persoon rechtsgeldig en verifieerbaar laten handelen namens een onderneming, met gestandaardiseerde mandaat-attestaties. BU4 is de autorisatielaag onder de andere use cases (D2.1 p. 21-24, 304-384).</p>
+        <p slot="subtitle">Een persoon rechtsgeldig en verifieerbaar laten handelen namens een onderneming, met gestandaardiseerde machtiging-attestaties. BU4 is de autorisatielaag onder de andere use cases (D2.1 p. 21-24, 304-384).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-container layout="wrap" gap="4" id="bu4-tags"></nldd-container>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-table id="bu4-typen" columns="minmax(120px,0.8fr) minmax(200px,2fr) minmax(160px,1.4fr)" accessible-label="Mandaattypen in BU4"></nldd-table>
+      <nldd-table id="bu4-typen" columns="minmax(120px,0.8fr) minmax(200px,2fr) minmax(160px,1.4fr)" accessible-label="Soorten machtigingen in BU4"></nldd-table>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
         <h3>Scenario's</h3>
         <ul>
           <li><strong>1a</strong> uitgifte van een volmacht (PoA), <strong>1b</strong> uitgifte van een vertegenwoordigingsbevoegdheid (PoR), <strong>1c</strong> toegang tot een dienst namens de onderneming.</li>
           <li>Nederland doet mee in alle drie. Credenco is een van de EBW-providers, Cleverbase een van de uitgevers. De Belastingdienst staat als relying party voor PoA en PoR (via BU3) (p. 22-23, 321-323, 373-375).</li>
-          <li>Buiten scope: mandaten zonder registratie in een authentieke bron (contractueel) en mandaten die alleen op een functie rusten, zoals de inkoopbevoegdheid van een CFO (p. 313-314).</li>
+          <li>Buiten scope: machtigingen zonder registratie in een authentieke bron (contractueel) en machtigingen die alleen op een functie rusten, zoals de inkoopbevoegdheid van een CFO (p. 313-314).</li>
         </ul>
         <h3>Toegang tot een dienst (1c)</h3>
         <ol>
           <li>De gebruiker kiest bij de relying party "namens bedrijf".</li>
-          <li>De relying party vraagt een mandaat-attestatie op, met doel en dienstbeperking. In 1c zijn PoR, PoA en scope samengevoegd tot één "PoX".</li>
+          <li>De relying party vraagt een machtiging-attestatie op, met doel en dienstbeperking. In 1c zijn PoR, PoA en scope samengevoegd tot één "PoX".</li>
           <li>De wallet presenteert na toestemming.</li>
           <li>De relying party controleert handtekening, trust chain, technische geldigheid en status (intrekking).</li>
-          <li>Daarna de inhoud: wie de mandaatgever en de gevolmachtigde zijn, of de persoon overeenkomt met de PID, of het mandaat zakelijk geldig is en of de scope bij de dienst past. Dan volgt toegang (p. 370-372).</li>
+          <li>Daarna de inhoud: wie de machtiginggever en de gevolmachtigde zijn, of de persoon overeenkomt met de PID, of de machtiging zakelijk geldig is en of de scope bij de dienst past. Dan volgt toegang (p. 370-372).</li>
         </ol>
         <h3>Uitgifte, opslag en intrekking</h3>
         <ul>
           <li>PoA en PoR worden door een QTSP uitgegeven op basis van een register; de PoR kan ook door de publieke beheerder van het register worden uitgegeven. Of de PoA een QEAA of een EAA wordt, is nog niet besloten (p. 38, 313, 319).</li>
-          <li>Mandaten kunnen in de <strong>persoonlijke EUDI-wallet</strong> van de gevolmachtigde staan; de PoA ook in de EBW van de organisatie. De verificatie is in beide gevallen gelijk (p. 364).</li>
+          <li>Machtigingen kunnen in de <strong>persoonlijke EUDI-wallet</strong> van de gevolmachtigde staan; de PoA ook in de EBW van de organisatie. De verificatie is in beide gevallen gelijk (p. 364).</li>
           <li>Een PoR wordt automatisch ingetrokken als het register wijzigt. Relying parties controleren de status via een statusdienst (p. 38, 342).</li>
-          <li>Subdelegatie is niet uitgewerkt; het toewijzen en intrekken van mandaten aan medewerkers is een leerdoel (p. 39).</li>
+          <li>Subdelegatie is niet uitgewerkt; het toewijzen en intrekken van machtigingen aan medewerkers is een leerdoel (p. 39).</li>
         </ul>
         <h3>Open punten</h3>
-        <p>Mandaatmodellen verschillen per lidstaat, er is geen geharmoniseerde semantiek voor PoA en PoR, registers en API's zijn beperkt beschikbaar en er is nog geen EU-register van uitgevers van mandaten. De pilot bouwt op de huidige ARF, niet op de toekomstige EBW-specificaties (p. 40, 314-315, 367-369).</p>
+        <p>Machtigingsmodellen verschillen per lidstaat, er is geen geharmoniseerde semantiek voor PoA en PoR, registers en API's zijn beperkt beschikbaar en er is nog geen EU-register van uitgevers van machtigingen. De pilot bouwt op de huidige ARF, niet op de toekomstige EBW-specificaties (p. 40, 314-315, 367-369).</p>
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-spacer size="24"></nldd-spacer>
@@ -224,7 +224,7 @@
       <nldd-title size="2">
         <span slot="overline">D4.1</span>
         <h2>Architectuur en vertrouwen</h2>
-        <p slot="subtitle">Wat het architectuurdocument zegt over rollen, attestaties, mandaten en communicatie (D4.1 v1.0).</p>
+        <p slot="subtitle">Wat het architectuurdocument zegt over rollen, attestaties, machtigingen en communicatie (D4.1 v1.0).</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
@@ -232,7 +232,7 @@
         <ul>
           <li><strong>EUDI-wallet</strong> voor natuurlijke personen (meestal mobiel), <strong>EBW</strong> voor ondernemingen en publieke organisaties (meestal een server- of webwallet) (p. 18-19).</li>
           <li><strong>Wallet-provider en uitgever zijn verschillende rollen.</strong> De wallet-provider levert de wallet en wordt door de lidstaat bij de Commissie aangemeld; een uitgever (PID, EAA, EBWOID) registreert bij een Registrar. De wallet-provider kan ook de eigenaar zelf zijn (p. 42-45, 57).</li>
-          <li>Een EBW heeft één eigenaar en kan meerdere gebruikers hebben, met rollen en mandaten die de eigenaar instelt. De eigenaar kan zelf rollen toevoegen (p. 56-57).</li>
+          <li>Een EBW heeft één eigenaar en kan meerdere gebruikers hebben, met rollen en machtigingen die de eigenaar instelt. De eigenaar kan zelf rollen toevoegen (p. 56-57).</li>
           <li>Een natuurlijk persoon die als ondernemer optreedt, valt onder "economic operator"; een zzp'er kan dus EBW-eigenaar zijn (p. 41, interpretatie).</li>
         </ul>
         <h3>Attestaties en standaarden</h3>
@@ -240,7 +240,7 @@
           <li>De <strong>EBWOID</strong> (voorheen LPID) is de minimale identificatie van een organisatie en wordt als EAA in de EBW uitgegeven (p. 26, 56).</li>
           <li>OpenID4VCI en OpenID4VP als basis, met HAIP. Formaten: SD-JWT VC, ISO mdoc en W3C VCDM 2.0 (p. 13-14, 29, 38).</li>
           <li>De <strong>PID</strong> is een verplichte set attributen waarmee een natuurlijk persoon uniek wordt geïdentificeerd op betrouwbaarheidsniveau hoog. De EBWOID bevat een officiële naam en een EU-uniek identificatienummer. Attributenlijsten staan niet in D4.1 (p. 42, 56).</li>
-          <li>Datamodellen voor attestaties, PID en EBWOID volgen in D4.3 en in rulebooks; dat geldt ook voor de mandaat-attestatie (p. 26, 30, 39).</li>
+          <li>Datamodellen voor attestaties, PID en EBWOID volgen in D4.3 en in rulebooks; dat geldt ook voor de machtiging-attestatie (p. 26, 30, 39).</li>
         </ul>
         <h3>Communicatie en vertrouwen</h3>
         <ul>
@@ -313,9 +313,9 @@ const tags = (id, items) => {
 };
 
 points('takeaways', [
-  ['check-list', 'Mandaten zijn aparte attestaties', 'In BU4 is een mandaat overal een losse attestatie: een PoR (Power of Representation), PoA (Power of Attorney) of PoE (Power of Employee). Nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
-  ['key', 'De KVK-bevoegdheid lijkt op de PoR (Power of Representation)', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra mandaat voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
-  ['person-2', 'Ons afgeleide mandaat heet in WE BUILD een PoE (Power of Employee)', 'Een mandaat dat de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
+  ['check-list', 'Machtigingen zijn aparte attestaties', 'In BU4 is een machtiging overal een losse attestatie: een PoR (Power of Representation), PoA (Power of Attorney) of PoE (Power of Employee). Nergens een rol binnen de EBW. Het mag in de persoonlijke EUDI-wallet van de gevolmachtigde staan (D2.1 p. 38, 364).'],
+  ['key', 'De KVK-bevoegdheid lijkt op de PoR (Power of Representation)', 'Een vertegenwoordigingsbevoegdheid uit het register (PoR) toont de bevoegdheid over de onderneming als geheel; de relying party toetst zelf de scope tegen de dienst. Een extra machtiging voor de bestuurder wordt nergens geëist (D2.1 p. 38, 372; interpretatie).'],
+  ['person-2', 'Onze afgeleide machtiging heet in WE BUILD een PoE (Power of Employee)', 'Een machtiging die de onderneming zelf uitgeeft, zonder authentieke bron, heeft een lagere zekerheid. De relying party verifieert tegen de EBWOID van de onderneming en de betekenis van de scope moet vooraf worden afgesproken (D2.1 p. 38, 369).'],
   ['house', 'MOZa-achtige flow in BU3', 'Inloggen op een portaal met PID (persoonsidentificatiegegevens) plus machtiging, met de keuze tussen een centraal register en een machtigingsattestatie: dezelfde keuze als in MOZa. De Nederlandse Belastingdienst doet zelf mee (D2.1 p. 215-225).'],
   ['magnifier', 'OOTS (Once-Only Technical System) naast de wallet, niet in plaats ervan', 'In BU6 levert de wallet identiteit en vertegenwoordiging, OOTS het bewijs uit authentieke bronnen. KVK en RINIS doen namens Nederland mee (D2.1 p. 26, 416; interpretatie).'],
   ['file-text', 'Gegevens: veldnamen volgen nog', 'D2.1 en D4.1 noemen welke attestaties worden gebruikt en wat er op hoofdlijnen in staat, maar geen volledige attributenlijsten. Die komen in losse rulebooks en in D4.3. Alleen de PoR heeft al concrete velden: full_powers, eService, effective_from_date en effective_until_date (D2.1 p. 418-419; D4.1 p. 39).'],
@@ -332,9 +332,9 @@ points('bu3-moza', [
   ['link', 'Betekenis voor MOZa: intermediairs', 'De keten van gesealde machtigingen tussen Business Wallets is een referentie voor intermediairs zoals boekhouders (p. 234, 255; interpretatie).'],
 ]);
 points('bu4-moza', [
-  ['check-list', 'Betekenis voor MOZa: losse attestatie', 'Ons model met mandaten als EAA in de persoonlijke wallet past bij BU4 (p. 38, 364).'],
-  ['key', 'Betekenis voor MOZa: geen extra mandaat voor de bestuurder', 'Een PoR volstaat voor de onderneming als geheel; de service-based machtiging uit BU3 is bedoeld voor intermediairs (p. 243-244, 372; interpretatie).'],
-  ['pencil', 'Betekenis voor MOZa: scope zelf vastleggen', 'Voor mandaten die de onderneming zelf uitgeeft (PoE, Power of Employee) moet de betekenis van de scope met de relying party zijn afgesproken. MOZa moet die semantiek dus zelf vastleggen (p. 369; interpretatie).'],
+  ['check-list', 'Betekenis voor MOZa: losse attestatie', 'Ons model met machtigingen als EAA in de persoonlijke wallet past bij BU4 (p. 38, 364).'],
+  ['key', 'Betekenis voor MOZa: geen extra machtiging voor de bestuurder', 'Een PoR volstaat voor de onderneming als geheel; de service-based machtiging uit BU3 is bedoeld voor intermediairs (p. 243-244, 372; interpretatie).'],
+  ['pencil', 'Betekenis voor MOZa: scope zelf vastleggen', 'Voor machtigingen die de onderneming zelf uitgeeft (PoE, Power of Employee) moet de betekenis van de scope met de relying party zijn afgesproken. MOZa moet die semantiek dus zelf vastleggen (p. 369; interpretatie).'],
 ]);
 points('bu6-moza', [
   ['magnifier', 'Betekenis voor MOZa: OOTS als aanvulling', 'Voor het verkenningsspoor OOTS in de roadmap is "OOTS naast de wallet" een realistischer framing dan "OOTS als alternatief voor de wallet" (interpretatie).'],
@@ -351,7 +351,7 @@ document.getElementById('bu4-typen').innerHTML = `
   ${[
     ['**PoR**  \nPower of Representation', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel (zoals een bestuurder). Automatisch ingetrokken als het register wijzigt.', 'QTSP namens het register, of de publieke registerbeheerder'],
     ['**PoA**  \nPower of Attorney', 'Volmacht: specifieke, juridisch traceerbare delegatie voor een doel en een periode.', 'QTSP op basis van een authentieke bron (EAA, mogelijk QEAA)'],
-    ['**PoE**  \nPower of Employee', 'Mandaat dat de onderneming zelf geeft, zonder authentieke bron; lagere zekerheid. De scope moet vooraf met de relying party zijn afgesproken.', 'De onderneming zelf (EAA)'],
+    ['**PoE**  \nPower of Employee', 'Machtiging die de onderneming zelf geeft, zonder authentieke bron; lagere zekerheid. De scope moet vooraf met de relying party zijn afgesproken.', 'De onderneming zelf (EAA)'],
   ].map(([t, w, u]) => `
   <nldd-table-row>
     <nldd-text-cell vertical-alignment="top" text="${t}"></nldd-text-cell>
@@ -376,9 +376,9 @@ const AFK = [
   ['OpenID4VCI / OpenID4VP', 'OpenID for Verifiable Credential Issuance / Verifiable Presentations', 'De protocollen voor het uitgeven en het tonen van attestaties.'],
   ['PID', 'Person Identification Data', 'Persoonsidentificatiegegevens in de EUDI-wallet.'],
   ['PoA', 'Power of Attorney', 'Volmacht: specifieke delegatie voor een doel en een periode.'],
-  ['PoE', 'Power of Employee', 'Mandaat dat de onderneming zelf aan een medewerker geeft.'],
+  ['PoE', 'Power of Employee', 'Machtiging die de onderneming zelf aan een medewerker geeft.'],
   ['PoR', 'Power of Representation', 'Vertegenwoordigingsbevoegdheid uit het register, voor de onderneming als geheel.'],
-  ['PoX', 'Verzamelnaam (X = soort mandaat)', 'In BU4 scenario 1c: PoR, PoA en scope samen in één attestatie.'],
+  ['PoX', 'Verzamelnaam (X = soort machtiging)', 'In BU4 scenario 1c: PoR, PoA en scope samen in één attestatie.'],
   ['Pub-EAA', 'Public Electronic Attestation of Attributes', 'Attestatie uitgegeven door of namens een publieke bronhouder van een authentieke bron.'],
   ['QEAA', 'Qualified Electronic Attestation of Attributes', 'Gekwalificeerde attestatie, uitgegeven door een QTSP.'],
   ['QERDS', 'Qualified Electronic Registered Delivery Service', 'Gekwalificeerde dienst voor aangetekende elektronische bezorging.'],
@@ -448,12 +448,12 @@ const GEGEVENS = {
   [
    "PoA",
    "Volmacht. EAA, mogelijk QEAA, van een QTSP op basis van een authentieke bron. In de EBW of de EUDI-wallet.",
-   "Bij uitgifte gecontroleerd: identiteit, scope van het mandaat, geldigheidsperiode en rechtsgrond. Zichtbaar in de wallet: uitgever, scope, geldigheid en intrekkingsstatus (p. 310, 318)."
+   "Bij uitgifte gecontroleerd: identiteit, scope van de machtiging, geldigheidsperiode en rechtsgrond. Zichtbaar in de wallet: uitgever, scope, geldigheid en intrekkingsstatus (p. 310, 318)."
   ],
   [
    "PoX",
    "PoR, PoA en scope in één attestatie (scenario 1c).",
-   "Rol (PoR) of gedelegeerd mandaat (PoA), de scope van de bevoegdheden, de geldigheidsperiode en de beperking tot een dienst. Formaat: W3C VCDM 2.0 en SD-JWT VC, met selective disclosure (p. 379-380)."
+   "Rol (PoR) of gedelegeerde machtiging (PoA), de scope van de bevoegdheden, de geldigheidsperiode en de beperking tot een dienst. Formaat: W3C VCDM 2.0 en SD-JWT VC, met selective disclosure (p. 379-380)."
   ],
   [
    "PoE",
@@ -521,7 +521,7 @@ document.getElementById('oots-tabel').innerHTML = `
   ${[
     ['Wie levert de gegevens', 'De gebruiker zelf: hij toont een attestatie die al in zijn wallet staat.', 'De overheid die de bron beheert: zij stuurt het bewijs rechtstreeks naar de vragende overheid.'],
     ['Wat is er vooraf nodig', 'De attestatie moet eerst zijn uitgegeven en in de wallet staan.', 'Niets in de wallet; het bewijs wordt opgehaald op het moment dat het nodig is.'],
-    ['Sterk in', 'Laten zien wie je bent en namens wie je handelt (PID, vertegenwoordiging, mandaat), en toestemming geven.', 'Actuele gegevens en documenten uit authentieke bronnen, ook als daar geen attestatie van bestaat.'],
+    ['Sterk in', 'Laten zien wie je bent en namens wie je handelt (PID, vertegenwoordiging, machtiging), en toestemming geven.', 'Actuele gegevens en documenten uit authentieke bronnen, ook als daar geen attestatie van bestaat.'],
     ['Tussen wie', 'Elke partij die attestaties accepteert, ook bedrijven onderling.', 'Tussen overheden, voor procedures van de Single Digital Gateway.'],
     ['Wat ontbreekt', 'Niet elk bewijsstuk bestaat (al) als attestatie.', 'OOTS weet zelf niet wie de gebruiker is of namens wie hij handelt: inloggen is nodig.'],
   ].map(([w, a, b]) => `
@@ -537,8 +537,8 @@ document.getElementById('open-tabel').innerHTML = `
     <nldd-text-cell text="Wat WE BUILD erover zegt"></nldd-text-cell>
   </nldd-table-row>
   ${[
-    ['**Mandaat voor Karin?** Heeft de bestuurder naast haar bevoegdheid nog een mandaat nodig?', 'Niet als vereiste: een PoR toont de bevoegdheid over de onderneming als geheel en de relying party toetst de scope tegen de dienst. Dienstgebonden machtigingen komen wel voor in BU3 en BU6 S2, vooral voor intermediairs en beperkte bevoegdheden (D2.1 p. 26-27, 243-244, 372; interpretatie).'],
-    ['**Vorm van het mandaat:** losse attestatie of rol binnen de EBW?', 'In BU4 steeds een losse attestatie (PoA, PoR, PoE), te bewaren in de persoonlijke EUDI-wallet. D4.1 kent daarnaast rollen en mandaten van gebruikers binnen de EBW, voor toegang tot de wallet zelf. Een datamodel voor de mandaat-attestatie volgt in rulebooks (D2.1 p. 38, 364; D4.1 p. 26, 57).'],
+    ['**Machtiging voor Karin?** Heeft de bestuurder naast haar bevoegdheid nog een machtiging nodig?', 'Niet als vereiste: een PoR toont de bevoegdheid over de onderneming als geheel en de relying party toetst de scope tegen de dienst. Dienstgebonden machtigingen komen wel voor in BU3 en BU6 S2, vooral voor intermediairs en beperkte bevoegdheden (D2.1 p. 26-27, 243-244, 372; interpretatie).'],
+    ['**Vorm van de machtiging:** losse attestatie of rol binnen de EBW?', 'In BU4 steeds een losse attestatie (PoA, PoR, PoE), te bewaren in de persoonlijke EUDI-wallet. D4.1 kent daarnaast rollen en machtigingen van gebruikers binnen de EBW, voor toegang tot de wallet zelf. Een datamodel voor de machtiging-attestatie volgt in rulebooks (D2.1 p. 38, 364; D4.1 p. 26, 57).'],
     ['**Wallet-provider van de onderneming**', 'Wallet-provider en uitgever zijn gescheiden rollen; de provider wordt door de lidstaat aangemeld en kan ook de eigenaar zelf zijn. In BU4 zijn onder meer Credenco, Procivis, Siros en iGrant EBW-provider (D4.1 p. 42-45, 57; D2.1 p. 321).'],
   ].map(([p, w]) => `
   <nldd-table-row>

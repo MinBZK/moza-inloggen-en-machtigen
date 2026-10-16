@@ -141,8 +141,8 @@ footer a{color:var(--accent)}
 </header>
 <div id="opm-hint"></div>
 <div class="tabs" role="tablist" id="tabs"></div>
-<p class="flownote" id="flownote">Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.</p>
-<nav class="pills" id="pills" aria-label="Stappen"><button type="button" class="pill on" aria-current="step">0 · Vooraf</button><button type="button" class="pill" aria-current="false">1 · Wallet activeren</button><button type="button" class="pill" aria-current="false">2 · KVK-uittreksel</button><button type="button" class="pill" aria-current="false">3 · Mandaten configureren</button><button type="button" class="pill" aria-current="false">4 · Naar Karins app</button><button type="button" class="pill" aria-current="false">5 · Inloggen MOZa</button><button type="button" class="pill" aria-current="false">6 · Omzetbelasting</button><button type="button" class="pill" aria-current="false">7 · Subsidie aanvragen</button><button type="button" class="pill" aria-current="false">8 · Subsidies inzien</button><button type="button" class="pill" aria-current="false">9 · Mandaat intrekken</button></nav>
+<p class="flownote" id="flownote">Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de machtigingen uit. Karins eigen machtigingen komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.</p>
+<nav class="pills" id="pills" aria-label="Stappen"><button type="button" class="pill on" aria-current="step">0 · Vooraf</button><button type="button" class="pill" aria-current="false">1 · Wallet activeren</button><button type="button" class="pill" aria-current="false">2 · KVK-uittreksel</button><button type="button" class="pill" aria-current="false">3 · Machtigingen configureren</button><button type="button" class="pill" aria-current="false">4 · Naar Karins app</button><button type="button" class="pill" aria-current="false">5 · Inloggen MOZa</button><button type="button" class="pill" aria-current="false">6 · Omzetbelasting</button><button type="button" class="pill" aria-current="false">7 · Subsidie aanvragen</button><button type="button" class="pill" aria-current="false">8 · Subsidies inzien</button><button type="button" class="pill" aria-current="false">9 · Machtiging intrekken</button></nav>
 
 <div class="grid">
   <div class="diagram" id="diagram">
@@ -156,7 +156,7 @@ footer a{color:var(--accent)}
         <marker id="ah-sso" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--new-line)"></path></marker>
         <marker id="ah-rej" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="var(--revoke)"></path></marker>
       </defs>
-      <g id="scene"><g class="peer"><rect x="16" y="16" width="300" height="234" rx="14"></rect><text x="36" y="44">PERSOONLIJK: KARIN</text></g><g class="peer"><rect x="16" y="266" width="300" height="218" rx="14"></rect><text x="36" y="294">ZAKELIJK: HANZE STAFFING</text></g><g class="peer"><rect x="440" y="16" width="304" height="468" rx="14"></rect><text x="460" y="44">UITGEVERS EN VERIFIERS</text></g><g class="node" id="w-p"><rect x="40" y="60" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="89" text-anchor="middle">Persoonlijke wallet</text><text class="ns" x="165" y="107" text-anchor="middle">Karin, app op telefoon</text></g><g class="node" id="w-z"><rect x="40" y="310" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="339" text-anchor="middle">Zakelijke wallet (EBW)</text><text class="ns" x="165" y="357" text-anchor="middle">Hanze Staffing, in de cloud</text></g><g class="chip todo" id="c-PID"><rect rx="12" height="24" x="40" y="136" width="46"></rect><text text-anchor="middle" x="63" y="152">PID</text></g><g class="chip todo" id="c-EUC"><rect rx="12" height="24" x="40" y="386" width="195.2554168701172"></rect><text text-anchor="middle" x="137.6277084350586" y="402">KVK-uittreksel (PuB-EAA)</text></g><g class="chip todo" id="c-MED"><rect rx="12" height="24" x="40" y="418" width="166.3795166015625"></rect><text text-anchor="middle" x="123.18975830078125" y="434">mandaten medewerkers</text></g><text class="grpl" x="40" y="184">Hanze Staffing:</text><g class="chip todo" id="c-MOB"><rect rx="12" height="24" x="142.89945220947266" y="168" width="94.18975830078125"></rect><text text-anchor="middle" x="189.99433135986328" y="184">mandaat OB</text></g><g class="chip todo" id="c-MRVO"><rect rx="12" height="24" x="52" y="200" width="101.40873718261719"></rect><text text-anchor="middle" x="102.7043685913086" y="216">mandaat RVO</text></g><g class="node" id="p0"><rect x="470" y="70" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="91" text-anchor="middle">PID-uitgever</text><text class="ns" x="595" y="109" text-anchor="middle">DigiD-login, gegevens uit BRP</text></g><g class="node" id="p1"><rect x="470" y="157.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="178.5" text-anchor="middle">KVK</text><text class="ns" x="595" y="196.5" text-anchor="middle">handelsregister</text></g><g class="node" id="p2"><rect x="470" y="245" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="266" text-anchor="middle">MOZa</text><text class="ns" x="595" y="284" text-anchor="middle">portaal, SSO naar diensten</text></g><g class="node" id="p3"><rect x="470" y="332.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="353.5" text-anchor="middle">Belastingdienst</text><text class="ns" x="595" y="371.5" text-anchor="middle">omzetbelasting</text></g><g class="node" id="p4"><rect x="470" y="420" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="441" text-anchor="middle">RVO</text><text class="ns" x="595" y="459" text-anchor="middle">subsidies</text></g></g>
+      <g id="scene"><g class="peer"><rect x="16" y="16" width="300" height="234" rx="14"></rect><text x="36" y="44">PERSOONLIJK: KARIN</text></g><g class="peer"><rect x="16" y="266" width="300" height="218" rx="14"></rect><text x="36" y="294">ZAKELIJK: HANZE STAFFING</text></g><g class="peer"><rect x="440" y="16" width="304" height="468" rx="14"></rect><text x="460" y="44">UITGEVERS EN VERIFIERS</text></g><g class="node" id="w-p"><rect x="40" y="60" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="89" text-anchor="middle">Persoonlijke wallet</text><text class="ns" x="165" y="107" text-anchor="middle">Karin, app op telefoon</text></g><g class="node" id="w-z"><rect x="40" y="310" width="250" height="64" rx="10"></rect><text class="nt" x="165" y="339" text-anchor="middle">Zakelijke wallet (EBW)</text><text class="ns" x="165" y="357" text-anchor="middle">Hanze Staffing, in de cloud</text></g><g class="chip todo" id="c-PID"><rect rx="12" height="24" x="40" y="136" width="46"></rect><text text-anchor="middle" x="63" y="152">PID</text></g><g class="chip todo" id="c-EUC"><rect rx="12" height="24" x="40" y="386" width="195.2554168701172"></rect><text text-anchor="middle" x="137.6277084350586" y="402">KVK-uittreksel (PuB-EAA)</text></g><g class="chip todo" id="c-MED"><rect rx="12" height="24" x="40" y="418" width="166.3795166015625"></rect><text text-anchor="middle" x="123.18975830078125" y="434">machtigingen medewerkers</text></g><text class="grpl" x="40" y="184">Hanze Staffing:</text><g class="chip todo" id="c-MOB"><rect rx="12" height="24" x="142.89945220947266" y="168" width="94.18975830078125"></rect><text text-anchor="middle" x="189.99433135986328" y="184">machtiging OB</text></g><g class="chip todo" id="c-MRVO"><rect rx="12" height="24" x="52" y="200" width="101.40873718261719"></rect><text text-anchor="middle" x="102.7043685913086" y="216">machtiging RVO</text></g><g class="node" id="p0"><rect x="470" y="70" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="91" text-anchor="middle">PID-uitgever</text><text class="ns" x="595" y="109" text-anchor="middle">DigiD-login, gegevens uit BRP</text></g><g class="node" id="p1"><rect x="470" y="157.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="178.5" text-anchor="middle">KVK</text><text class="ns" x="595" y="196.5" text-anchor="middle">handelsregister</text></g><g class="node" id="p2"><rect x="470" y="245" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="266" text-anchor="middle">MOZa</text><text class="ns" x="595" y="284" text-anchor="middle">portaal, SSO naar diensten</text></g><g class="node" id="p3"><rect x="470" y="332.5" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="353.5" text-anchor="middle">Belastingdienst</text><text class="ns" x="595" y="371.5" text-anchor="middle">omzetbelasting</text></g><g class="node" id="p4"><rect x="470" y="420" width="250" height="48" rx="10"></rect><text class="nt" x="595" y="441" text-anchor="middle">RVO</text><text class="ns" x="595" y="459" text-anchor="middle">subsidies</text></g></g>
       <g id="arrows"></g>
     </svg>
     <div class="legend" id="legend"><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--issue)" stroke-width="2.5"></line></svg>Uitgifte naar wallet (OpenID4VCI)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--share)" stroke-width="2.5" stroke-dasharray="6 4"></line></svg>Delen of inloggen (OpenID4VP)</span><span><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="var(--new-line)" stroke-width="2.5"></line></svg>SSO via MOZa</span><span>Amber: net ontvangen. Groen: in de wallet. Rood: ingetrokken.</span></div>
@@ -165,7 +165,7 @@ footer a{color:var(--accent)}
   <section class="panel" id="paneel" aria-live="polite">
     <div class="eyebrow" id="eyebrow">STAP 0 VAN 9</div>
     <h2 id="title">Karin regelt overheidszaken voor Hanze Staffing</h2>
-    <div id="body"><p>Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.</p><p>De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan.</p><div class="callout">Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.</div><dl><dt>Persoonlijke wallet</dt><dd>EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten</dd><dt>Zakelijke wallet</dt><dd>EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers</dd><dt>Configureren</dt><dd>De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit</dd><dt>MOZa</dt><dd>Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft</dd></dl></div>
+    <div id="body"><p>Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.</p><p>De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan.</p><div class="callout">Elke machtiging is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee machtigingen onder Hanze Staffing in haar app.</div><dl><dt>Persoonlijke wallet</dt><dd>EDI-wallet (app op de telefoon): PID, plus per onderneming Karins machtigingen</dd><dt>Zakelijke wallet</dt><dd>EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de machtigingen van alle medewerkers</dd><dt>Configureren</dt><dd>De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft de machtiging uit</dd><dt>MOZa</dt><dd>Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een machtiging heeft</dd></dl></div>
     <div class="btns">
       <button class="btn" id="prev" type="button" aria-disabled="true">Vorige</button>
       <button class="btn primary" id="next" type="button" aria-disabled="false">Volgende</button>
@@ -176,13 +176,14 @@ footer a{color:var(--accent)}
 <section class="matrix" id="matrix">
   <h3>Welke gegevens ziet wie</h3>
   <p class="sub" id="mx-sub">Tot en met stap 0: karin regelt overheidszaken voor hanze staffing. Kolommen zijn de ontvangers, rijen de gegevens.</p>
-  <div class="mx-wrap"><table class="mx" id="mx"><thead><tr><th scope="col">Gegeven</th><th scope="col" class="">PID-uitgever</th><th scope="col" class="">KVK</th><th scope="col" class="">MOZa</th><th scope="col" class="">Belastingdienst</th><th scope="col" class="">RVO</th></tr></thead><tbody><tr class="grp"><td colspan="6">Persoon: PID in de persoonlijke wallet</td></tr><tr><th scope="row" style="font-weight:400">Naam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Geboortedatum</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Nationaliteit</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Adres</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">BSN</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de mandaten)</td></tr><tr><th scope="row" style="font-weight:400">KVK-nummer</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Handelsnaam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Rechtsvorm</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Tekenbevoegden</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Mandaten: alle medewerkers in de EBW, Karins eigen mandaten in haar app</td></tr><tr><th scope="row" style="font-weight:400">Mandaat OB: aangifte doen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Mandaat RVO: aanvragen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Mandaat RVO: inzien</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr></tbody></table></div>
+  <div class="mx-wrap"><table class="mx" id="mx"><thead><tr><th scope="col">Gegeven</th><th scope="col" class="">PID-uitgever</th><th scope="col" class="">KVK</th><th scope="col" class="">MOZa</th><th scope="col" class="">Belastingdienst</th><th scope="col" class="">RVO</th></tr></thead><tbody><tr class="grp"><td colspan="6">Persoon: PID in de persoonlijke wallet</td></tr><tr><th scope="row" style="font-weight:400">Naam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Geboortedatum</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Nationaliteit</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Adres</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">BSN</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de machtigingen)</td></tr><tr><th scope="row" style="font-weight:400">KVK-nummer</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Handelsnaam</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Rechtsvorm</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Tekenbevoegden</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr class="grp"><td colspan="6">Machtigingen: alle medewerkers in de EBW, Karins eigen machtigingen in haar app</td></tr><tr><th scope="row" style="font-weight:400">Machtiging OB: aangifte doen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Machtiging RVO: aanvragen</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr><tr><th scope="row" style="font-weight:400">Machtiging RVO: inzien</th><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr></tbody></table></div>
   <div class="mx-legend"><span><i class="dot now"></i>In deze stap gedeeld of opgehaald</span><span><i class="dot prev"></i>In een eerdere stap</span><span><i class="dot rej"></i>Gedeeld, maar geweigerd</span></div>
 </section>
 
 <footer>
 <div id="opm-knop"></div>
 Flow 1 is een conceptflow voor MOZa. Flow 2 is gebaseerd op de MOZa-service blueprint <a href="https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html">Gezamenlijke subsidieaanvraag</a>. Punten die niet vaststaan zijn gemarkeerd als aanname of ontwerpkeuze. Overgenomen van plak.rijks.app (oktober 2026).</footer>
+<p style="margin-top:12px"><strong>Bronnen:</strong> <a href="https://cx-moza.rijksapp.dev/service-blueprints/gezamenlijke-subsidieaanvraag/index.html">MOZa-service blueprint Gezamenlijke subsidieaanvraag</a>; de wallet-flows op plak.rijks.app (achter SSO); <a href="https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/">EUDI Wallet Architecture and Reference Framework (ARF)</a>; <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID4VP</a>; <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">OpenID4VCI</a>.</p>
 <div style="margin-top:16px"><nldd-box data-ai-disclaimer>
   <nldd-container layout="row" gap="12" vertical-alignment="center">
     <nldd-icon name="sparkles" size="24" color="accent" aria-hidden="true"></nldd-icon>
@@ -196,7 +197,7 @@ const M=t=>'<span class="mark">'+t+'</span>';
 const FLOWS={
  "moza": {
   "tab": "1 · Inloggen op MOZa",
-  "note": "Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de mandaten uit. Karins eigen mandaten komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.",
+  "note": "Conceptflow: Karin activeert haar persoonlijke wallet (EDI) met DigiD. Hanze Staffing is eigenaar van een EBW; daarin configureert Karin als tekenbevoegde wie wat mag, en de dienstverleners geven de machtigingen uit. Karins eigen machtigingen komen, gegroepeerd per onderneming, in haar app. MOZa is het portaal: op basis van EDI plus de juiste EBW-attestaties geeft MOZa via SSO toegang tot de diensten. Ontwerpkeuzes zijn gemarkeerd. De tabel onder het diagram laat per stap zien welk gegeven bij welke partij terechtkomt.",
   "parties": [
    {
     "t": "PID-uitgever",
@@ -234,20 +235,20 @@ const FLOWS={
    },
    {
     "id": "MED",
-    "l": "mandaten medewerkers",
+    "l": "machtigingen medewerkers",
     "w": "z",
     "at": 3
    },
    {
     "id": "MOB",
-    "l": "mandaat OB",
+    "l": "machtiging OB",
     "w": "p",
     "at": 4,
     "grp": "Hanze Staffing"
    },
    {
     "id": "MRVO",
-    "l": "mandaat RVO",
+    "l": "machtiging RVO",
     "w": "p",
     "at": 4,
     "rev": 9,
@@ -281,7 +282,7 @@ const FLOWS={
     ]
    },
    {
-    "g": "Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de mandaten)",
+    "g": "Onderneming: KVK-uittreksel in de EBW (KVK-nummer en handelsnaam staan ook in de machtigingen)",
     "r": [
      [
       "kvk",
@@ -302,19 +303,19 @@ const FLOWS={
     ]
    },
    {
-    "g": "Mandaten: alle medewerkers in de EBW, Karins eigen mandaten in haar app",
+    "g": "Machtigingen: alle medewerkers in de EBW, Karins eigen machtigingen in haar app",
     "r": [
      [
       "mob",
-      "Mandaat OB: aangifte doen"
+      "Machtiging OB: aangifte doen"
      ],
      [
       "rvoA",
-      "Mandaat RVO: aanvragen"
+      "Machtiging RVO: aanvragen"
      ],
      [
       "rvoI",
-      "Mandaat RVO: inzien"
+      "Machtiging RVO: inzien"
      ]
     ]
    }
@@ -331,23 +332,23 @@ const FLOWS={
      "Karin wil namens Hanze Staffing inloggen op MOZa en daar omzetbelasting en subsidies regelen.",
      "De zakelijke wallet (EBW) van Hanze Staffing staat in de cloud en bevat de attestaties van de onderneming en van alle medewerkers. Karins persoonlijke wallet is de app op haar telefoon: daarin staan haar PID en, gegroepeerd per onderneming, de attestaties die over haar gaan."
     ],
-    "c": "Elk mandaat is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee mandaten onder Hanze Staffing in haar app.",
+    "c": "Elke machtiging is een aparte attestatie. Mag Karin iets bij twee diensten, dan staan er twee machtigingen onder Hanze Staffing in haar app.",
     "d": [
      [
       "Persoonlijke wallet",
-      "EDI-wallet (app op de telefoon): PID, plus per onderneming Karins mandaten"
+      "EDI-wallet (app op de telefoon): PID, plus per onderneming Karins machtigingen"
      ],
      [
       "Zakelijke wallet",
-      "EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de mandaten van alle medewerkers"
+      "EBW in de cloud, eigendom van Hanze Staffing: KVK-uittreksel en de machtigingen van alle medewerkers"
      ],
      [
       "Configureren",
-      "De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft het mandaat uit"
+      "De eigenaar legt in de EBW vast wie wat mag; de dienstverlener van de betreffende dienst geeft de machtiging uit"
      ],
      [
       "MOZa",
-      "Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een mandaat heeft"
+      "Portaal: geeft via SSO toegang tot de diensten waarvoor Karin een machtiging heeft"
      ]
     ]
    },
@@ -482,7 +483,7 @@ const FLOWS={
     ]
    },
    {
-    "l": "Mandaten configureren",
+    "l": "Machtigingen configureren",
     "h": "Karin configureert in de EBW wie wat mag",
     "w": [
      "z"
@@ -508,13 +509,13 @@ const FLOWS={
       3,
       "z",
       "in",
-      "mandaat OB"
+      "machtiging OB"
      ],
      [
       4,
       "z",
       "in",
-      "mandaat RVO"
+      "machtiging RVO"
      ]
     ],
     "x": {
@@ -532,10 +533,10 @@ const FLOWS={
      ]
     },
     "t": [
-     "Als beheerder van de EBW configureert Karin wie binnen Hanze Staffing wat mag: voor zichzelf het mandaat omzetbelasting en het mandaat subsidies, en zo ook voor collega's.",
-     "Voor elk mandaat vraagt de EBW de betreffende dienstverlener om het uit te geven. De Belastingdienst en RVO geven elk hun eigen mandaat terug in de EBW."
+     "Als beheerder van de EBW configureert Karin wie binnen Hanze Staffing wat mag: voor zichzelf de machtiging omzetbelasting en de machtiging subsidies, en zo ook voor collega's.",
+     "Voor elke machtiging vraagt de EBW de betreffende dienstverlener om het uit te geven. De Belastingdienst en RVO geven elk hun eigen machtiging terug in de EBW."
     ],
-    "c": "De onderneming regelt op één plek wie wat mag; de dienstverlener bepaalt wat een mandaat bij hem inhoudt en geeft het uit.",
+    "c": "De onderneming regelt op één plek wie wat mag; de dienstverlener bepaalt wat een machtiging bij hem inhoudt en geeft het uit.",
     "d": [
      [
       "Waar",
@@ -543,7 +544,7 @@ const FLOWS={
      ],
      [
       "Gedeeld met elke dienstverlener",
-      "Wie de eigenaar is (KVK-nummer, handelsnaam) en voor wie het mandaat is (naam, geboortedatum)"
+      "Wie de eigenaar is (KVK-nummer, handelsnaam) en voor wie de machtiging is (naam, geboortedatum)"
      ],
      [
       "Niet gedeeld",
@@ -551,15 +552,15 @@ const FLOWS={
      ],
      [
       "In EBW gezet",
-      "Van de Belastingdienst: mandaat OB (aangifte doen). Van RVO: mandaat RVO (aanvragen, inzien). Plus die van collega's."
+      "Van de Belastingdienst: machtiging OB (aangifte doen). Van RVO: machtiging RVO (aanvragen, inzien). Plus die van collega's."
      ],
      [
       "Binding",
-      "Hoe het mandaat aan Karin gekoppeld wordt: naam en geboortedatum, of direct haar wallet<span class=\"mark\">ontwerpkeuze</span>"
+      "Hoe de machtiging aan Karin gekoppeld wordt: naam en geboortedatum, of direct haar wallet<span class=\"mark\">ontwerpkeuze</span>"
      ],
      [
       "Type attestatie",
-      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+      "EAA of QEAA. Een PuB-EAA alleen als de machtigingenregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
      ]
     ]
    },
@@ -576,16 +577,16 @@ const FLOWS={
       "ww",
       "z",
       "p",
-      "Karins|mandaten",
+      "Karins|machtigingen",
       258
      ]
     ],
     "x": {},
     "t": [
-     "Uit de EBW gaan alleen de mandaten die over Karin gaan naar de app op haar telefoon: het mandaat omzetbelasting en het mandaat subsidies.",
+     "Uit de EBW gaan alleen de machtigingen die over Karin gaan naar de app op haar telefoon: de machtiging omzetbelasting en de machtiging subsidies.",
      "In de app staan ze gegroepeerd onder Hanze Staffing. Werkt Karin ook voor een andere onderneming, dan krijgt die een eigen groep."
     ],
-    "c": "Twee mandaten zijn twee aparte attestaties. Zo deelt Karin straks steeds alleen het mandaat dat een dienst nodig heeft.",
+    "c": "Twee machtigingen zijn twee aparte attestaties. Zo deelt Karin straks steeds alleen de machtiging die een dienst nodig heeft.",
     "d": [
      [
       "Van",
@@ -596,12 +597,12 @@ const FLOWS={
       "Persoonlijke wallet van Karin, groep Hanze Staffing"
      ],
      [
-      "Mandaten",
-      "Mandaat OB; mandaat RVO, elk apart"
+      "Machtigingen",
+      "Machtiging OB; machtiging RVO, elk apart"
      ],
      [
       "Niet overgezet",
-      "Mandaten van collega's; het KVK-uittreksel (KVK-nummer en naam staan al in de mandaten)"
+      "Machtigingen van collega's; het KVK-uittreksel (KVK-nummer en naam staan al in de machtigingen)"
      ],
      [
       "Binding",
@@ -627,7 +628,7 @@ const FLOWS={
       2,
       "p",
       "out",
-      "PID + mandaten"
+      "PID + machtigingen"
      ]
     ],
     "x": {
@@ -641,10 +642,10 @@ const FLOWS={
      ]
     },
     "t": [
-     "Karin logt in op MOZa met haar persoonlijke wallet. Ze toont haar naam uit de PID en de mandaten uit de groep Hanze Staffing.",
+     "Karin logt in op MOZa met haar persoonlijke wallet. Ze toont haar naam uit de PID en de machtigingen uit de groep Hanze Staffing.",
      "MOZa ziet voor welke onderneming en welke diensten Karin mag handelen, en toont haar precies die diensten: omzetbelasting en subsidies. De EBW is hier niet nodig."
     ],
-    "c": "MOZa is de voordeur: één keer inloggen, en op basis van de mandaten de juiste toegang, via SSO naar de diensten erachter.",
+    "c": "MOZa is de voordeur: één keer inloggen, en op basis van de machtigingen de juiste toegang, via SSO naar de diensten erachter.",
     "d": [
      [
       "Gevraagd",
@@ -652,7 +653,7 @@ const FLOWS={
      ],
      [
       "Gedeeld uit persoonlijke wallet",
-      "Naam (PID); mandaat OB en mandaat RVO, met KVK-nummer en handelsnaam"
+      "Naam (PID); machtiging OB en machtiging RVO, met KVK-nummer en handelsnaam"
      ],
      [
       "Niet gedeeld",
@@ -660,7 +661,7 @@ const FLOWS={
      ],
      [
       "Keuze",
-      "Alle mandaten in één keer bij inloggen: één portaalbeleving, met toegang tot alle dienstverleners waarvoor Karin een mandaat heeft"
+      "Alle machtigingen in één keer bij inloggen: één portaalbeleving, met toegang tot alle dienstverleners waarvoor Karin een machtiging heeft"
      ],
      [
       "Resultaat",
@@ -692,26 +693,26 @@ const FLOWS={
      ]
     },
     "t": [
-     "Vanuit MOZa opent Karin de aangifte omzetbelasting. MOZa brengt haar via SSO naar de Belastingdienst en geeft haar mandaat OB mee, zoals Karin het bij het inloggen toonde.",
-     "Er is geen nieuw wallet-verzoek nodig. Past het mandaat bij de handeling, dan doet Karin de aangifte."
+     "Vanuit MOZa opent Karin de aangifte omzetbelasting. MOZa brengt haar via SSO naar de Belastingdienst en geeft haar machtiging OB mee, zoals Karin het bij het inloggen toonde.",
+     "Er is geen nieuw wallet-verzoek nodig. Past de machtiging bij de handeling, dan doet Karin de aangifte."
     ],
-    "c": "Karin logt één keer in. De Belastingdienst hoeft MOZa niet blind te vertrouwen: hij controleert het mandaat dat hij zelf heeft uitgegeven.",
+    "c": "Karin logt één keer in. De Belastingdienst hoeft MOZa niet blind te vertrouwen: hij controleert de machtiging die hij zelf heeft uitgegeven.",
     "d": [
      [
       "Via SSO doorgegeven",
-      "Naam Karin, KVK-nummer, mandaat OB"
+      "Naam Karin, KVK-nummer, machtiging OB"
      ],
      [
       "Controle",
-      "De Belastingdienst checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+      "De Belastingdienst checkt bij elke SSO-toegang zelf de statuslijst van de machtiging"
      ],
      [
       "Niet doorgegeven",
-      "Mandaat RVO en overige PID-gegevens"
+      "Machtiging RVO en overige PID-gegevens"
      ],
      [
       "Vorm",
-      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+      "De machtiging zelf: de dienstverlener controleert de handtekening en de statuslijst"
      ],
      [
       "Fiscaal nummer",
@@ -747,26 +748,26 @@ const FLOWS={
      ]
     },
     "t": [
-     "Karin start vanuit MOZa een subsidieaanvraag. MOZa brengt haar via SSO naar RVO en geeft het mandaat subsidies mee.",
-     "RVO controleert of het mandaat aanvragen toestaat. Karin dient de aanvraag in; de status is daarna in MOZa te volgen."
+     "Karin start vanuit MOZa een subsidieaanvraag. MOZa brengt haar via SSO naar RVO en geeft de machtiging subsidies mee.",
+     "RVO controleert of de machtiging aanvragen toestaat. Karin dient de aanvraag in; de status is daarna in MOZa te volgen."
     ],
     "c": "Aanvragen en inzien zijn aparte rechten. Wie alleen mag inzien, kan niets indienen.",
     "d": [
      [
       "Via SSO doorgegeven",
-      "Naam Karin, KVK-nummer, mandaat RVO (scope aanvragen)"
+      "Naam Karin, KVK-nummer, machtiging RVO (scope aanvragen)"
      ],
      [
       "Controle",
-      "RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+      "RVO checkt bij elke SSO-toegang zelf de statuslijst van de machtiging"
      ],
      [
       "Vorm",
-      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+      "De machtiging zelf: de dienstverlener controleert de handtekening en de statuslijst"
      ],
      [
       "Niet doorgegeven",
-      "Mandaat OB en overige PID-gegevens"
+      "Machtiging OB en overige PID-gegevens"
      ],
      [
       "Resultaat",
@@ -799,21 +800,21 @@ const FLOWS={
     },
     "t": [
      "Karin bekijkt vanuit MOZa de lopende subsidies en besluiten van Hanze Staffing.",
-     "MOZa geeft via SSO het mandaat mee, met alleen de scope inzien; RVO controleert handtekening, statuslijst en scope."
+     "MOZa geeft via SSO de machtiging mee, met alleen de scope inzien; RVO controleert handtekening, statuslijst en scope."
     ],
     "c": "MOZa geeft per dienst en per handeling alleen door wat nodig is.",
     "d": [
      [
       "Via SSO doorgegeven",
-      "Naam Karin, KVK-nummer, mandaat RVO (scope inzien)"
+      "Naam Karin, KVK-nummer, machtiging RVO (scope inzien)"
      ],
      [
       "Controle",
-      "RVO checkt bij elke SSO-toegang zelf de statuslijst van het mandaat"
+      "RVO checkt bij elke SSO-toegang zelf de statuslijst van de machtiging"
      ],
      [
       "Vorm",
-      "Het mandaat zelf: de dienstverlener controleert de handtekening en de statuslijst"
+      "De machtiging zelf: de dienstverlener controleert de handtekening en de statuslijst"
      ],
      [
       "Niet doorgegeven",
@@ -826,8 +827,8 @@ const FLOWS={
     ]
    },
    {
-    "l": "Mandaat intrekken",
-    "h": "Het RVO-mandaat wordt ingetrokken",
+    "l": "Machtiging intrekken",
+    "h": "De RVO-machtiging wordt ingetrokken",
     "w": [
      "z"
     ],
@@ -859,8 +860,8 @@ const FLOWS={
     },
     "rej": true,
     "t": [
-     "Karin, of een andere beheerder, zet in de EBW het RVO-mandaat van Karin uit. De EBW van Hanze Staffing stuurt RVO een verzoek tot intrekken; RVO zet het mandaat als uitgever op zijn statuslijst.",
-     "Karin is op dat moment nog ingelogd op MOZa. Klikt ze op subsidies, dan geeft MOZa het mandaat mee en ziet RVO op de statuslijst dat het is ingetrokken: RVO weigert direct. De omzetbelasting blijft gewoon werken."
+     "Karin, of een andere beheerder, zet in de EBW het RVO-machtiging van Karin uit. De EBW van Hanze Staffing stuurt RVO een verzoek tot intrekken; RVO zet de machtiging als uitgever op zijn statuslijst.",
+     "Karin is op dat moment nog ingelogd op MOZa. Klikt ze op subsidies, dan geeft MOZa de machtiging mee en ziet RVO op de statuslijst dat het is ingetrokken: RVO weigert direct. De omzetbelasting blijft gewoon werken."
     ],
     "c": "Omdat de dienstverlener zelf controleert, werkt een intrekking meteen, ook in een lopende MOZa-sessie.",
     "d": [
@@ -870,7 +871,7 @@ const FLOWS={
      ],
      [
       "Uitvoering",
-      "RVO, als uitgever, zet het mandaat op zijn statuslijst"
+      "RVO, als uitgever, zet de machtiging op zijn statuslijst"
      ],
      [
       "Controle",
@@ -878,11 +879,11 @@ const FLOWS={
      ],
      [
       "Bij volgende login",
-      "MOZa ziet het ingetrokken mandaat en biedt de subsidiedienst niet meer aan"
+      "MOZa ziet de ingetrokken machtiging en biedt de subsidiedienst niet meer aan"
      ],
      [
       "Resultaat",
-      "Direct geen toegang meer tot subsidies; mandaat OB blijft geldig"
+      "Direct geen toegang meer tot subsidies; machtiging OB blijft geldig"
      ]
     ]
    }
@@ -1248,7 +1249,7 @@ const FLOWS={
      ],
      [
       "Type attestatie",
-      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+      "EAA of QEAA. Een PuB-EAA alleen als de machtigingenregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
      ]
     ]
    },
@@ -1381,7 +1382,7 @@ const FLOWS={
      ],
      [
       "Type attestatie",
-      "EAA of QEAA. Een PuB-EAA alleen als de mandaatregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
+      "EAA of QEAA. Een PuB-EAA alleen als de machtigingenregistratie bij wet een authentieke bron is<span class=\"mark\">ontwerpkeuze</span>"
      ]
     ]
    },

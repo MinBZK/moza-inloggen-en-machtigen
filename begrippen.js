@@ -54,7 +54,6 @@
     'KVK': { u: 'Kamer van Koophandel: beheert het Handelsregister.', l: 'https://www.kvk.nl/' },
     'gemachtigde': { u: 'Iemand die van een onderneming of persoon toestemming heeft om namens die ander zaken te regelen.' },
     'machtiging': { u: 'Vastgelegde toestemming om namens een onderneming een bepaalde handeling te doen; in de wallet een attestatie die de onderneming zelf uitgeeft.' },
-    'mandaat': { u: 'Vastgelegde bevoegdheid om namens een organisatie een bepaalde handeling te doen; in de wallet een attestatie.' },
     'SSO': { u: 'Single sign-on: één keer inloggen geeft toegang tot meerdere diensten.' },
     // ---- Attestaties en vertrouwen (achtergrondpagina's)
     'Pub-EAA': { u: 'Public Electronic Attestation of Attributes: attestatie uitgegeven door of namens een publieke bronhouder van een authentieke bron, zoals de KVK.' },
@@ -90,7 +89,7 @@
 
   // Schrijfwijzen die naar hetzelfde begrip verwijzen
   var ALIAS = { 'Business Wallet': 'business wallet', 'business wallets': 'business wallet', 'attestaties': 'attestatie', 'Attestatie': 'attestatie',
-    'uitvoeringshandelingen': 'uitvoeringshandeling', 'Uitvoeringshandelingen': 'uitvoeringshandeling', 'mandaten': 'mandaat', 'Mandaat': 'mandaat', 'Mandaten': 'mandaat', 'machtigingen': 'machtiging', 'Machtiging': 'machtiging', 'Machtigingen': 'machtiging',
+    'uitvoeringshandelingen': 'uitvoeringshandeling', 'Uitvoeringshandelingen': 'uitvoeringshandeling', 'machtigingen': 'machtiging', 'Machtiging': 'machtiging', 'Machtigingen': 'machtiging',
     'gemachtigden': 'gemachtigde', 'Gemachtigde': 'gemachtigde', 'Betrouwbaarheidsniveau': 'betrouwbaarheidsniveau', 'betrouwbaarheidsniveaus': 'betrouwbaarheidsniveau',
     'Herkenningsmakelaar': 'herkenningsmakelaar', 'Dienstencatalogus': 'dienstencatalogus', 'EDI-wallets': 'EDI-wallet', 'handelsregister': 'Handelsregister',
     "Pub-EAA's": 'Pub-EAA', "QEAA's": 'QEAA', "EAA's": 'EAA', "QTSP's": 'QTSP', 'EUDIW': 'EUDI-wallet', 'Wallet-provider': 'wallet-provider', 'Bronhouder': 'bronhouder',

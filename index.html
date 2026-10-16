@@ -243,6 +243,22 @@
     </nldd-simple-section>
 
 
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj">Verordening (EU) 2024/1183 (eIDAS 2.0)</a></li>
+          <li><a href="https://digitalpolicyalert.org/event/35575-european-commission-published-proposal-for-a-regulation-on-the-establishment-of-european-business-wallets">Voorstel van de Europese Commissie voor een verordening over European Business Wallets</a></li>
+          <li><a href="https://data.consilium.europa.eu/doc/document/ST-15701-2025-ADD-1/en/pdf">Raad van de EU: ST 15701/2025 ADD 1 (EBW-voorstel)</a></li>
+          <li><a href="https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/">EUDI Wallet Architecture and Reference Framework (ARF)</a></li>
+          <li><a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten (eHerkenning)</a></li>
+          <li><a href="https://edi.pleio.nl/">Programma Europese Digitale Identiteit (EDI) en de NL Wallet</a></li>
+          <li><a href="https://www.kvk.nl/">KVK: Handelsregister</a></li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
     <nldd-page-footer>
       <nldd-container padding="24" gap="16">
         <nldd-container layout="wrap" gap="8" id="archive-entry" hidden>
@@ -382,11 +398,11 @@ const LANES = [
         summary: 'Alle MOZa-diensten accepteren de business wallet, ook uit andere lidstaten, binnen de wettelijke termijn.',
         features: ['EBW geaccepteerd voor alle MOZa-diensten met identificatie', 'Business wallets uit andere EU-lidstaten erkend', 'Inloggen als organisatie uit de pilotfase'],
         experience: 'Elke onderneming met een business wallet kan ermee terecht in heel MOZa.',
-        gaps: ['Mandaten voor medewerkers nog via eHerkenning', 'Kleine ondernemers zonder EBW blijven afhankelijk van eHerkenning of DigiD'],
+        gaps: ['Machtigingen voor medewerkers nog via eHerkenning', 'Kleine ondernemers zonder EBW blijven afhankelijk van eHerkenning of DigiD'],
         deps: ['Acceptatieplicht EBW voor overheidsorganisaties (extern kader)', 'EDI-wallet R4: Europese wallets erkend'] },
-      { t: '2031-1', code: 'R4', title: 'Mandaten en gegevens eenmalig delen', horizon: 'verkenning', fit: 'grotendeels',
-        summary: 'De onderneming geeft mandaten vanuit de EBW en deelt gegevens één keer met de overheid.',
-        features: ['Mandaten voor medewerkers vanuit de EBW', 'Mandaten vertaald naar MOZa-dienstrechten', 'Gegevens eenmalig delen met de overheid vanuit de EBW', 'Gezamenlijk machtigingsoverzicht met eHerkenning en DigiD'],
+      { t: '2031-1', code: 'R4', title: 'Machtigingen en gegevens eenmalig delen', horizon: 'verkenning', fit: 'grotendeels',
+        summary: 'De onderneming geeft machtigingen vanuit de EBW en deelt gegevens één keer met de overheid.',
+        features: ['Machtigingen voor medewerkers vanuit de EBW', 'Machtigingen vertaald naar MOZa-dienstrechten', 'Gegevens eenmalig delen met de overheid vanuit de EBW', 'Gezamenlijk machtigingsoverzicht met eHerkenning en DigiD'],
         experience: 'De ondernemer beheert medewerkers op één plek en levert gegevens één keer aan.',
         gaps: ['Nog niet alle aangesloten organisaties hergebruiken gedeelde gegevens'],
         deps: ['EDI-wallet R3: machtigingen als attestatie', 'Gedeeld rechtenmodel (eHerkenning R3)', 'Uitkomst verkenning OOTS (Onderzoek en verkenning V1)'] },
@@ -414,12 +430,12 @@ const LANES = [
         summary: 'KvK-attestatie "bevoegd vertegenwoordiger" verifieerbaar naast de PID.',
         features: ['KvK-attestatie "bevoegd vertegenwoordiger"', 'PID en KvK-attestatie in één presentatie'],
         experience: 'Maakt het mogelijk dat een bestuurder de EBW van de onderneming activeert.',
-        gaps: ['Gevolmachtigden zonder inschrijving in het Handelsregister nog niet'],
+        gaps: ['Gemachtigden zonder inschrijving in het Handelsregister nog niet'],
         deps: ['KvK als uitgever van vertegenwoordigingsattestaties'] },
       { t: '2029-1', code: 'R3', title: 'Machtigingen als attestatie', horizon: 'gepland', enables: 'EBW R4',
         summary: 'Machtigingen voor medewerkers als verifieerbare attestatie, met directe intrekking.',
         features: ['Machtiging als attestatie in de wallet van de medewerker', 'Intrekken met directe statuscontrole'],
-        experience: 'Basis voor mandaten vanuit de EBW.',
+        experience: 'Basis voor machtigingen vanuit de EBW.',
         gaps: ['Herstel bij verlies van de telefoon vraagt opnieuw uitgeven'],
         deps: ['Gedeeld rechtenmodel (eHerkenning R3)'] },
       { t: '2030-1', code: 'R4', title: 'Europese wallets erkend', horizon: 'verkenning', enables: 'EBW R3',
@@ -430,7 +446,7 @@ const LANES = [
         deps: ['Europese vertrouwenslijsten en BRIS-koppeling'] },
       { t: '2031-1', code: 'R5', title: 'Ondertekenen', horizon: 'verkenning', enables: 'EBW R5',
         summary: 'Gekwalificeerde elektronische handtekening vanuit de wallet.',
-        features: ['Gekwalificeerde elektronische handtekening (QES)', 'Handtekening koppelbaar aan een EBW-mandaat'],
+        features: ['Gekwalificeerde elektronische handtekening (QES)', 'Handtekening koppelbaar aan een EBW-machtiging'],
         experience: 'Basis voor ondertekenen namens de onderneming.',
         gaps: ['Niet alle organisaties accepteren al wallet-handtekeningen'],
         deps: ['Gekwalificeerde handtekeningdienst in de wallet'] },
@@ -588,7 +604,7 @@ const EXPERIENCE = {
   '2029-1': 'Medewerkers met een machtiging in de wallet',
   '2029-2': 'Officiële post komt aantoonbaar aan in de business wallet',
   '2030-1': 'Nieuw middel: de business wallet voor iedere onderneming, en wallets uit andere EU-landen; zelf machtigen in MOZa; met eHerkenning en business wallet overal ingelogd',
-  '2031-1': 'Machtigingen mee naar de business wallet; mandaten vanuit de EBW; gegevens één keer delen en ondertekenen met de wallet',
+  '2031-1': 'Machtigingen mee naar de business wallet; machtigingen vanuit de EBW; gegevens één keer delen en ondertekenen met de wallet',
   '2031-2': 'Zelf kiezen tussen DigiD en wallet, met dezelfde toegang',
   '2032-2': 'eHerkenning blijft als terugvaloptie; vrije keuze van middel',
   '2032-3': 'Overheidszaken in heel de EU regelen vanuit één business wallet',
@@ -598,7 +614,7 @@ const WISHES = [
   { wish: 'Met één inlog ook naar andere dienstverleners', first: 'DigiD R2 (T1 2028) - alle dienstverleners', full: 'eHerkenning R2 en EBW R3 (T1 2030) - alle dienstverleners', via: 'Alle sporen' },
   { wish: 'Inloggen zonder extra kosten', first: 'DigiD R1 (T1 2027) - als persoon', full: 'EDI-wallet R2 (T1 2028) - ook namens vof, bv en nv', via: 'DigiD, EDI-wallet' },
   { wish: 'Rechten per afgevaardigde en dienstverlener', first: 'eHerkenning R1 (T1 2027)', full: 'eHerkenning R1 (T1 2027)', via: 'eHerkenning' },
-  { wish: 'Een gemachtigde kan voor mijn onderneming inloggen', first: 'eHerkenning R1 (T1 2027) - machtiging per dienstverlener', full: 'EBW R4 (T1 2031) - mandaat vanuit de EBW', via: 'eHerkenning, EBW' },
+  { wish: 'Een gemachtigde kan voor mijn onderneming inloggen', first: 'eHerkenning R1 (T1 2027) - machtiging per dienstverlener', full: 'EBW R4 (T1 2031) - machtiging vanuit de EBW', via: 'eHerkenning, EBW' },
   { wish: 'Zelf machtigen, zonder leverancier', first: 'eHerkenning R3 (T1 2030)', full: 'EBW R4 (T1 2031)', via: 'eHerkenning, EBW' },
   { wish: 'Eén overzicht van alle machtigingen', first: 'eHerkenning R3 (T1 2030)', full: 'eHerkenning R3 (T1 2030)', via: 'Alle sporen' },
   { wish: 'Inloggen als organisatie met een wallet', first: 'EBW R1 (T2 2028) - pilot', full: 'EBW R3 (T1 2030)', via: 'EBW (met EDI-wallet)' },
@@ -886,7 +902,7 @@ const LOGIN_MATRIX = [
     digid: { s: 'nee', note: 'Geen koppeling met de onderneming' },
     eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1', note: 'machtiging per dienstverlener' },
     edi:   { s: 'ja', t: '2029-1', ref: 'EDI-wallet R3', note: 'machtiging als attestatie' },
-    ebw:   { s: 'beperkt', t: '2028-2', ref: 'EBW R1', note: 'pilot; mandaten per dienst T1 2031 (R4)' } },
+    ebw:   { s: 'beperkt', t: '2028-2', ref: 'EBW R1', note: 'pilot; machtigingen per dienst T1 2031 (R4)' } },
   { group: 'Fiscale eenheid', role: 'Moeder- en dochtermaatschappij', note: 'Ondernemingen die als één worden gezien',
     digid: { s: 'nee', note: 'DigiD is niet bedoeld voor rechtspersonen' },
     eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1' },
@@ -896,7 +912,7 @@ const LOGIN_MATRIX = [
     digid: { s: 'nee', note: 'DigiD Machtigen is voorlopig niet voorzien' },
     eh:    { s: 'ja', t: '2027-1', ref: 'eHerkenning R1', note: 'machtiging per dienstverlener' },
     edi:   { s: 'beperkt', t: '2029-1', ref: 'EDI-wallet R3', note: 'attestatie per onderneming' },
-    ebw:   { s: 'ja', t: '2031-1', ref: 'EBW R4', note: 'mandaat vanuit de EBW van de andere onderneming' } },
+    ebw:   { s: 'ja', t: '2031-1', ref: 'EBW R4', note: 'machtiging vanuit de EBW van de andere onderneming' } },
 ];
 const LOGIN_COLS = ['digid', 'eh', 'edi', 'ebw'];
 const LOGIN_COLOR = { ja: 'success', beperkt: 'warning', nee: 'secondary' };
