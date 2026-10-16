@@ -10,6 +10,7 @@ const PREFIX = `pagina:${PAGE}|`;
 let OPMERKINGEN = [];
 let IK = null;
 let AAN = false;
+let INLOGGEN = false; // de server kan inloggen (openbare pagina, nog niet ingelogd)
 let signature = '';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -60,7 +61,16 @@ const HINT_KEY = 'roadmap-opmerkingen-hint-weg';
 const hintDismissed = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
 const hintHost = document.getElementById('opm-hint');
 const buttonHost = document.getElementById('opm-knop');
+const loginUrl = () => `auth/login?rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`;
 const renderChrome = () => {
+  // Openbare pagina zonder inlog: alleen een knop om in te loggen; opmerkingen zijn dan niet zichtbaar
+  if (!AAN && INLOGGEN) {
+    const knop = `<nldd-button appearance="neutral-tinted" size="sm" start-icon="message-rectangle-text" href="${loginUrl()}"
+      text="Inloggen om opmerkingen te plaatsen" accessible-label="Inloggen met je rijksaccount om opmerkingen te lezen en te plaatsen"></nldd-button>`;
+    if (hintHost) hintHost.innerHTML = `<nldd-spacer size="16"></nldd-spacer>${knop}`;
+    if (buttonHost) buttonHost.innerHTML = knop;
+    return;
+  }
   if (hintHost) {
     hintHost.innerHTML = AAN && !hintDismissed() ? `
       <nldd-spacer size="16"></nldd-spacer>
@@ -230,6 +240,8 @@ async function load() {
       const me = await api('ik');
       IK = me.gebruiker;
       AAN = Boolean(me.opmerkingen && me.gebruiker);
+      INLOGGEN = Boolean(me.inloggen && !me.gebruiker);
+      if (INLOGGEN) renderChrome();
     }
     if (!AAN) return;
     const data = ((await api('opmerkingen')).opmerkingen || []).filter((o) => o.anker.startsWith(PREFIX));
