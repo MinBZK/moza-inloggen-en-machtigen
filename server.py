@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Server voor de roadmap: levert de site en een kleine API voor opmerkingen.
 
-Draait op ZAD achter de authorization-wall (oauth2-proxy met SSO Rijk). De proxy zet de identiteit
-van de ingelogde gebruiker in request-headers; de server vertrouwt die headers alleen omdat de app
-uitsluitend via de proxy bereikbaar is. Opmerkingen staan in SQLite op een persistent volume.
+Draait op ZAD met Keycloak (SSO Rijk). De server doet het inloggen zelf (OIDC authorization code
+flow met PKCE), zodat een paar pagina's openbaar kunnen zijn (PUBLIC_PAGES) en de rest achter de
+inlog blijft. Opmerkingen lezen en plaatsen kan alleen ingelogd. Opmerkingen en sessies staan in
+SQLite op een persistent volume.
 
 Alleen de standaardbibliotheek, zodat de container klein en zonder afhankelijkheden blijft.
 
@@ -12,16 +13,26 @@ Omgevingsvariabelen:
   SITE_DIR   map met de site (standaard: dist)
   DATA_DIR   map voor de database (standaard: /data; moet schrijfbaar zijn)
   EDITORS    komma-gescheiden e-mailadressen die opmerkingen mogen oplossen; leeg = iedereen
-  DEV_USER   alleen lokaal: e-mailadres om als ingelogde gebruiker te testen zonder proxy
+  DEV_USER   alleen lokaal: e-mailadres om als ingelogde gebruiker te testen zonder Keycloak
+  AUTH       'app' = zelf inloggen via Keycloak; leeg = achter de authorization-wall (headers)
+  PUBLIC_PAGES  komma-gescheiden pagina's die zonder inloggen te zien zijn (standaard: ebw-landschap.html)
+  BASE_URL   adres van de site voor de redirect na het inloggen (standaard: https://<Host-header>)
+  OIDC_DISCOVERY_URL, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET  van de ZAD-service keycloak
 
 Lokaal: SITE_DIR=. DATA_DIR=.data DEV_USER=voornaam.achternaam@rijksoverheid.nl python3 server.py
 """
+import base64
 import datetime
+import hashlib
 import json
 import os
 import re
+import secrets
 import sqlite3
 import threading
+import time
+import urllib.parse
+import urllib.request
 from functools import partial
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -31,6 +42,17 @@ SITE_DIR = os.environ.get('SITE_DIR', 'dist')
 DATA_DIR = os.environ.get('DATA_DIR', '/data')
 EDITORS = {e.strip().lower() for e in os.environ.get('EDITORS', '').split(',') if e.strip()}
 DEV_USER = os.environ.get('DEV_USER', '')
+PUBLIC_PAGES = {p.strip() for p in os.environ.get('PUBLIC_PAGES', 'ebw-landschap.html').split(',') if p.strip()}
+BASE_URL = os.environ.get('BASE_URL', '').rstrip('/')
+OIDC_DISCOVERY_URL = os.environ.get('OIDC_DISCOVERY_URL', '')
+OIDC_CLIENT_ID = os.environ.get('OIDC_CLIENT_ID', '')
+OIDC_CLIENT_SECRET = os.environ.get('OIDC_CLIENT_SECRET', '')
+# AUTH=app: de server doet het inloggen zelf (openbare pagina's mogelijk). Anders: achter de authorization-wall,
+# die de identiteit in headers meegeeft. Die headers worden in app-modus nooit vertrouwd.
+LOGIN = os.environ.get('AUTH') == 'app' and bool(OIDC_DISCOVERY_URL and OIDC_CLIENT_ID)
+WALL = os.environ.get('AUTH') != 'app'
+COOKIE = 'roadmap_sessie'
+SESSION_SECONDS = 12 * 3600
 MAX_BODY = 20_000
 LIMITS = {'anker': 600, 'onderdeel': 600, 'opmerking': 5000, 'tekst': 5000, 'conclusie': 5000}
 
@@ -52,6 +74,9 @@ def connect() -> sqlite3.Connection:
           auteur TEXT NOT NULL, email TEXT NOT NULL, datum TEXT NOT NULL,
           status TEXT NOT NULL DEFAULT 'open',
           conclusie TEXT NOT NULL DEFAULT '', opgelost_door TEXT NOT NULL DEFAULT '', opgelost_op TEXT NOT NULL DEFAULT ''
+        );
+        CREATE TABLE IF NOT EXISTS sessies (
+          token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, naam TEXT NOT NULL, verloopt REAL NOT NULL
         );
         CREATE TABLE IF NOT EXISTS reacties (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,6 +101,69 @@ def display_name(email: str, username: str) -> str:
     return ' '.join(p[:1].upper() + p[1:] for p in parts) or 'Onbekend'
 
 
+# ---- inloggen via Keycloak (OIDC)
+_discovery = {}
+PENDING = {}  # state -> (code_verifier, terug-pad, tijdstip); kort geldig, alleen in het geheugen
+MEMORY_SESSIONS = {}  # als er geen database is
+
+
+def discovery() -> dict:
+    if not _discovery:
+        with urllib.request.urlopen(OIDC_DISCOVERY_URL, timeout=10) as res:
+            _discovery.update(json.load(res))
+    return _discovery
+
+
+def b64url(raw: bytes) -> str:
+    return base64.urlsafe_b64encode(raw).rstrip(b'=').decode()
+
+
+def token_hash(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
+
+
+def safe_path(rd: str) -> str:
+    """Alleen een pad op deze site als bestemming na het inloggen (geen open redirect)."""
+    return rd if rd.startswith('/') and not rd.startswith('//') and '\\' not in rd else '/'
+
+
+def new_session(email: str, naam: str) -> str:
+    token = secrets.token_urlsafe(32)
+    expires = time.time() + SESSION_SECONDS
+    if DB is None:
+        MEMORY_SESSIONS[token_hash(token)] = (email, naam, expires)
+    else:
+        with DB_LOCK:
+            DB.execute('DELETE FROM sessies WHERE verloopt < ?', (time.time(),))
+            DB.execute('INSERT INTO sessies VALUES (?,?,?,?)', (token_hash(token), email, naam, expires))
+            DB.commit()
+    return token
+
+
+def get_session(token: str):
+    if not token:
+        return None
+    h = token_hash(token)
+    if DB is None:
+        row = MEMORY_SESSIONS.get(h)
+    else:
+        with DB_LOCK:
+            r = DB.execute('SELECT email, naam, verloopt FROM sessies WHERE token_hash = ?', (h,)).fetchone()
+        row = tuple(r) if r else None
+    if not row or row[2] < time.time():
+        return None
+    return {'email': row[0], 'naam': row[1]}
+
+
+def end_session(token: str) -> None:
+    h = token_hash(token)
+    MEMORY_SESSIONS.pop(h, None)
+    if DB is not None:
+        with DB_LOCK:
+            DB.execute('DELETE FROM sessies WHERE token_hash = ?', (h,))
+            DB.commit()
+
+
 def all_comments() -> list:
     with DB_LOCK:
         rows = DB.execute('SELECT * FROM opmerkingen ORDER BY id').fetchall()
@@ -94,17 +182,91 @@ def all_comments() -> list:
 class Handler(SimpleHTTPRequestHandler):
     server_version = 'moza-roadmap'
 
-    # ---- identiteit uit de headers van de authorization-wall
+    # ---- identiteit: eigen sessie (AUTH=app) of de headers van de authorization-wall
+    def cookie(self) -> str:
+        for part in (self.headers.get('Cookie') or '').split(';'):
+            name, _, value = part.strip().partition('=')
+            if name == COOKIE:
+                return value
+        return ''
+
     def user(self):
-        email = (self.headers.get('X-Forwarded-Email') or self.headers.get('X-Auth-Request-Email') or '').strip()
-        username = (self.headers.get('X-Forwarded-Preferred-Username') or self.headers.get('X-Forwarded-User')
-                    or self.headers.get('X-Auth-Request-Preferred-Username') or self.headers.get('X-Auth-Request-User') or '').strip()
-        if not email and not username and DEV_USER:
-            email = DEV_USER
-        if not email and not username:
+        session = get_session(self.cookie()) if LOGIN else None
+        if not session and WALL:
+            email = (self.headers.get('X-Forwarded-Email') or self.headers.get('X-Auth-Request-Email') or '').strip().lower()
+            username = (self.headers.get('X-Forwarded-Preferred-Username') or self.headers.get('X-Forwarded-User')
+                        or self.headers.get('X-Auth-Request-Preferred-Username') or self.headers.get('X-Auth-Request-User') or '').strip()
+            if email or username:
+                session = {'email': email or username.lower(), 'naam': display_name(email, username)}
+        if not session and DEV_USER and not LOGIN:
+            session = {'email': DEV_USER.lower(), 'naam': display_name(DEV_USER, '')}
+        if not session:
             return None
-        email = email.lower()
-        return {'email': email, 'naam': display_name(email, username), 'editor': not EDITORS or email in EDITORS}
+        return {**session, 'editor': not EDITORS or session['email'] in EDITORS}
+
+    def base_url(self) -> str:
+        return BASE_URL or f"https://{self.headers.get('Host', 'localhost')}"
+
+    def redirect(self, location: str, cookie: str = '') -> None:
+        self.send_response(HTTPStatus.FOUND)
+        self.send_header('Location', location)
+        self.send_header('Cache-Control', 'no-store')
+        if cookie:
+            self.send_header('Set-Cookie', cookie)
+        self.send_header('Content-Length', '0')
+        self.end_headers()
+
+    def is_public(self, path: str) -> bool:
+        return path.lstrip('/') in PUBLIC_PAGES
+
+    def auth_login(self, query: dict) -> None:
+        if not LOGIN:
+            return self.redirect(safe_path(query.get('rd', ['/'])[0]))
+        verifier = b64url(secrets.token_bytes(32))
+        state = b64url(secrets.token_bytes(24))
+        now_ = time.time()
+        for k in [k for k, v in PENDING.items() if v[2] < now_ - 600]:
+            PENDING.pop(k, None)
+        PENDING[state] = (verifier, safe_path(query.get('rd', ['/'])[0]), now_)
+        params = {
+            'client_id': OIDC_CLIENT_ID, 'response_type': 'code', 'scope': 'openid email profile',
+            'redirect_uri': f'{self.base_url()}/auth/callback', 'state': state,
+            'code_challenge': b64url(hashlib.sha256(verifier.encode()).digest()), 'code_challenge_method': 'S256',
+        }
+        self.redirect(f"{discovery()['authorization_endpoint']}?{urllib.parse.urlencode(params)}")
+
+    def auth_callback(self, query: dict) -> None:
+        pending = PENDING.pop(query.get('state', [''])[0], None)
+        code = query.get('code', [''])[0]
+        if not pending or not code or pending[2] < time.time() - 600:
+            return self.send_error(HTTPStatus.BAD_REQUEST, 'Inloggen verlopen of ongeldig; probeer het opnieuw')
+        verifier, rd, _ = pending
+        form = urllib.parse.urlencode({
+            'grant_type': 'authorization_code', 'code': code, 'redirect_uri': f'{self.base_url()}/auth/callback',
+            'client_id': OIDC_CLIENT_ID, 'client_secret': OIDC_CLIENT_SECRET, 'code_verifier': verifier,
+        }).encode()
+        try:
+            req = urllib.request.Request(discovery()['token_endpoint'], data=form, headers={'Content-Type': 'application/x-www-form-urlencoded'})
+            with urllib.request.urlopen(req, timeout=10) as res:
+                tokens = json.load(res)
+            req = urllib.request.Request(discovery()['userinfo_endpoint'], headers={'Authorization': f"Bearer {tokens['access_token']}"})
+            with urllib.request.urlopen(req, timeout=10) as res:
+                info = json.load(res)
+        except (OSError, KeyError, ValueError) as err:
+            print(f'Inloggen mislukt: {type(err).__name__}')
+            return self.send_error(HTTPStatus.BAD_GATEWAY, 'Inloggen mislukt; probeer het opnieuw')
+        email = str(info.get('email') or '').lower()
+        username = str(info.get('preferred_username') or '')
+        naam = str(info.get('name') or '').strip() or display_name(email, username)
+        token = new_session(email or username, naam)
+        self.redirect(rd, f'{COOKIE}={token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age={SESSION_SECONDS}')
+
+    def auth_logout(self, query: dict) -> None:
+        end_session(self.cookie())
+        rd = safe_path(query.get('rd', ['/'])[0])
+        landing = rd if self.is_public(rd) else ('/' + sorted(PUBLIC_PAGES)[0] if PUBLIC_PAGES else '/')
+        self.redirect(landing,
+                      f'{COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0')
 
     def send_json(self, status, data):
         body = json.dumps(data, ensure_ascii=False).encode()
@@ -137,16 +299,34 @@ class Handler(SimpleHTTPRequestHandler):
 
     # ---- routes
     def do_GET(self):
-        path = self.path.split('?')[0]
+        path, _, qs = self.path.partition('?')
+        query = urllib.parse.parse_qs(qs)
+        if path == '/auth/login':
+            return self.auth_login(query)
+        if path == '/auth/callback':
+            return self.auth_callback(query)
+        if path == '/auth/logout':
+            return self.auth_logout(query)
         if path == '/api/ik':
-            return self.send_json(HTTPStatus.OK, {'gebruiker': self.user(), 'opmerkingen': DB is not None})
+            return self.send_json(HTTPStatus.OK, {'gebruiker': self.user(), 'opmerkingen': DB is not None, 'inloggen': LOGIN})
+        if path.startswith('/api/') and not self.user():
+            return self.send_json(HTTPStatus.UNAUTHORIZED, {'fout': 'Niet ingelogd'})
         if path == '/api/opmerkingen':
             if DB is None:
                 return self.send_json(HTTPStatus.SERVICE_UNAVAILABLE, {'fout': 'Opmerkingen niet beschikbaar'})
             return self.send_json(HTTPStatus.OK, {'opmerkingen': all_comments()})
         if path.startswith('/api/'):
             return self.send_json(HTTPStatus.NOT_FOUND, {'fout': 'Onbekend'})
+        # Pagina's: openbaar of achter de inlog
+        if LOGIN and not self.is_public(path) and not self.user():
+            return self.redirect(f"/auth/login?{urllib.parse.urlencode({'rd': self.path})}")
         return super().do_GET()
+
+    def do_HEAD(self):
+        path = self.path.split('?')[0]
+        if LOGIN and (path.startswith(('/api/', '/auth/')) or (not self.is_public(path) and not self.user())):
+            return self.redirect('/auth/login')
+        return super().do_HEAD()
 
     def do_POST(self):
         path = self.path.split('?')[0]
@@ -199,5 +379,6 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    print(f'Roadmap op :{PORT} (site: {SITE_DIR}, data: {DATA_DIR}, editors: {", ".join(sorted(EDITORS)) or "iedereen"})')
+    print(f'Roadmap op :{PORT} (site: {SITE_DIR}, data: {DATA_DIR}, editors: {", ".join(sorted(EDITORS)) or "iedereen"}, '
+          f'inloggen: {"zelf via Keycloak" if LOGIN else "authorization-wall" if WALL else "uit"}, openbaar: {", ".join(sorted(PUBLIC_PAGES)) or "-"})')
     ThreadingHTTPServer(('0.0.0.0', PORT), partial(Handler, directory=SITE_DIR)).serve_forever()
