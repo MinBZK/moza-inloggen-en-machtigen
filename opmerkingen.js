@@ -61,7 +61,7 @@ const HINT_KEY = 'roadmap-opmerkingen-hint-weg';
 const hintDismissed = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
 const hintHost = document.getElementById('opm-hint');
 const buttonHost = document.getElementById('opm-knop');
-const loginUrl = () => `auth/login?rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`;
+const loginUrl = () => `/auth/inloggen?voor=opmerkingen&rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`;
 const renderChrome = () => {
   // Openbare pagina zonder inlog: alleen een knop om in te loggen; opmerkingen zijn dan niet zichtbaar
   if (!AAN && INLOGGEN) {

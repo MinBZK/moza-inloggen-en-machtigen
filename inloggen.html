@@ -15,23 +15,38 @@
     <nldd-simple-section id="inhoud">
       <nldd-title size="1">
         <span slot="overline">Roadmap inlog- en machtigingsmiddelen MOZa</span>
-        <h1>Inloggen nodig</h1>
+        <h1 id="kop">Inloggen nodig</h1>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
-        <p>Deze pagina is alleen voor medewerkers van de Rijksoverheid. Log in met je rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op deze pagina.</p>
+        <p id="uitleg">Deze pagina is alleen voor medewerkers van de Rijksoverheid. Log in met je rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op deze pagina.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
-      <nldd-button id="inloggen" appearance="primary" start-icon="person" text="Inloggen met je rijksaccount" href="/auth/login"></nldd-button>
+      <nldd-container layout="wrap" gap="12">
+        <nldd-button id="inloggen" appearance="primary" start-icon="person" text="Inloggen met je rijksaccount" href="/auth/login"></nldd-button>
+        <nldd-button id="terug" appearance="neutral-tinted" start-icon="chevron-left" text="Terug naar de pagina" hidden></nldd-button>
+      </nldd-container>
       <!--OPENBAAR-->
     </nldd-simple-section>
 
   </nldd-page>
 </nldd-shell>
 <script>
-  // Na het inloggen terug naar de pagina die werd opgevraagd, inclusief een eventuele #
-  document.getElementById('inloggen').setAttribute('href',
-    `/auth/login?rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`);
+  // Twee situaties: een pagina achter de inlog (deze pagina staat dan op dat adres), of de knop
+  // 'Inloggen om opmerkingen te plaatsen' op een openbare pagina (/auth/inloggen?rd=...&voor=opmerkingen).
+  const params = new URLSearchParams(location.search);
+  const viaKnop = location.pathname === '/auth/inloggen';
+  const rd = viaKnop ? (params.get('rd') || '/') : location.pathname + location.search + location.hash;
+  const veilig = rd.startsWith('/') && !rd.startsWith('//') ? rd : '/';
+  document.getElementById('inloggen').setAttribute('href', `/auth/login?rd=${encodeURIComponent(veilig)}`);
+  if (viaKnop && params.get('voor') === 'opmerkingen') {
+    document.title = 'Inloggen om opmerkingen te plaatsen';
+    document.getElementById('kop').textContent = 'Inloggen om opmerkingen te plaatsen';
+    document.getElementById('uitleg').textContent = 'Opmerkingen lezen en plaatsen kan alleen met een rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op de pagina en kun je opmerkingen plaatsen.';
+    const terug = document.getElementById('terug');
+    terug.setAttribute('href', veilig);
+    terug.hidden = false;
+  }
 </script>
 </body>
 </html>
