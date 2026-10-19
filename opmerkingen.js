@@ -56,7 +56,6 @@ const sheet = document.getElementById('opm-sheet');
 const sheetBody = document.getElementById('opm-sheet-body');
 const isSheetOpen = () => Boolean(sheet.shadowRoot?.querySelector('dialog')?.open);
 
-const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 const HINT_KEY = 'roadmap-opmerkingen-hint-weg';
 const hintDismissed = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
 const hintHost = document.getElementById('opm-hint');
@@ -75,7 +74,7 @@ const renderChrome = () => {
     hintHost.innerHTML = AAN && !hintDismissed() ? `
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner variant="neutral" icon="message-rectangle-text" heading-level="2" dismissible
-        text="Opmerkingen plaatsen" supporting-text="${esc(`${isMac ? 'Option (⌥)' : 'Alt'} + klik ergens op de pagina opent een opmerkingenveld. Je naam komt uit je rijksaccount.`)}"></nldd-banner>` : '';
+        text="Opmerkingen plaatsen" supporting-text="${esc('Option (⌥) + klik op een Mac of Alt + klik op Windows ergens op de pagina opent een opmerkingenveld. Je naam komt uit je rijksaccount.')}"></nldd-banner>` : '';
     hintHost.querySelector('nldd-banner')?.addEventListener('dismiss', () => {
       hintHost.innerHTML = '';
       try { localStorage.setItem(HINT_KEY, '1'); } catch { /* geen opslag: hint komt bij herladen terug */ }
@@ -131,7 +130,7 @@ function renderSheet() {
     <nldd-title size="3">
       <span slot="overline">${esc(document.title)}</span>
       <h2>Opmerkingen op deze pagina</h2>
-      <p slot="supporting-text">${esc(`${isMac ? 'Option (⌥)' : 'Alt'} + klik ergens op de pagina plaatst een nieuwe opmerking.`)}</p>
+      <p slot="supporting-text">Option (⌥) + klik op een Mac of Alt + klik op Windows ergens op de pagina plaatst een nieuwe opmerking.</p>
       <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-opm-close></nldd-icon-button>
     </nldd-title>
     <nldd-title size="5"><h3>Open (${open.length})</h3></nldd-title>
