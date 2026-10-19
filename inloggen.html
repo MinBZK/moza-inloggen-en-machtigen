@@ -3,28 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inloggen nodig</title>
+  <title>Inloggen</title>
   <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
   <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
 </head>
-<body>
-<!-- De server toont deze pagina in plaats van een pagina die achter de inlog zit (status 401). -->
+<!-- Eén sjabloon voor alle inlogmomenten. De server zet data-variant (pagina, opmerkingen of fout)
+     en, waar bekend, data-rd (het pad om na het inloggen naar terug te gaan). -->
+<body data-variant="pagina" data-rd="">
 <nldd-shell background="tinted">
   <nldd-page>
 
     <nldd-simple-section id="inhoud">
       <nldd-title size="1">
         <span slot="overline">Roadmap inlog- en machtigingsmiddelen MOZa</span>
-        <h1 id="kop">Inloggen nodig</h1>
+        <h1 id="kop">Inloggen om deze pagina te bekijken</h1>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-rich-text>
-        <p id="uitleg">Deze pagina is alleen voor medewerkers van de Rijksoverheid. Log in met je rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op deze pagina.</p>
+        <p id="uitleg">Deze pagina is alleen te bekijken met een rijksaccount (SSO Rijk).</p>
+        <p>Je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op de pagina.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-container layout="wrap" gap="12">
         <nldd-button id="inloggen" appearance="primary" start-icon="person" text="Inloggen met je rijksaccount" href="/auth/login"></nldd-button>
-        <nldd-button id="terug" appearance="neutral-tinted" start-icon="chevron-left" text="Terug naar de pagina" hidden></nldd-button>
+        <nldd-button id="terug" appearance="neutral-tinted" start-icon="chevron-left" text="Terug naar de vorige pagina" hidden></nldd-button>
       </nldd-container>
       <!--OPENBAAR-->
     </nldd-simple-section>
@@ -32,19 +34,29 @@
   </nldd-page>
 </nldd-shell>
 <script>
-  // Twee situaties: een pagina achter de inlog (deze pagina staat dan op dat adres), of de knop
-  // 'Inloggen om opmerkingen te plaatsen' op een openbare pagina (/auth/inloggen?rd=...&voor=opmerkingen).
-  const params = new URLSearchParams(location.search);
-  const viaKnop = location.pathname === '/auth/inloggen';
-  const rd = viaKnop ? (params.get('rd') || '/') : location.pathname + location.search + location.hash;
-  const veilig = rd.startsWith('/') && !rd.startsWith('//') ? rd : '/';
-  document.getElementById('inloggen').setAttribute('href', `/auth/login?rd=${encodeURIComponent(veilig)}`);
-  if (viaKnop && params.get('voor') === 'opmerkingen') {
-    document.title = 'Inloggen om opmerkingen te plaatsen';
-    document.getElementById('kop').textContent = 'Inloggen om opmerkingen te plaatsen';
-    document.getElementById('uitleg').textContent = 'Opmerkingen lezen en plaatsen kan alleen met een rijksaccount (SSO Rijk): je kiest eerst de organisatie waar je werkt en logt daar in. Daarna kom je vanzelf terug op de pagina en kun je opmerkingen plaatsen.';
+  const TEKST = {
+    pagina: ['Inloggen om deze pagina te bekijken', 'Deze pagina is alleen te bekijken met een rijksaccount (SSO Rijk).', 'Inloggen met je rijksaccount'],
+    opmerkingen: ['Inloggen om opmerkingen te plaatsen', 'Opmerkingen lezen en plaatsen kan alleen met een rijksaccount (SSO Rijk).', 'Inloggen met je rijksaccount'],
+    fout: ['Inloggen is niet gelukt', 'Het inloggen met je rijksaccount (SSO Rijk) is verlopen of niet gelukt. Probeer het opnieuw.', 'Opnieuw inloggen'],
+  };
+  const variant = TEKST[document.body.dataset.variant] ? document.body.dataset.variant : 'pagina';
+  const [kop, uitleg, knop] = TEKST[variant];
+  const veilig = (p) => (p && p.startsWith('/') && !p.startsWith('//') ? p : '');
+  // Bij een pagina achter de inlog staat deze pagina op het adres van die pagina, inclusief een eventuele #
+  const rd = veilig(document.body.dataset.rd) || (variant === 'pagina' ? location.pathname + location.search + location.hash : '/');
+  // Terug: naar de pagina waar de knop stond, of naar de vorige pagina op deze site
+  const vorige = document.referrer.startsWith(location.origin) ? new URL(document.referrer).pathname : '';
+  const terugNaar = variant === 'pagina' ? (vorige !== location.pathname ? vorige : '') : veilig(document.body.dataset.rd);
+
+  document.title = kop;
+  document.getElementById('kop').textContent = kop;
+  document.getElementById('uitleg').textContent = uitleg;
+  const inloggen = document.getElementById('inloggen');
+  inloggen.setAttribute('text', knop);
+  inloggen.setAttribute('href', `/auth/login?rd=${encodeURIComponent(rd)}`);
+  if (terugNaar) {
     const terug = document.getElementById('terug');
-    terug.setAttribute('href', veilig);
+    terug.setAttribute('href', terugNaar);
     terug.hidden = false;
   }
 </script>

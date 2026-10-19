@@ -22,6 +22,7 @@ Omgevingsvariabelen:
 Lokaal: SITE_DIR=. DATA_DIR=.data DEV_USER=voornaam.achternaam@rijksoverheid.nl python3 server.py
 """
 import base64
+from html import escape as html_escape
 import datetime
 import hashlib
 import json
@@ -164,16 +165,17 @@ def end_session(token: str) -> None:
             DB.commit()
 
 
-_login_page = {}
+_login_template = {}
 
 
-def login_page() -> bytes:
-    """De tussenpagina 'Inloggen nodig', met links naar de pagina's die zonder inloggen te zien zijn."""
-    if 'html' not in _login_page:
+def login_page(variant: str = 'pagina', rd: str = '') -> bytes:
+    """Eén sjabloon voor alle inlogmomenten (inloggen.html): een pagina achter de inlog, de knop bij
+    opmerkingen, of een mislukte inlog. Met links naar de pagina's die zonder inloggen te zien zijn."""
+    if 'html' not in _login_template:
         try:
             html = open(os.path.join(SITE_DIR, 'inloggen.html'), encoding='utf-8').read()
         except OSError:
-            html = '<!doctype html><meta charset="utf-8"><title>Inloggen nodig</title><p><a href="/auth/login">Inloggen met je rijksaccount</a></p>'
+            html = '<!doctype html><meta charset="utf-8"><title>Inloggen</title><body data-variant="pagina" data-rd=""><p><a href="/auth/login">Inloggen met je rijksaccount</a></p>'
         links = []
         for page in sorted(PUBLIC_PAGES):
             try:
@@ -186,8 +188,10 @@ def login_page() -> bytes:
         if links:
             html = html.replace('<!--OPENBAAR-->', '<nldd-spacer size="32"></nldd-spacer><nldd-rich-text><p>Zonder inloggen te bekijken:</p><ul>'
                                 + ''.join(links) + '</ul></nldd-rich-text>')
-        _login_page['html'] = html.encode()
-    return _login_page['html']
+        _login_template['html'] = html
+    rd = safe_path(rd) if rd else ''
+    attrs = f'data-variant="{variant}" data-rd="{html_escape(rd)}"'
+    return _login_template['html'].replace('data-variant="pagina" data-rd=""', attrs, 1).encode()
 
 
 def all_comments() -> list:
@@ -242,6 +246,15 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Content-Length', '0')
         self.end_headers()
 
+    def send_login_page(self, status, variant: str, rd: str = '') -> None:
+        body = login_page(variant, rd)
+        self.send_response(status)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def is_public(self, path: str) -> bool:
         return path.lstrip('/') in PUBLIC_PAGES
 
@@ -265,7 +278,7 @@ class Handler(SimpleHTTPRequestHandler):
         pending = PENDING.pop(query.get('state', [''])[0], None)
         code = query.get('code', [''])[0]
         if not pending or not code or pending[2] < time.time() - 600:
-            return self.send_error(HTTPStatus.BAD_REQUEST, 'Inloggen verlopen of ongeldig; probeer het opnieuw')
+            return self.send_login_page(HTTPStatus.BAD_REQUEST, 'fout', pending[1] if pending else '')
         verifier, rd, _ = pending
         form = urllib.parse.urlencode({
             'grant_type': 'authorization_code', 'code': code, 'redirect_uri': f'{self.base_url()}/auth/callback',
@@ -280,7 +293,7 @@ class Handler(SimpleHTTPRequestHandler):
                 info = json.load(res)
         except (OSError, KeyError, ValueError) as err:
             print(f'Inloggen mislukt: {type(err).__name__}')
-            return self.send_error(HTTPStatus.BAD_GATEWAY, 'Inloggen mislukt; probeer het opnieuw')
+            return self.send_login_page(HTTPStatus.BAD_GATEWAY, 'fout', rd)
         email = str(info.get('email') or '').lower()
         username = str(info.get('preferred_username') or '')
         naam = str(info.get('name') or '').strip() or display_name(email, username)
@@ -330,13 +343,8 @@ class Handler(SimpleHTTPRequestHandler):
         if path == '/auth/login':
             return self.auth_login(query)
         if path == '/auth/inloggen':
-            body = login_page()
-            self.send_response(HTTPStatus.OK)
-            self.send_header('Content-Type', 'text/html; charset=utf-8')
-            self.send_header('Cache-Control', 'no-store')
-            self.send_header('Content-Length', str(len(body)))
-            self.end_headers()
-            return self.wfile.write(body)
+            voor = query.get('voor', [''])[0]
+            return self.send_login_page(HTTPStatus.OK, 'opmerkingen' if voor == 'opmerkingen' else 'pagina', query.get('rd', [''])[0])
         if path == '/auth/callback':
             return self.auth_callback(query)
         if path == '/auth/logout':
@@ -354,13 +362,7 @@ class Handler(SimpleHTTPRequestHandler):
         # Pagina's: openbaar of achter de inlog
         if LOGIN and not self.is_public(path) and not self.user():
             # Eerst uitleggen dat inloggen nodig is, niet meteen naar de organisatiekeuze van SSO Rijk
-            body = login_page()
-            self.send_response(HTTPStatus.UNAUTHORIZED)
-            self.send_header('Content-Type', 'text/html; charset=utf-8')
-            self.send_header('Cache-Control', 'no-store')
-            self.send_header('Content-Length', str(len(body)))
-            self.end_headers()
-            return self.wfile.write(body)
+            return self.send_login_page(HTTPStatus.UNAUTHORIZED, 'pagina')
         return super().do_GET()
 
     def do_HEAD(self):
