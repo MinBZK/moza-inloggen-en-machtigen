@@ -173,13 +173,13 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V1**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Hoe sluit MOZa aan: als één eigen dienst, of als dienstbemiddelaar voor de diensten van UWV, Belastingdienst en RVO?**" supporting-text="Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus. (stap 1)"></nldd-text-cell>
+          <nldd-text-cell text="**Hoe sluit MOZa aan: als één eigen dienst, of als dienstbeaccountaar voor de diensten van UWV, Belastingdienst en RVO?**" supporting-text="Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus. (stap 1)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V2**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Als MOZa dienstbemiddelaar is, is een pseudoniem dan nog relevant?**" supporting-text="Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd? (stap 8)"></nldd-text-cell>
+          <nldd-text-cell text="**Als MOZa dienstbeaccountaar is, is een pseudoniem dan nog relevant?**" supporting-text="Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd? (stap 8)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -221,7 +221,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V9**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Hoe werkt een stermachtiging?**" supporting-text="Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn middel? (stap 7, 11)"></nldd-text-cell>
+          <nldd-text-cell text="**Hoe werkt een stermachtiging?**" supporting-text="Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account? (stap 7, 11)"></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
     </nldd-simple-section>
@@ -241,7 +241,7 @@
     <nldd-page-footer>
       <nldd-container padding="24" gap="16">
         <div id="opm-knop"></div>
-        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Dit is een concept-voorstel en geen vastgesteld ontwerp. Koffiezaak Noon, Karin en Bilal zijn een voorbeeld.</p></nldd-rich-text>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsaccounts. Versie oktober 2026. Dit is een concept-voorstel en geen vastgesteld ontwerp. Koffiezaak Noon, Karin en Bilal zijn een voorbeeld.</p></nldd-rich-text>
       </nldd-container>
     </nldd-page-footer>
   </nldd-page>
@@ -260,7 +260,7 @@ const STAPPEN = [
   "vragen": [
    [
     "V1",
-    "Hoe sluit MOZa aan: als één eigen dienst, of als dienstbemiddelaar voor de diensten van UWV, Belastingdienst en RVO?",
+    "Hoe sluit MOZa aan: als één eigen dienst, of als dienstbeaccountaar voor de diensten van UWV, Belastingdienst en RVO?",
     "Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus."
    ]
   ]
@@ -292,16 +292,16 @@ const STAPPEN = [
  {
   "n": "4",
   "titel": "Bilal logt in bij Z-Login",
-  "uitleg": "Met het middel dat Karin voor hem aanvroeg.",
+  "uitleg": "Met het account dat Karin voor hem aanvroeg.",
   "aannames": [
-   "Bilal heeft geen nieuw middel nodig: hetzelfde middel als voor UWV."
+   "Bilal heeft geen nieuw account nodig: hetzelfde account als voor UWV."
   ],
   "vragen": []
  },
  {
   "n": "5",
   "titel": "Z-Login controleert het niveau",
-  "uitleg": "Het niveau van Bilals middel moet minstens zijn wat MOZa vraagt.",
+  "uitleg": "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt.",
   "aannames": [],
   "vragen": [
    [
@@ -334,7 +334,7 @@ const STAPPEN = [
    [
     "V9",
     "Hoe werkt een stermachtiging?",
-    "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn middel?"
+    "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account?"
    ]
   ]
  },
@@ -346,7 +346,7 @@ const STAPPEN = [
   "vragen": [
    [
     "V2",
-    "Als MOZa dienstbemiddelaar is, is een pseudoniem dan nog relevant?",
+    "Als MOZa dienstbeaccountaar is, is een pseudoniem dan nog relevant?",
     "Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd?"
    ],
    [
@@ -401,7 +401,7 @@ const STAPPEN = [
    [
     "V9",
     "Hoe werkt een stermachtiging?",
-    "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn middel?"
+    "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account?"
    ]
   ]
  },

@@ -15,19 +15,22 @@
     /* Schermen als verdieping: paneel links, zoals de gegevens per attestatie op het EBW-landschap */
     body.met-paneel nldd-shell { margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw)); }
     body.met-paneel .canvas > svg { min-width: 0; }
-    #schermen-schema [data-scherm] { cursor: pointer; }
-    #schermen-schema svg * { transition: opacity 0.4s ease; }
-    #schermen-schema svg.dim [data-scherm]:not(.licht) { opacity: 0.2; }
-    #scherm-paneel { position: fixed; top: 0; bottom: 0; left: 0; z-index: 2147483001; box-sizing: border-box; width: min(600px, 92vw);
+    #flow-schema [data-scherm] { cursor: pointer; }
+    #flow-schema svg * { transition: opacity 0.4s ease; }
+    #flow-schema svg.dim [data-scherm]:not(.licht) { opacity: 0.2; }
+    #stap-paneel { position: fixed; top: 0; bottom: 0; left: 0; z-index: 2147483001; box-sizing: border-box; width: min(600px, 92vw);
       display: flex; flex-direction: column; background: #154273; color: #fff; box-shadow: 0 0 24px rgb(0 0 0 / 0.35);
       font-family: "RijksSans", system-ui, sans-serif; animation: paneel-in 0.25s ease both; }
-    #scherm-paneel[hidden] { display: none; }
-    #scherm-paneel:focus { outline: none; }
+    #stap-paneel[hidden] { display: none; }
+    #stap-paneel:focus { outline: none; }
     @keyframes paneel-in { from { transform: translateX(-24px); opacity: 0; } }
     .p-inhoud { flex: 1; overflow: auto; padding: 32px 32px 24px; }
     .p-label { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: rgb(255 255 255 / 0.85); }
-    .p-titel { margin: 0 0 16px; font-size: 30px; line-height: 1.15; font-weight: 600; }
-    .p-titel span { display: block; color: #ffb612; font-size: 0.6em; font-weight: 500; margin-top: 6px; }
+    .p-titel { margin: 0 0 16px; font-size: 32px; line-height: 1.15; font-weight: 600; }
+    .p-titel span { display: block; color: #ffb612; font-size: 0.75em; }
+    .p-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
+    .p-soort strong { color: var(--k); }
+    .p-bron { margin: 8px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-tekst { margin: 0 0 20px; font-size: 18px; line-height: 1.5; }
     .p-scherm { margin: 0; background: #fff; border-radius: 12px; overflow: hidden; }
     .p-scherm img { display: block; width: 100%; height: auto; }
@@ -36,7 +39,7 @@
     .p-voet button:hover { background: rgb(255 255 255 / 0.15); }
     .p-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .p-nav { display: flex; gap: 8px; margin-left: auto; }
-    @media (prefers-reduced-motion: reduce) { #scherm-paneel { animation: none; } #schermen-schema svg * { transition: none; } }
+    @media (prefers-reduced-motion: reduce) { #stap-paneel { animation: none; } #flow-schema svg * { transition: none; } }
   </style>
 </head>
 <body>
@@ -53,17 +56,17 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text><p>Hoe eHerkenning nu werkt, aan de hand van Koffiezaak Noon: eigenaar Karin Jansen en werknemer Bilal Yılmaz. Eerst wie waar zit in het landschap, dan hoe UWV aansluit, hoe Karin eHerkenning inricht voor zichzelf en voor Bilal, hoe Bilal inlogt bij UWV, en tot slot de schermen die Karin ziet.</p></nldd-rich-text>
+      <nldd-rich-text><p>Hoe eHerkenning nu werkt, aan de hand van Koffiezaak Noon: eigenaar Karin Jansen en werknemer Bilal Yılmaz. Eerst wie waar zit in het landschap, dan hoe UWV aansluit, hoe Karin eHerkenning inricht voor zichzelf en voor Bilal, en hoe Bilal inlogt bij UWV, met de echte schermen die hij onderweg ziet.</p></nldd-rich-text>
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
     <nldd-simple-section id="landschap">
-      <nldd-title size="2"><h2>Wie zit waar in het landschap?</h2><p slot="supporting-text">Een dienstverlener kiest een herkenningsmakelaar, een ondernemer kiest een leverancier, en elke makelaar werkt met alle leveranciers. Daardoor kan Karin met één middel bij alle aangesloten diensten inloggen.</p></nldd-title>
+      <nldd-title size="2"><h2>Wie zit waar in het landschap?</h2><p slot="supporting-text">Een dienstverlener kiest een herkenningsmakelaar, een ondernemer kiest een leverancier, en elke makelaar werkt met alle leveranciers. Daardoor kan Karin met één account bij alle aangesloten diensten inloggen.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="landschap-schema" role="img" aria-labelledby="ehl-titel ehl-uitleg">
 <svg viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
   <title id="ehl-titel">Waar zitten de makelaar en de leverancier in het eHerkenning-landschap</title>
-  <desc id="ehl-uitleg">Vier lagen. Dienstverleners kiezen elk een herkenningsmakelaar: UWV bij Digidentity, Belastingdienst bij KPN, en als voorbeeld RVO en KvK bij KPN, RDW bij Reconi en CJIB bij Signicat. Elke makelaar is verbonden met alle leveranciers. De ondernemer kiest de leverancier, hier Z-Login, die het inlogmiddel uitgeeft en de machtigingen bijhoudt. Karin kiest op het keuzescherm van de makelaar haar leverancier. Uitgelicht: UWV, makelaar Digidentity, leverancier Z-Login, Karin.</desc>
+  <desc id="ehl-uitleg">Vier lagen. Dienstverleners kiezen elk een herkenningsmakelaar: UWV bij Digidentity, Belastingdienst bij KPN, en als voorbeeld RVO en KvK bij KPN, RDW bij Reconi en CJIB bij Signicat. Elke makelaar is verbonden met alle leveranciers. De ondernemer kiest de leverancier, hier Z-Login, die het account uitgeeft en de machtigingen bijhoudt. Karin kiest op het keuzescherm van de makelaar haar leverancier. Uitgelicht: UWV, makelaar Digidentity, leverancier Z-Login, Karin.</desc>
   <defs>
     <pattern id="grid-ehl" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="l-uit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
@@ -76,13 +79,13 @@
   <text x="32" y="46" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Gebruiker</text>
   <text x="32" y="68" font-size="11.5" fill="#5b6573" text-anchor="start">Kiest op het keuzescherm van de</text>
   <text x="32" y="83" font-size="11.5" fill="#5b6573" text-anchor="start">makelaar bij welke leverancier ze</text>
-  <text x="32" y="98" font-size="11.5" fill="#5b6573" text-anchor="start">haar middel heeft (stap 3).</text>
+  <text x="32" y="98" font-size="11.5" fill="#5b6573" text-anchor="start">haar account heeft (stap 3).</text>
   <rect x="16" y="150" width="1248" height="170" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
   <rect x="16" y="150" width="236" height="170" rx="12" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
   <text x="32" y="176" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Leveranciers</text>
   <text x="32" y="198" font-size="11.5" fill="#5b6573" text-anchor="start">Keuze van de ondernemer: neemt</text>
   <text x="32" y="213" font-size="11.5" fill="#5b6573" text-anchor="start">eHerkenning af bij een</text>
-  <text x="32" y="228" font-size="11.5" fill="#5b6573" text-anchor="start">leverancier, die de middelen</text>
+  <text x="32" y="228" font-size="11.5" fill="#5b6573" text-anchor="start">leverancier, die de accounts</text>
   <text x="32" y="243" font-size="11.5" fill="#5b6573" text-anchor="start">uitgeeft en de machtigingen</text>
   <text x="32" y="258" font-size="11.5" fill="#5b6573" text-anchor="start">bijhoudt.</text>
   <rect x="16" y="340" width="1248" height="140" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
@@ -132,7 +135,7 @@
   <text x="765" y="190" font-size="13.5" fill="#333" text-anchor="middle" font-weight="700">Leverancier Z-Login</text>
   <text x="765" y="207" font-size="11" fill="#5c4a00" text-anchor="middle">gekozen door Koffiezaak Noon</text>
   <rect x="640" y="220" width="120" height="70" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
-  <text x="700" y="250" font-size="11.5" fill="#333" text-anchor="middle">inlogmiddel</text>
+  <text x="700" y="250" font-size="11.5" fill="#333" text-anchor="middle">account</text>
   <text x="700" y="266" font-size="11.5" fill="#333" text-anchor="middle">van Karin</text>
   <rect x="770" y="220" width="120" height="70" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
   <text x="830" y="250" font-size="11.5" fill="#333" text-anchor="middle">machtigingen-</text>
@@ -151,7 +154,7 @@
   <circle cx="660" cy="75" r="20" fill="oklch(0.858 0.073 29.5)"/>
   <svg x="640" y="55" width="40" height="40" viewBox="0 0 264 264"><clipPath id="ehl-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#ehl-karin)"/></svg>
   <text x="790" y="68" font-size="13.5" fill="#333" text-anchor="middle" font-weight="700">Karin Jansen</text>
-  <text x="790" y="86" font-size="11" fill="#555" text-anchor="middle">namens Koffiezaak Noon, middel van Z-Login</text>
+  <text x="790" y="86" font-size="11" fill="#555" text-anchor="middle">namens Koffiezaak Noon, account van Z-Login</text>
   <path d="M765 112L765 162" stroke="#2d7a46" stroke-width="2.4" fill="none" marker-end="url(#l-2d7a46)"/>
   <text x="980" y="140" font-size="11" fill="#2d7a46" text-anchor="middle">inloggen bij de eigen leverancier</text>
   <text x="1248" y="620" font-size="11" fill="#5b6573" text-anchor="end">Dik: het pad van Karin. Makelaars van UWV en Belastingdienst nagekeken op 20 okt 2026; de rest is een voorbeeld.</text>
@@ -249,12 +252,12 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="inrichten">
-      <nldd-title size="2"><span slot="overline">Deel 2</span><h2>Karin neemt eHerkenning af en richt het in</h2><p slot="supporting-text">Karin regelt eHerkenning voor Koffiezaak Noon: een middel voor zichzelf, een middel voor Bilal, en een machtiging voor Bilal om bij UWV in te loggen.</p></nldd-title>
+      <nldd-title size="2"><span slot="overline">Deel 2</span><h2>Karin neemt eHerkenning af en richt het in</h2><p slot="supporting-text">Karin regelt eHerkenning voor Koffiezaak Noon: een account voor zichzelf, een account voor Bilal, en een machtiging voor Bilal om bij UWV in te loggen.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="inrichten-schema" role="img" aria-labelledby="inrichten-titel inrichten-uitleg">
 <svg viewBox="0 0 1280 610" xmlns="http://www.w3.org/2000/svg">
   <title id="inrichten-titel">Volgordediagram: Karin neemt eHerkenning af en machtigt Bilal</title>
-  <desc id="inrichten-uitleg">Stap 1: Karin Jansen naar Leverancier Z-Login, neemt eHerkenning af namens Koffiezaak Noon. Stap 2: Leverancier Z-Login, controleert bevoegdheid in Handelsregister. Stap 3: Leverancier Z-Login naar Karin Jansen, eigen middel (EH3); Karin wordt beheerder. Stap 4: Karin Jansen naar Leverancier Z-Login, vraagt een middel aan voor Bilal. Stap 5: Leverancier Z-Login naar Bilal Yılmaz, eigen middel voor Bilal (EH3). Stap 6: Dienstencatalogus naar Leverancier Z-Login, aangesloten diensten, waaronder UWV. Stap 7: Karin Jansen naar Leverancier Z-Login, machtigt Bilal voor UWV werkgeversportaal. Stap 8: Leverancier Z-Login, legt vast in het machtigingenregister.</desc>
+  <desc id="inrichten-uitleg">Stap 1: Karin Jansen naar Leverancier Z-Login, neemt eHerkenning af namens Koffiezaak Noon. Stap 2: Leverancier Z-Login, controleert bevoegdheid in Handelsregister. Stap 3: Leverancier Z-Login naar Karin Jansen, eigen account (EH3); Karin wordt beheerder. Stap 4: Karin Jansen naar Leverancier Z-Login, vraagt een account aan voor Bilal. Stap 5: Leverancier Z-Login naar Bilal Yılmaz, eigen account voor Bilal (EH3). Stap 6: Dienstencatalogus naar Leverancier Z-Login, aangesloten diensten, waaronder UWV. Stap 7: Karin Jansen naar Leverancier Z-Login, machtigt Bilal voor UWV werkgeversportaal. Stap 8: Leverancier Z-Login, legt vast in het machtigingenregister.</desc>
   <defs>
     <pattern id="inrichten-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="inrichten-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
@@ -275,7 +278,7 @@
   <path d="M485 78V598" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="345" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="485" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier Z-Login</text>
-  <text x="485" y="63" font-size="11.5" fill="#555" text-anchor="middle">middelen en machtigingenregister</text>
+  <text x="485" y="63" font-size="11.5" fill="#555" text-anchor="middle">accounts en machtigingenregister</text>
   <path d="M795 78V598" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="655" y="18" width="280" height="60" rx="10" fill="#f5f5f5" stroke="#999"/>
   <text x="795" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Dienstencatalogus</text>
@@ -296,15 +299,15 @@
   <rect data-stap="3" x="161" y="214" width="338" height="54" fill="transparent"/>
   <path data-stap="3" d="M469 252H179" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#inrichten-1f5fa8)"/>
   <circle data-stap="3" cx="485" cy="252" r="12" fill="#1f5fa8"/><text data-stap="3" x="485" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text data-stap="3" x="330" y="244" font-size="11.5" fill="#1f5fa8" text-anchor="middle">eigen middel (EH3); Karin wordt beheerder</text>
+  <text data-stap="3" x="330" y="244" font-size="11.5" fill="#1f5fa8" text-anchor="middle">eigen account (EH3); Karin wordt beheerder</text>
   <rect data-stap="4" x="161" y="274" width="338" height="54" fill="transparent"/>
   <path data-stap="4" d="M191 312H481" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#inrichten-2d7a46)"/>
   <circle data-stap="4" cx="175" cy="312" r="12" fill="#2d7a46"/><text data-stap="4" x="175" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-  <text data-stap="4" x="330" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">vraagt een middel aan voor Bilal</text>
+  <text data-stap="4" x="330" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">vraagt een account aan voor Bilal</text>
   <rect data-stap="5" x="471" y="334" width="648" height="54" fill="transparent"/>
   <path data-stap="5" d="M501 372H1101" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#inrichten-1f5fa8)"/>
   <circle data-stap="5" cx="485" cy="372" r="12" fill="#1f5fa8"/><text data-stap="5" x="485" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
-  <text data-stap="5" x="795" y="364" font-size="11.5" fill="#1f5fa8" text-anchor="middle">eigen middel voor Bilal (EH3)</text>
+  <text data-stap="5" x="795" y="364" font-size="11.5" fill="#1f5fa8" text-anchor="middle">eigen account voor Bilal (EH3)</text>
   <rect data-stap="6" x="471" y="394" width="338" height="54" fill="transparent"/>
   <path data-stap="6" d="M779 432H489" stroke="#666" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#inrichten-666)"/>
   <circle data-stap="6" cx="795" cy="432" r="12" fill="#666"/><text data-stap="6" x="795" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
@@ -336,19 +339,19 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**3**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Karin krijgt haar eigen middel.**" supporting-text="Ze kan daarmee zelf inloggen en wordt machtigingenbeheerder: ze bepaalt wie namens Koffiezaak Noon welke diensten mag gebruiken."></nldd-text-cell>
+          <nldd-text-cell text="**Karin krijgt haar eigen account.**" supporting-text="Ze kan daarmee zelf inloggen en wordt machtigingenbeheerder: ze bepaalt wie namens Koffiezaak Noon welke diensten mag gebruiken."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Karin vraagt een middel aan voor Bilal.**" supporting-text="Elke werknemer krijgt een eigen middel; een middel wordt niet gedeeld."></nldd-text-cell>
+          <nldd-text-cell text="**Karin vraagt een account aan voor Bilal.**" supporting-text="Elke werknemer krijgt een eigen account; een account wordt niet gedeeld."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Bilal krijgt zijn middel.**" supporting-text="Op hetzelfde niveau (EH3), zodat hij ook bij diensten met dat niveau kan inloggen."></nldd-text-cell>
+          <nldd-text-cell text="**Bilal krijgt zijn account.**" supporting-text="Op hetzelfde niveau (EH3), zodat hij ook bij diensten met dat niveau kan inloggen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -372,8 +375,11 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="bilal">
-      <nldd-title size="2"><span slot="overline">Deel 3</span><h2>Bilal logt in bij UWV</h2><p slot="supporting-text">Bilal is door Karin gemachtigd voor het werkgeversportaal. Groen gestippeld is wat Bilal doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
+      <nldd-title size="2"><span slot="overline">Deel 3</span><h2>Bilal logt in bij UWV</h2><p slot="supporting-text">Bilal is door Karin gemachtigd voor het werkgeversportaal. Klik op een stap, of presenteer de stappen: bij stap 1 tot en met 4 zie je het echte scherm (nagelopen op 20 oktober 2026). Groen gestippeld is wat Bilal doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-flow" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+        accessible-label="Presenteer de stappen van Bilal, met de echte schermen"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
   <title id="flow-titel">Volgordediagram: Bilal logt in bij UWV met eHerkenning</title>
@@ -406,7 +412,7 @@
   <path d="M1105 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="965" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="1105" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier Z-Login</text>
-  <text x="1105" y="63" font-size="11.5" fill="#555" text-anchor="middle">middelen en machtigingenregister</text>
+  <text x="1105" y="63" font-size="11.5" fill="#555" text-anchor="middle">accounts en machtigingenregister</text>
   <rect data-stap="1" x="161" y="94" width="338" height="54" fill="transparent"/>
   <path data-stap="1" d="M191 132H481" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#flow-2d7a46)"/>
   <circle data-stap="1" cx="175" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="175" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
@@ -475,13 +481,13 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Bilal logt in met zijn account van Z-Login.**" supporting-text="Met het middel dat Karin voor hem aanvroeg (deel 2). Nu weet de leverancier wie hij is."></nldd-text-cell>
+          <nldd-text-cell text="**Bilal logt in met zijn account van Z-Login.**" supporting-text="Met het account dat Karin voor hem aanvroeg (deel 2). Nu weet de leverancier wie hij is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Z-Login controleert het betrouwbaarheidsniveau.**" supporting-text="Het niveau van zijn middel en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van middel en machtiging."></nldd-text-cell>
+          <nldd-text-cell text="**Z-Login controleert het betrouwbaarheidsniveau.**" supporting-text="Het niveau van zijn account en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van account en machtiging."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -551,68 +557,6 @@
       </nldd-table>
     </nldd-simple-section>
 
-    <nldd-simple-section id="karin-ziet">
-      <nldd-title size="2"><span slot="overline">Deel 4</span><h2>Wat Karin ziet als ze inlogt bij UWV</h2><p slot="supporting-text">De echte schermen, nagelopen op 20 oktober 2026. Klik op een stap in het schema om het scherm te zien.</p></nldd-title>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-button id="schermen-open" appearance="neutral-tinted" size="sm" start-icon="photo" text="Bekijk de schermen"></nldd-button>
-      <nldd-spacer size="12"></nldd-spacer>
-      <div class="canvas" id="schermen-schema" role="img" aria-labelledby="schermen-titel schermen-uitleg">
-<svg viewBox="0 0 1280 430" xmlns="http://www.w3.org/2000/svg">
-  <title id="schermen-titel">Volgordediagram: wat Karin ziet als ze inlogt bij UWV</title>
-  <desc id="schermen-uitleg">Stap 1: Karin Jansen naar uwv.nl, kiest Inloggen werkgeversportaal. Stap 2: uwv.nl naar eid.digidentity.eu, stuurt door naar het keuzescherm. Stap 3: Karin Jansen naar eid.digidentity.eu, kiest haar leverancier: Z login. Stap 4: Karin Jansen naar zlogin.nl, logt in; scherm noemt UWV werkgeversportaal. Stap 5: zlogin.nl naar Karin Jansen, via de makelaar terug: ingelogd bij UWV.</desc>
-  <defs>
-    <pattern id="schermen-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
-    <marker id="schermen-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
-    <marker id="schermen-b46504" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
-    <marker id="schermen-1f5fa8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
-    <marker id="schermen-0e7c86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
-    <marker id="schermen-7a4f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7a4f8c"/></marker>
-    <marker id="schermen-666" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666"/></marker>
-  </defs>
-  <rect width="1280" height="430" fill="#fff"/>
-  <rect width="1280" height="430" fill="url(#schermen-grid)"/>
-  <path d="M175 78V418" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="35" y="18" width="280" height="60" rx="10" fill="#fff" stroke="#666"/>
-  <circle cx="63" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
-  <svg x="47" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="schermen-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#schermen-karin)"/></svg>
-  <text x="193" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
-  <text x="193" y="63" font-size="11.5" fill="#555" text-anchor="middle">in de browser</text>
-  <path d="M485 78V418" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="345" y="18" width="280" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="485" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">uwv.nl</text>
-  <text x="485" y="63" font-size="11.5" fill="#555" text-anchor="middle">website van UWV</text>
-  <path d="M795 78V418" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="655" y="18" width="280" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
-  <text x="795" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">eid.digidentity.eu</text>
-  <text x="795" y="63" font-size="11.5" fill="#555" text-anchor="middle">makelaar Digidentity</text>
-  <path d="M1105 78V418" stroke="#bbb" stroke-dasharray="4 4"/>
-  <rect x="965" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="1105" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">zlogin.nl</text>
-  <text x="1105" y="63" font-size="11.5" fill="#555" text-anchor="middle">leverancier Z login</text>
-  <rect data-scherm="1" x="161" y="94" width="338" height="54" fill="transparent"/>
-  <path data-scherm="1" d="M191 132H481" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#schermen-2d7a46)"/>
-  <circle data-scherm="1" cx="175" cy="132" r="12" fill="#2d7a46"/><text data-scherm="1" x="175" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
-  <text data-scherm="1" x="330" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">kiest Inloggen werkgeversportaal</text>
-  <rect data-scherm="2" x="471" y="154" width="338" height="54" fill="transparent"/>
-  <path data-scherm="2" d="M501 192H791" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#schermen-b46504)"/>
-  <circle data-scherm="2" cx="485" cy="192" r="12" fill="#b46504"/><text data-scherm="2" x="485" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
-  <text data-scherm="2" x="640" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">stuurt door naar het keuzescherm</text>
-  <rect data-scherm="3" x="161" y="214" width="648" height="54" fill="transparent"/>
-  <path data-scherm="3" d="M191 252H791" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#schermen-2d7a46)"/>
-  <circle data-scherm="3" cx="175" cy="252" r="12" fill="#2d7a46"/><text data-scherm="3" x="175" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text data-scherm="3" x="485" y="244" font-size="11.5" fill="#2d7a46" text-anchor="middle">kiest haar leverancier: Z login</text>
-  <rect data-scherm="4" x="161" y="274" width="958" height="54" fill="transparent"/>
-  <path data-scherm="4" d="M191 312H1101" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#schermen-2d7a46)"/>
-  <circle data-scherm="4" cx="175" cy="312" r="12" fill="#2d7a46"/><text data-scherm="4" x="175" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-  <text data-scherm="4" x="640" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">logt in; scherm noemt UWV werkgeversportaal</text>
-  <rect data-scherm="5" x="161" y="334" width="958" height="54" fill="transparent"/>
-  <path data-scherm="5" d="M1089 372H179" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#schermen-0e7c86)"/>
-  <circle data-scherm="5" cx="1105" cy="372" r="12" fill="#0e7c86"/><text data-scherm="5" x="1105" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
-  <text data-scherm="5" x="640" y="364" font-size="11.5" fill="#0e7c86" text-anchor="middle">via de makelaar terug: ingelogd bij UWV</text>
-</svg>
-      </div>
-    </nldd-simple-section>
-
     <nldd-simple-section id="bronnen">
       <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
@@ -635,23 +579,158 @@
 </nldd-shell>
 
 <script type="module">
-// Deel 4: klik op een stap opent het scherm in een paneel links; pijltjes bladeren, Esc sluit
-const SCHERMEN = [
-  { n: '1', titel: 'Ze kiest Inloggen werkgeversportaal', domein: 'uwv.nl', img: 'schermen/uwv-1-inloggen.jpg', alt: 'Het inlogmenu van uwv.nl met Inloggen werkgeversportaal en het eHerkenning-logo', tekst: 'Het werkgeversportaal is het portaal van UWV voor werkgevers en ondernemers. Onder Inloggen staat het met het eHerkenning-logo.' },
-  { n: '2', titel: 'Ze komt bij de makelaar van UWV', domein: 'eid.digidentity.eu', img: 'schermen/uwv-2-makelaar.jpg', alt: 'Keuzescherm op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal EH3', tekst: 'UWV heeft Digidentity als makelaar, dus de browser gaat naar eid.digidentity.eu. Karin merkt dat nauwelijks: ze ziet vooral het eHerkenning-logo. Het scherm noemt de dienst en het niveau dat nodig is (EH3). De Belastingdienst gebruikt KPN als makelaar (brk.eid.kpn.com), met hetzelfde soort scherm.' },
-  { n: '3', titel: 'Ze kiest haar leverancier: Z login', domein: 'eid.digidentity.eu', img: 'schermen/uwv-3-leverancier.jpg', alt: 'Hetzelfde keuzescherm met Z login gekozen', tekst: 'De lijst toont de leveranciers: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login. Karin kiest Z login, de leverancier van Koffiezaak Noon. Met Onthoud mijn keuze slaat ze deze stap de volgende keer over.' },
-  { n: '4', titel: 'Ze logt in bij Z login', domein: 'authenticatiedienst.zlogin.nl', img: 'schermen/uwv-4-zlogin.jpg', alt: 'Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal', tekst: 'Bovenaan staat dat ze inlogt bij UWV voor het werkgeversportaal. Ze logt in met haar gebruikersnaam en wachtwoord bij Z login, en daarna met de tweede stap die bij haar middel hoort.' },
-  { n: '5', titel: 'Ze is ingelogd', domein: 'werkgeversportaal.uwv.nl', img: '', alt: '', tekst: 'Z login controleert haar machtiging en stuurt via Digidentity een ondertekende verklaring naar UWV. Karin komt terug op het werkgeversportaal, ingelogd namens Koffiezaak Noon. Van dit scherm is geen afbeelding: daarvoor is een echt account nodig.' }
+// Deel 3 als presentatie: klik op een stap of op Presenteer de stappen; pijltjes bladeren, Esc sluit
+const STAPPEN = [
+ {
+  "n": "1",
+  "kop": "klikt op inloggen",
+  "titel": "Bilal kiest Inloggen werkgeversportaal",
+  "soort": [
+   "Handeling van Bilal",
+   "in de browser",
+   "#2d7a46"
+  ],
+  "img": "schermen/uwv-1-inloggen.jpg",
+  "domein": "uwv.nl",
+  "alt": "Het inlogmenu van uwv.nl met Inloggen werkgeversportaal en het eHerkenning-logo",
+  "tekst": "Op uwv.nl kiest Bilal Inloggen werkgeversportaal, het portaal van UWV voor werkgevers en ondernemers. Het staat er met het eHerkenning-logo."
+ },
+ {
+  "n": "2",
+  "kop": "inlogverzoek",
+  "titel": "UWV stuurt een inlogverzoek naar zijn makelaar",
+  "soort": [
+   "Inlogverzoek",
+   "van UWV, via de browser",
+   "#b46504"
+  ],
+  "img": "schermen/uwv-2-makelaar.jpg",
+  "domein": "eid.digidentity.eu",
+  "alt": "Keuzescherm op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal EH3",
+  "tekst": "Het verzoek is anoniem en bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. De browser gaat naar Digidentity, de makelaar van UWV. Bilal merkt dat nauwelijks: hij ziet vooral het eHerkenning-logo. De Belastingdienst gebruikt KPN als makelaar (brk.eid.kpn.com), met hetzelfde soort scherm."
+ },
+ {
+  "n": "3",
+  "kop": "leverancier kiezen",
+  "titel": "Bilal selecteert zijn leverancier",
+  "soort": [
+   "Handeling van Bilal",
+   "in de browser",
+   "#2d7a46"
+  ],
+  "img": "schermen/uwv-3-leverancier.jpg",
+  "domein": "eid.digidentity.eu",
+  "alt": "Hetzelfde keuzescherm met Z login gekozen",
+  "tekst": "De lijst toont de leveranciers: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login. Bilal kiest Z login, de leverancier van Koffiezaak Noon. De makelaar stuurt hem met het verzoek door en weet nog niet wie hij is. Met Onthoud mijn keuze slaat hij deze stap de volgende keer over."
+ },
+ {
+  "n": "4",
+  "kop": "inloggen",
+  "titel": "Bilal logt in met zijn account van Z-Login",
+  "soort": [
+   "Handeling van Bilal",
+   "in de browser",
+   "#2d7a46"
+  ],
+  "img": "schermen/uwv-4-zlogin.jpg",
+  "domein": "authenticatiedienst.zlogin.nl",
+  "alt": "Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal",
+  "tekst": "Bovenaan staat dat hij inlogt bij UWV voor het werkgeversportaal. Hij logt in met het account dat Karin voor hem aanvroeg (deel 2): gebruikersnaam, wachtwoord en de tweede stap die bij zijn account hoort. Nu weet de leverancier wie hij is."
+ },
+ {
+  "n": "5",
+  "kop": "niveau",
+  "titel": "Z-Login controleert het betrouwbaarheidsniveau",
+  "soort": [
+   "Controle",
+   "door de leverancier",
+   "#7a4f8c"
+  ],
+  "img": "",
+  "domein": "",
+  "alt": "",
+  "tekst": "Het niveau van zijn account en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van account en machtiging."
+ },
+ {
+  "n": "6",
+  "kop": "onderneming kiezen",
+  "titel": "Bilal kiest namens welke onderneming hij inlogt",
+  "soort": [
+   "Handeling van Bilal",
+   "in de browser",
+   "#2d7a46"
+  ],
+  "img": "",
+  "domein": "",
+  "alt": "",
+  "tekst": "Alleen als hij voor meerdere ondernemingen gemachtigd is."
+ },
+ {
+  "n": "7",
+  "kop": "machtiging",
+  "titel": "Z-Login controleert de machtiging",
+  "soort": [
+   "Controle",
+   "door de leverancier",
+   "#7a4f8c"
+  ],
+  "img": "",
+  "domein": "",
+  "alt": "",
+  "tekst": "In het machtigingenregister staat dat Karin hem heeft gemachtigd voor het werkgeversportaal (deel 2). Zonder machtiging stopt de inlog en krijgt UWV een foutmelding."
+ },
+ {
+  "n": "8",
+  "kop": "verklaring",
+  "titel": "Z-Login maakt een pseudoniem en een ondertekende verklaring",
+  "soort": [
+   "Verklaring",
+   "ondertekend, versleuteld voor UWV",
+   "#1f5fa8"
+  ],
+  "img": "",
+  "domein": "",
+  "alt": "",
+  "tekst": "Het pseudoniem is speciaal voor UWV en zo versleuteld dat alleen UWV het kan lezen. De verklaring is een bewering: \"Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.\""
+ },
+ {
+  "n": "9",
+  "kop": "assertion",
+  "titel": "Digidentity stuurt de verklaring door naar UWV",
+  "soort": [
+   "Verklaring",
+   "ondertekend, versleuteld voor UWV",
+   "#1f5fa8"
+  ],
+  "img": "",
+  "domein": "",
+  "alt": "",
+  "tekst": "Dit bericht heet de assertion. De makelaar kan het pseudoniem en het KvK-nummer zelf niet lezen; hij geeft het bericht alleen door."
+ },
+ {
+  "n": "10",
+  "kop": "ingelogd",
+  "titel": "UWV laat Bilal binnen",
+  "soort": [
+   "Resultaat",
+   "ingelogd, geen nieuwe gegevens voor Bilal",
+   "#0e7c86"
+  ],
+  "img": "",
+  "domein": "werkgeversportaal.uwv.nl",
+  "alt": "",
+  "tekst": "UWV controleert de handtekening en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt. Van het ingelogde scherm is geen afbeelding: daarvoor is een echt account nodig."
+ }
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const svg = document.querySelector('#schermen-schema svg');
+const svg = document.querySelector('#flow-schema svg');
 let paneel, huidig = 0, terugFocus;
 const bouw = () => {
   paneel = document.createElement('aside');
-  paneel.id = 'scherm-paneel'; paneel.hidden = true; paneel.tabIndex = -1;
-  paneel.setAttribute('aria-label', 'Wat Karin ziet');
+  paneel.id = 'stap-paneel'; paneel.hidden = true; paneel.tabIndex = -1;
+  paneel.setAttribute('aria-label', 'Presentatie: Bilal logt in bij UWV');
   paneel.innerHTML = `<div class="p-inhoud" aria-live="polite"></div>
-    <div class="p-voet"><button type="button" data-sluit aria-label="Sluiten (Esc)">&times;</button><span class="p-teller"></span>
+    <div class="p-voet"><button type="button" data-sluit aria-label="Presentatie sluiten (Esc)">&times;</button><span class="p-teller"></span>
       <span>&#8592; &#8594; bladeren · Esc sluit</span>
       <span class="p-nav"><button type="button" data-r="-1" aria-label="Vorige">&#8592;</button><button type="button" data-r="1" aria-label="Volgende">&#8594;</button></span></div>`;
   document.body.append(paneel);
@@ -662,22 +741,24 @@ const bouw = () => {
   });
 };
 const toon = () => {
-  const s = SCHERMEN[huidig];
+  const s = STAPPEN[huidig];
   paneel.querySelector('.p-inhoud').innerHTML = `
-    <p class="p-label">Wat Karin ziet · Stap ${s.n} · ${esc(s.domein)}</p>
-    <h2 class="p-titel">${esc(s.titel)}</h2>
-    <p class="p-tekst">${esc(s.tekst)}</p>
-    ${s.img ? `<figure class="p-scherm"><img src="${s.img}" alt="${esc(s.alt)}"></figure>` : ''}`;
-  paneel.querySelector('.p-teller').textContent = `${huidig + 1} / ${SCHERMEN.length}`;
+    <p class="p-label">Bilal logt in bij UWV · Stap ${s.n}${s.domein ? ' · ' + esc(s.domein) : ''}</p>
+    <h2 class="p-titel">Stap ${s.n} <span>${esc(s.kop)}</span></h2>
+    <p class="p-soort" style="--k:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>
+    <p class="p-tekst"><strong>${esc(s.titel)}.</strong> ${esc(s.tekst)}</p>
+    ${s.img ? `<figure class="p-scherm"><img src="${s.img}" alt="${esc(s.alt)}"></figure><p class="p-bron">Scherm van ${esc(s.domein)}, nagelopen op 20 oktober 2026.</p>` : ''}`;
+  paneel.querySelector('.p-inhoud').scrollTop = 0;
+  paneel.querySelector('.p-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
   const [v, w] = paneel.querySelectorAll('[data-r]');
-  v.disabled = huidig === 0; w.disabled = huidig === SCHERMEN.length - 1;
+  v.disabled = huidig === 0; w.disabled = huidig === STAPPEN.length - 1;
   svg.classList.add('dim');
   svg.querySelectorAll('.licht').forEach((el) => el.classList.remove('licht'));
-  const doel = svg.querySelectorAll(`[data-scherm="${s.n}"]`);
+  const doel = svg.querySelectorAll(`[data-stap="${s.n}"]`);
   doel.forEach((el) => el.classList.add('licht'));
   requestAnimationFrame(() => doel[0]?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
 };
-const naar = (i) => { huidig = Math.max(0, Math.min(SCHERMEN.length - 1, i)); toon(); };
+const naar = (i) => { huidig = Math.max(0, Math.min(STAPPEN.length - 1, i)); toon(); };
 const open = (i) => {
   if (!paneel) bouw();
   if (paneel.hidden) terugFocus = document.activeElement;
@@ -689,16 +770,17 @@ const sluit = () => {
   svg.classList.remove('dim'); svg.querySelectorAll('.licht').forEach((el) => el.classList.remove('licht'));
   terugFocus?.focus?.({ preventScroll: true });
 };
-svg.querySelectorAll('circle[data-scherm] + text[data-scherm]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Scherm bij stap ${t.dataset.scherm}`); });
+const index = (n) => STAPPEN.findIndex((s) => s.n === n);
+svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Uitleg bij stap ${t.dataset.stap}`); });
 svg.addEventListener('click', (e) => {
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
-  const el = e.target.closest?.('[data-scherm]');
-  if (el) open(SCHERMEN.findIndex((s) => s.n === el.dataset.scherm));
+  const el = e.target.closest?.('[data-stap]');
+  if (el) open(index(el.dataset.stap));
 });
-document.getElementById('schermen-open').addEventListener('click', () => open(0));
+document.getElementById('presenteer-flow').addEventListener('click', () => open(0));
 window.addEventListener('keydown', (e) => {
-  const el = e.target instanceof Element && e.target.dataset?.scherm ? e.target : null;
-  if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(SCHERMEN.findIndex((s) => s.n === el.dataset.scherm)); return; }
+  const el = e.target instanceof Element && e.target.dataset?.stap && e.target.closest('#flow-schema') ? e.target : null;
+  if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(index(el.dataset.stap)); return; }
   if (!paneel || paneel.hidden || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'ArrowRight') { e.preventDefault(); naar(huidig + 1); }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); naar(huidig - 1); }
