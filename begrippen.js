@@ -82,6 +82,7 @@
     'RVO': { u: 'Rijksdienst voor Ondernemend Nederland: voert subsidieregelingen voor ondernemers uit.', l: 'https://www.rvo.nl/' },
     // ---- eHerkenning in detail (achtergrondpagina's)
     'machtigingenregister': { u: 'Register van een eHerkenningsleverancier waarin staat welke medewerker namens welke onderneming welke dienst mag gebruiken.' },
+    'dienstcode': { u: 'Het nummer waarmee een dienst in de dienstencatalogus van eHerkenning staat (ServiceID), bijv. urn:etoegang:DV:<OIN dienstverlener>:services:1. Zo weten makelaar en leverancier om welke dienst en welk niveau het gaat.' },
     'pseudoniem': { u: 'Uniek nummer dat een dienstverlener in plaats van de naam van de gebruiker krijgt. Het is per dienstverlener anders, zodat dienstverleners personen niet aan elkaar kunnen koppelen.' },
     'assertion': { u: 'Het ondertekende bericht waarin de leverancier verklaart wie er is ingelogd, op welk niveau en namens welke onderneming.' },
     'dienstbemiddelaar': { u: 'Partij die namens andere dienstverleners toegang tot hun diensten regelt, bijvoorbeeld een portaal.' },

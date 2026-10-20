@@ -32,6 +32,133 @@
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
+    <nldd-simple-section id="landschap">
+      <nldd-title size="2"><h2>Wie zit waar in het landschap?</h2><p slot="supporting-text">Een dienstverlener kiest een herkenningsmakelaar, een ondernemer kiest een leverancier, en elke makelaar werkt met alle leveranciers. Daardoor kan een werknemer met één middel bij alle aangesloten diensten inloggen. De namen zijn een voorbeeld.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <div class="canvas" id="landschap-schema" role="img" aria-labelledby="ehl-titel ehl-uitleg">
+<svg viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <title id="ehl-titel">Waar zitten de makelaar en de leverancier in het eHerkenning-landschap</title>
+  <desc id="ehl-uitleg">Vier lagen. Dienstverleners kiezen elk een herkenningsmakelaar: Belastingdienst bij Digidentity, RVO en KvK bij KPN, UWV bij OneWelcome, RDW bij Reconi en CJIB bij Signicat. Elke makelaar is verbonden met alle leveranciers. De ondernemer kiest de leverancier, hier Z-Login, die het inlogmiddel uitgeeft en de machtigingen bijhoudt. De werknemer kiest op het keuzescherm van de makelaar zijn leverancier. Uitgelicht: UWV, makelaar OneWelcome, leverancier Z-Login, werknemer A.</desc>
+  <defs>
+    <pattern id="grid-ehl" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="l-uit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+    <marker id="l-grijs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#999"/></marker>
+  </defs>
+  <rect width="1280" height="640" fill="#fff"/>
+  <rect width="1280" height="640" fill="url(#grid-ehl)"/>
+  <rect x="16" y="20" width="1248" height="110" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
+  <rect x="16" y="20" width="236" height="110" rx="12" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="32" y="46" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Gebruiker</text>
+  <text x="32" y="68" font-size="11.5" fill="#5b6573" text-anchor="start">Kiest op het keuzescherm van de</text>
+  <text x="32" y="83" font-size="11.5" fill="#5b6573" text-anchor="start">makelaar bij welke leverancier hij</text>
+  <text x="32" y="98" font-size="11.5" fill="#5b6573" text-anchor="start">zijn middel heeft (stap 3).</text>
+  <rect x="16" y="150" width="1248" height="170" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
+  <rect x="16" y="150" width="236" height="170" rx="12" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="32" y="176" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Leveranciers</text>
+  <text x="32" y="198" font-size="11.5" fill="#5b6573" text-anchor="start">Keuze van de ondernemer: neemt</text>
+  <text x="32" y="213" font-size="11.5" fill="#5b6573" text-anchor="start">eHerkenning af bij een</text>
+  <text x="32" y="228" font-size="11.5" fill="#5b6573" text-anchor="start">leverancier, die de middelen</text>
+  <text x="32" y="243" font-size="11.5" fill="#5b6573" text-anchor="start">uitgeeft en de machtigingen</text>
+  <text x="32" y="258" font-size="11.5" fill="#5b6573" text-anchor="start">bijhoudt.</text>
+  <rect x="16" y="340" width="1248" height="140" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
+  <rect x="16" y="340" width="236" height="140" rx="12" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="32" y="366" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Herkenningsmakelaars</text>
+  <text x="32" y="388" font-size="11.5" fill="#5b6573" text-anchor="start">Keuze van de dienstverlener: één</text>
+  <text x="32" y="403" font-size="11.5" fill="#5b6573" text-anchor="start">makelaar per dienstverlener. Elke</text>
+  <text x="32" y="418" font-size="11.5" fill="#5b6573" text-anchor="start">makelaar is verbonden met alle</text>
+  <text x="32" y="433" font-size="11.5" fill="#5b6573" text-anchor="start">leveranciers.</text>
+  <rect x="16" y="500" width="1248" height="120" rx="12" fill="#fff" stroke="#bbb" stroke-width="1"/>
+  <rect x="16" y="500" width="236" height="120" rx="12" fill="#f5f5f5" stroke="#bbb" stroke-width="1"/>
+  <text x="32" y="526" font-size="13.5" fill="#333" text-anchor="start" font-weight="700">Dienstverleners</text>
+  <text x="32" y="548" font-size="11.5" fill="#5b6573" text-anchor="start">Sluiten via hun makelaar aan; de</text>
+  <text x="32" y="563" font-size="11.5" fill="#5b6573" text-anchor="start">dienst komt in de</text>
+  <text x="32" y="578" font-size="11.5" fill="#5b6573" text-anchor="start">dienstencatalogus.</text>
+  <rect x="270" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="355" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="355" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Digidentity</text>
+  <rect x="475" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="560" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="560" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">KPN</text>
+  <rect x="680" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="2.4" stroke-dasharray="6 4"/>
+  <text x="765" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="765" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">OneWelcome</text>
+  <rect x="885" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="970" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="970" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Reconi</text>
+  <rect x="1090" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="1175" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="1175" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Signicat</text>
+  <rect x="285.0" y="540" width="140" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="355" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">Belastingdienst</text>
+  <path d="M355 538L355.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="483.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="520" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RVO</text>
+  <path d="M520 538L544.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="563.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="600" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">KvK</text>
+  <path d="M600 538L576.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="728.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.4"/>
+  <text x="765" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">UWV</text>
+  <path d="M765 538L765.0 444" stroke="#1f5fa8" stroke-width="2.4" fill="none" marker-end="url(#l-1f5fa8)"/>
+  <rect x="933.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="970" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RDW</text>
+  <path d="M970 538L970.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="1138.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="1175" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">CJIB</text>
+  <path d="M1175 538L1175.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="615" y="166" width="300" height="140" rx="10" fill="#fff2cc" stroke="#d6b656" stroke-width="2.4"/>
+  <text x="765" y="190" font-size="13.5" fill="#333" text-anchor="middle" font-weight="700">Leverancier Z-Login</text>
+  <text x="765" y="207" font-size="11" fill="#5c4a00" text-anchor="middle">gekozen door de ondernemer van werknemer A</text>
+  <rect x="640" y="220" width="120" height="70" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="700" y="250" font-size="11.5" fill="#333" text-anchor="middle">inlogmiddel</text>
+  <text x="700" y="266" font-size="11.5" fill="#333" text-anchor="middle">werknemer A</text>
+  <rect x="770" y="220" width="120" height="70" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="830" y="250" font-size="11.5" fill="#333" text-anchor="middle">machtigingen-</text>
+  <text x="830" y="266" font-size="11.5" fill="#333" text-anchor="middle">register</text>
+  <rect x="260" y="200" width="190" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="355" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Leverancier Digidentity</text>
+  <text x="355" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">andere leverancier (voorbeeld)</text>
+  <rect x="1080" y="200" width="190" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="1175" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Leverancier KPN</text>
+  <text x="1175" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">andere leverancier (voorbeeld)</text>
+  <path d="M355 378L690 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <path d="M560 378L727 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <path d="M765 378L764 310" stroke="#b46504" stroke-width="2.4" fill="none" marker-end="url(#l-b46504)"/>
+  <path d="M970 378L801 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <path d="M1175 378L838 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="635" y="40" width="260" height="70" rx="10" fill="#fff" stroke="#666" stroke-width="2.4"/>
+  <text x="765" y="68" font-size="13.5" fill="#333" text-anchor="middle" font-weight="700">Werknemer A</text>
+  <text x="765" y="86" font-size="11" fill="#555" text-anchor="middle">namens organisatie X, met een middel van Z-Login</text>
+  <path d="M765 112L765 162" stroke="#2d7a46" stroke-width="2.4" fill="none" marker-end="url(#l-2d7a46)"/>
+  <text x="980" y="140" font-size="11" fill="#2d7a46" text-anchor="middle">inloggen bij de eigen leverancier</text>
+  <text x="1248" y="620" font-size="11" fill="#5b6573" text-anchor="end">Dik en doorgetrokken: het pad van het voorbeeld hieronder (UWV, makelaar OneWelcome, leverancier Z-Login).</text>
+</svg>
+      </div>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="Wie kiest wat">
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="apartment-building" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**De dienstverlener kiest de herkenningsmakelaar.**" supporting-text="Eén makelaar per dienstverlener, bijvoorbeeld OneWelcome voor UWV. De makelaar sluit de dienst aan op eHerkenning, zet hem in de dienstencatalogus en toont de gebruiker het keuzescherm met leveranciers."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="business-suitcase" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**De ondernemer kiest de leverancier.**" supporting-text="Bijvoorbeeld Z-Login. De leverancier geeft de werknemers hun inlogmiddel en houdt in het machtigingenregister bij wie namens de onderneming welke diensten mag gebruiken."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-icon-cell slot="start" icon="person" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**De werknemer kiest bij het inloggen zijn leverancier.**" supporting-text="Op het keuzescherm van de makelaar selecteert hij de leverancier waarvan hij zijn middel heeft (stap 3). Omdat elke makelaar met alle leveranciers werkt, maakt het niet uit bij welke makelaar de dienst is aangesloten."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-rich-text><p>Sommige bedrijven hebben beide rollen: Digidentity en KPN zijn bijvoorbeeld zowel makelaar als leverancier.</p></nldd-rich-text>
+    </nldd-simple-section>
+
     <nldd-simple-section id="flow">
       <nldd-title size="2"><h2>Van klik tot ingelogd</h2><p slot="supporting-text">Groen gestippeld is wat de werknemer doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
@@ -59,7 +186,7 @@
   <path d="M800 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="660" y="18" width="280" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="800" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Herkenningsmakelaar</text>
-  <text x="800" y="63" font-size="11.5" fill="#555" text-anchor="middle">van UWV, bijv. Signicat</text>
+  <text x="800" y="63" font-size="11.5" fill="#555" text-anchor="middle">van UWV, bijv. OneWelcome</text>
   <path d="M1120 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="980" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="1120" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier</text>
@@ -123,7 +250,7 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. Het gaat via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee. De dienstcode is het nummer waarmee de dienst in de dienstencatalogus van eHerkenning staat (de ServiceID). Daaraan zien makelaar en leverancier om welke dienst het gaat en welk niveau erbij hoort, en de leverancier controleert de machtiging voor precies die dienst. Voorbeeld (fictief): urn:etoegang:DV:00000001234567890000:services:1 voor de dienst Werkgeversportaal van UWV, waarbij het lange getal het OIN van de dienstverlener is en 1 het volgnummer van de dienst."></nldd-text-cell>
+          <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. Het gaat via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee. Wat de dienstcode is, staat onder de stappen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -174,6 +301,16 @@
           <nldd-text-cell text="**UWV controleert, ontsleutelt en laat de werknemer binnen.**" supporting-text="UWV controleert of de handtekening klopt en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt."></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4" id="dienstcode"><h3>Wat is de dienstcode?</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><strong>Wat het is:</strong> het nummer waarmee een dienst in de dienstencatalogus van eHerkenning staat, de ServiceID. De makelaar registreert de dienst daar bij het aansluiten.</li>
+          <li><strong>Waarvoor:</strong> daaraan zien de makelaar en de leverancier om welke dienst het gaat en welk betrouwbaarheidsniveau erbij hoort. De leverancier controleert de machtiging voor precies die dienst (stap 7).</li>
+          <li><strong>Voorbeeld (fictief):</strong> <code>urn:etoegang:DV:00000001234567890000:services:1</code> voor de dienst Werkgeversportaal van UWV. Het lange getal is het OIN van de dienstverlener, de 1 het volgnummer van de dienst.</li>
+        </ul>
+      </nldd-rich-text>
     </nldd-simple-section>
 
     <nldd-simple-section id="samenvatting">
