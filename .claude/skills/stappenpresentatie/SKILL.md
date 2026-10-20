@@ -54,6 +54,8 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
        "bron": "Scherm nagelopen op 20 oktober 2026." } ] }
    ```
 
+   De toelichting bij een vraag mag ook een lijst zijn; die verschijnt dan als subpunten.
+
    Kleuren van de soorten: Handeling `#2d7a46`, Verzoek `#b46504`, Controle en Bevraging `#7a4f8c`,
    Verklaring `#1f5fa8`, Resultaat `#0e7c86`. Een kaart met gegevensvelden gebruikt
    `"rijen": [[veld, waarde, uitleg]]` in plaats van `img`.

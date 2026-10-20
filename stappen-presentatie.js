@@ -10,7 +10,7 @@
 //     { "naam": ..., "schema": "#id", "stappen": [...] }
 //   - dit bestand als module-script (src="stappen-presentatie.js"); build.py bakt het in
 // Een stap: { n, kop, kenmerken: [..], soort: [naam, uitleg, kleur], lead, punten: [..], aannames: [..],
-//             vragen: [[V1, vraag, toelichting]], kaarten: [{ label, titel, bij, img, alt, rijen: [[veld, waarde, uitleg]] }], bron }
+//             vragen: [[V1, vraag, toelichting of [subpunten]]], kaarten: [{ label, titel, bij, img, alt, rijen: [[veld, waarde, uitleg]] }], bron }
 
 const bron = document.getElementById('stappen-data');
 if (bron) {
@@ -103,7 +103,8 @@ if (bron) {
     const s = STAPPEN[huidig];
     const punten = [...(s.punten || []).map((p) => `<li>${esc(p)}</li>`),
       ...(s.aannames || []).map((a) => `<li><strong>Aanname.</strong> ${esc(a)}</li>`),
-      ...(s.vragen || []).map(([v, q, t]) => `<li><strong>Open vraag ${esc(v)}.</strong> ${esc(q)} ${esc(t)}</li>`)].join('');
+      // Een toelichting mag ook een lijst zijn: dan als subpunten (bijvoorbeeld twee losse problemen)
+      ...(s.vragen || []).map(([v, q, t]) => `<li><strong>Open vraag ${esc(v)}.</strong> ${esc(q)} ${Array.isArray(t) ? `<ul>${t.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : esc(t)}</li>`)].join('');
     const inhoud = paneel.querySelector('.att-inhoud');
     inhoud.innerHTML = `
       <p class="att-label">${esc(NAAM)} · Stap ${esc(s.n)}${(s.kenmerken || []).map((k) => ` · ${esc(k)}`).join('')}</p>
