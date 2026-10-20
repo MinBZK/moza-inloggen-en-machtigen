@@ -30,7 +30,7 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner variant="accent" icon="lightbulb" text="Concept-voorstel" supporting-text="Dit is een voorstel voor de toekomstige situatie, niet een vastgesteld ontwerp. Per stap staan de aannames en de open vragen."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Aanname is dat MOZa optreedt als dienstbemiddelaar voor de diensten van andere dienstverleners, en dat die dienstverleners MOZa daarvoor erkennen. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen vraagt MOZa bij de leverancier van Koffiezaak Noon op voor welke diensten Bilal gemachtigd is. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
+      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Aanname is dat MOZa optreedt als dienstbemiddelaar voor de diensten van andere dienstverleners, en dat die dienstverleners MOZa daarvoor erkennen. MOZa krijgt daarnaast zelf de rol van dienstverlener, hoogstwaarschijnlijk op EH3 (nog te valideren): de meeste diensten vereisen dat niveau, en zo kan MOZa SSO bieden voor alle diensten op hetzelfde niveau of lager. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen vraagt MOZa bij de leverancier van Koffiezaak Noon op voor welke diensten Bilal gemachtigd is. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
@@ -44,7 +44,7 @@
 <div class="canvas" id="toekomst-schema" role="img" aria-labelledby="toekomst-titel toekomst-uitleg">
 <svg viewBox="0 0 1280 910" xmlns="http://www.w3.org/2000/svg">
   <title id="toekomst-titel">Volgordediagram (concept): Bilal logt in op MOZa met eHerkenning</title>
-  <desc id="toekomst-uitleg">Stap 1: Bilal Yılmaz naar MOZa, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: MOZa naar Herkenningsmakelaar, inlogverzoek (anoniem): MOZa, dienstcode MOZa portaal, niveau. Stap 3: Herkenningsmakelaar naar Leverancier Z-Login, Bilal selecteert Z login; verzoek doorgestuurd. Stap 4: Bilal Yılmaz naar Leverancier Z-Login, logt in met zijn account van Z-Login. Stap 5: Leverancier Z-Login, controleert niveau voor MOZa. Stap 6: Bilal Yılmaz naar Leverancier Z-Login, namens Koffiezaak Noon (soms). Stap 7: Leverancier Z-Login, controleert machtiging voor MOZa. Stap 8: Leverancier Z-Login naar Herkenningsmakelaar, verklaring: pseudoniem voor MOZa, KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar MOZa, assertion. Stap 10: MOZa naar Leverancier Z-Login, vraagt het machtigingenregister: voor welke diensten is Bilal gemachtigd?. Stap 11: Leverancier Z-Login naar MOZa, lijst met diensten, of: stermachtiging (alle diensten). Stap 12: MOZa naar Bilal Yılmaz, ingelogd: ziet zijn diensten. Stap 13: MOZa naar Dienstverleners, Bilal opent een dienst, bij voorkeur zonder opnieuw inloggen.</desc>
+  <desc id="toekomst-uitleg">Stap 1: Bilal Yılmaz naar MOZa, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: MOZa naar Herkenningsmakelaar, inlogverzoek (anoniem): MOZa, dienstcode MOZa portaal, EH3. Stap 3: Herkenningsmakelaar naar Leverancier Z-Login, Bilal selecteert Z login; verzoek doorgestuurd. Stap 4: Bilal Yılmaz naar Leverancier Z-Login, logt in met zijn account van Z-Login. Stap 5: Leverancier Z-Login, controleert niveau voor MOZa. Stap 6: Bilal Yılmaz naar Leverancier Z-Login, namens Koffiezaak Noon (soms). Stap 7: Leverancier Z-Login, controleert machtiging voor MOZa. Stap 8: Leverancier Z-Login naar Herkenningsmakelaar, verklaring: pseudoniem voor MOZa, KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar MOZa, assertion. Stap 10: MOZa naar Leverancier Z-Login, vraagt het machtigingenregister: voor welke diensten is Bilal gemachtigd?. Stap 11: Leverancier Z-Login naar MOZa, lijst met diensten, of: stermachtiging (alle diensten). Stap 12: MOZa naar Bilal Yılmaz, ingelogd: ziet zijn diensten. Stap 13: MOZa naar Dienstverleners, Bilal opent een dienst, bij voorkeur zonder opnieuw inloggen.</desc>
   <defs>
     <pattern id="toekomst-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="toekomst-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
@@ -86,7 +86,7 @@
   <path data-stap="2" d="M408 192H636" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#toekomst-b46504)"/>
   <circle data-stap="2" cx="392" cy="192" r="12" fill="#b46504"/><text data-stap="2" x="392" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
   <text data-stap="2" x="516" y="170" font-size="11.5" fill="#b46504" text-anchor="middle">inlogverzoek (anoniem): MOZa,</text>
-  <text data-stap="2" x="516" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">dienstcode MOZa portaal, niveau</text>
+  <text data-stap="2" x="516" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">dienstcode MOZa portaal, EH3</text>
   <rect data-stap="3" x="626" y="214" width="276" height="54" fill="transparent"/>
   <path data-stap="3" d="M656 252H884" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#toekomst-b46504)"/>
   <circle data-stap="3" cx="640" cy="252" r="12" fill="#b46504"/><text data-stap="3" x="640" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
@@ -259,9 +259,10 @@
    ],
    "lead": "MOZa stuurt een inlogverzoek naar zijn makelaar",
    "punten": [
-    "Net als UWV stuurt MOZa een anoniem inlogverzoek: wie vraagt (MOZa), de dienstcode, het niveau en een terugadres."
+    "Net als UWV stuurt MOZa een anoniem inlogverzoek: wie vraagt (MOZa), de dienstcode, het niveau (EH3) en een terugadres."
    ],
    "aannames": [
+    "MOZa krijgt ook de rol van dienstverlener, hoogstwaarschijnlijk op EH3 (nog te valideren). De meeste diensten vereisen dat niveau, en zo kan MOZa SSO bieden voor alle diensten op hetzelfde niveau of lager.",
     "MOZa heeft, net als elke dienstverlener, één herkenningsmakelaar. Welke dat wordt, is nog niet gekozen."
    ],
    "vragen": [
@@ -334,9 +335,11 @@
    ],
    "lead": "Z-Login controleert het niveau",
    "punten": [
-    "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt."
+    "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt: EH3."
    ],
-   "aannames": [],
+   "aannames": [
+    "MOZa vraagt EH3 (nog te valideren)."
+   ],
    "vragen": [
     [
      "V6",
@@ -564,7 +567,8 @@
     "Vanuit MOZa gaat Bilal naar bijvoorbeeld het werkgeversportaal van UWV, bij voorkeur zonder opnieuw in te loggen."
    ],
    "aannames": [
-    "De dienstverleners blijven zelf aangesloten op eHerkenning, elk via hun eigen makelaar."
+    "De dienstverleners blijven zelf aangesloten op eHerkenning, elk via hun eigen makelaar.",
+    "Omdat Bilal op EH3 bij MOZa is ingelogd, kan MOZa SSO bieden voor alle diensten op EH3 of lager. Alleen voor een dienst op EH4 is een extra stap nodig."
    ],
    "vragen": [
     [
