@@ -38,7 +38,7 @@
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="eh-titel eh-uitleg">
 <svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
   <title id="eh-titel">Volgordediagram: inloggen bij UWV met eHerkenning</title>
-  <desc id="eh-uitleg">Stap 1: Werknemer naar UWV, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: UWV naar Herkenningsmakelaar, inlogverzoek (anoniem): UWV, dienstcode, EH3, terugadres. Stap 3: Herkenningsmakelaar naar Leverancier, werknemer kiest leverancier; verzoek doorgestuurd. Stap 4: Werknemer naar Leverancier, inloggegevens (eigen middel). Stap 5: Leverancier, controleert niveau (EH3). Stap 6: Werknemer naar Leverancier, namens bedrijf X (soms). Stap 7: Leverancier, controleert machtiging. Stap 8: Leverancier naar Herkenningsmakelaar, verklaring: pseudoniem en KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar UWV, assertion (makelaar kan de inhoud niet lezen). Stap 10: UWV naar Werknemer, ingelogd namens bedrijf X.</desc>
+  <desc id="eh-uitleg">Stap 1: Werknemer naar UWV, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: UWV naar Herkenningsmakelaar, inlogverzoek (anoniem): UWV, dienstcode, EH3, terugadres. Stap 3: Herkenningsmakelaar naar Leverancier, werknemer kiest leverancier; verzoek doorgestuurd. Stap 4: Werknemer naar Leverancier, logt in met zijn account van de leverancier. Stap 5: Leverancier, controleert niveau (EH3). Stap 6: Werknemer naar Leverancier, namens bedrijf X (soms). Stap 7: Leverancier, controleert machtiging. Stap 8: Leverancier naar Herkenningsmakelaar, verklaring: pseudoniem en KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar UWV, assertion (makelaar kan de inhoud niet lezen). Stap 10: UWV naar Werknemer, ingelogd namens bedrijf X.</desc>
   <defs>
     <pattern id="grid-eh" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="eh-groen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
@@ -63,7 +63,7 @@
   <path d="M1120 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="980" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="1120" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier</text>
-  <text x="1120" y="63" font-size="11.5" fill="#555" text-anchor="middle">bijv. Z-Login, met machtigingenregister</text>
+  <text x="1120" y="63" font-size="11.5" fill="#555" text-anchor="middle">bijv. Z-Login of Digidentity, met register</text>
   <rect data-stap="1" x="146" y="94" width="348" height="54" fill="transparent"/>
   <path data-stap="1" d="M176 132H476" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#eh-groen)"/>
   <circle data-stap="1" cx="160" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="160" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
@@ -76,12 +76,12 @@
   <rect data-stap="3" x="786" y="214" width="348" height="54" fill="transparent"/>
   <path data-stap="3" d="M816 252H1116" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#eh-oranje)"/>
   <circle data-stap="3" cx="800" cy="252" r="12" fill="#b46504"/><text data-stap="3" x="800" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text data-stap="3" x="960" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">werknemer kiest leverancier;</text>
+  <text data-stap="3" x="960" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">werknemer selecteert zijn leverancier;</text>
   <text data-stap="3" x="960" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">verzoek doorgestuurd</text>
   <rect data-stap="4" x="146" y="274" width="988" height="54" fill="transparent"/>
   <path data-stap="4" d="M176 312H1116" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#eh-groen)"/>
   <circle data-stap="4" cx="160" cy="312" r="12" fill="#2d7a46"/><text data-stap="4" x="160" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-  <text data-stap="4" x="640" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggegevens (eigen middel)</text>
+  <text data-stap="4" x="640" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">logt in met zijn account van de leverancier</text>
   <rect data-stap="5" x="1000" y="356" width="240" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
   <circle data-stap="5" cx="1000" cy="372" r="12" fill="#7a4f8c"/><text data-stap="5" x="1000" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
   <text data-stap="5" x="1126" y="376" font-size="11.5" fill="#7a4f8c" text-anchor="middle">controleert niveau (EH3)</text>
@@ -123,19 +123,19 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. Het gaat via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee."></nldd-text-cell>
+          <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. Het gaat via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee. De dienstcode is het nummer waarmee de dienst in de dienstencatalogus van eHerkenning staat (de ServiceID). Daaraan zien makelaar en leverancier om welke dienst het gaat en welk niveau erbij hoort, en de leverancier controleert de machtiging voor precies die dienst. Voorbeeld (fictief): urn:etoegang:DV:00000001234567890000:services:1 voor de dienst Werkgeversportaal van UWV, waarbij het lange getal het OIN van de dienstverlener is en 1 het volgnummer van de dienst."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**De makelaar toont het keuzescherm &quot;Kies uw leverancier&quot;.**" supporting-text="De werknemer kiest bijvoorbeeld Z-Login en de makelaar stuurt hem met het verzoek door. Ook de makelaar weet nog niet wie het is."></nldd-text-cell>
+          <nldd-text-cell text="**De makelaar toont het keuzescherm &quot;Kies uw leverancier&quot;.**" supporting-text="De werknemer selecteert de leverancier waarvan hij zijn middel heeft, bijvoorbeeld Z-Login of Digidentity. De makelaar stuurt hem met het verzoek door. Ook de makelaar weet nog niet wie het is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**De werknemer logt in met zijn eigen middel.**" supporting-text="Bijvoorbeeld gebruikersnaam, wachtwoord en een code in een app. Nu weet de leverancier wie het is."></nldd-text-cell>
+          <nldd-text-cell text="**De werknemer logt in met zijn account van de leverancier.**" supporting-text="Met het inlogmiddel dat hij bij die leverancier heeft, bijvoorbeeld gebruikersnaam, wachtwoord en een code in een app. Nu weet de leverancier wie het is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
