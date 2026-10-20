@@ -147,7 +147,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V1**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?**" supporting-text="Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen. (stap 7, 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?**" supporting-text="Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen. (stap 10, 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -177,7 +177,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V6**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 7, 11, 12)"></nldd-text-cell>
+          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 11, 12)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -368,25 +368,8 @@
    "punten": [
     "In het machtigingenregister staat dat Karin Bilal heeft gemachtigd voor MOZa, of dat hij een stermachtiging heeft voor alle diensten."
    ],
-   "aannames": [
-    "Karin heeft Bilal naast MOZa ook gemachtigd voor een aantal diensten, bijvoorbeeld het werkgeversportaal van UWV, Mijn Belastingdienst Zakelijk en een subsidiedienst van RVO. Die vragen hetzelfde of een lager niveau (EH3 of lager), dus is Bilal daar via SSO meteen ingelogd."
-   ],
-   "vragen": [
-    [
-     "V1",
-     "Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?",
-     "Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen."
-    ],
-    [
-     "V6",
-     "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
-     [
-      "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
-      "Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie.",
-      "Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
-     ]
-    ]
-   ],
+   "aannames": [],
+   "vragen": [],
    "kaarten": [],
    "bron": ""
   },
@@ -462,9 +445,15 @@
    ],
    "aannames": [
     "MOZa mag daarvoor het register van de leverancier van de onderneming bevragen.",
-    "Uit de inlog weet MOZa bij welke leverancier de onderneming zit."
+    "Uit de inlog weet MOZa bij welke leverancier de onderneming zit.",
+    "Karin heeft Bilal naast MOZa ook gemachtigd voor een aantal diensten, bijvoorbeeld het werkgeversportaal van UWV, Mijn Belastingdienst Zakelijk en een subsidiedienst van RVO. Die vragen hetzelfde of een lager niveau (EH3 of lager), dus is Bilal daar via SSO meteen ingelogd."
    ],
    "vragen": [
+    [
+     "V1",
+     "Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?",
+     "Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen."
+    ],
     [
      "V5",
      "Kan en mag MOZa het machtigingenregister van een leverancier bevragen?",
