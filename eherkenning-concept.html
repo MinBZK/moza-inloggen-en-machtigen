@@ -30,7 +30,7 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner variant="accent" icon="lightbulb" text="Concept-voorstel" supporting-text="Dit is een voorstel voor de toekomstige situatie, niet een vastgesteld ontwerp. Per stap staan de aannames en de open vragen."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen vraagt MOZa bij de leverancier van Koffiezaak Noon op voor welke diensten Bilal gemachtigd is. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
+      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Aanname is dat MOZa optreedt als dienstbemiddelaar voor de diensten van andere dienstverleners, en dat die dienstverleners MOZa daarvoor erkennen. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen vraagt MOZa bij de leverancier van Koffiezaak Noon op voor welke diensten Bilal gemachtigd is. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
@@ -147,53 +147,47 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V1**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Hoe sluit MOZa aan: als één eigen dienst, of als dienstbemiddelaar voor de diensten van UWV, Belastingdienst en RVO?**" supporting-text="Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus. (stap 1)"></nldd-text-cell>
+          <nldd-text-cell text="**Is een pseudoniem voor MOZa als dienstbemiddelaar nog relevant?**" supporting-text="Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd? (stap 8)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V2**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Als MOZa dienstbemiddelaar is, is een pseudoniem dan nog relevant?**" supporting-text="Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd? (stap 8)"></nldd-text-cell>
+          <nldd-text-cell text="**Kan of mag één inlogverzoek meerdere diensten van verschillende dienstverleners bevatten, met per dienst ja of nee als antwoord?**" supporting-text="Een alternatief voor het bevragen van het machtigingenregister na het inloggen (stap 10). (stap 7)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V3**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kan of mag één inlogverzoek meerdere diensten van verschillende dienstverleners bevatten, met per dienst ja of nee als antwoord?**" supporting-text="Een alternatief voor het bevragen van het machtigingenregister na het inloggen (stap 10). (stap 7)"></nldd-text-cell>
+          <nldd-text-cell text="**In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?**" supporting-text="Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau. (stap 9)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V4**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?**" supporting-text="Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau. (stap 9)"></nldd-text-cell>
+          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)**" supporting-text="Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens. (stap 8, 10)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V6**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)**" supporting-text="Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens. (stap 8, 10)"></nldd-text-cell>
+          <nldd-text-cell text="**Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?**" supporting-text="Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten. (stap 2, 5, 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V7**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?**" supporting-text="Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten. (stap 2, 5, 13)"></nldd-text-cell>
-        </nldd-list-item>
-        <nldd-list-item>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell vertical-alignment="top" width="32px" text="**V8**"></nldd-text-cell>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Kan en mag MOZa het machtigingenregister van een leverancier bevragen?**" supporting-text="Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel. (stap 10)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell vertical-alignment="top" width="32px" text="**V9**"></nldd-text-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**V8**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Hoe werkt een stermachtiging?**" supporting-text="Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account? Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid: een machtiging voor alle beschikbare diensten, naast de keuze om toegestane diensten te beperken (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 7, 11)"></nldd-text-cell>
         </nldd-list-item>
@@ -244,15 +238,10 @@
     "Bilal gaat naar MOZa, het portaal voor ondernemers, en kiest inloggen met eHerkenning."
    ],
    "aannames": [
-    "MOZa staat als eigen dienst in de dienstencatalogus, met een eigen dienstcode en niveau."
+    "MOZa treedt op als dienstbemiddelaar voor de diensten van UWV, de Belastingdienst, RVO en andere dienstverleners, en staat daarvoor in de dienstencatalogus.",
+    "Elke dienstverlener moet MOZa erkennen als dienstbemiddelaar voor zijn diensten."
    ],
-   "vragen": [
-    [
-     "V1",
-     "Hoe sluit MOZa aan: als één eigen dienst, of als dienstbemiddelaar voor de diensten van UWV, Belastingdienst en RVO?",
-     "Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus."
-    ]
-   ],
+   "vragen": [],
    "kaarten": [],
    "bron": ""
   },
@@ -277,9 +266,9 @@
    ],
    "vragen": [
     [
-     "V7",
-     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
-     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
+     "V6",
+     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
+     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
     ]
    ],
    "kaarten": [],
@@ -350,9 +339,9 @@
    "aannames": [],
    "vragen": [
     [
-     "V7",
-     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
-     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
+     "V6",
+     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
+     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
     ]
    ],
    "kaarten": [],
@@ -400,12 +389,12 @@
    ],
    "vragen": [
     [
-     "V3",
+     "V2",
      "Kan of mag één inlogverzoek meerdere diensten van verschillende dienstverleners bevatten, met per dienst ja of nee als antwoord?",
      "Een alternatief voor het bevragen van het machtigingenregister na het inloggen (stap 10)."
     ],
     [
-     "V9",
+     "V8",
      "Hoe werkt een stermachtiging?",
      "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account? Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid: een machtiging voor alle beschikbare diensten, naast de keuze om toegestane diensten te beperken (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
     ]
@@ -432,12 +421,12 @@
    "aannames": [],
    "vragen": [
     [
-     "V2",
-     "Als MOZa dienstbemiddelaar is, is een pseudoniem dan nog relevant?",
+     "V1",
+     "Is een pseudoniem voor MOZa als dienstbemiddelaar nog relevant?",
      "Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd?"
     ],
     [
-     "V6",
+     "V5",
      "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
      "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
     ]
@@ -464,7 +453,7 @@
    "aannames": [],
    "vragen": [
     [
-     "V4",
+     "V3",
      "In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?",
      "Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau."
     ]
@@ -494,12 +483,12 @@
    ],
    "vragen": [
     [
-     "V8",
+     "V7",
      "Kan en mag MOZa het machtigingenregister van een leverancier bevragen?",
      "Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel."
     ],
     [
-     "V6",
+     "V5",
      "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
      "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
     ]
@@ -529,7 +518,7 @@
    ],
    "vragen": [
     [
-     "V9",
+     "V8",
      "Hoe werkt een stermachtiging?",
      "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account? Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid: een machtiging voor alle beschikbare diensten, naast de keuze om toegestane diensten te beperken (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
     ]
@@ -579,14 +568,14 @@
    ],
    "vragen": [
     [
-     "V5",
+     "V4",
      "Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?",
      "Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst."
     ],
     [
-     "V7",
-     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
-     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
+     "V6",
+     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
+     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
     ]
    ],
    "kaarten": [],
