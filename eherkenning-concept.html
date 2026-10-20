@@ -35,19 +35,19 @@
     <nldd-simple-section id="schema-sectie">
       <nldd-title size="2">
         <h2>Schema</h2>
-        <p slot="supporting-text">Bovenaan hoe diensten aansluiten en machtigingen worden vastgelegd, daaronder het inloggen zoals het nu per dienst werkt, en onderaan hoe we het voor het MOZa portaal zouden willen. De gestippelde labels V1 tot en met V7 verwijzen naar de open vragen.</p>
+        <p slot="supporting-text">Bovenaan hoe diensten aansluiten en machtigingen worden vastgelegd, daaronder hoe we het inloggen voor het MOZa portaal zouden willen. Hoe inloggen nu per dienst werkt, staat op de pagina <a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>. De gestippelde labels V1 tot en met V7 verwijzen naar de open vragen.</p>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="concept-titel concept-uitleg">
-<svg viewBox="0 0 1280 1080" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg">
   <title id="concept-titel">Schema: machtigen en inloggen met eHerkenning, nu en gewenst voor MOZa</title>
-  <desc id="concept-uitleg">Drie banden. Aansluiten en machtigen: een dienstverlener sluit via een makelaar aan en komt in de dienstencatalogus; een ondernemer neemt eHerkenning af bij een leverancier en machtigt werknemers, vastgelegd in het machtigingenregister. Inloggen nu: per dienst, de leverancier controleert de machtiging en stuurt de dienst een assertion met KvK-nummer en pseudoniem. Gewenst voor MOZa: één keer inloggen, de leverancier controleert alle onderliggende diensten en stuurt MOZa het resultaat, met directe toegang tot UWV, Belastingdienst en RVO. Met zeven open vragen.</desc>
+  <desc id="concept-uitleg">Twee banden. Aansluiten en machtigen: een dienstverlener sluit via een makelaar aan en komt in de dienstencatalogus; een ondernemer neemt eHerkenning af bij een leverancier en machtigt werknemers, vastgelegd in het machtigingenregister. Gewenst voor MOZa: één keer inloggen, de leverancier controleert alle onderliggende diensten en stuurt MOZa het resultaat, met directe toegang tot UWV, Belastingdienst en RVO. Met zeven open vragen.</desc>
   <defs>
     <pattern id="grid-c" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="c-pijl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666"/></marker>
   </defs>
-  <rect width="1280" height="1080" fill="#fff"/>
-  <rect width="1280" height="1080" fill="url(#grid-c)"/>
+  <rect width="1280" height="700" fill="#fff"/>
+  <rect width="1280" height="700" fill="url(#grid-c)"/>
   <rect x="16" y="20" width="1248" height="400" fill="none" stroke="#666"/>
   <rect x="16" y="20" width="1248" height="34" fill="#f5f5f5" stroke="#666"/>
   <text x="32" y="42" font-size="14" font-weight="700" fill="#333">Aansluiten van diensten en registreren van machtigingen</text>
@@ -104,118 +104,69 @@
   <text x="962" y="296.5" font-size="11.5" fill="#555">dit in zijn eigen account terugzien.</text>
   <path d="M597 325L597 372L1095 372L1095 352" fill="none" stroke="#666" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#c-pijl)"/>
   <text x="846" y="388" font-size="11" fill="#666" text-anchor="middle">vastgelegd in het machtigingenregister</text>
-  <rect x="16" y="440" width="1248" height="300" fill="none" stroke="#666"/>
+  <rect x="16" y="440" width="1248" height="240" fill="none" stroke="#666"/>
   <rect x="16" y="440" width="1248" height="34" fill="#f5f5f5" stroke="#666"/>
-  <text x="32" y="462" font-size="14" font-weight="700" fill="#333">Inlogflow zoals die nu bestaat voor een losse dienst (UWV)</text>
-  <text x="1248" y="462" font-size="12" fill="#7a4500" text-anchor="end">bestaande situatie</text>
-  <rect x="32" y="526" width="120" height="40" rx="20.0" fill="#fff" stroke="#666"/>
-  <text x="92" y="542.75" font-size="11.5" fill="#333" text-anchor="middle">Werknemer wil</text>
-  <text x="92" y="557.25" font-size="11.5" fill="#333" text-anchor="middle">inloggen bij UWV</text>
-  <rect x="190" y="500" width="150" height="92" rx="12" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="265" y="528.25" font-size="11.5" fill="#1d3f6e" text-anchor="middle">Werknemer gaat naar</text>
-  <text x="265" y="542.75" font-size="11.5" fill="#1d3f6e" text-anchor="middle">de UWV-website en</text>
-  <text x="265" y="557.25" font-size="11.5" fill="#1d3f6e" text-anchor="middle">kiest &#x27;inloggen met</text>
-  <text x="265" y="571.75" font-size="11.5" fill="#1d3f6e" text-anchor="middle">eHerkenning&#x27;</text>
-  <rect x="377" y="500" width="160" height="92" rx="12" fill="#fff" stroke="#666"/>
-  <text x="457" y="521" font-size="11.5" fill="#333" text-anchor="middle">Werknemer logt in met</text>
-  <text x="457" y="535.5" font-size="11.5" fill="#333" text-anchor="middle">zijn account van de</text>
-  <text x="457" y="550" font-size="11.5" fill="#333" text-anchor="middle">leverancier en geeft</text>
-  <text x="457" y="564.5" font-size="11.5" fill="#333" text-anchor="middle">aan namens welk</text>
-  <text x="457" y="579" font-size="11.5" fill="#333" text-anchor="middle">bedrijf</text>
-  <rect x="575" y="500" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="650" y="513.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier checkt</text>
-  <text x="650" y="528.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">in zijn</text>
-  <text x="650" y="542.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">machtigingenregister</text>
-  <text x="650" y="557.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">of de werknemer</text>
-  <text x="650" y="571.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">gemachtigd is voor</text>
-  <text x="650" y="586.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">UWV</text>
-  <rect x="763" y="500" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="838" y="528.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">Is dat zo, dan maakt</text>
-  <text x="838" y="542.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">de leverancier een</text>
-  <text x="838" y="557.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">pseudoniem voor deze</text>
-  <text x="838" y="571.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">gebruiker voor UWV</text>
-  <rect x="950" y="500" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="1025" y="528.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier stuurt</text>
-  <text x="1025" y="542.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">UWV één bericht</text>
-  <text x="1025" y="557.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">(assertion): KvK-</text>
-  <text x="1025" y="571.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">nummer en pseudoniem</text>
-  <rect x="1138" y="526" width="110" height="40" rx="20.0" fill="#dae8fc" stroke="#6c8ebf"/>
-  <text x="1193" y="535.5" font-size="11.5" fill="#1d3f6e" text-anchor="middle">Werknemer is</text>
-  <text x="1193" y="550" font-size="11.5" fill="#1d3f6e" text-anchor="middle">ingelogd bij</text>
-  <text x="1193" y="564.5" font-size="11.5" fill="#1d3f6e" text-anchor="middle">UWV</text>
-  <path d="M152 546.0L186 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M340 546.0L373 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M537 546.0L571 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M725 546.0L759 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M913 546.0L946 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M1100 546.0L1134 546.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <rect x="560" y="620" width="680" height="96" rx="8" fill="#fafafa" stroke="#999" stroke-dasharray="4 3"/>
-  <text x="576" y="644" font-size="11.5" fill="#555">UWV ziet niet wie de werknemer is, maar krijgt een pseudoniem: een uniek nummer voor &quot;werknemer A, namens bedrijf X,</text>
-  <text x="576" y="662" font-size="11.5" fill="#555">bij dienstverlener UWV&quot;. Het is hetzelfde voor alle diensten van UWV.</text>
-  <text x="576" y="680" font-size="11.5" fill="#555">LegalSubjectID = KvK-nummer (eventueel met vestigingsnummer); ActingSubjectID = pseudoniem.</text>
-  <rect x="16" y="760" width="1248" height="300" fill="none" stroke="#666"/>
-  <rect x="16" y="760" width="1248" height="34" fill="#f5f5f5" stroke="#666"/>
-  <text x="32" y="782" font-size="14" font-weight="700" fill="#333">Inlogflow zoals we die zouden willen voor het MOZa portaal</text>
-  <text x="1248" y="782" font-size="12" fill="#7a4500" text-anchor="end">gewenst: de vraag is of dit mogelijk is</text>
-  <rect x="920" y="767" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="937" y="781" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V1</text>
-  <rect x="32" y="856" width="120" height="40" rx="20.0" fill="#fff" stroke="#666"/>
-  <text x="92" y="865.5" font-size="11.5" fill="#333" text-anchor="middle">Werknemer wil</text>
-  <text x="92" y="880" font-size="11.5" fill="#333" text-anchor="middle">inloggen bij het</text>
-  <text x="92" y="894.5" font-size="11.5" fill="#333" text-anchor="middle">MOZa portaal</text>
-  <rect x="185" y="830" width="150" height="92" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
-  <text x="260" y="858.25" font-size="11.5" fill="#5b3f68" text-anchor="middle">Werknemer gaat naar</text>
-  <text x="260" y="872.75" font-size="11.5" fill="#5b3f68" text-anchor="middle">de MOZa-website en</text>
-  <text x="260" y="887.25" font-size="11.5" fill="#5b3f68" text-anchor="middle">kiest &#x27;inloggen met</text>
-  <text x="260" y="901.75" font-size="11.5" fill="#5b3f68" text-anchor="middle">eHerkenning&#x27;</text>
-  <rect x="367" y="830" width="160" height="92" rx="12" fill="#fff" stroke="#666"/>
-  <text x="447" y="851" font-size="11.5" fill="#333" text-anchor="middle">Werknemer logt in met</text>
-  <text x="447" y="865.5" font-size="11.5" fill="#333" text-anchor="middle">zijn account van de</text>
-  <text x="447" y="880" font-size="11.5" fill="#333" text-anchor="middle">leverancier en geeft</text>
-  <text x="447" y="894.5" font-size="11.5" fill="#333" text-anchor="middle">aan namens welk</text>
-  <text x="447" y="909" font-size="11.5" fill="#333" text-anchor="middle">bedrijf</text>
-  <rect x="560" y="830" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="635" y="851" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier checkt</text>
-  <text x="635" y="865.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">of de werknemer</text>
-  <text x="635" y="880" font-size="11.5" fill="#5c4a00" text-anchor="middle">gemachtigd is voor</text>
-  <text x="635" y="894.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">álle onderliggende</text>
-  <text x="635" y="909" font-size="11.5" fill="#5c4a00" text-anchor="middle">diensten</text>
-  <rect x="743" y="830" width="140" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="813" y="858.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">Werknemer blijkt</text>
-  <text x="813" y="872.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">gemachtigd voor</text>
-  <text x="813" y="887.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">UWV, RVO en</text>
-  <text x="813" y="901.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">Belastingdienst</text>
-  <rect x="915" y="830" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
-  <text x="990" y="851" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier stuurt</text>
-  <text x="990" y="865.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">MOZa het resultaat:</text>
-  <text x="990" y="880" font-size="11.5" fill="#5c4a00" text-anchor="middle">KvK-nummer,</text>
-  <text x="990" y="894.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">pseudoniem en de</text>
-  <text x="990" y="909" font-size="11.5" fill="#5c4a00" text-anchor="middle">diensten</text>
-  <rect x="1098" y="830" width="150" height="92" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
-  <text x="1173" y="851" font-size="11.5" fill="#5b3f68" text-anchor="middle">Ingelogd op MOZa,</text>
-  <text x="1173" y="865.5" font-size="11.5" fill="#5b3f68" text-anchor="middle">met directe toegang</text>
-  <text x="1173" y="880" font-size="11.5" fill="#5b3f68" text-anchor="middle">tot UWV,</text>
-  <text x="1173" y="894.5" font-size="11.5" fill="#5b3f68" text-anchor="middle">Belastingdienst en</text>
-  <text x="1173" y="909" font-size="11.5" fill="#5b3f68" text-anchor="middle">RVO</text>
-  <path d="M152 876.0L181 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M335 876.0L363 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M527 876.0L556 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M710 876.0L739 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M883 876.0L911 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <path d="M1065 876.0L1094 876.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
-  <rect x="497" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="514" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V7</text>
-  <rect x="680" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="697" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V3</text>
-  <rect x="1035" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="1052" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V2</text>
-  <rect x="997" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="1014" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V4</text>
-  <rect x="959" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="976" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V6</text>
-  <rect x="1218" y="818" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="1235" y="832" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V5</text>
-  <text x="32" y="975" font-size="11.5" fill="#7a4500">Een gestippeld label (V1 tot en met V7) verwijst naar een open vraag hieronder.</text>
+  <text x="32" y="462" font-size="14" font-weight="700" fill="#333">Inlogflow zoals we die zouden willen voor het MOZa portaal</text>
+  <text x="1248" y="462" font-size="12" fill="#7a4500" text-anchor="end">gewenst: de vraag is of dit mogelijk is</text>
+  <rect x="920" y="447" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="937" y="461" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V1</text>
+  <rect x="32" y="536" width="120" height="40" rx="20.0" fill="#fff" stroke="#666"/>
+  <text x="92" y="545.5" font-size="11.5" fill="#333" text-anchor="middle">Werknemer wil</text>
+  <text x="92" y="560" font-size="11.5" fill="#333" text-anchor="middle">inloggen bij het</text>
+  <text x="92" y="574.5" font-size="11.5" fill="#333" text-anchor="middle">MOZa portaal</text>
+  <rect x="185" y="510" width="150" height="92" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="260" y="538.25" font-size="11.5" fill="#5b3f68" text-anchor="middle">Werknemer gaat naar</text>
+  <text x="260" y="552.75" font-size="11.5" fill="#5b3f68" text-anchor="middle">de MOZa-website en</text>
+  <text x="260" y="567.25" font-size="11.5" fill="#5b3f68" text-anchor="middle">kiest &#x27;inloggen met</text>
+  <text x="260" y="581.75" font-size="11.5" fill="#5b3f68" text-anchor="middle">eHerkenning&#x27;</text>
+  <rect x="367" y="510" width="160" height="92" rx="12" fill="#fff" stroke="#666"/>
+  <text x="447" y="531" font-size="11.5" fill="#333" text-anchor="middle">Werknemer logt in met</text>
+  <text x="447" y="545.5" font-size="11.5" fill="#333" text-anchor="middle">zijn account van de</text>
+  <text x="447" y="560" font-size="11.5" fill="#333" text-anchor="middle">leverancier en geeft</text>
+  <text x="447" y="574.5" font-size="11.5" fill="#333" text-anchor="middle">aan namens welk</text>
+  <text x="447" y="589" font-size="11.5" fill="#333" text-anchor="middle">bedrijf</text>
+  <rect x="560" y="510" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="635" y="531" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier checkt</text>
+  <text x="635" y="545.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">of de werknemer</text>
+  <text x="635" y="560" font-size="11.5" fill="#5c4a00" text-anchor="middle">gemachtigd is voor</text>
+  <text x="635" y="574.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">álle onderliggende</text>
+  <text x="635" y="589" font-size="11.5" fill="#5c4a00" text-anchor="middle">diensten</text>
+  <rect x="743" y="510" width="140" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="813" y="538.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">Werknemer blijkt</text>
+  <text x="813" y="552.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">gemachtigd voor</text>
+  <text x="813" y="567.25" font-size="11.5" fill="#5c4a00" text-anchor="middle">UWV, RVO en</text>
+  <text x="813" y="581.75" font-size="11.5" fill="#5c4a00" text-anchor="middle">Belastingdienst</text>
+  <rect x="915" y="510" width="150" height="92" rx="12" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="990" y="531" font-size="11.5" fill="#5c4a00" text-anchor="middle">Leverancier stuurt</text>
+  <text x="990" y="545.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">MOZa het resultaat:</text>
+  <text x="990" y="560" font-size="11.5" fill="#5c4a00" text-anchor="middle">KvK-nummer,</text>
+  <text x="990" y="574.5" font-size="11.5" fill="#5c4a00" text-anchor="middle">pseudoniem en de</text>
+  <text x="990" y="589" font-size="11.5" fill="#5c4a00" text-anchor="middle">diensten</text>
+  <rect x="1098" y="510" width="150" height="92" rx="12" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="1173" y="531" font-size="11.5" fill="#5b3f68" text-anchor="middle">Ingelogd op MOZa,</text>
+  <text x="1173" y="545.5" font-size="11.5" fill="#5b3f68" text-anchor="middle">met directe toegang</text>
+  <text x="1173" y="560" font-size="11.5" fill="#5b3f68" text-anchor="middle">tot UWV,</text>
+  <text x="1173" y="574.5" font-size="11.5" fill="#5b3f68" text-anchor="middle">Belastingdienst en</text>
+  <text x="1173" y="589" font-size="11.5" fill="#5b3f68" text-anchor="middle">RVO</text>
+  <path d="M152 556.0L181 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <path d="M335 556.0L363 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <path d="M527 556.0L556 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <path d="M710 556.0L739 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <path d="M883 556.0L911 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <path d="M1065 556.0L1094 556.0" fill="none" stroke="#666" stroke-width="1.6" marker-end="url(#c-pijl)"/>
+  <rect x="497" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="514" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V7</text>
+  <rect x="680" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="697" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V3</text>
+  <rect x="1035" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="1052" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V2</text>
+  <rect x="997" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="1014" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V4</text>
+  <rect x="959" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="976" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V6</text>
+  <rect x="1218" y="498" width="34" height="20" rx="10" fill="#fff" stroke="#d79b00" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="1235" y="512" font-size="11" font-weight="700" fill="#7a4500" text-anchor="middle">V5</text>
+  <text x="32" y="655" font-size="11.5" fill="#7a4500">Een gestippeld label (V1 tot en met V7) verwijst naar een open vraag hieronder.</text>
 </svg>
 
       </div>
