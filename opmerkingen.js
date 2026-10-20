@@ -92,9 +92,9 @@ const renderChrome = () => {
 // Draadje: opmerking, reacties en conclusie
 const row = (icon, color, overline, text, textColor = 'content') => `
   <nldd-list-item>
-    <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-    <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
-    <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+    <nldd-spacer-cell size="12"></nldd-spacer-cell>
+    <nldd-icon-cell icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
+    <nldd-spacer-cell size="8"></nldd-spacer-cell>
     <nldd-text-cell size="sm" color="${textColor}" overline="${esc(overline)}" text="${esc(text)}"></nldd-text-cell>
   </nldd-list-item>`;
 const threadRows = (o) => {
@@ -115,7 +115,7 @@ const actionButtons = (o) => [
 const threadBlock = (o) => `
   <nldd-list appearance="box-tinted">${threadRows(o)}
     <nldd-list-item>
-      <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+      <nldd-spacer-cell size="12"></nldd-spacer-cell>
       <nldd-cell><nldd-container layout="wrap" gap="4">${actionButtons(o)}</nldd-container></nldd-cell>
     </nldd-list-item>
   </nldd-list>`;

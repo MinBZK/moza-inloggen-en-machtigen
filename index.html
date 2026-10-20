@@ -976,9 +976,9 @@ const oneLine = (t) => String(t).replace(/\s+/g, ' ').trim();
 // Een draadje als ingesprongen regels direct onder het punt
 const threadRow = (icon, color, overline, text, textColor = 'content') => `
     <nldd-list-item>
-      <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
-      <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
-      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-spacer-cell size="40"></nldd-spacer-cell>
+      <nldd-icon-cell icon="${icon}" color="${color}" size="16" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell size="8"></nldd-spacer-cell>
       <nldd-text-cell size="sm" color="${textColor}" overline="${esc(overline)}" text="${esc(text)}"></nldd-text-cell>
     </nldd-list-item>`;
 const threadRows = (o) => {
@@ -999,7 +999,7 @@ const actionButtons = (o, size = 'xs') => [
 ].filter(Boolean);
 const actionRow = (o) => `
     <nldd-list-item>
-      <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
+      <nldd-spacer-cell size="40"></nldd-spacer-cell>
       ${actionButtons(o).map((b) => `<nldd-cell>${b}</nldd-cell>`).join('')}
     </nldd-list-item>`;
 // Opgeloste opmerkingen staan in het opmerkingenarchief (knop in de footer), niet meer bij het punt
@@ -1019,9 +1019,9 @@ const list = (items, icon, color, ctx) => `
       const anchor = ctx && anchorOf(ctx.lane, ctx.r, ctx.section, t);
       return `
     <nldd-list-item${ctx ? ` data-anchor="${esc(anchor)}" data-label="${esc(`${ctx.lane.name} ${ctx.r.code} · ${SECTIONS[ctx.section]}: ${t}`)}"` : ''}>
-      <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-      <nldd-icon-cell slot="start" icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
-      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-spacer-cell size="12"></nldd-spacer-cell>
+      <nldd-icon-cell icon="${icon}" color="${color}" size="20" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell size="8"></nldd-spacer-cell>
       <nldd-text-cell text="${esc(t)}"></nldd-text-cell>
       ${ctx ? commentButton(anchor, `${ctx.lane.name} ${ctx.r.code} · ${SECTIONS[ctx.section]}: ${t}`, 'Opmerking plaatsen bij dit punt') : ''}
     </nldd-list-item>${ctx ? threads(anchor) : ''}`;
@@ -1039,17 +1039,17 @@ const generalComments = (lane, r, currentAnchors) => {
       <p slot="supporting-text">Plaats een opmerking met de knop bij een punt of met Option (⌥) + klik op een Mac of Alt + klik op Windows. Je naam komt uit je rijksaccount. Een editor lost een opmerking op met een conclusie.</p></nldd-title>
     <nldd-list appearance="box-tinted">
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-        <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
-        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-spacer-cell size="12"></nldd-spacer-cell>
+        <nldd-icon-cell icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell size="8"></nldd-spacer-cell>
         <nldd-text-cell text="Algemene opmerking over deze release"></nldd-text-cell>
         ${commentButton(general, `${lane.name} ${r.code} · ${r.title} · Algemeen`, 'Opmerking plaatsen')}
       </nldd-list-item>${threads(general)}
       ${orphans.map((a) => `
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-        <nldd-icon-cell slot="start" icon="info-circle" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
-        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-spacer-cell size="12"></nldd-spacer-cell>
+        <nldd-icon-cell icon="info-circle" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell size="8"></nldd-spacer-cell>
         <nldd-text-cell color="secondary" overline="Bij een punt dat inmiddels is gewijzigd" text="${esc(a.split('|').slice(2).join('|') || a)}"></nldd-text-cell>
       </nldd-list-item>${threads(a)}`).join('')}
     </nldd-list>`;
@@ -1195,9 +1195,9 @@ function renderArchive() {
     ${ZONDER_PLEK.map((o) => `
     <nldd-list appearance="box-tinted">
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-        <nldd-icon-cell slot="start" icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
-        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-spacer-cell size="12"></nldd-spacer-cell>
+        <nldd-icon-cell icon="message-rectangle-text" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell size="8"></nldd-spacer-cell>
         <nldd-text-cell overline="Open" text="${esc(o.onderdeel)}"></nldd-text-cell>
       </nldd-list-item>${threadRows(o)}${actionRow(o)}
     </nldd-list>`).join('')}
@@ -1207,13 +1207,13 @@ function renderArchive() {
       return `
     <nldd-list appearance="box-tinted">
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-        <nldd-icon-cell slot="start" icon="file-box" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
-        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-spacer-cell size="12"></nldd-spacer-cell>
+        <nldd-icon-cell icon="file-box" color="secondary" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell size="8"></nldd-spacer-cell>
         <nldd-text-cell overline="${esc(o.opgelost_op ? `Opgelost op ${fmtDate(o.opgelost_op)}` : 'Opgelost')}" text="${esc(o.onderdeel)}"></nldd-text-cell>
       </nldd-list-item>${threadRows(o)}
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="40"></nldd-spacer-cell>
+        <nldd-spacer-cell size="40"></nldd-spacer-cell>
         ${rel ? `<nldd-cell><nldd-button appearance="neutral-transparent" size="xs" end-icon="chevron-right" text="${esc(`Naar ${rel.lane.name} ${rel.r.code}`)}" data-lane="${rel.lane.id}" data-code="${rel.r.code}"></nldd-button></nldd-cell>` : ''}
         ${IK?.editor ? `<nldd-cell><nldd-button data-reopen="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="arrow-2-counter-clockwise" text="Heropenen"></nldd-button></nldd-cell>` : ''}
         ${IK?.editor ? `<nldd-cell><nldd-button data-delete="${o.nummer}" appearance="neutral-transparent" size="xs" start-icon="trash" text="Verwijderen"></nldd-button></nldd-cell>` : ''}
@@ -1265,9 +1265,9 @@ function renderDetail(laneId, code) {
     <nldd-list appearance="box-tinted">
       ${REACH_STEPS.map((step, i) => `
       <nldd-list-item>
-        <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-        <nldd-icon-cell slot="start" icon="${i < REACH[r.reach].level ? 'check-mark-circle' : 'circle-dashed'}" color="${i < REACH[r.reach].level ? 'success' : 'secondary'}" size="20" vertical-alignment="top"></nldd-icon-cell>
-        <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+        <nldd-spacer-cell size="12"></nldd-spacer-cell>
+        <nldd-icon-cell icon="${i < REACH[r.reach].level ? 'check-mark-circle' : 'circle-dashed'}" color="${i < REACH[r.reach].level ? 'success' : 'secondary'}" size="20" vertical-alignment="top"></nldd-icon-cell>
+        <nldd-spacer-cell size="8"></nldd-spacer-cell>
         <nldd-text-cell text="${esc(step)}" color="${i < REACH[r.reach].level ? 'content' : 'secondary'}"></nldd-text-cell>
       </nldd-list-item>`).join('')}
     </nldd-list>` : ''}

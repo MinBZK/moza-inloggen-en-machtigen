@@ -299,9 +299,9 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const points = (id, items) => {
   document.getElementById(id).innerHTML = items.map(([icon, title, text]) => `
     <nldd-list-item>
-      <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-      <nldd-icon-cell slot="start" icon="${icon}" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
-      <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
+      <nldd-spacer-cell size="12"></nldd-spacer-cell>
+      <nldd-icon-cell icon="${icon}" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell size="8"></nldd-spacer-cell>
       <nldd-text-cell text="**${esc(title)}**" supporting-text="${esc(text)}"></nldd-text-cell>
     </nldd-list-item>`).join('');
 };

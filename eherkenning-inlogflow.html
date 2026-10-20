@@ -160,12 +160,12 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="aansluiten">
-      <nldd-title size="2"><span slot="overline">Deel 1</span><h2>Dienstverleners sluiten aan op eHerkenning</h2><p slot="supporting-text">Voordat iemand kan inloggen, sluit de dienstverlener zijn dienst aan via een herkenningsmakelaar. Hier UWV met het werkgeversportaal.</p></nldd-title>
+      <nldd-title size="2"><span slot="overline">Deel 1</span><h2>Dienstverleners sluiten aan op eHerkenning</h2><p slot="supporting-text">Voordat iemand kan inloggen, sluit de dienstverlener zijn diensten aan via een herkenningsmakelaar. Hier UWV als geheel, met onder meer het werkgeversportaal.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="aansluiten-schema" role="img" aria-labelledby="aansluiten-titel aansluiten-uitleg">
 <svg viewBox="0 0 1280 370" xmlns="http://www.w3.org/2000/svg">
   <title id="aansluiten-titel">Volgordediagram: UWV sluit aan op eHerkenning</title>
-  <desc id="aansluiten-uitleg">Stap 1: UWV naar Makelaar Digidentity, kiest Digidentity als makelaar en sluit aan. Stap 2: Makelaar Digidentity naar Dienstencatalogus, registreert de dienst Werkgeversportaal (EH3). Stap 3: Dienstencatalogus naar Makelaar Digidentity, dienstcode (ServiceID). Stap 4: Makelaar Digidentity naar UWV, aangesloten: UWV kan inlogverzoeken sturen.</desc>
+  <desc id="aansluiten-uitleg">Stap 1: UWV naar Makelaar Digidentity, kiest Digidentity als makelaar en sluit aan. Stap 2: Makelaar Digidentity naar Dienstencatalogus, registreert de diensten van UWV, bijv. werkgeversportaal (EH3). Stap 3: Dienstencatalogus naar Makelaar Digidentity, een dienstcode (ServiceID) per dienst. Stap 4: Makelaar Digidentity naar UWV, aangesloten: UWV kan voor elke dienst inlogverzoeken sturen.</desc>
   <defs>
     <pattern id="aansluiten-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="aansluiten-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
@@ -196,42 +196,44 @@
   <rect data-stap="2" x="626" y="154" width="441" height="54" fill="transparent"/>
   <path data-stap="2" d="M656 192H1049" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#aansluiten-b46504)"/>
   <circle data-stap="2" cx="640" cy="192" r="12" fill="#b46504"/><text data-stap="2" x="640" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
-  <text data-stap="2" x="846" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">registreert de dienst Werkgeversportaal (EH3)</text>
+  <text data-stap="2" x="846" y="170" font-size="11.5" fill="#b46504" text-anchor="middle">registreert de diensten van UWV,</text>
+  <text data-stap="2" x="846" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">bijv. werkgeversportaal (EH3)</text>
   <rect data-stap="3" x="626" y="214" width="441" height="54" fill="transparent"/>
   <path data-stap="3" d="M1037 252H644" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#aansluiten-1f5fa8)"/>
   <circle data-stap="3" cx="1053" cy="252" r="12" fill="#1f5fa8"/><text data-stap="3" x="1053" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-  <text data-stap="3" x="846" y="244" font-size="11.5" fill="#1f5fa8" text-anchor="middle">dienstcode (ServiceID)</text>
+  <text data-stap="3" x="846" y="244" font-size="11.5" fill="#1f5fa8" text-anchor="middle">een dienstcode (ServiceID) per dienst</text>
   <rect data-stap="4" x="213" y="274" width="441" height="54" fill="transparent"/>
   <path data-stap="4" d="M624 312H231" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#aansluiten-0e7c86)"/>
   <circle data-stap="4" cx="640" cy="312" r="12" fill="#0e7c86"/><text data-stap="4" x="640" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-  <text data-stap="4" x="433" y="304" font-size="11.5" fill="#0e7c86" text-anchor="middle">aangesloten: UWV kan inlogverzoeken sturen</text>
+  <text data-stap="4" x="433" y="290" font-size="11.5" fill="#0e7c86" text-anchor="middle">aangesloten: UWV kan voor elke dienst</text>
+  <text data-stap="4" x="433" y="304" font-size="11.5" fill="#0e7c86" text-anchor="middle">inlogverzoeken sturen</text>
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-list appearance="box-tinted" aria-label="Aansluiten toegelicht">
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**UWV kiest een herkenningsmakelaar.**" supporting-text="Een dienstverlener sluit niet zelf aan op eHerkenning, maar via één makelaar. UWV werkt met Digidentity, de Belastingdienst met KPN."></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**UWV kiest een herkenningsmakelaar.**" supporting-text="Een dienstverlener sluit niet zelf aan op eHerkenning, maar via één makelaar voor al zijn diensten. UWV werkt met Digidentity, de Belastingdienst met KPN."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**De makelaar registreert de dienst.**" supporting-text="Elke dienst komt in de dienstencatalogus van eHerkenning, met naam en omschrijving, de dienstverlener en het betrouwbaarheidsniveau. Voor het werkgeversportaal van UWV is dat EH3."></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De makelaar registreert de diensten van UWV.**" supporting-text="Elke dienst van UWV komt apart in de dienstencatalogus van eHerkenning, met naam en omschrijving, UWV als dienstverlener en het betrouwbaarheidsniveau. Het werkgeversportaal heeft bijvoorbeeld EH3."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**De dienst krijgt een dienstcode.**" supporting-text="Met die code verwijzen makelaar en leverancier later naar precies deze dienst."></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Elke dienst krijgt een dienstcode.**" supporting-text="Met die code verwijzen makelaar en leverancier later naar precies die dienst van UWV."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**UWV is aangesloten.**" supporting-text="Vanaf nu kan UWV inlogverzoeken voor deze dienst naar zijn makelaar sturen, en elke leverancier in het stelsel kent de dienst."></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**UWV is aangesloten.**" supporting-text="Vanaf nu kan UWV voor elk van zijn diensten inlogverzoeken naar zijn makelaar sturen, en elke leverancier in het stelsel kent die diensten."></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
       <nldd-spacer size="24"></nldd-spacer>
@@ -319,51 +321,51 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-list appearance="box-tinted" aria-label="Inrichten toegelicht">
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Karin neemt eHerkenning af bij Z-Login.**" supporting-text="Als eigenaar van Koffiezaak Noon kiest ze een leverancier. Dat is een keuze van de onderneming; Bilal gebruikt straks dezelfde leverancier."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Z-Login controleert of Karin dat mag.**" supporting-text="De leverancier kijkt in het Handelsregister of Karin de onderneming mag vertegenwoordigen, en stelt vast wie ze is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Karin krijgt haar eigen middel.**" supporting-text="Ze kan daarmee zelf inloggen en wordt machtigingenbeheerder: ze bepaalt wie namens Koffiezaak Noon welke diensten mag gebruiken."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Karin vraagt een middel aan voor Bilal.**" supporting-text="Elke werknemer krijgt een eigen middel; een middel wordt niet gedeeld."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**5**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Bilal krijgt zijn middel.**" supporting-text="Op hetzelfde niveau (EH3), zodat hij ook bij diensten met dat niveau kan inloggen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**6**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**6**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Z-Login toont de aangesloten diensten.**" supporting-text="In de beheeromgeving ziet Karin alle diensten uit de dienstencatalogus, met hun niveau."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**7**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**7**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Karin machtigt Bilal.**" supporting-text="Ze vinkt aan dat Bilal namens Koffiezaak Noon het werkgeversportaal van UWV mag gebruiken."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**8**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**De machtiging staat in het machtigingenregister.**" supporting-text="Z-Login onthoudt per persoon voor welke diensten die namens de onderneming gemachtigd is. Bilal kan dat in zijn eigen account terugzien."></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
@@ -452,63 +454,63 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-list appearance="box-tinted" aria-label="De stappen van Bilal toegelicht">
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Bilal klikt op &quot;Inloggen werkgeversportaal&quot;.**" supporting-text="Op de website van UWV."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres, en gaat via de browser naar Digidentity."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Bilal selecteert zijn leverancier.**" supporting-text="Op het keuzescherm van de makelaar kiest hij Z login, de leverancier van Koffiezaak Noon. De makelaar stuurt hem met het verzoek door en weet nog niet wie hij is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Bilal logt in met zijn account van Z-Login.**" supporting-text="Met het middel dat Karin voor hem aanvroeg (deel 2). Nu weet de leverancier wie hij is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**5**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Z-Login controleert het betrouwbaarheidsniveau.**" supporting-text="Het niveau van zijn middel en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van middel en machtiging."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**6**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**6**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Bilal kiest namens welke onderneming hij inlogt (soms).**" supporting-text="Alleen als hij voor meerdere ondernemingen gemachtigd is."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**7**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**7**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Z-Login controleert de machtiging.**" supporting-text="In het machtigingenregister staat dat Karin hem heeft gemachtigd voor het werkgeversportaal (deel 2). Zonder machtiging stopt de inlog en krijgt UWV een foutmelding."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**8**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Z-Login maakt een pseudoniem en een ondertekende verklaring.**" supporting-text="Het pseudoniem is speciaal voor UWV en zo versleuteld dat alleen UWV het kan lezen. De verklaring is een bewering: &quot;Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.&quot;"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**9**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**9**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Digidentity stuurt de verklaring door naar UWV.**" supporting-text="Dit bericht heet de assertion. De makelaar kan het pseudoniem en het KvK-nummer zelf niet lezen; hij geeft het bericht alleen door."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
-          <nldd-text-cell slot="start" vertical-alignment="top" text="**10**"></nldd-text-cell>
-          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**10**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**UWV laat Bilal binnen.**" supporting-text="UWV controleert de handtekening en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt."></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
