@@ -30,6 +30,8 @@
     .p-titel span { display: block; color: #ffb612; font-size: 0.75em; }
     .p-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
     .p-soort strong { color: var(--k); }
+    .p-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 17px; line-height: 1.5; }
+    .p-punten li { margin-bottom: 8px; }
     .p-bron { margin: 8px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-tekst { margin: 0 0 20px; font-size: 18px; line-height: 1.5; }
     .p-scherm { margin: 0; background: #fff; border-radius: 12px; overflow: hidden; }
@@ -505,7 +507,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Z-Login controleert het betrouwbaarheidsniveau.**" supporting-text="Het niveau van zijn account en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van account en machtiging."></nldd-text-cell>
+          <nldd-text-cell text="**Z-Login controleert het betrouwbaarheidsniveau.**" supporting-text="Er zijn twee niveaus: dat van Bilals account en dat waarop Karin de machtiging heeft vastgelegd. Voor zover bekend telt het laagste van die twee als het niveau van de inlog; dat moet nog worden bevestigd. Voorbeeld: account op EH3 en machtiging op EH2, dan telt de inlog als EH2 en komt Bilal niet bij UWV (EH3) binnen."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -611,12 +613,16 @@ const STAPPEN = [
   "img": "schermen/uwv-1-inloggen.jpg",
   "domein": "uwv.nl",
   "alt": "Het inlogmenu van uwv.nl met Inloggen werkgeversportaal en het eHerkenning-logo",
-  "tekst": "Op uwv.nl kiest Bilal Inloggen werkgeversportaal, het portaal van UWV voor werkgevers en ondernemers. Het staat er met het eHerkenning-logo."
+  "tekst": [
+   "Bilal gaat naar uwv.nl en opent Inloggen.",
+   "Hij kiest Inloggen werkgeversportaal, het portaal van UWV voor werkgevers en ondernemers.",
+   "Het eHerkenning-logo laat zien dat hij met eHerkenning inlogt."
+  ]
  },
  {
   "n": "2",
   "kop": "inlogverzoek",
-  "titel": "UWV stuurt een inlogverzoek naar zijn makelaar",
+  "titel": "UWV stuurt een inlogverzoek naar zijn herkenningsmakelaar",
   "soort": [
    "Inlogverzoek",
    "van UWV, via de browser",
@@ -625,7 +631,12 @@ const STAPPEN = [
   "img": "schermen/uwv-2-makelaar.jpg",
   "domein": "eid.digidentity.eu",
   "alt": "Keuzescherm op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal EH3",
-  "tekst": "Het verzoek is anoniem en bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. De browser gaat naar Digidentity, de makelaar van UWV. Bilal merkt dat nauwelijks: hij ziet vooral het eHerkenning-logo. De Belastingdienst gebruikt KPN als makelaar (brk.eid.kpn.com), met hetzelfde soort scherm."
+  "tekst": [
+   "Het verzoek is anoniem: niemand weet nog wie Bilal is.",
+   "Het bevat: wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres.",
+   "De browser gaat naar Digidentity, de herkenningsmakelaar van UWV. Bilal merkt dat nauwelijks: hij ziet vooral het eHerkenning-logo.",
+   "Ter vergelijking: de Belastingdienst gebruikt KPN (brk.eid.kpn.com), met hetzelfde soort scherm."
+  ]
  },
  {
   "n": "3",
@@ -639,7 +650,12 @@ const STAPPEN = [
   "img": "schermen/uwv-3-leverancier.jpg",
   "domein": "eid.digidentity.eu",
   "alt": "Hetzelfde keuzescherm met Z login gekozen",
-  "tekst": "De lijst toont de leveranciers: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login. Bilal kiest Z login, de leverancier van Koffiezaak Noon. De makelaar stuurt hem met het verzoek door en weet nog niet wie hij is. Met Onthoud mijn keuze slaat hij deze stap de volgende keer over."
+  "tekst": [
+   "De lijst toont de leveranciers: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login.",
+   "Bilal kiest Z login, de leverancier van Koffiezaak Noon.",
+   "De herkenningsmakelaar stuurt hem met het verzoek door, en weet nog steeds niet wie hij is.",
+   "Met Onthoud mijn keuze slaat hij deze stap de volgende keer over."
+  ]
  },
  {
   "n": "4",
@@ -653,7 +669,12 @@ const STAPPEN = [
   "img": "schermen/uwv-4-zlogin.jpg",
   "domein": "authenticatiedienst.zlogin.nl",
   "alt": "Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal",
-  "tekst": "Bovenaan staat dat hij inlogt bij het werkgeversportaal van UWV. Hij logt in met het account dat Karin voor hem aanvroeg (deel 2): gebruikersnaam, wachtwoord en de tweede stap die bij zijn account hoort. Nu weet de leverancier wie hij is."
+  "tekst": [
+   "Bovenaan staat dat hij inlogt bij het werkgeversportaal van UWV.",
+   "Hij gebruikt het account dat Karin voor hem aanvroeg (deel 2).",
+   "Eerst gebruikersnaam en wachtwoord, daarna de tweede stap die bij zijn account hoort.",
+   "Nu weet de leverancier wie hij is."
+  ]
  },
  {
   "n": "5",
@@ -667,7 +688,13 @@ const STAPPEN = [
   "img": "",
   "domein": "",
   "alt": "",
-  "tekst": "Het niveau van zijn account en van de machtiging moet minstens zijn wat UWV vraagt (EH3). Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van account en machtiging."
+  "tekst": [
+   "Er zijn twee niveaus: dat van Bilals account, en dat waarop Karin de machtiging heeft vastgelegd.",
+   "Voor zover bekend telt het laagste van die twee als het niveau van de inlog.",
+   "Voorbeeld: account op EH3, machtiging op EH2. De inlog telt dan als EH2, en UWV vraagt EH3: Bilal komt er niet in.",
+   "Is het niveau hoog genoeg, dan gaat de inlog door. Zo niet, dan stopt hij hier.",
+   "Nog te bevestigen: of het laagste niveau inderdaad telt."
+  ]
  },
  {
   "n": "6",
@@ -681,7 +708,10 @@ const STAPPEN = [
   "img": "",
   "domein": "",
   "alt": "",
-  "tekst": "Alleen als hij voor meerdere ondernemingen gemachtigd is."
+  "tekst": [
+   "Alleen als Bilal voor meerdere ondernemingen gemachtigd is.",
+   "Werkt hij alleen voor Koffiezaak Noon, dan slaat Z-Login deze stap over."
+  ]
  },
  {
   "n": "7",
@@ -695,7 +725,11 @@ const STAPPEN = [
   "img": "",
   "domein": "",
   "alt": "",
-  "tekst": "In het machtigingenregister staat dat Karin hem heeft gemachtigd voor het werkgeversportaal van UWV (deel 2). Zonder machtiging stopt de inlog en krijgt UWV een foutmelding."
+  "tekst": [
+   "Z-Login kijkt in het machtigingenregister: mag Bilal namens Koffiezaak Noon het werkgeversportaal van UWV gebruiken?",
+   "Karin heeft hem daarvoor gemachtigd (deel 2), dus: ja.",
+   "Zonder machtiging stopt de inlog en krijgt UWV een foutmelding."
+  ]
  },
  {
   "n": "8",
@@ -709,7 +743,11 @@ const STAPPEN = [
   "img": "",
   "domein": "",
   "alt": "",
-  "tekst": "Het pseudoniem is speciaal voor UWV en zo versleuteld dat alleen UWV het kan lezen. De verklaring is een bewering: \"Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.\""
+  "tekst": [
+   "Het pseudoniem is een nummer voor Bilal dat alleen voor UWV betekenis heeft.",
+   "Pseudoniem en KvK-nummer zijn versleuteld: alleen UWV kan ze lezen.",
+   "De verklaring is een bewering, geen vraag: \"Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.\""
+  ]
  },
  {
   "n": "9",
@@ -723,7 +761,10 @@ const STAPPEN = [
   "img": "",
   "domein": "",
   "alt": "",
-  "tekst": "Dit bericht heet de assertion. De makelaar kan het pseudoniem en het KvK-nummer zelf niet lezen; hij geeft het bericht alleen door."
+  "tekst": [
+   "Dit bericht heet de assertion.",
+   "De herkenningsmakelaar geeft het alleen door: pseudoniem en KvK-nummer kan hij niet lezen."
+  ]
  },
  {
   "n": "10",
@@ -737,7 +778,12 @@ const STAPPEN = [
   "img": "",
   "domein": "werkgeversportaal.uwv.nl",
   "alt": "",
-  "tekst": "UWV controleert de handtekening en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt. Van het ingelogde scherm is geen afbeelding: daarvoor is een echt account nodig."
+  "tekst": [
+   "UWV controleert de handtekening.",
+   "UWV ontsleutelt het KvK-nummer en het pseudoniem.",
+   "UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt.",
+   "Bilal is ingelogd in het werkgeversportaal, namens Koffiezaak Noon."
+  ]
  }
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -764,7 +810,8 @@ const toon = () => {
     <p class="p-label">Bilal logt in bij UWV · Stap ${s.n}${s.domein ? ' · ' + esc(s.domein) : ''}</p>
     <h2 class="p-titel">Stap ${s.n} <span>${esc(s.kop)}</span></h2>
     <p class="p-soort" style="--k:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>
-    <p class="p-tekst"><strong>${esc(s.titel)}.</strong> ${esc(s.tekst)}</p>
+    <p class="p-tekst"><strong>${esc(s.titel)}</strong></p>
+    <ul class="p-punten">${s.tekst.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
     ${s.img ? `<figure class="p-scherm"><img src="${s.img}" alt="${esc(s.alt)}"></figure><p class="p-bron">Scherm van ${esc(s.domein)}, nagelopen op 20 oktober 2026.</p>` : ''}`;
   paneel.querySelector('.p-inhoud').scrollTop = 0;
   paneel.querySelector('.p-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
