@@ -1,366 +1,238 @@
 <!doctype html>
 <html lang="nl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>eHerkenning: inlogflow</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
-<script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
-<style>
-/* Layout: volgordediagram met vier kolommen (rollen) en genummerde stappen van boven naar beneden; op telefoon één kolom */
-:root {
-  --bg: #f5f6f8;
-  --surface: #ffffff;
-  --fg: #18202b;
-  --muted: #5b6573;
-  --line: #d8dde4;
-  --werknemer: #4f5b6b;   --werknemer-soft: #eceff3;
-  --uwv: #1d5ba3;         --uwv-soft: #e5eef8;
-  --makelaar: #0d7a6a;    --makelaar-soft: #e1f2ee;
-  --leverancier: #9a5a0e; --leverancier-soft: #f8eedf;
-  --stop: #b42318;        --stop-soft: #fbe9e7;
-  --ok: #2f7a3a;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --cols: 2.75rem repeat(4, minmax(0, 1fr));
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #11161d; --surface: #19212b; --fg: #e3e8ee; --muted: #9aa6b4; --line: #2c3745;
-    --werknemer: #a9b4c3; --werknemer-soft: #232c37;
-    --uwv: #7fb0ea; --uwv-soft: #1a2a3d;
-    --makelaar: #5cc8b4; --makelaar-soft: #142d29;
-    --leverancier: #e2a65a; --leverancier-soft: #33261a;
-    --stop: #f08a7e; --stop-soft: #3a1d1a; --ok: #7cc788;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #11161d; --surface: #19212b; --fg: #e3e8ee; --muted: #9aa6b4; --line: #2c3745;
-  --werknemer: #a9b4c3; --werknemer-soft: #232c37;
-  --uwv: #7fb0ea; --uwv-soft: #1a2a3d;
-  --makelaar: #5cc8b4; --makelaar-soft: #142d29;
-  --leverancier: #e2a65a; --leverancier-soft: #33261a;
-  --stop: #f08a7e; --stop-soft: #3a1d1a; --ok: #7cc788;
-  color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
-.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 56px; display: grid; gap: 28px; }
-
-header { display: grid; gap: 8px; }
-.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
-h1 { margin: 0; font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; font-weight: 700; text-wrap: balance; }
-.lede { margin: 0; max-width: 68ch; color: var(--muted); }
-
-/* ---------- Volgordediagram ---------- */
-.seq { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 14px 18px; }
-.lanes, .lifelines, .step { display: grid; grid-template-columns: var(--cols); column-gap: 14px; }
-.lanes { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 3; background: var(--surface); padding-block: 14px 12px; border-bottom: 1px solid var(--line); }
-.lane { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; border-top: 3px solid var(--c); background: var(--c-soft); }
-.lane b { font-size: 15px; color: var(--c); }
-.lane span { font-size: 12.5px; color: var(--muted); }
-.r1 { --c: var(--werknemer); --c-soft: var(--werknemer-soft); }
-.r2 { --c: var(--uwv); --c-soft: var(--uwv-soft); }
-.r3 { --c: var(--makelaar); --c-soft: var(--makelaar-soft); }
-.r4 { --c: var(--leverancier); --c-soft: var(--leverancier-soft); }
-
-.lifelines { position: absolute; inset: 0 14px; pointer-events: none; z-index: 0; }
-.lifelines div { position: relative; }
-.lifelines div::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1.5px dashed var(--line); }
-.lifelines div:first-child::before { display: none; }
-
-.steps { position: relative; z-index: 1; display: grid; }
-.step { row-gap: 10px; padding-block: 16px 6px; align-items: start; }
-.step + .step { border-top: 1px solid color-mix(in srgb, var(--line) 55%, transparent); }
-.num { grid-column: 1; grid-row: 1 / span 2; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
-       font-family: var(--font-mono); font-weight: 500; font-size: 14px; background: var(--fg); color: var(--surface); }
-.col1 { grid-column: 2; } .col2 { grid-column: 3; } .col3 { grid-column: 4; } .col4 { grid-column: 5; }
-
-.card { grid-row: 1; position: relative; display: grid; gap: 6px; padding: 12px 13px; background: var(--surface);
-        border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 8px; min-width: 0; }
-.card.optional { border-style: dashed; border-left-style: solid; }
-.card h3 { margin: 0; font-size: 15px; line-height: 1.3; font-weight: 600; text-wrap: balance; }
-.card p { margin: 0; font-size: 13.5px; color: var(--muted); }
-.who { display: none; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--c); }
-.tag { justify-self: start; font-family: var(--font-mono); font-size: 11.5px; padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; color: var(--muted); }
-
-.outcomes { display: grid; gap: 4px; margin-top: 2px; }
-.outcome { display: flex; gap: 8px; align-items: baseline; font-size: 13px; padding: 5px 8px; border-radius: 6px; }
-.outcome b { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
-.outcome.yes { background: color-mix(in srgb, var(--ok) 12%, transparent); }
-.outcome.yes b { color: var(--ok); }
-.outcome.no { background: var(--stop-soft); }
-.outcome.no b { color: var(--stop); }
-
-.claim { margin: 2px 0 0; padding: 9px 11px; border-radius: 6px; background: var(--leverancier-soft); font-size: 13.5px; font-style: italic; color: var(--fg); }
-.knows { font-size: 12.5px; font-weight: 600; color: var(--c); }
-.check { font-size: 12.5px; padding: 6px 8px; border-radius: 6px; border: 1px dashed var(--line); color: var(--muted); }
-.check b { color: var(--fg); font-weight: 600; }
-
-/* Berichten (pijlen tussen rollen) */
-.msg { grid-row: 2; position: relative; display: grid; gap: 4px; min-width: 0;
-       margin-inline: calc(100% / (2 * var(--n))); padding-top: 2px; }
-.msg .label { justify-self: center; text-align: center; font-size: 13px; font-weight: 600; color: var(--c); max-width: 100%; }
-.msg .data { justify-self: center; font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; line-height: 1.45; }
-.msg .data span { white-space: nowrap; }
-.msg .line { position: relative; height: 0; border-top: 2px solid var(--c); margin-top: 4px; }
-.msg .line::after { content: ""; position: absolute; top: -7px; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
-.msg.ltr .line::after { right: -2px; border-left: 10px solid var(--c); }
-.msg.rtl .line::after { left: -2px; border-right: 10px solid var(--c); }
-.msg .route { display: none; }
-.msg .via { justify-self: center; font-size: 12px; color: var(--muted); font-style: italic; }
-
-/* ---------- Samenvatting ---------- */
-.summary { display: grid; gap: 12px; }
-h2 { margin: 0; font-size: 19px; }
-.summary p { margin: 0; color: var(--muted); max-width: 70ch; }
-.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
-th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); }
-tr:last-child td { border-bottom: none; }
-thead th { font-size: 13px; }
-thead th.r2 b, thead th.r3 b, thead th.r4 b { color: var(--c); }
-td.y { color: var(--ok); font-weight: 600; }
-td.n { color: var(--muted); }
-td small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
-
-footer { font-size: 13px; color: var(--muted); max-width: 75ch; }
-
-/* ---------- Telefoon: één kolom ---------- */
-@media (max-width: 760px) {
-  :root { --cols: 2.25rem minmax(0, 1fr); }
-  .lanes, .lifelines { display: none; }
-  .seq { padding: 4px 12px 14px; }
-  .col1, .col2, .col3, .col4 { grid-column: 2; }
-  .step { row-gap: 8px; }
-  .msg { grid-column: 2 !important; margin-inline: 0; padding: 8px 10px; border-radius: 6px; background: var(--c-soft); }
-  .msg .label, .msg .data, .msg .via { justify-self: start; text-align: left; }
-  .msg .line { display: none; }
-  .msg .route { display: block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--c); }
-  .who { display: block; }
-}
-.back { margin: 0; font-size: 14px; }
-.back a { color: var(--uwv); }
-body { margin: 0; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eHerkenning: inlogflow UWV</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: het volgordediagram is een SVG-tekening op een 'papieren' canvas
+       in dezelfde stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
+    .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+  </style>
 </head>
 <body>
-<div class="wrap" id="pagina">
-  <p class="back"><a href="eherkenning.html">&larr; Terug naar eHerkenning: achtergrond</a></p>
-  <header>
-    <div class="eyebrow">eHerkenning · bestaande situatie</div>
-    <h1>Inloggen bij UWV met eHerkenning</h1>
-    <div style="margin:16px 0"><nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner></div>
-    <p class="lede">Wat er gebeurt vanaf het moment dat een werknemer namens zijn bedrijf op "Inloggen met eHerkenning" klikt, tot hij is ingelogd. Elke stap staat in de kolom van de partij die hem uitvoert; de pijlen tonen wat er van wie naar wie gaat.</p>
-  </header>
-  <div id="opm-hint"></div>
+<nldd-shell background="tinted">
+  <nldd-page>
 
-  <section class="seq" id="flow" aria-label="Stappen van de inlogflow">
-    <div class="lifelines" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="eherkenning.html" start-icon="chevron-left" text="Terug naar eHerkenning: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">eHerkenning · bestaande situatie</span>
+        <h1>Inloggen bij UWV met eHerkenning</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text><p>Wat er gebeurt vanaf het moment dat een werknemer namens zijn bedrijf op &quot;Inloggen met eHerkenning&quot; klikt, tot hij is ingelogd. Elke pijl gaat van de partij die iets doet naar de partij die het ontvangt; een vak op een levenslijn is een controle die een partij zelf uitvoert.</p></nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
 
-    <div class="lanes" id="rollen">
-      <div></div>
-      <div class="lane r1"><b>Werknemer</b><span>in de browser</span></div>
-      <div class="lane r2"><b>UWV</b><span>dienstverlener</span></div>
-      <div class="lane r3"><b>Herkenningsmakelaar</b><span>van UWV, bijv. Signicat</span></div>
-      <div class="lane r4"><b>Leverancier</b><span>bijv. Z-Login: inloggen + machtigingenregister</span></div>
-    </div>
+    <nldd-simple-section id="flow">
+      <nldd-title size="2"><h2>Van klik tot ingelogd</h2><p slot="supporting-text">Groen gestippeld is wat de werknemer doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <div class="canvas" id="flow-schema" role="img" aria-labelledby="eh-titel eh-uitleg">
+<svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
+  <title id="eh-titel">Volgordediagram: inloggen bij UWV met eHerkenning</title>
+  <desc id="eh-uitleg">Stap 1: Werknemer naar UWV, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: UWV naar Herkenningsmakelaar, inlogverzoek (anoniem): UWV, dienstcode, EH3, terugadres. Stap 3: Herkenningsmakelaar naar Leverancier, werknemer kiest leverancier; verzoek doorgestuurd. Stap 4: Werknemer naar Leverancier, inloggegevens (eigen middel). Stap 5: Leverancier, controleert niveau (EH3). Stap 6: Werknemer naar Leverancier, namens bedrijf X (soms). Stap 7: Leverancier, controleert machtiging. Stap 8: Leverancier naar Herkenningsmakelaar, verklaring: pseudoniem en KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar UWV, assertion (makelaar kan de inhoud niet lezen). Stap 10: UWV naar Werknemer, ingelogd namens bedrijf X.</desc>
+  <defs>
+    <pattern id="grid-eh" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="eh-groen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
+    <marker id="eh-oranje" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
+    <marker id="eh-blauw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
+    <marker id="eh-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
+  </defs>
+  <rect width="1280" height="730" fill="#fff"/>
+  <rect width="1280" height="730" fill="url(#grid-eh)"/>
+  <path d="M160 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="20" y="18" width="280" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <text x="160" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Werknemer</text>
+  <text x="160" y="63" font-size="11.5" fill="#555" text-anchor="middle">in de browser</text>
+  <path d="M480 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="340" y="18" width="280" height="60" rx="10" fill="#dae8fc" stroke="#6c8ebf"/>
+  <text x="480" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">UWV</text>
+  <text x="480" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstverlener</text>
+  <path d="M800 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="660" y="18" width="280" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
+  <text x="800" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Herkenningsmakelaar</text>
+  <text x="800" y="63" font-size="11.5" fill="#555" text-anchor="middle">van UWV, bijv. Signicat</text>
+  <path d="M1120 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="980" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="1120" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier</text>
+  <text x="1120" y="63" font-size="11.5" fill="#555" text-anchor="middle">bijv. Z-Login, met machtigingenregister</text>
+  <rect data-stap="1" x="146" y="94" width="348" height="54" fill="transparent"/>
+  <path data-stap="1" d="M176 132H476" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#eh-groen)"/>
+  <circle data-stap="1" cx="160" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="160" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="320" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">klikt op &quot;Inloggen met eHerkenning&quot;</text>
+  <rect data-stap="2" x="466" y="154" width="348" height="54" fill="transparent"/>
+  <path data-stap="2" d="M496 192H796" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#eh-oranje)"/>
+  <circle data-stap="2" cx="480" cy="192" r="12" fill="#b46504"/><text data-stap="2" x="480" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-stap="2" x="640" y="170" font-size="11.5" fill="#b46504" text-anchor="middle">inlogverzoek (anoniem):</text>
+  <text data-stap="2" x="640" y="184" font-size="11.5" fill="#b46504" text-anchor="middle">UWV, dienstcode, EH3, terugadres</text>
+  <rect data-stap="3" x="786" y="214" width="348" height="54" fill="transparent"/>
+  <path data-stap="3" d="M816 252H1116" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#eh-oranje)"/>
+  <circle data-stap="3" cx="800" cy="252" r="12" fill="#b46504"/><text data-stap="3" x="800" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text data-stap="3" x="960" y="230" font-size="11.5" fill="#b46504" text-anchor="middle">werknemer kiest leverancier;</text>
+  <text data-stap="3" x="960" y="244" font-size="11.5" fill="#b46504" text-anchor="middle">verzoek doorgestuurd</text>
+  <rect data-stap="4" x="146" y="274" width="988" height="54" fill="transparent"/>
+  <path data-stap="4" d="M176 312H1116" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#eh-groen)"/>
+  <circle data-stap="4" cx="160" cy="312" r="12" fill="#2d7a46"/><text data-stap="4" x="160" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text data-stap="4" x="640" y="304" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggegevens (eigen middel)</text>
+  <rect data-stap="5" x="1000" y="356" width="240" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
+  <circle data-stap="5" cx="1000" cy="372" r="12" fill="#7a4f8c"/><text data-stap="5" x="1000" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+  <text data-stap="5" x="1126" y="376" font-size="11.5" fill="#7a4f8c" text-anchor="middle">controleert niveau (EH3)</text>
+  <rect data-stap="6" x="146" y="394" width="988" height="54" fill="transparent"/>
+  <path data-stap="6" d="M176 432H1116" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#eh-groen)"/>
+  <circle data-stap="6" cx="160" cy="432" r="12" fill="#2d7a46"/><text data-stap="6" x="160" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+  <text data-stap="6" x="640" y="424" font-size="11.5" fill="#2d7a46" text-anchor="middle">namens bedrijf X (soms)</text>
+  <rect data-stap="7" x="1000" y="476" width="240" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
+  <circle data-stap="7" cx="1000" cy="492" r="12" fill="#7a4f8c"/><text data-stap="7" x="1000" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+  <text data-stap="7" x="1126" y="496" font-size="11.5" fill="#7a4f8c" text-anchor="middle">controleert machtiging</text>
+  <rect data-stap="8" x="786" y="514" width="348" height="54" fill="transparent"/>
+  <path data-stap="8" d="M1104 552H804" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#eh-blauw)"/>
+  <circle data-stap="8" cx="1120" cy="552" r="12" fill="#1f5fa8"/><text data-stap="8" x="1120" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+  <text data-stap="8" x="960" y="530" font-size="11.5" fill="#1f5fa8" text-anchor="middle">verklaring: pseudoniem en</text>
+  <text data-stap="8" x="960" y="544" font-size="11.5" fill="#1f5fa8" text-anchor="middle">KvK-nummer versleuteld</text>
+  <rect data-stap="9" x="466" y="574" width="348" height="54" fill="transparent"/>
+  <path data-stap="9" d="M784 612H484" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#eh-blauw)"/>
+  <circle data-stap="9" cx="800" cy="612" r="12" fill="#1f5fa8"/><text data-stap="9" x="800" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
+  <text data-stap="9" x="640" y="590" font-size="11.5" fill="#1f5fa8" text-anchor="middle">assertion (makelaar kan</text>
+  <text data-stap="9" x="640" y="604" font-size="11.5" fill="#1f5fa8" text-anchor="middle">de inhoud niet lezen)</text>
+  <rect data-stap="10" x="146" y="634" width="348" height="54" fill="transparent"/>
+  <path data-stap="10" d="M464 672H164" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#eh-teal)"/>
+  <circle data-stap="10" cx="480" cy="672" r="12" fill="#0e7c86"/><text data-stap="10" x="480" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text data-stap="10" x="320" y="664" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd namens bedrijf X</text>
+</svg>
 
-    <ol class="steps" style="list-style:none;margin:0;padding:0">
+      </div>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>De stappen toegelicht</h3><p slot="supporting-text">De nummers horen bij de pijlen en vakken in het diagram hierboven.</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="De stappen toegelicht">
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Werknemer klikt op &quot;Inloggen met eHerkenning&quot;.**" supporting-text="Op de website van UWV."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**UWV stuurt een inlogverzoek naar zijn makelaar.**" supporting-text="Het verzoek is anoniem: niemand weet nog wie de gebruiker is. Het bevat wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres. Het gaat via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De makelaar toont het keuzescherm &quot;Kies uw leverancier&quot;.**" supporting-text="De werknemer kiest bijvoorbeeld Z-Login en de makelaar stuurt hem met het verzoek door. Ook de makelaar weet nog niet wie het is."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De werknemer logt in met zijn eigen middel.**" supporting-text="Bijvoorbeeld gebruikersnaam, wachtwoord en een code in een app. Nu weet de leverancier wie het is."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**5**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De leverancier controleert het betrouwbaarheidsniveau.**" supporting-text="Het niveau is een eigenschap van het middel, vastgelegd bij de aanvraag: hoe streng de identiteit is gecontroleerd en hoe veilig het inlogmiddel is. Ook een machtiging wordt op een niveau vastgelegd. De leverancier vergelijkt dit met wat UWV vraagt (EH3). Voldoende: door naar stap 6. Te laag: de inlog stopt hier. Nog te bevestigen: voor zover bekend telt het laagste niveau van middel en machtiging."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**6**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De werknemer kiest namens welk bedrijf hij inlogt (soms).**" supporting-text="Alleen als hij voor meerdere bedrijven werkt."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**7**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De leverancier controleert de machtiging in zijn machtigingenregister.**" supporting-text="Mag deze persoon namens bedrijf X deze dienst van UWV gebruiken? Ja: door naar stap 8. Nee: de inlog stopt en UWV krijgt een foutmelding terug in plaats van een inlog."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**8**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De leverancier maakt het pseudoniem en een ondertekende verklaring.**" supporting-text="Het pseudoniem is speciaal voor UWV en zo versleuteld dat alleen UWV het kan lezen. De verklaring is geen vraag maar een bewering: &quot;Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.&quot; Het KvK-nummer en het pseudoniem staan er versleuteld in, voor UWV."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**9**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**De makelaar stuurt de verklaring door naar UWV.**" supporting-text="Dit bericht heet de assertion. Het bevat het KvK-nummer en het pseudoniem (versleuteld), de dienst en het niveau. De makelaar kan het pseudoniem en het KvK-nummer zelf niet lezen; hij geeft het bericht alleen door."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell slot="start" vertical-alignment="top" text="**10**"></nldd-text-cell>
+          <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**UWV controleert, ontsleutelt en laat de werknemer binnen.**" supporting-text="UWV controleert of de handtekening klopt en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
 
-      <!-- 1 -->
-      <li class="step">
-        <div class="num">1</div>
-        <div class="card col1 r1">
-          <span class="who">Werknemer</span>
-          <h3>Klikt op "Inloggen met eHerkenning"</h3>
-          <p>Op de website van UWV.</p>
-        </div>
-        <div class="msg ltr r1" style="grid-column: 2 / 4; --n: 2">
-          <span class="route">Werknemer → UWV</span>
-          <span class="label">Wil inloggen</span>
-          <div class="line"></div>
-        </div>
-      </li>
+    <nldd-simple-section id="samenvatting">
+      <nldd-title size="2"><h2>Wie weet wat na afloop?</h2><p slot="supporting-text">Alleen de leverancier weet wie de werknemer echt is. UWV kent alleen het bedrijf en een pseudoniem dat alleen voor UWV betekenis heeft. De makelaar ziet het bericht, maar kan de inhoud niet lezen.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-table columns="1.4fr 1fr 1fr 1fr" accessible-label="Wie weet wat na afloop">
+        <nldd-table-row slot="header">
+          <nldd-text-cell text="**Gegeven**"></nldd-text-cell>
+          <nldd-text-cell text="**UWV**"></nldd-text-cell>
+          <nldd-text-cell text="**Herkenningsmakelaar**"></nldd-text-cell>
+          <nldd-text-cell text="**Leverancier**"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="Wie de werknemer is"></nldd-text-cell>
+          <nldd-text-cell text="Nee" color="critical"></nldd-text-cell>
+          <nldd-text-cell text="Nee" color="critical"></nldd-text-cell>
+          <nldd-text-cell text="Ja" color="success"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="Namens welk bedrijf (KvK-nummer)"></nldd-text-cell>
+          <nldd-text-cell text="Ja" color="success"></nldd-text-cell>
+          <nldd-text-cell text="Nee: staat versleuteld in het bericht" color="critical"></nldd-text-cell>
+          <nldd-text-cell text="Ja" color="success"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="Pseudoniem voor UWV"></nldd-text-cell>
+          <nldd-text-cell text="Ja" color="success"></nldd-text-cell>
+          <nldd-text-cell text="Nee: staat versleuteld in het bericht" color="critical"></nldd-text-cell>
+          <nldd-text-cell text="Ja: maakt het aan" color="success"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="Of de werknemer gemachtigd is"></nldd-text-cell>
+          <nldd-text-cell text="Ja: uit de verklaring" color="success"></nldd-text-cell>
+          <nldd-text-cell text="Deels: ziet dat de inlog lukt, niet voor wie" color="warning"></nldd-text-cell>
+          <nldd-text-cell text="Ja: heeft het gecontroleerd" color="success"></nldd-text-cell>
+        </nldd-table-row>
+      </nldd-table>
+    </nldd-simple-section>
 
-      <!-- 2 -->
-      <li class="step">
-        <div class="num">2</div>
-        <div class="card col2 r2">
-          <span class="who">UWV</span>
-          <h3>Stuurt een inlogverzoek naar zijn makelaar</h3>
-          <p>Het verzoek is anoniem: niemand weet nog wie de gebruiker is.</p>
-        </div>
-        <div class="msg ltr r2" style="grid-column: 3 / 5; --n: 2">
-          <span class="route">UWV → Makelaar</span>
-          <span class="label">Inlogverzoek (anoniem)</span>
-          <div class="data"><span>wie vraagt: UWV</span><br><span>dienst: dienstcode</span><br><span>niveau: EH3</span><br><span>terugadres</span></div>
-          <div class="line"></div>
-          <span class="via">via de browser: de gebruiker wordt doorgestuurd en het verzoek gaat mee</span>
-        </div>
-      </li>
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten (eHerkenning)</a></li>
+          <li><a href="https://www.eherkenning.nl/">eHerkenning.nl</a></li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
 
-      <!-- 3 -->
-      <li class="step">
-        <div class="num">3</div>
-        <div class="card col3 r3">
-          <span class="who">Herkenningsmakelaar</span>
-          <h3>Toont keuzescherm "Kies uw leverancier"</h3>
-          <p>De werknemer kiest bijv. Z-Login. De makelaar stuurt hem met het verzoek door. Ook de makelaar weet nog niet wie het is.</p>
-        </div>
-        <div class="msg ltr r3" style="grid-column: 4 / 6; --n: 2">
-          <span class="route">Makelaar → Leverancier</span>
-          <span class="label">Inlogverzoek doorgestuurd</span>
-          <div class="line"></div>
-        </div>
-      </li>
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-rich-text spacing="tight"><p>Vereenvoudigde weergave op basis van het Afsprakenstelsel Elektronische Toegangsdiensten. Technische details, zoals de precieze inhoud van de assertion, kunnen per makelaar en versie verschillen.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
 
-      <!-- 4 -->
-      <li class="step">
-        <div class="num">4</div>
-        <div class="card col1 r1">
-          <span class="who">Werknemer</span>
-          <h3>Logt in met zijn eigen middel</h3>
-          <p>Bijv. gebruikersnaam, wachtwoord en een code in een app.</p>
-        </div>
-        <div class="card col4 r4">
-          <span class="who">Leverancier</span>
-          <h3>Herkent de werknemer</h3>
-          <span class="knows">Nu weet de leverancier wie het is.</span>
-        </div>
-        <div class="msg ltr r1" style="grid-column: 2 / 6; --n: 4">
-          <span class="route">Werknemer → Leverancier</span>
-          <span class="label">Inloggegevens</span>
-          <div class="line"></div>
-        </div>
-      </li>
-
-      <!-- 5 -->
-      <li class="step">
-        <div class="num">5</div>
-        <div class="card col4 r4">
-          <span class="who">Leverancier</span>
-          <h3>Controleert het betrouwbaarheidsniveau</h3>
-          <p>Het niveau is een eigenschap van het middel, vastgelegd bij de aanvraag: hoe streng is de identiteit gecontroleerd en hoe veilig is het inlogmiddel. Ook een machtiging wordt op een niveau vastgelegd. De leverancier vergelijkt dit met wat UWV vraagt (EH3).</p>
-          <div class="outcomes">
-            <div class="outcome yes"><b>Voldoende</b><span>door naar stap 6</span></div>
-            <div class="outcome no"><b>Te laag</b><span>inlog stopt hier</span></div>
-          </div>
-          <div class="check"><b>Nog te bevestigen:</b> voor zover bekend telt het laagste niveau van middel en machtiging.</div>
-        </div>
-      </li>
-
-      <!-- 6 -->
-      <li class="step">
-        <div class="num">6</div>
-        <div class="card col1 r1 optional">
-          <span class="who">Werknemer</span>
-          <h3>Kiest namens welk bedrijf hij inlogt</h3>
-          <p>Alleen als hij voor meerdere bedrijven werkt.</p>
-          <span class="tag">soms</span>
-        </div>
-        <div class="msg ltr r1" style="grid-column: 2 / 6; --n: 4">
-          <span class="route">Werknemer → Leverancier</span>
-          <span class="label">Namens bedrijf X</span>
-          <div class="line"></div>
-        </div>
-      </li>
-
-      <!-- 7 -->
-      <li class="step">
-        <div class="num">7</div>
-        <div class="card col4 r4">
-          <span class="who">Leverancier</span>
-          <h3>Controleert de machtiging in zijn machtigingenregister</h3>
-          <p>Mag deze persoon namens bedrijf X deze dienst van UWV gebruiken?</p>
-          <div class="outcomes">
-            <div class="outcome yes"><b>Ja</b><span>door naar stap 8</span></div>
-            <div class="outcome no"><b>Nee</b><span>inlog stopt; UWV krijgt een foutmelding terug in plaats van een inlog</span></div>
-          </div>
-        </div>
-      </li>
-
-      <!-- 8 -->
-      <li class="step">
-        <div class="num">8</div>
-        <div class="card col4 r4">
-          <span class="who">Leverancier</span>
-          <h3>Maakt het pseudoniem en een ondertekende verklaring</h3>
-          <p>Het pseudoniem is speciaal voor UWV en zo versleuteld dat alleen UWV het kan lezen. De verklaring is geen vraag maar een bewering:</p>
-          <p class="claim">"Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X."</p>
-          <p>Het KvK-nummer en het pseudoniem staan er versleuteld in, voor UWV.</p>
-        </div>
-        <div class="msg rtl r4" style="grid-column: 4 / 6; --n: 2">
-          <span class="route">Leverancier → Makelaar</span>
-          <span class="label">Verklaring</span>
-          <div class="line"></div>
-        </div>
-      </li>
-
-      <!-- 9 -->
-      <li class="step">
-        <div class="num">9</div>
-        <div class="card col3 r3">
-          <span class="who">Herkenningsmakelaar</span>
-          <h3>Stuurt de verklaring door naar UWV</h3>
-          <p>Dit bericht heet de "assertion". De makelaar kan het pseudoniem en het KvK-nummer zelf niet lezen; hij geeft het bericht alleen door.</p>
-        </div>
-        <div class="msg rtl r3" style="grid-column: 3 / 5; --n: 2">
-          <span class="route">Makelaar → UWV</span>
-          <span class="label">Assertion</span>
-          <div class="data"><span>KvK-nummer (versleuteld)</span><br><span>pseudoniem (versleuteld)</span><br><span>dienst</span><br><span>niveau</span></div>
-          <div class="line"></div>
-        </div>
-      </li>
-
-      <!-- 10 -->
-      <li class="step">
-        <div class="num">10</div>
-        <div class="card col2 r2">
-          <span class="who">UWV</span>
-          <h3>Controleert, ontsleutelt en laat de werknemer binnen</h3>
-          <p>UWV controleert of de handtekening klopt en ontsleutelt het KvK-nummer en het pseudoniem. UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt.</p>
-        </div>
-        <div class="msg rtl r2" style="grid-column: 2 / 4; --n: 2">
-          <span class="route">UWV → Werknemer</span>
-          <span class="label">Ingelogd</span>
-          <div class="line"></div>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <section class="summary" id="samenvatting">
-    <h2>Wie weet wat na afloop?</h2>
-    <p>Alleen de leverancier weet wie de werknemer echt is. UWV kent alleen het bedrijf en een pseudoniem dat alleen voor UWV betekenis heeft. De makelaar ziet het bericht, maar kan de inhoud niet lezen.</p>
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Gegeven</th>
-            <th scope="col" class="r2"><b>UWV</b></th>
-            <th scope="col" class="r3"><b>Herkenningsmakelaar</b></th>
-            <th scope="col" class="r4"><b>Leverancier</b></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">Wie de werknemer is</th><td class="n">Nee</td><td class="n">Nee</td><td class="y">Ja</td></tr>
-          <tr><th scope="row">Namens welk bedrijf (KvK-nummer)</th><td class="y">Ja</td><td class="n">Nee<small>staat versleuteld in het bericht</small></td><td class="y">Ja</td></tr>
-          <tr><th scope="row">Pseudoniem voor UWV</th><td class="y">Ja</td><td class="n">Nee<small>staat versleuteld in het bericht</small></td><td class="y">Ja<small>maakt het aan</small></td></tr>
-          <tr><th scope="row">Of de werknemer gemachtigd is</th><td class="y">Ja<small>uit de verklaring</small></td><td class="n">Deels<small>ziet dat de inlog lukt, niet voor wie</small></td><td class="y">Ja<small>heeft het gecontroleerd</small></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <div id="opm-knop"></div>
-  <footer>Vereenvoudigde weergave op basis van het Afsprakenstelsel Elektronische Toegangsdiensten. Technische details (zoals de precieze inhoud van de assertion) kunnen per makelaar en versie verschillen.<br><strong>Bronnen:</strong> <a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten</a>; <a href="https://www.eherkenning.nl/">eHerkenning.nl</a>.</footer>
-</div>
 <script type="module" src="opmerkingen.js"></script>
 <script defer src="begrippen.js"></script>
 </body>
