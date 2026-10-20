@@ -147,49 +147,43 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V1**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Is een pseudoniem voor MOZa als dienstbemiddelaar nog relevant?**" supporting-text="Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd? (stap 8)"></nldd-text-cell>
+          <nldd-text-cell text="**Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?**" supporting-text="Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen. (stap 7, 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V2**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?**" supporting-text="Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen. (stap 7, 13)"></nldd-text-cell>
+          <nldd-text-cell text="**In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?**" supporting-text="Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau. (stap 9)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V3**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?**" supporting-text="Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau. (stap 9)"></nldd-text-cell>
+          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V4**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)**" supporting-text="Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens. (stap 8, 10)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)**" supporting-text="Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens. (stap 8, 10)"></nldd-text-cell>
+          <nldd-text-cell text="**Kan en mag MOZa het machtigingenregister van een leverancier bevragen?**" supporting-text="Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel. (stap 10)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V6**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kan en mag MOZa het machtigingenregister van een leverancier bevragen?**" supporting-text="Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel. (stap 10)"></nldd-text-cell>
+          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 7, 11, 12)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V7**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 7, 11, 12)"></nldd-text-cell>
-        </nldd-list-item>
-        <nldd-list-item>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell vertical-alignment="top" width="32px" text="**V8**"></nldd-text-cell>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?**" supporting-text="Dat is het betere alternatief voor V7: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet. (stap 10, 11, 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?**" supporting-text="Dat is het betere alternatief voor V6: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet. (stap 10, 11, 13)"></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
     </nldd-simple-section>
@@ -379,12 +373,12 @@
    ],
    "vragen": [
     [
-     "V2",
+     "V1",
      "Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?",
      "Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen."
     ],
     [
-     "V7",
+     "V6",
      "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
      [
       "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
@@ -415,12 +409,7 @@
    "aannames": [],
    "vragen": [
     [
-     "V1",
-     "Is een pseudoniem voor MOZa als dienstbemiddelaar nog relevant?",
-     "Moet MOZa weten wie de persoon is, of alleen welke diensten ontgrendeld moeten worden als die eenmaal is ingelogd?"
-    ],
-    [
-     "V5",
+     "V4",
      "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
      "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
     ]
@@ -447,7 +436,7 @@
    "aannames": [],
    "vragen": [
     [
-     "V3",
+     "V2",
      "In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?",
      "Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau."
     ]
@@ -477,17 +466,17 @@
    ],
    "vragen": [
     [
-     "V6",
+     "V5",
      "Kan en mag MOZa het machtigingenregister van een leverancier bevragen?",
      "Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel."
     ],
     [
-     "V8",
+     "V7",
      "Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?",
-     "Dat is het betere alternatief voor V7: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
+     "Dat is het betere alternatief voor V6: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
     ],
     [
-     "V5",
+     "V4",
      "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
      "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
     ]
@@ -517,7 +506,7 @@
    ],
    "vragen": [
     [
-     "V7",
+     "V6",
      "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
      [
       "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
@@ -526,9 +515,9 @@
      ]
     ],
     [
-     "V8",
+     "V7",
      "Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?",
-     "Dat is het betere alternatief voor V7: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
+     "Dat is het betere alternatief voor V6: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
     ]
    ],
    "kaarten": [],
@@ -556,7 +545,7 @@
    ],
    "vragen": [
     [
-     "V7",
+     "V6",
      "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
      [
       "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
@@ -591,19 +580,19 @@
    ],
    "vragen": [
     [
-     "V2",
+     "V1",
      "Kunnen de inlogverzoeken bij de dienstverleners via SSO in één keer, parallel, worden gestart?",
      "Inloggen gebeurt altijd per dienstverlener; één inlogverzoek voor meerdere dienstverleners kan niet. De verwachting is dat MOZa met SSO de inlogverzoeken voor alle diensten waarvoor Bilal gemachtigd is tegelijk kan starten, zodat hij niet per dienst opnieuw hoeft in te loggen."
     ],
     [
-     "V4",
+     "V3",
      "Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?",
      "Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst."
     ],
     [
-     "V8",
+     "V7",
      "Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?",
-     "Dat is het betere alternatief voor V7: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
+     "Dat is het betere alternatief voor V6: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
     ]
    ],
    "kaarten": [],
