@@ -9,7 +9,8 @@
 //   - de gegevens als JSON in een script-element van het type application/json met id="stappen-data":
 //     { "naam": ..., "schema": "#id", "stappen": [...] }
 //   - dit bestand als module-script (src="stappen-presentatie.js"); build.py bakt het in
-// Een stap: { n, kop, kenmerken: [..], soort: [naam, uitleg, kleur], lead, punten: [tekst of [tekst, [subpunten]]], aannames: [..],
+// Een stap: { n, kop, kenmerken: [..], soort: [naam, uitleg, kleur], lead, punten: [tekst of [tekst, [subpunten]]],
+//             opties: { tekst, items: [[label, tekst, [subpunten]]] }, aannames: [..],
 //             vragen: [[V1, vraag, toelichting of [subpunten]]], kaarten: [{ label, titel, bij, img, alt, rijen: [[veld, waarde, uitleg]] }], bron }
 
 const bron = document.getElementById('stappen-data');
@@ -43,6 +44,8 @@ if (bron) {
     .att-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 16px; line-height: 1.5; }
     .att-punten li { margin-bottom: 8px; }
     .att-punten strong { color: #ffb612; }
+    .att-tekst { margin: 0 0 12px; font-size: 16px; line-height: 1.5; }
+    .att-scheiding { margin: 0 0 20px; border: 0; border-top: 1px solid rgba(255, 255, 255, 0.3); }
     /* Soort stap en soort kaart: attestatie tonen, uitgeven, of een verzoek zonder attestatie */
     .att-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
     .att-soort strong { color: var(--soort-kleur); }
@@ -113,6 +116,7 @@ if (bron) {
       <h2 class="att-titel">Stap ${esc(s.n)} <span>${esc(s.kop)}</span></h2>
       ${s.soort ? `<p class="att-soort" style="--soort-kleur:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>` : ''}
       <p class="att-lead">${esc(s.lead)}</p>
+      ${s.opties ? `${s.opties.tekst ? `<p class="att-tekst">${esc(s.opties.tekst)}</p>` : ''}<ul class="att-punten">${s.opties.items.map(([l, t, z]) => `<li><strong>${esc(l)}:</strong> ${esc(t)}${z && z.length ? sub(z) : ''}</li>`).join('')}</ul>${punten ? '<hr class="att-scheiding">' : ''}` : ''}
       ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
       ${(s.kaarten || []).map(kaart).join('')}
       ${s.bron ? `<p class="att-bron">${esc(s.bron)}</p>` : ''}`;

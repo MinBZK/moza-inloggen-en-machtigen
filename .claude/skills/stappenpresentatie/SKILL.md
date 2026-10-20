@@ -55,7 +55,9 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
    ```
 
    De toelichting bij een vraag mag ook een lijst zijn; die verschijnt dan als subpunten. Een punt mag ook
-   `[tekst, [subpunten]]` zijn, bijvoorbeeld voor oplossingsrichtingen.
+   `[tekst, [subpunten]]` zijn. Oplossingsrichtingen of andere keuzes gaan in
+   `"opties": {"tekst": "Er zijn twee mogelijke oplossingsrichtingen.", "items": [["Richting 1", "tekst", [subpunten]]]}`:
+   een gewone zin, de opties als opsomming met een vet label, en een scheidingslijn voor de aannames en vragen.
 
    Kleuren van de soorten: Handeling `#2d7a46`, Verzoek `#b46504`, Controle en Bevraging `#7a4f8c`,
    Verklaring `#1f5fa8`, Resultaat `#0e7c86`. Een kaart met gegevensvelden gebruikt
