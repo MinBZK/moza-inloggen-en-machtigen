@@ -7,6 +7,7 @@ WORKDIR /src
 COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.html webuild.html eherkenning-inlogflow.html eherkenning-concept.html inloggen.html opmerkingen.js begrippen.js ./
 COPY logos logos
 COPY avatars avatars
+COPY schermen schermen
 COPY vendor vendor
 RUN python3 build.py
 

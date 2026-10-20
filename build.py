@@ -19,7 +19,7 @@ TERMS_JS = '<script defer src="begrippen.js"></script>'
 
 CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">'
 CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>'
-MIME = {'.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml'}
+MIME = {'.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg'}
 
 
 def data_uri(path: Path) -> str:
@@ -48,7 +48,7 @@ def main() -> None:
         html = html.replace(CDN_JS, f'<script type="module">\n{js}\n</script>')
         html = html.replace(COMMENTS_JS, f'<script type="module">\n{comments}\n</script>')
         html = html.replace(TERMS_JS, f'<script>\n{terms}\n</script>')
-        html = re.sub(r'(logos|avatars)/([\w.-]+\.(?:png|svg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
+        html = re.sub(r'(logos|avatars|schermen)/([\w.-]+\.(?:png|svg|jpg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
         (DIST / name).write_text(html)
         print(f'dist/{name}: {len(html) / 1024 / 1024:.1f} MB')
 

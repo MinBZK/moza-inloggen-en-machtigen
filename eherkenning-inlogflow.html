@@ -12,6 +12,11 @@
     .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
     .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+    /* Schermafbeeldingen van de echte inlogroute */
+    #schermen figure { margin: 12px 0 0; max-width: 720px; }
+    #schermen figure img { display: block; width: 100%; height: auto; border-radius: var(--primitives-corner-radius-md, 12px);
+      border: 1px solid light-dark(var(--primitives-color-neutral-200, #dde1e6), var(--primitives-color-neutral-700, #3a4250)); }
+    #schermen figcaption { margin-top: 6px; font-size: 13px; color: var(--semantics-content-secondary-color, #5b6573); }
   </style>
 </head>
 <body>
@@ -32,13 +37,52 @@
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
+    <nldd-simple-section id="schermen">
+      <nldd-title size="2"><h2>Wat Karin ziet als ze inlogt bij UWV</h2><p slot="supporting-text">Karin wil namens Koffiezaak Noon iets regelen in het werkgeversportaal van UWV. Dit zijn de schermen die ze tegenkomt, nagelopen op 20 oktober 2026. Daaronder staat wat er achter de schermen gebeurt.</p></nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><span slot="overline">Stap 1</span><h3>Ze gaat naar uwv.nl en kiest Inloggen werkgeversportaal</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Het werkgeversportaal is het portaal van UWV voor werkgevers en ondernemers. Onder Inloggen staat het met het eHerkenning-logo.</p>
+        <figure><img src="schermen/uwv-1-inloggen.jpg" alt="Het inlogmenu van uwv.nl met de knop Inloggen werkgeversportaal en het eHerkenning-logo" loading="lazy"><figcaption>uwv.nl</figcaption></figure>
+      </nldd-rich-text>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><span slot="overline">Stap 2</span><h3>Ze komt op het keuzescherm van de makelaar van UWV</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>UWV heeft Digidentity als herkenningsmakelaar, dus de browser gaat naar het domein eid.digidentity.eu. Karin merkt dat nauwelijks: ze ziet vooral het eHerkenning-logo. Het scherm noemt de dienst (UWV werkgeversportaal) en het niveau dat nodig is (EH3). De Belastingdienst gebruikt KPN als makelaar (brk.eid.kpn.com), met hetzelfde soort keuzescherm.</p>
+        <figure><img src="schermen/uwv-2-makelaar.jpg" alt="Keuzescherm van eHerkenning op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal betrouwbaarheidsniveau EH3" loading="lazy"><figcaption>eid.digidentity.eu (makelaar Digidentity)</figcaption></figure>
+      </nldd-rich-text>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><span slot="overline">Stap 3</span><h3>Ze kiest haar leverancier: Z login</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>De lijst toont de leveranciers waar je een eHerkenningsmiddel kunt hebben: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login. Karin kiest Z login, omdat Koffiezaak Noon daar haar middel en machtigingen heeft. Met Onthoud mijn keuze slaat ze deze stap de volgende keer over.</p>
+        <figure><img src="schermen/uwv-3-leverancier.jpg" alt="Hetzelfde keuzescherm met Z login gekozen in de lijst" loading="lazy"><figcaption>eid.digidentity.eu (makelaar Digidentity)</figcaption></figure>
+      </nldd-rich-text>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><span slot="overline">Stap 4</span><h3>Ze logt in bij Z login</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Ze komt op authenticatiedienst.zlogin.nl. Bovenaan staat dat ze inlogt bij UWV voor het werkgeversportaal. Ze logt in met haar gebruikersnaam en wachtwoord bij Z login, en daarna met de tweede stap die bij haar middel hoort.</p>
+        <figure><img src="schermen/uwv-4-zlogin.jpg" alt="Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal, met velden voor gebruikersnaam en wachtwoord" loading="lazy"><figcaption>authenticatiedienst.zlogin.nl (leverancier Z login)</figcaption></figure>
+      </nldd-rich-text>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><span slot="overline">Stap 5</span><h3>Karin is ingelogd</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Z login controleert of ze namens Koffiezaak Noon het werkgeversportaal mag gebruiken en stuurt via Digidentity een ondertekende verklaring naar UWV. Karin komt terug op het werkgeversportaal, ingelogd namens Koffiezaak Noon. Van dit scherm is geen afbeelding: daarvoor is een echt account nodig.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="32"></nldd-spacer>
+    </nldd-simple-section>
+
     <nldd-simple-section id="landschap">
       <nldd-title size="2"><h2>Wie zit waar in het landschap?</h2><p slot="supporting-text">Een dienstverlener kiest een herkenningsmakelaar, een ondernemer kiest een leverancier, en elke makelaar werkt met alle leveranciers. Daardoor kan Karin met één middel bij alle aangesloten diensten inloggen. De namen zijn een voorbeeld.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="landschap-schema" role="img" aria-labelledby="ehl-titel ehl-uitleg">
 <svg viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
   <title id="ehl-titel">Waar zitten de makelaar en de leverancier in het eHerkenning-landschap</title>
-  <desc id="ehl-uitleg">Vier lagen. Dienstverleners kiezen elk een herkenningsmakelaar: Belastingdienst bij Digidentity, RVO en KvK bij KPN, UWV bij OneWelcome, RDW bij Reconi en CJIB bij Signicat. Elke makelaar is verbonden met alle leveranciers. De ondernemer kiest de leverancier, hier Z-Login, die het inlogmiddel uitgeeft en de machtigingen bijhoudt. Karin kiest op het keuzescherm van de makelaar haar leverancier. Uitgelicht: UWV, makelaar OneWelcome, leverancier Z-Login, Karin.</desc>
+  <desc id="ehl-uitleg">Vier lagen. Dienstverleners kiezen elk een herkenningsmakelaar: UWV bij Digidentity, Belastingdienst bij KPN, en als voorbeeld RVO en KvK bij KPN, RDW bij Reconi en CJIB bij Signicat. Elke makelaar is verbonden met alle leveranciers. De ondernemer kiest de leverancier, hier Z-Login, die het inlogmiddel uitgeeft en de machtigingen bijhoudt. Karin kiest op het keuzescherm van de makelaar haar leverancier. Uitgelicht: UWV, makelaar Digidentity, leverancier Z-Login, Karin.</desc>
   <defs>
     <pattern id="grid-ehl" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="l-uit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
@@ -73,39 +117,36 @@
   <text x="32" y="548" font-size="11.5" fill="#5b6573" text-anchor="start">Sluiten via hun makelaar aan; de</text>
   <text x="32" y="563" font-size="11.5" fill="#5b6573" text-anchor="start">dienst komt in de</text>
   <text x="32" y="578" font-size="11.5" fill="#5b6573" text-anchor="start">dienstencatalogus.</text>
-  <rect x="270" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="355" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
-  <text x="355" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Digidentity</text>
-  <rect x="475" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="560" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
-  <text x="560" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">KPN</text>
-  <rect x="680" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="2.4" stroke-dasharray="6 4"/>
-  <text x="765" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
-  <text x="765" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">OneWelcome</text>
-  <rect x="885" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="970" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
-  <text x="970" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Reconi</text>
-  <rect x="1090" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="1175" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
-  <text x="1175" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Signicat</text>
-  <rect x="285.0" y="540" width="140" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
-  <text x="355" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">Belastingdienst</text>
-  <path d="M355 538L355.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <rect x="483.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
-  <text x="520" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RVO</text>
-  <path d="M520 538L544.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <rect x="563.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
-  <text x="600" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">KvK</text>
-  <path d="M600 538L576.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <rect x="728.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.4"/>
-  <text x="765" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">UWV</text>
-  <path d="M765 538L765.0 444" stroke="#1f5fa8" stroke-width="2.4" fill="none" marker-end="url(#l-1f5fa8)"/>
-  <rect x="933.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
-  <text x="970" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RDW</text>
-  <path d="M970 538L970.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <rect x="1138.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
-  <text x="1175" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">CJIB</text>
-  <path d="M1175 538L1175.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="295" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="2.4" stroke-dasharray="6 4"/>
+  <text x="380" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="380" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Digidentity</text>
+  <rect x="555" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="640" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="640" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">KPN</text>
+  <rect x="815" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="900" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="900" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Reconi</text>
+  <rect x="1075" y="380" width="170" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="1160" y="406" font-size="11" fill="#7a4500" text-anchor="middle">Makelaar</text>
+  <text x="1160" y="424" font-size="13" fill="#333" text-anchor="middle" font-weight="700">Signicat</text>
+  <rect x="343.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.4"/>
+  <text x="380" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">UWV</text>
+  <path d="M380 538L380.0 444" stroke="#1f5fa8" stroke-width="2.4" fill="none" marker-end="url(#l-1f5fa8)"/>
+  <rect x="482.0" y="540" width="140" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="552" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">Belastingdienst</text>
+  <path d="M552 538L604.8 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="631.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="668" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RVO</text>
+  <path d="M668 538L651.2 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="715.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="752" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">KvK</text>
+  <path d="M752 538L684.8 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="863.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="900" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">RDW</text>
+  <path d="M900 538L900.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="1123.0" y="540" width="74" height="44" rx="10" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1"/>
+  <text x="1160" y="567" font-size="12.5" fill="#1d3f6e" text-anchor="middle" font-weight="700">CJIB</text>
+  <path d="M1160 538L1160.0 444" stroke="#999" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
   <rect x="615" y="166" width="300" height="140" rx="10" fill="#fff2cc" stroke="#d6b656" stroke-width="2.4"/>
   <text x="765" y="190" font-size="13.5" fill="#333" text-anchor="middle" font-weight="700">Leverancier Z-Login</text>
   <text x="765" y="207" font-size="11" fill="#5c4a00" text-anchor="middle">gekozen door Koffiezaak Noon</text>
@@ -115,17 +156,16 @@
   <rect x="770" y="220" width="120" height="70" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
   <text x="830" y="250" font-size="11.5" fill="#333" text-anchor="middle">machtigingen-</text>
   <text x="830" y="266" font-size="11.5" fill="#333" text-anchor="middle">register</text>
-  <rect x="260" y="200" width="190" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="355" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Leverancier Digidentity</text>
-  <text x="355" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">andere leverancier (voorbeeld)</text>
-  <rect x="1080" y="200" width="190" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="1175" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Leverancier KPN</text>
-  <text x="1175" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">andere leverancier (voorbeeld)</text>
-  <path d="M355 378L690 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <path d="M560 378L727 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <path d="M765 378L764 310" stroke="#b46504" stroke-width="2.4" fill="none" marker-end="url(#l-b46504)"/>
-  <path d="M970 378L801 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
-  <path d="M1175 378L838 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <rect x="300" y="200" width="240" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="420" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Andere leveranciers</text>
+  <text x="420" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">Digidentity, KPN</text>
+  <rect x="990" y="200" width="240" height="70" rx="10" fill="#fffaf0" stroke="#d6b656" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="1110" y="228" font-size="12.5" fill="#5c4a00" text-anchor="middle" font-weight="700">Andere leveranciers</text>
+  <text x="1110" y="246" font-size="11" fill="#7a6a3a" text-anchor="middle">QuoVadis, Reconi, We-ID</text>
+  <path d="M380 378L700 310" stroke="#b46504" stroke-width="2.4" fill="none" marker-end="url(#l-b46504)"/>
+  <path d="M640 378L743 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <path d="M900 378L786 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
+  <path d="M1160 378L829 310" stroke="#bbb" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#l-grijs)"/>
   <rect x="625" y="40" width="280" height="70" rx="10" fill="#fff" stroke="#666" stroke-width="2.4"/>
   <circle cx="660" cy="75" r="20" fill="oklch(0.858 0.073 29.5)"/>
   <svg x="640" y="55" width="40" height="40" viewBox="0 0 264 264"><clipPath id="ehl-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#ehl-karin)"/></svg>
@@ -133,7 +173,7 @@
   <text x="790" y="86" font-size="11" fill="#555" text-anchor="middle">namens Koffiezaak Noon, middel van Z-Login</text>
   <path d="M765 112L765 162" stroke="#2d7a46" stroke-width="2.4" fill="none" marker-end="url(#l-2d7a46)"/>
   <text x="980" y="140" font-size="11" fill="#2d7a46" text-anchor="middle">inloggen bij de eigen leverancier</text>
-  <text x="1248" y="620" font-size="11" fill="#5b6573" text-anchor="end">Dik en doorgetrokken: het pad van het voorbeeld hieronder (UWV, makelaar OneWelcome, leverancier Z-Login).</text>
+  <text x="1248" y="620" font-size="11" fill="#5b6573" text-anchor="end">Dik: het pad van Karin. Makelaars van UWV en Belastingdienst nagekeken op 20 okt 2026; de rest is een voorbeeld.</text>
 </svg>
       </div>
       <nldd-spacer size="16"></nldd-spacer>
@@ -142,7 +182,7 @@
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
           <nldd-icon-cell slot="start" icon="apartment-building" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
           <nldd-spacer-cell slot="start" size="8"></nldd-spacer-cell>
-          <nldd-text-cell text="**De dienstverlener kiest de herkenningsmakelaar.**" supporting-text="Eén makelaar per dienstverlener, bijvoorbeeld OneWelcome voor UWV. De makelaar sluit de dienst aan op eHerkenning, zet hem in de dienstencatalogus en toont de gebruiker het keuzescherm met leveranciers."></nldd-text-cell>
+          <nldd-text-cell text="**De dienstverlener kiest de herkenningsmakelaar.**" supporting-text="Eén makelaar per dienstverlener: UWV werkt met Digidentity, de Belastingdienst met KPN. De makelaar sluit de dienst aan op eHerkenning, zet hem in de dienstencatalogus en toont de gebruiker het keuzescherm met leveranciers."></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell slot="start" size="12"></nldd-spacer-cell>
@@ -190,7 +230,7 @@
   <path d="M800 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="660" y="18" width="280" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00" stroke-dasharray="6 4"/>
   <text x="800" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Herkenningsmakelaar</text>
-  <text x="800" y="63" font-size="11.5" fill="#555" text-anchor="middle">van UWV, bijv. OneWelcome</text>
+  <text x="800" y="63" font-size="11.5" fill="#555" text-anchor="middle">van UWV: Digidentity</text>
   <path d="M1120 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
   <rect x="980" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
   <text x="1120" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier</text>
