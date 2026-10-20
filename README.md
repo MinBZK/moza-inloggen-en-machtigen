@@ -4,7 +4,7 @@ Concept-roadmap voor MijnOverheid Zakelijk (MOZa): hoe DigiD, eHerkenning, de ED
 
 **Status: concept.** De planning is indicatief; tertialen na 2028 zijn richtinggevend.
 
-Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project `mr-7qd`).
+Online: https://roadmap-moza.rijksapp.dev (ZAD-project `mr-7qd`). Het EBW-landschap is openbaar; de rest staat achter SSO Rijk. Werkafspraken voor Claude Code staan in `CLAUDE.md`.
 
 ## Opbouw
 
@@ -12,17 +12,21 @@ Online (intern, achter SSO Rijk): https://roadmap-moza.rijksapp.dev (ZAD-project
 |---|---|
 | `index.html` | De roadmap. Alle inhoud (sporen, releases, kaders, tabellen) staat als data bovenaan het script: `LANES`, `EXPERIENCE`, `WISHES`, `LOGIN_MATRIX`. |
 | `eherkenning.html` | Achtergrondpagina eHerkenning, met links naar: |
-| `eherkenning-inlogflow.html` | Volgordediagram: inloggen bij UWV met eHerkenning (bestaande situatie; eigen opmaak). |
-| `eherkenning-concept.html` | Concept: inloggen op MOZa met eHerkenning (draw.io-schema via viewer.diagrams.net, met open vragen). |
+| `eherkenning-inlogflow.html` | Bestaande situatie: wie zit waar, hoe UWV aansluit, hoe Karin eHerkenning inricht en hoe Bilal inlogt bij UWV (met de echte schermen). |
+| `eherkenning-concept.html` | Concept-voorstel: Bilal logt in op MOZa met eHerkenning, met aannames en open vragen. |
 | `ebw.html` | Achtergrondpagina EBW, met links naar: |
-| `ebw-landschap.html` | Schema EBW-landschap (PuB- en Q-EBW). |
+| `ebw-landschap.html` | Schema EBW-landschap en vier presentaties (openbaar). |
 | `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, NLDD alleen voor de opmerkingen). |
 | `webuild.html` | Analyses van WE BUILD-use cases BU3, BU4 en BU6 (op basis van D2.1 en D4.1). |
 | `begrippen.js` | Uitleg bij afkortingen en begrippen op alle pagina's, ook in schema's (stippellijn, uitleg bij aanwijzen). Elk begrip wordt één keer per pagina gemarkeerd; een paneel telt als eigen context. Nieuw begrip: toevoegen aan `BEGRIPPEN`. |
 | `opmerkingen.js` | Opmerkingen op de pagina's naast de roadmap. |
-| `avatars/` | Avatars van de persona's Karin Jansen en Bilal Yılmaz (van cx-moza.rijksapp.dev). |
+| `stappen-presentatie.js` | Gedeelde presentatie van stappenschema's (zie skill `.claude/skills/stappenpresentatie`). |
+| `inloggen.html` | Sjabloon voor de pagina "Inloggen". |
+| `server.py` | Levert de site, het inloggen via Keycloak en de API voor opmerkingen. |
+| `avatars/` | Avatars van de persona's Karin Jansen, Bilal Yılmaz en Yassin Amrani (van cx-moza.rijksapp.dev). |
+| `schermen/` | Schermafbeeldingen van de inlogroute bij UWV (nagelopen op 20 oktober 2026). |
 | `logos/` | Officiële logo's (licht en donker). |
-| `vendor/nldd/` | NLDD design system 0.8.62 (script, CSS, lettertypen), lokaal meegeleverd. |
+| `vendor/nldd/` | NLDD design system 0.8.99 (script, CSS, lettertypen), lokaal meegeleverd. |
 | `build.py` | Bouwt zelfstandige pagina's in `dist/` met alles ingebed. |
 
 De pagina's zijn gebouwd met het [NLDD design system](https://minbzk.github.io/storybook/). Eigen CSS is beperkt tot één gemarkeerd blok voor de roadmaptabel (bevroren kolom en kopregel, jaarlijnen, afhankelijkheidslijnen, stippelrand).
