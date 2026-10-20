@@ -12,12 +12,15 @@
     .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
     .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
-    /* Schermen als verdieping: paneel links, zoals de gegevens per attestatie op het EBW-landschap */
+    /* Presentatie van de stappen: paneel links, de pagina schuift op (zoals op het EBW-landschap) */
     body.met-paneel nldd-shell { margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw)); }
     body.met-paneel .canvas > svg { min-width: 0; }
-    #flow-schema [data-scherm] { cursor: pointer; }
+    #flow-schema [data-stap] { cursor: pointer; }
     #flow-schema svg * { transition: opacity 0.4s ease; }
-    #flow-schema svg.dim [data-scherm]:not(.licht) { opacity: 0.2; }
+    #flow-schema svg.dim [data-stap]:not(.licht) { opacity: 0.2; }
+    #flow-schema rect[fill="transparent"][data-stap].is-hover { fill: rgb(255 182 18 / 0.14); stroke: #ffb612; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    #flow-schema circle[data-stap].is-hover { stroke: #ffb612; stroke-width: 4; }
+    #flow-schema rect[rx="8"][data-stap].is-hover { stroke-width: 2.5; }
     #stap-paneel { position: fixed; top: 0; bottom: 0; left: 0; z-index: 2147483001; box-sizing: border-box; width: min(600px, 92vw);
       display: flex; flex-direction: column; background: #154273; color: #fff; box-shadow: 0 0 24px rgb(0 0 0 / 0.35);
       font-family: "RijksSans", system-ui, sans-serif; animation: paneel-in 0.25s ease both; }
@@ -30,21 +33,18 @@
     .p-titel span { display: block; color: #ffb612; font-size: 0.75em; }
     .p-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
     .p-soort strong { color: var(--k); }
+    .p-lead { margin: 0 0 12px; font-size: 18px; line-height: 1.5; font-weight: 700; }
     .p-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 17px; line-height: 1.5; }
     .p-punten li { margin-bottom: 8px; }
-    .p-bron { margin: 8px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.8); }
-    .p-tekst { margin: 0 0 20px; font-size: 18px; line-height: 1.5; }
+    .p-punten strong { color: #ffb612; }
     .p-scherm { margin: 0; background: #fff; border-radius: 12px; overflow: hidden; }
     .p-scherm img { display: block; width: 100%; height: auto; }
+    .p-bron { margin: 8px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-voet { display: flex; align-items: center; gap: 16px; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-voet button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff; font: inherit; font-size: 18px; cursor: pointer; }
     .p-voet button:hover { background: rgb(255 255 255 / 0.15); }
     .p-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .p-nav { display: flex; gap: 8px; margin-left: auto; }
-    /* Visuele hint: een stap licht op bij aanwijzen of toetsenbordfocus, zoals de klikbare onderdelen op het EBW-landschap */
-    #flow-schema rect[fill="transparent"][data-stap].is-hover { fill: rgb(255 182 18 / 0.14); stroke: #ffb612; stroke-width: 1.5; stroke-dasharray: 4 3; }
-    #flow-schema circle[data-stap].is-hover { stroke: #ffb612; stroke-width: 4; }
-    #flow-schema rect[rx="8"][data-stap].is-hover { stroke-width: 2.5; }
     @media (prefers-reduced-motion: reduce) { #stap-paneel { animation: none; } #flow-schema svg * { transition: none; } }
   </style>
 </head>
@@ -395,10 +395,10 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="bilal">
-      <nldd-title size="2"><span slot="overline">Deel 3</span><h2>Bilal logt in bij UWV</h2><p slot="supporting-text">Bilal is door Karin gemachtigd voor het werkgeversportaal van UWV. Klik op een stap, of presenteer de stappen. Bij de stappen met een schermpictogram (1 tot en met 4) zie je het echte scherm, nagelopen op 20 oktober 2026. Groen gestippeld is wat Bilal doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
+      <nldd-title size="2"><span slot="overline">Deel 3</span><h2>Bilal logt in bij UWV</h2><p slot="supporting-text">Bilal is door Karin gemachtigd voor het werkgeversportaal van UWV. Klik op een stap of presenteer de stappen. Bij de stappen met een schermpictogram (1 tot en met 4) zie je het echte scherm. Groen gestippeld is wat Bilal doet, oranje het doorsturen van het inlogverzoek, blauw de ondertekende verklaring en paars een eigen controle.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-button id="presenteer-flow" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
-        accessible-label="Presenteer de stappen van Bilal, met de echte schermen"></nldd-button>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+        accessible-label="Presenteer de stappen uit het schema hieronder"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="flow-schema" role="img" aria-labelledby="flow-titel flow-uitleg">
 <svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
@@ -599,82 +599,91 @@
 </nldd-shell>
 
 <script type="module">
-// Deel 3 als presentatie: klik op een stap of op Presenteer de stappen; pijltjes bladeren, Esc sluit
+// Presentatie van de stappen (gelijk op alle pagina's met een stappenschema)
+const NAAM = "Bilal logt in bij UWV";
 const STAPPEN = [
  {
   "n": "1",
   "kop": "klikt op inloggen",
   "titel": "Bilal kiest Inloggen werkgeversportaal",
   "soort": [
-   "Handeling van Bilal",
-   "in de browser",
+   "Handeling",
+   "door Bilal, in de browser",
    "#2d7a46"
   ],
-  "img": "schermen/uwv-1-inloggen.jpg",
-  "domein": "uwv.nl",
-  "alt": "Het inlogmenu van uwv.nl met Inloggen werkgeversportaal en het eHerkenning-logo",
-  "tekst": [
+  "punten": [
    "Bilal gaat naar uwv.nl en opent Inloggen.",
    "Hij kiest Inloggen werkgeversportaal, het portaal van UWV voor werkgevers en ondernemers.",
    "Het eHerkenning-logo laat zien dat hij met eHerkenning inlogt."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "schermen/uwv-1-inloggen.jpg",
+  "domein": "uwv.nl",
+  "alt": "Het inlogmenu van uwv.nl met Inloggen werkgeversportaal en het eHerkenning-logo"
  },
  {
   "n": "2",
   "kop": "inlogverzoek",
   "titel": "UWV stuurt een inlogverzoek naar zijn herkenningsmakelaar",
   "soort": [
-   "Inlogverzoek",
+   "Verzoek",
    "van UWV, via de browser",
    "#b46504"
   ],
-  "img": "schermen/uwv-2-makelaar.jpg",
-  "domein": "eid.digidentity.eu",
-  "alt": "Keuzescherm op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal EH3",
-  "tekst": [
+  "punten": [
    "Het verzoek is anoniem: niemand weet nog wie Bilal is.",
    "Het bevat: wie vraagt (UWV), de dienstcode, het niveau (EH3) en een terugadres.",
    "De browser gaat naar Digidentity, de herkenningsmakelaar van UWV. Bilal merkt dat nauwelijks: hij ziet vooral het eHerkenning-logo.",
    "Ter vergelijking: de Belastingdienst gebruikt KPN (brk.eid.kpn.com), met hetzelfde soort scherm."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "schermen/uwv-2-makelaar.jpg",
+  "domein": "eid.digidentity.eu",
+  "alt": "Keuzescherm op eid.digidentity.eu: U wilt inloggen bij UWV voor UWV werkgeversportaal, minimaal EH3"
  },
  {
   "n": "3",
   "kop": "leverancier kiezen",
   "titel": "Bilal selecteert zijn leverancier",
   "soort": [
-   "Handeling van Bilal",
-   "in de browser",
+   "Handeling",
+   "door Bilal, in de browser",
    "#2d7a46"
   ],
-  "img": "schermen/uwv-3-leverancier.jpg",
-  "domein": "eid.digidentity.eu",
-  "alt": "Hetzelfde keuzescherm met Z login gekozen",
-  "tekst": [
+  "punten": [
    "De lijst toont de leveranciers: Digidentity, KPN, QuoVadis, Reconi, We-ID en Z login.",
    "Bilal kiest Z login, de leverancier van Koffiezaak Noon.",
    "De herkenningsmakelaar stuurt hem met het verzoek door, en weet nog steeds niet wie hij is.",
    "Met Onthoud mijn keuze slaat hij deze stap de volgende keer over."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "schermen/uwv-3-leverancier.jpg",
+  "domein": "eid.digidentity.eu",
+  "alt": "Hetzelfde keuzescherm met Z login gekozen"
  },
  {
   "n": "4",
   "kop": "inloggen",
   "titel": "Bilal logt in met zijn account van Z-Login",
   "soort": [
-   "Handeling van Bilal",
-   "in de browser",
+   "Handeling",
+   "door Bilal, in de browser",
    "#2d7a46"
   ],
-  "img": "schermen/uwv-4-zlogin.jpg",
-  "domein": "authenticatiedienst.zlogin.nl",
-  "alt": "Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal",
-  "tekst": [
+  "punten": [
    "Bovenaan staat dat hij inlogt bij het werkgeversportaal van UWV.",
    "Hij gebruikt het account dat Karin voor hem aanvroeg (deel 2).",
    "Eerst gebruikersnaam en wachtwoord, daarna de tweede stap die bij zijn account hoort.",
    "Nu weet de leverancier wie hij is."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "schermen/uwv-4-zlogin.jpg",
+  "domein": "authenticatiedienst.zlogin.nl",
+  "alt": "Inlogpagina van Z login: Inloggen bij UWV voor UWV werkgeversportaal"
  },
  {
   "n": "5",
@@ -685,33 +694,37 @@ const STAPPEN = [
    "door de leverancier",
    "#7a4f8c"
   ],
-  "img": "",
-  "domein": "",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "Er zijn twee niveaus: dat van Bilals account, en dat waarop Karin de machtiging heeft vastgelegd.",
    "Voor zover bekend telt het laagste van die twee als het niveau van de inlog.",
    "Voorbeeld: account op EH3, machtiging op EH2. De inlog telt dan als EH2, en UWV vraagt EH3: Bilal komt er niet in.",
    "Is het niveau hoog genoeg, dan gaat de inlog door. Zo niet, dan stopt hij hier.",
    "Nog te bevestigen: of het laagste niveau inderdaad telt."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "6",
   "kop": "onderneming kiezen",
   "titel": "Bilal kiest namens welke onderneming hij inlogt",
   "soort": [
-   "Handeling van Bilal",
-   "in de browser",
+   "Handeling",
+   "door Bilal, in de browser",
    "#2d7a46"
   ],
-  "img": "",
-  "domein": "",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "Alleen als Bilal voor meerdere ondernemingen gemachtigd is.",
    "Werkt hij alleen voor Koffiezaak Noon, dan slaat Z-Login deze stap over."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "7",
@@ -722,14 +735,16 @@ const STAPPEN = [
    "door de leverancier",
    "#7a4f8c"
   ],
-  "img": "",
-  "domein": "",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "Z-Login kijkt in het machtigingenregister: mag Bilal namens Koffiezaak Noon het werkgeversportaal van UWV gebruiken?",
    "Karin heeft hem daarvoor gemachtigd (deel 2), dus: ja.",
    "Zonder machtiging stopt de inlog en krijgt UWV een foutmelding."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "8",
@@ -740,14 +755,16 @@ const STAPPEN = [
    "ondertekend, versleuteld voor UWV",
    "#1f5fa8"
   ],
-  "img": "",
-  "domein": "",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "Het pseudoniem is een nummer voor Bilal dat alleen voor UWV betekenis heeft.",
    "Pseudoniem en KvK-nummer zijn versleuteld: alleen UWV kan ze lezen.",
    "De verklaring is een bewering, geen vraag: \"Pseudoniem 124 heeft ingelogd op niveau EH3 en is bevoegd voor dienst Y namens KvK-nummer X.\""
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "9",
@@ -758,13 +775,15 @@ const STAPPEN = [
    "ondertekend, versleuteld voor UWV",
    "#1f5fa8"
   ],
-  "img": "",
-  "domein": "",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "Dit bericht heet de assertion.",
    "De herkenningsmakelaar geeft het alleen door: pseudoniem en KvK-nummer kan hij niet lezen."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "10",
@@ -772,18 +791,20 @@ const STAPPEN = [
   "titel": "UWV laat Bilal binnen",
   "soort": [
    "Resultaat",
-   "ingelogd, geen nieuwe gegevens voor Bilal",
+   "Bilal is ingelogd",
    "#0e7c86"
   ],
-  "img": "",
-  "domein": "werkgeversportaal.uwv.nl",
-  "alt": "",
-  "tekst": [
+  "punten": [
    "UWV controleert de handtekening.",
    "UWV ontsleutelt het KvK-nummer en het pseudoniem.",
    "UWV controleert de machtiging niet zelf: het vertrouwt de verklaring, omdat die van erkende partijen in het stelsel komt.",
    "Bilal is ingelogd in het werkgeversportaal, namens Koffiezaak Noon."
-  ]
+  ],
+  "aannames": [],
+  "vragen": [],
+  "img": "",
+  "domein": "werkgeversportaal.uwv.nl",
+  "alt": ""
  }
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -792,7 +813,7 @@ let paneel, huidig = 0, terugFocus;
 const bouw = () => {
   paneel = document.createElement('aside');
   paneel.id = 'stap-paneel'; paneel.hidden = true; paneel.tabIndex = -1;
-  paneel.setAttribute('aria-label', 'Presentatie: Bilal logt in bij UWV');
+  paneel.setAttribute('aria-label', `Presentatie: ${NAAM}`);
   paneel.innerHTML = `<div class="p-inhoud" aria-live="polite"></div>
     <div class="p-voet"><button type="button" data-sluit aria-label="Presentatie sluiten (Esc)">&times;</button><span class="p-teller"></span>
       <span>&#8592; &#8594; bladeren · Esc sluit</span>
@@ -806,12 +827,15 @@ const bouw = () => {
 };
 const toon = () => {
   const s = STAPPEN[huidig];
+  const punten = [...s.punten.map((p) => esc(p)),
+    ...s.aannames.map((a) => `<strong>Aanname.</strong> ${esc(a)}`),
+    ...s.vragen.map(([v, q, t]) => `<strong>Open vraag ${v}.</strong> ${esc(q)} ${esc(t)}`)];
   paneel.querySelector('.p-inhoud').innerHTML = `
-    <p class="p-label">Bilal logt in bij UWV · Stap ${s.n}${s.domein ? ' · ' + esc(s.domein) : ''}</p>
+    <p class="p-label">${esc(NAAM)} · Stap ${s.n}${s.domein ? ' · ' + esc(s.domein) : ''}</p>
     <h2 class="p-titel">Stap ${s.n} <span>${esc(s.kop)}</span></h2>
-    <p class="p-soort" style="--k:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>
-    <p class="p-tekst"><strong>${esc(s.titel)}</strong></p>
-    <ul class="p-punten">${s.tekst.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+    <p class="p-soort" style="--k:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong>${s.soort[1] ? `<span>${esc(s.soort[1])}</span>` : ''}</p>
+    <p class="p-lead">${esc(s.titel)}</p>
+    <ul class="p-punten">${punten.map((p) => `<li>${p}</li>`).join('')}</ul>
     ${s.img ? `<figure class="p-scherm"><img src="${s.img}" alt="${esc(s.alt)}"></figure><p class="p-bron">Scherm van ${esc(s.domein)}, nagelopen op 20 oktober 2026.</p>` : ''}`;
   paneel.querySelector('.p-inhoud').scrollTop = 0;
   paneel.querySelector('.p-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
@@ -845,13 +869,13 @@ svg.addEventListener('mouseleave', () => hint(null));
 svg.addEventListener('focusin', (e) => hint(e.target.closest?.('[data-stap]')));
 svg.addEventListener('focusout', () => hint(null));
 const index = (n) => STAPPEN.findIndex((s) => s.n === n);
-svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Uitleg bij stap ${t.dataset.stap}`); });
+svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Stap ${t.dataset.stap} presenteren`); });
 svg.addEventListener('click', (e) => {
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
   const el = e.target.closest?.('[data-stap]');
   if (el) open(index(el.dataset.stap));
 });
-document.getElementById('presenteer-flow').addEventListener('click', () => open(0));
+document.getElementById('presenteer-stappen').addEventListener('click', () => open(0));
 window.addEventListener('keydown', (e) => {
   const el = e.target instanceof Element && e.target.dataset?.stap && e.target.closest('#flow-schema') ? e.target : null;
   if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(index(el.dataset.stap)); return; }

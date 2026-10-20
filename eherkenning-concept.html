@@ -12,12 +12,15 @@
     .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
     .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
-    /* Uitleg, aannames en vragen per stap: paneel links, zoals de gegevens per attestatie op het EBW-landschap */
+    /* Presentatie van de stappen: paneel links, de pagina schuift op (zoals op het EBW-landschap) */
     body.met-paneel nldd-shell { margin-left: min(600px, 92vw); width: calc(100vw - min(600px, 92vw)) !important; max-width: calc(100vw - min(600px, 92vw)); }
     body.met-paneel .canvas > svg { min-width: 0; }
     #toekomst-schema [data-stap] { cursor: pointer; }
     #toekomst-schema svg * { transition: opacity 0.4s ease; }
     #toekomst-schema svg.dim [data-stap]:not(.licht) { opacity: 0.2; }
+    #toekomst-schema rect[fill="transparent"][data-stap].is-hover { fill: rgb(255 182 18 / 0.14); stroke: #ffb612; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    #toekomst-schema circle[data-stap].is-hover { stroke: #ffb612; stroke-width: 4; }
+    #toekomst-schema rect[rx="8"][data-stap].is-hover { stroke-width: 2.5; }
     #stap-paneel { position: fixed; top: 0; bottom: 0; left: 0; z-index: 2147483001; box-sizing: border-box; width: min(600px, 92vw);
       display: flex; flex-direction: column; background: #154273; color: #fff; box-shadow: 0 0 24px rgb(0 0 0 / 0.35);
       font-family: "RijksSans", system-ui, sans-serif; animation: paneel-in 0.25s ease both; }
@@ -26,22 +29,22 @@
     @keyframes paneel-in { from { transform: translateX(-24px); opacity: 0; } }
     .p-inhoud { flex: 1; overflow: auto; padding: 32px 32px 24px; }
     .p-label { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: rgb(255 255 255 / 0.85); }
-    .p-titel { margin: 0 0 16px; font-size: 30px; line-height: 1.15; font-weight: 600; }
-    .p-tekst { margin: 0 0 20px; font-size: 18px; line-height: 1.5; }
-    .p-kop { margin: 20px 0 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #ffb612; }
-    .p-kaart { margin: 0 0 12px; padding: 14px 18px; background: #fff; color: #1a1a2e; border-radius: 12px; border-left: 6px dashed #d79b00; }
-    .p-kaart strong { display: block; margin-bottom: 4px; font-size: 16px; }
-    .p-kaart span { font-size: 14px; line-height: 1.5; color: #3a4250; }
-    .p-aanname { border-left: 6px solid #9673a6; }
+    .p-titel { margin: 0 0 16px; font-size: 32px; line-height: 1.15; font-weight: 600; }
+    .p-titel span { display: block; color: #ffb612; font-size: 0.75em; }
+    .p-soort { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0 0 16px; padding: 6px 14px; border-radius: 999px; background: #fff; font-size: 14px; color: #5b6573; }
+    .p-soort strong { color: var(--k); }
+    .p-lead { margin: 0 0 12px; font-size: 18px; line-height: 1.5; font-weight: 700; }
+    .p-punten { margin: 0 0 20px; padding-left: 1.2em; font-size: 17px; line-height: 1.5; }
+    .p-punten li { margin-bottom: 8px; }
+    .p-punten strong { color: #ffb612; }
+    .p-scherm { margin: 0; background: #fff; border-radius: 12px; overflow: hidden; }
+    .p-scherm img { display: block; width: 100%; height: auto; }
+    .p-bron { margin: 8px 0 0; font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-voet { display: flex; align-items: center; gap: 16px; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .p-voet button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff; font: inherit; font-size: 18px; cursor: pointer; }
     .p-voet button:hover { background: rgb(255 255 255 / 0.15); }
     .p-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .p-nav { display: flex; gap: 8px; margin-left: auto; }
-    /* Visuele hint: een stap licht op bij aanwijzen of toetsenbordfocus, zoals de klikbare onderdelen op het EBW-landschap */
-    #toekomst-schema rect[fill="transparent"][data-stap].is-hover { fill: rgb(255 182 18 / 0.14); stroke: #ffb612; stroke-width: 1.5; stroke-dasharray: 4 3; }
-    #toekomst-schema circle[data-stap].is-hover { stroke: #ffb612; stroke-width: 4; }
-    #toekomst-schema rect[rx="8"][data-stap].is-hover { stroke-width: 2.5; }
     @media (prefers-reduced-motion: reduce) { #stap-paneel { animation: none; } #toekomst-schema svg * { transition: none; } }
   </style>
 </head>
@@ -66,9 +69,10 @@
     </nldd-simple-section>
 
     <nldd-simple-section id="toekomst">
-      <nldd-title size="2"><h2>Van klik tot ingelogd op MOZa</h2><p slot="supporting-text">Klik op een stap voor de uitleg, de aannames en de open vragen. Een gestippelde oranje ring om het nummer betekent dat er bij die stap een open vraag is. Stap 10 en 11 zijn nieuw ten opzichte van nu.</p></nldd-title>
+      <nldd-title size="2"><h2>Van klik tot ingelogd op MOZa</h2><p slot="supporting-text">Klik op een stap of presenteer de stappen, voor de uitleg, de aannames en de open vragen. Een gestippelde oranje ring om het nummer betekent dat er bij die stap een open vraag is. Stap 10 en 11 zijn nieuw ten opzichte van nu.</p></nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-button id="stappen-open" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Bekijk de stappen met vragen en aannames"></nldd-button>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen"
+        accessible-label="Presenteer de stappen uit het schema hieronder"></nldd-button>
       <nldd-spacer size="12"></nldd-spacer>
       <div class="canvas" id="toekomst-schema" role="img" aria-labelledby="toekomst-titel toekomst-uitleg">
 <div class="canvas" id="toekomst-schema" role="img" aria-labelledby="toekomst-titel toekomst-uitleg">
@@ -252,12 +256,21 @@
 </nldd-shell>
 
 <script type="module">
-// Klik op een stap opent links de uitleg, aannames en open vragen; pijltjes bladeren, Esc sluit
+// Presentatie van de stappen (gelijk op alle pagina's met een stappenschema)
+const NAAM = "Bilal logt in op MOZa";
 const STAPPEN = [
  {
   "n": "1",
+  "kop": "inloggen kiezen",
   "titel": "Bilal kiest inloggen met eHerkenning op MOZa",
-  "uitleg": "Bilal gaat naar MOZa, het portaal voor ondernemers, en kiest inloggen met eHerkenning.",
+  "soort": [
+   "Handeling",
+   "door Bilal, in de browser",
+   "#2d7a46"
+  ],
+  "punten": [
+   "Bilal gaat naar MOZa, het portaal voor ondernemers, en kiest inloggen met eHerkenning."
+  ],
   "aannames": [
    "MOZa staat als eigen dienst in de dienstencatalogus, met een eigen dienstcode en niveau."
   ],
@@ -267,12 +280,23 @@ const STAPPEN = [
     "Hoe sluit MOZa aan: als één eigen dienst, of als dienstbeaccountaar voor de diensten van UWV, Belastingdienst en RVO?",
     "Dit bepaalt veel van de andere antwoorden. In dit voorstel staat MOZa als eigen dienst in de dienstencatalogus."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "2",
+  "kop": "inlogverzoek",
   "titel": "MOZa stuurt een inlogverzoek naar zijn makelaar",
-  "uitleg": "Net als UWV stuurt MOZa een anoniem inlogverzoek: wie vraagt (MOZa), de dienstcode, het niveau en een terugadres.",
+  "soort": [
+   "Verzoek",
+   "van MOZa, via de browser",
+   "#b46504"
+  ],
+  "punten": [
+   "Net als UWV stuurt MOZa een anoniem inlogverzoek: wie vraagt (MOZa), de dienstcode, het niveau en een terugadres."
+  ],
   "aannames": [
    "MOZa heeft, net als elke dienstverlener, één herkenningsmakelaar. Welke dat wordt, is nog niet gekozen."
   ],
@@ -282,30 +306,63 @@ const STAPPEN = [
     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "3",
+  "kop": "leverancier kiezen",
   "titel": "Bilal selecteert zijn leverancier",
-  "uitleg": "Op het keuzescherm van de makelaar kiest Bilal Z login, de leverancier van Koffiezaak Noon.",
+  "soort": [
+   "Handeling",
+   "door Bilal, in de browser",
+   "#2d7a46"
+  ],
+  "punten": [
+   "Op het keuzescherm van de makelaar kiest Bilal Z login, de leverancier van Koffiezaak Noon."
+  ],
   "aannames": [
    "Dit werkt zoals nu bij UWV."
   ],
-  "vragen": []
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "4",
+  "kop": "inloggen",
   "titel": "Bilal logt in bij Z-Login",
-  "uitleg": "Met het account dat Karin voor hem aanvroeg.",
+  "soort": [
+   "Handeling",
+   "door Bilal, in de browser",
+   "#2d7a46"
+  ],
+  "punten": [
+   "Met het account dat Karin voor hem aanvroeg."
+  ],
   "aannames": [
    "Bilal heeft geen nieuw account nodig: hetzelfde account als voor UWV."
   ],
-  "vragen": []
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "5",
+  "kop": "niveau",
   "titel": "Z-Login controleert het niveau",
-  "uitleg": "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt.",
+  "soort": [
+   "Controle",
+   "door de leverancier",
+   "#7a4f8c"
+  ],
+  "punten": [
+   "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt."
+  ],
   "aannames": [],
   "vragen": [
    [
@@ -313,19 +370,41 @@ const STAPPEN = [
     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "6",
+  "kop": "onderneming kiezen",
   "titel": "Bilal kiest de onderneming",
-  "uitleg": "Alleen als hij voor meerdere ondernemingen gemachtigd is.",
+  "soort": [
+   "Handeling",
+   "door Bilal, in de browser",
+   "#2d7a46"
+  ],
+  "punten": [
+   "Alleen als hij voor meerdere ondernemingen gemachtigd is."
+  ],
   "aannames": [],
-  "vragen": []
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "7",
+  "kop": "machtiging voor MOZa",
   "titel": "Z-Login controleert de machtiging voor MOZa",
-  "uitleg": "In het machtigingenregister staat dat Karin Bilal heeft gemachtigd voor MOZa, of dat hij een stermachtiging heeft voor alle diensten.",
+  "soort": [
+   "Controle",
+   "door de leverancier",
+   "#7a4f8c"
+  ],
+  "punten": [
+   "In het machtigingenregister staat dat Karin Bilal heeft gemachtigd voor MOZa, of dat hij een stermachtiging heeft voor alle diensten."
+  ],
   "aannames": [
    "Karin heeft Bilal gemachtigd voor de dienst MOZa, of hem een stermachtiging gegeven."
   ],
@@ -340,12 +419,23 @@ const STAPPEN = [
     "Hoe werkt een stermachtiging?",
     "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account?"
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "8",
+  "kop": "verklaring",
   "titel": "Z-Login maakt de verklaring voor MOZa",
-  "uitleg": "Een pseudoniem dat alleen voor MOZa betekenis heeft, en het KvK-nummer van Koffiezaak Noon, versleuteld voor MOZa.",
+  "soort": [
+   "Verklaring",
+   "ondertekend, versleuteld voor MOZa",
+   "#1f5fa8"
+  ],
+  "punten": [
+   "Een pseudoniem dat alleen voor MOZa betekenis heeft, en het KvK-nummer van Koffiezaak Noon, versleuteld voor MOZa."
+  ],
   "aannames": [],
   "vragen": [
    [
@@ -358,12 +448,23 @@ const STAPPEN = [
     "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
     "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "9",
+  "kop": "assertion",
   "titel": "De makelaar stuurt de verklaring naar MOZa",
-  "uitleg": "Zoals bij elke dienst: de makelaar geeft het bericht door zonder de inhoud te kunnen lezen.",
+  "soort": [
+   "Verklaring",
+   "doorgegeven door de herkenningsmakelaar",
+   "#1f5fa8"
+  ],
+  "punten": [
+   "Zoals bij elke dienst: de makelaar geeft het bericht door zonder de inhoud te kunnen lezen."
+  ],
   "aannames": [],
   "vragen": [
    [
@@ -371,12 +472,23 @@ const STAPPEN = [
     "In welke vorm ontvangt MOZa de informatie, en hoe ziet dat eruit bij meerdere diensten tegelijk?",
     "Voorlopig antwoord: zoals elke dienst, als één bericht (assertion) via de makelaar, met KvK-nummer, pseudoniem, dienst en niveau."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "10",
+  "kop": "register bevragen",
   "titel": "MOZa bevraagt het machtigingenregister",
-  "uitleg": "Nieuw ten opzichte van nu: MOZa is de schakel naar alle (semi-)overheidsdienstverleners en vraagt bij Z-Login op voor welke diensten Bilal namens Koffiezaak Noon gemachtigd is.",
+  "soort": [
+   "Bevraging",
+   "nieuw: MOZa vraagt het machtigingenregister",
+   "#7a4f8c"
+  ],
+  "punten": [
+   "Nieuw ten opzichte van nu: MOZa is de schakel naar alle (semi-)overheidsdienstverleners en vraagt bij Z-Login op voor welke diensten Bilal namens Koffiezaak Noon gemachtigd is."
+  ],
   "aannames": [
    "MOZa mag daarvoor het register van de leverancier van de onderneming bevragen.",
    "Uit de inlog weet MOZa bij welke leverancier de onderneming zit."
@@ -392,12 +504,24 @@ const STAPPEN = [
     "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
     "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "11",
+  "kop": "diensten",
   "titel": "Z-Login antwoordt met de diensten",
-  "uitleg": "Het antwoord is een lijst, bijvoorbeeld UWV werkgeversportaal, Belastingdienst en RVO. Heeft Bilal een stermachtiging, dan is het antwoord: alle diensten.",
+  "soort": [
+   "Verklaring",
+   "antwoord van de leverancier",
+   "#1f5fa8"
+  ],
+  "punten": [
+   "Het antwoord is een lijst, bijvoorbeeld UWV werkgeversportaal, Belastingdienst en RVO.",
+   "Heeft Bilal een stermachtiging, dan is het antwoord: alle diensten."
+  ],
   "aannames": [
    "Het antwoord noemt alleen diensten, geen gegevens over Bilal zelf."
   ],
@@ -407,19 +531,41 @@ const STAPPEN = [
     "Hoe werkt een stermachtiging?",
     "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont. Geldt de stermachtiging ook voor diensten op een hoger niveau dan zijn account?"
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "12",
+  "kop": "ingelogd",
   "titel": "Bilal is ingelogd op MOZa",
-  "uitleg": "Bilal ziet in MOZa de diensten waarvoor hij namens Koffiezaak Noon gemachtigd is.",
+  "soort": [
+   "Resultaat",
+   "Bilal is ingelogd op MOZa",
+   "#0e7c86"
+  ],
+  "punten": [
+   "Bilal ziet in MOZa de diensten waarvoor hij namens Koffiezaak Noon gemachtigd is."
+  ],
   "aannames": [],
-  "vragen": []
+  "vragen": [],
+  "img": "",
+  "domein": "",
+  "alt": ""
  },
  {
   "n": "13",
+  "kop": "dienst openen",
   "titel": "Bilal opent een dienst vanuit MOZa",
-  "uitleg": "Vanuit MOZa gaat Bilal naar bijvoorbeeld het werkgeversportaal van UWV, bij voorkeur zonder opnieuw in te loggen.",
+  "soort": [
+   "Handeling",
+   "door Bilal, vanuit MOZa",
+   "#2d7a46"
+  ],
+  "punten": [
+   "Vanuit MOZa gaat Bilal naar bijvoorbeeld het werkgeversportaal van UWV, bij voorkeur zonder opnieuw in te loggen."
+  ],
   "aannames": [
    "De dienstverleners blijven zelf aangesloten op eHerkenning, elk via hun eigen makelaar."
   ],
@@ -434,7 +580,10 @@ const STAPPEN = [
     "Welk betrouwbaarheidsniveau geldt voor MOZa, en kan er per dienst een extra stap bij?",
     "Registreert MOZa zich als één dienst op bijvoorbeeld EH3, dan kan iemand met alleen EH2 het portaal niet in. Vraagt MOZa per dienst toegang, dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
    ]
-  ]
+  ],
+  "img": "",
+  "domein": "",
+  "alt": ""
  }
 ];
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -443,9 +592,9 @@ let paneel, huidig = 0, terugFocus;
 const bouw = () => {
   paneel = document.createElement('aside');
   paneel.id = 'stap-paneel'; paneel.hidden = true; paneel.tabIndex = -1;
-  paneel.setAttribute('aria-label', 'Stappen met aannames en open vragen');
+  paneel.setAttribute('aria-label', `Presentatie: ${NAAM}`);
   paneel.innerHTML = `<div class="p-inhoud" aria-live="polite"></div>
-    <div class="p-voet"><button type="button" data-sluit aria-label="Sluiten (Esc)">&times;</button><span class="p-teller"></span>
+    <div class="p-voet"><button type="button" data-sluit aria-label="Presentatie sluiten (Esc)">&times;</button><span class="p-teller"></span>
       <span>&#8592; &#8594; bladeren · Esc sluit</span>
       <span class="p-nav"><button type="button" data-r="-1" aria-label="Vorige">&#8592;</button><button type="button" data-r="1" aria-label="Volgende">&#8594;</button></span></div>`;
   document.body.append(paneel);
@@ -457,14 +606,16 @@ const bouw = () => {
 };
 const toon = () => {
   const s = STAPPEN[huidig];
-  const aannames = s.aannames.map((a) => `<div class="p-kaart p-aanname"><span>${esc(a)}</span></div>`).join('');
-  const vragen = s.vragen.map(([v, q, t]) => `<div class="p-kaart"><strong>${v}. ${esc(q)}</strong><span>${esc(t)}</span></div>`).join('');
+  const punten = [...s.punten.map((p) => esc(p)),
+    ...s.aannames.map((a) => `<strong>Aanname.</strong> ${esc(a)}`),
+    ...s.vragen.map(([v, q, t]) => `<strong>Open vraag ${v}.</strong> ${esc(q)} ${esc(t)}`)];
   paneel.querySelector('.p-inhoud').innerHTML = `
-    <p class="p-label">Concept-voorstel · Stap ${s.n}</p>
-    <h2 class="p-titel">${esc(s.titel)}</h2>
-    <p class="p-tekst">${esc(s.uitleg)}</p>
-    ${aannames ? `<p class="p-kop">Aannames</p>${aannames}` : ''}
-    ${vragen ? `<p class="p-kop">Open vragen</p>${vragen}` : ''}`;
+    <p class="p-label">${esc(NAAM)} · Stap ${s.n}${s.domein ? ' · ' + esc(s.domein) : ''}</p>
+    <h2 class="p-titel">Stap ${s.n} <span>${esc(s.kop)}</span></h2>
+    <p class="p-soort" style="--k:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong>${s.soort[1] ? `<span>${esc(s.soort[1])}</span>` : ''}</p>
+    <p class="p-lead">${esc(s.titel)}</p>
+    <ul class="p-punten">${punten.map((p) => `<li>${p}</li>`).join('')}</ul>
+    ${s.img ? `<figure class="p-scherm"><img src="${s.img}" alt="${esc(s.alt)}"></figure><p class="p-bron">Scherm van ${esc(s.domein)}, nagelopen op 20 oktober 2026.</p>` : ''}`;
   paneel.querySelector('.p-inhoud').scrollTop = 0;
   paneel.querySelector('.p-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
   const [v, w] = paneel.querySelectorAll('[data-r]');
@@ -497,15 +648,15 @@ svg.addEventListener('mouseleave', () => hint(null));
 svg.addEventListener('focusin', (e) => hint(e.target.closest?.('[data-stap]')));
 svg.addEventListener('focusout', () => hint(null));
 const index = (n) => STAPPEN.findIndex((s) => s.n === n);
-svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Uitleg bij stap ${t.dataset.stap}`); });
+svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Stap ${t.dataset.stap} presenteren`); });
 svg.addEventListener('click', (e) => {
   if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
   const el = e.target.closest?.('[data-stap]');
   if (el) open(index(el.dataset.stap));
 });
-document.getElementById('stappen-open').addEventListener('click', () => open(0));
+document.getElementById('presenteer-stappen').addEventListener('click', () => open(0));
 window.addEventListener('keydown', (e) => {
-  const el = e.target instanceof Element && e.target.dataset?.stap ? e.target : null;
+  const el = e.target instanceof Element && e.target.dataset?.stap && e.target.closest('#toekomst-schema') ? e.target : null;
   if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(index(el.dataset.stap)); return; }
   if (!paneel || paneel.hidden || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === 'ArrowRight') { e.preventDefault(); naar(huidig + 1); }
