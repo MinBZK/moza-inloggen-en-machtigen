@@ -48,7 +48,7 @@ Werkafspraken voor deze repo: de concept-roadmap inlog- en machtigingsmiddelen v
 
 - Nederlands, kort en scanbaar. Geen em-dash (gebruik een gewoon streepje).
 - Termen: "machtiging" (niet "mandaat"), "account" (niet "middel"), "herkenningsmakelaar", "leverancier",
-  "het werkgeversportaal van UWV", "gemeente Rotterdam" voluit.
+  "het werkgeversportaal van UWV", "gemeente Rotterdam" voluit, "Z login" (zo schrijft de leverancier het zelf).
 - Persona's: Karin Jansen (eigenaar Koffiezaak Noon), Bilal Yılmaz (werknemer), Yassin Amrani (zzp'er,
   eenmanszaak); avatars uit cx-moza.rijksapp.dev.
 - Elke pagina heeft de AI-melding direct onder de titel en een bronvermelding.
