@@ -38,6 +38,10 @@
     .p-voet button:hover { background: rgb(255 255 255 / 0.15); }
     .p-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .p-nav { display: flex; gap: 8px; margin-left: auto; }
+    /* Visuele hint: een stap licht op bij aanwijzen of toetsenbordfocus, zoals de klikbare onderdelen op het EBW-landschap */
+    #toekomst-schema rect[fill="transparent"][data-stap].is-hover { fill: rgb(255 182 18 / 0.14); stroke: #ffb612; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    #toekomst-schema circle[data-stap].is-hover { stroke: #ffb612; stroke-width: 4; }
+    #toekomst-schema rect[rx="8"][data-stap].is-hover { stroke-width: 2.5; }
     @media (prefers-reduced-motion: reduce) { #stap-paneel { animation: none; } #toekomst-schema svg * { transition: none; } }
   </style>
 </head>
@@ -483,6 +487,15 @@ const sluit = () => {
   svg.classList.remove('dim'); svg.querySelectorAll('.licht').forEach((el) => el.classList.remove('licht'));
   terugFocus?.focus?.({ preventScroll: true });
 };
+// Visuele hint: de hele stap licht op bij aanwijzen of focus
+const hint = (el) => {
+  svg.querySelectorAll('.is-hover').forEach((x) => x.classList.remove('is-hover'));
+  if (el) svg.querySelectorAll(`[data-stap="${el.dataset.stap}"]`).forEach((x) => x.classList.add('is-hover'));
+};
+svg.addEventListener('mouseover', (e) => hint(e.target.closest?.('[data-stap]')));
+svg.addEventListener('mouseleave', () => hint(null));
+svg.addEventListener('focusin', (e) => hint(e.target.closest?.('[data-stap]')));
+svg.addEventListener('focusout', () => hint(null));
 const index = (n) => STAPPEN.findIndex((s) => s.n === n);
 svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Uitleg bij stap ${t.dataset.stap}`); });
 svg.addEventListener('click', (e) => {
