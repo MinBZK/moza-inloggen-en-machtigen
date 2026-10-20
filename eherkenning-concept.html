@@ -30,7 +30,7 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner variant="accent" icon="lightbulb" text="Concept-voorstel" supporting-text="Dit is een voorstel voor de toekomstige situatie, niet een vastgesteld ontwerp. Per stap staan de aannames en de open vragen."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Aanname is dat MOZa optreedt als dienstbemiddelaar voor de diensten van andere dienstverleners, en dat die dienstverleners MOZa daarvoor erkennen. MOZa krijgt daarnaast zelf de rol van dienstverlener, hoogstwaarschijnlijk op EH3 (nog te valideren): de meeste diensten vereisen dat niveau, en zo kan MOZa SSO bieden voor alle diensten op hetzelfde niveau of lager. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen vraagt MOZa bij de leverancier van Koffiezaak Noon op voor welke diensten Bilal gemachtigd is. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
+      <nldd-rich-text><p>Gebaseerd op hoe Bilal nu inlogt bij UWV (<a href="eherkenning-inlogflow.html">Inloggen bij UWV met eHerkenning</a>), maar nu logt hij in op MOZa. MOZa staat als dienst in de dienstencatalogus en Karin heeft Bilal voor MOZa gemachtigd. Aanname is dat MOZa optreedt als dienstbemiddelaar voor de diensten van andere dienstverleners, en dat die dienstverleners MOZa daarvoor erkennen. MOZa krijgt daarnaast zelf de rol van dienstverlener, hoogstwaarschijnlijk op EH3 (nog te valideren): de meeste diensten vereisen dat niveau, en zo kan MOZa SSO bieden voor alle diensten op hetzelfde niveau of lager. Als portaal is MOZa de schakel naar alle (semi-)overheidsdienstverleners: na het inloggen stuurt MOZa een inlogverzoek naar alle (relevante) diensten. Daarvoor zijn twee oplossingsrichtingen: MOZa bevraagt het machtigingenregister van de leverancier, of MOZa weet niet welke diensten relevant zijn en logt in bij de meest voorkomende of bij alle diensten. Het kan ook zijn dat Karin hem met een stermachtiging voor alle diensten heeft gemachtigd.</p></nldd-rich-text>
       <div id="opm-hint"></div>
     </nldd-simple-section>
 
@@ -44,7 +44,7 @@
 <div class="canvas" id="toekomst-schema" role="img" aria-labelledby="toekomst-titel toekomst-uitleg">
 <svg viewBox="0 0 1280 910" xmlns="http://www.w3.org/2000/svg">
   <title id="toekomst-titel">Volgordediagram (concept): Bilal logt in op MOZa met eHerkenning</title>
-  <desc id="toekomst-uitleg">Stap 1: Bilal Yılmaz naar MOZa, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: MOZa naar Herkenningsmakelaar, inlogverzoek (anoniem): MOZa, dienstcode MOZa portaal, EH3. Stap 3: Herkenningsmakelaar naar Leverancier Z login, Bilal selecteert Z login; verzoek doorgestuurd. Stap 4: Bilal Yılmaz naar Leverancier Z login, logt in met zijn account van Z login. Stap 5: Leverancier Z login, controleert niveau voor MOZa. Stap 6: Bilal Yılmaz naar Leverancier Z login, namens Koffiezaak Noon (soms). Stap 7: Leverancier Z login, controleert machtiging voor MOZa. Stap 8: Leverancier Z login naar Herkenningsmakelaar, verklaring: pseudoniem voor MOZa, KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar MOZa, assertion. Stap 10: MOZa naar Leverancier Z login, vraagt het machtigingenregister: voor welke diensten is Bilal gemachtigd?. Stap 11: Leverancier Z login naar MOZa, lijst met diensten, of: stermachtiging (alle diensten). Stap 12: MOZa naar Bilal Yılmaz, ingelogd: ziet zijn diensten. Stap 13: MOZa naar Dienstverleners, Bilal opent een dienst, bij voorkeur zonder opnieuw inloggen.</desc>
+  <desc id="toekomst-uitleg">Stap 1: Bilal Yılmaz naar MOZa, klikt op &quot;Inloggen met eHerkenning&quot;. Stap 2: MOZa naar Herkenningsmakelaar, inlogverzoek (anoniem): MOZa, dienstcode MOZa portaal, EH3. Stap 3: Herkenningsmakelaar naar Leverancier Z login, Bilal selecteert Z login; verzoek doorgestuurd. Stap 4: Bilal Yılmaz naar Leverancier Z login, logt in met zijn account van Z login. Stap 5: Leverancier Z login, controleert niveau voor MOZa. Stap 6: Bilal Yılmaz naar Leverancier Z login, namens Koffiezaak Noon (soms). Stap 7: Leverancier Z login, controleert machtiging voor MOZa. Stap 8: Leverancier Z login naar Herkenningsmakelaar, verklaring: pseudoniem voor MOZa, KvK-nummer versleuteld. Stap 9: Herkenningsmakelaar naar MOZa, assertion. Stap 10: MOZa naar Dienstverleners, inlogverzoek bij alle (relevante) diensten. Stap 11: Dienstverleners, verwerken het inlogverzoek via SSO. Stap 12: MOZa naar Bilal Yılmaz, ingelogd: ziet zijn diensten. Stap 13: MOZa naar Dienstverleners, Bilal opent een dienst, bij voorkeur zonder opnieuw inloggen.</desc>
   <defs>
     <pattern id="toekomst-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
     <marker id="toekomst-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
@@ -115,16 +115,14 @@
   <path data-stap="9" d="M624 612H396" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#toekomst-1f5fa8)"/>
   <circle data-stap="9" cx="640" cy="612" r="12" fill="#1f5fa8"/><text data-stap="9" x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
   <text data-stap="9" x="516" y="604" font-size="11.5" fill="#1f5fa8" text-anchor="middle">assertion</text>
-  <rect data-stap="10" x="378" y="634" width="524" height="54" fill="transparent"/>
-  <path data-stap="10" d="M408 672H884" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#toekomst-7a4f8c)"/>
-  <circle data-stap="10" cx="392" cy="672" r="12" fill="#7a4f8c"/><text data-stap="10" x="392" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
-  <text data-stap="10" x="640" y="650" font-size="11.5" fill="#7a4f8c" text-anchor="middle">vraagt het machtigingenregister:</text>
-  <text data-stap="10" x="640" y="664" font-size="11.5" fill="#7a4f8c" text-anchor="middle">voor welke diensten is Bilal gemachtigd?</text>
-  <rect data-stap="11" x="378" y="694" width="524" height="54" fill="transparent"/>
-  <path data-stap="11" d="M872 732H396" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#toekomst-1f5fa8)"/>
-  <circle data-stap="11" cx="888" cy="732" r="12" fill="#1f5fa8"/><text data-stap="11" x="888" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">11</text>
-  <text data-stap="11" x="640" y="710" font-size="11.5" fill="#1f5fa8" text-anchor="middle">lijst met diensten,</text>
-  <text data-stap="11" x="640" y="724" font-size="11.5" fill="#1f5fa8" text-anchor="middle">of: stermachtiging (alle diensten)</text>
+  <rect data-stap="10" x="378" y="634" width="772" height="54" fill="transparent"/>
+  <path data-stap="10" d="M408 672H1132" stroke="#b46504" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#toekomst-b46504)"/>
+  <circle data-stap="10" cx="392" cy="672" r="12" fill="#b46504"/><text data-stap="10" x="392" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text data-stap="10" x="764" y="650" font-size="11.5" fill="#b46504" text-anchor="middle">inlogverzoek bij alle</text>
+  <text data-stap="10" x="764" y="664" font-size="11.5" fill="#b46504" text-anchor="middle">(relevante) diensten</text>
+  <rect data-stap="11" x="1006" y="716" width="260" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
+  <circle data-stap="11" cx="1006" cy="732" r="12" fill="#7a4f8c"/><text data-stap="11" x="1006" y="736" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">11</text>
+  <text data-stap="11" x="1142" y="736" font-size="11.5" fill="#7a4f8c" text-anchor="middle">verwerken het inlogverzoek</text>
   <rect data-stap="12" x="130" y="754" width="276" height="54" fill="transparent"/>
   <path data-stap="12" d="M376 792H148" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#toekomst-0e7c86)"/>
   <circle data-stap="12" cx="392" cy="792" r="12" fill="#0e7c86"/><text data-stap="12" x="392" y="796" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">12</text>
@@ -153,7 +151,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V2**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?**" supporting-text="Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst. (stap 11, 13)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -171,13 +169,13 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V5**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 11, 12)"></nldd-text-cell>
+          <nldd-text-cell text="**Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?**" supporting-text="Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt. Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie. Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 10, 12)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V6**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?**" supporting-text="Dat is het betere alternatief voor V5: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet. (stap 10, 11, 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?**" supporting-text="Dat is het betere alternatief voor V5: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet. (stap 10, 13)"></nldd-text-cell>
         </nldd-list-item>
       </nldd-list>
     </nldd-simple-section>
@@ -411,22 +409,34 @@
   },
   {
    "n": "10",
-   "kop": "register bevragen",
+   "kop": "inlogverzoek diensten",
    "kenmerken": [
     "Concept-voorstel",
-    "Nieuw: MOZa vraagt het machtigingenregister"
+    "Nieuw: van MOZa, naar de diensten"
    ],
    "soort": [
-    "Bevraging",
-    "nieuw: MOZa vraagt het machtigingenregister",
-    "#7a4f8c"
+    "Verzoek",
+    "nieuw: van MOZa, naar de diensten",
+    "#b46504"
    ],
-   "lead": "MOZa bevraagt het machtigingenregister",
+   "lead": "MOZa stuurt een inlogverzoek naar alle (relevante) diensten",
    "punten": [
-    "Nieuw ten opzichte van nu: MOZa is de schakel naar alle (semi-)overheidsdienstverleners en vraagt bij Z login op voor welke diensten Bilal namens Koffiezaak Noon gemachtigd is."
+    "Nieuw ten opzichte van nu. Er zijn twee mogelijke oplossingsrichtingen.",
+    [
+     "Richting 1: MOZa mag het machtigingenregister bevragen.",
+     [
+      "MOZa logt Bilal dan gericht in bij de diensten die voor hem relevant zijn."
+     ]
+    ],
+    [
+     "Richting 2: MOZa mag het machtigingenregister niet bevragen en weet dus niet welke diensten relevant zijn.",
+     [
+      "Bij de onboarding biedt MOZa de mogelijkheid om automatisch in te loggen bij de meest voorkomende diensten.",
+      "Of MOZa start een inlog bij alle diensten, misschien wel 1500."
+     ]
+    ]
    ],
    "aannames": [
-    "MOZa mag daarvoor het register van de leverancier van de onderneming bevragen.",
     "Uit de inlog weet MOZa bij welke leverancier de onderneming zit.",
     "Karin heeft Bilal naast MOZa ook gemachtigd voor een aantal diensten, bijvoorbeeld het werkgeversportaal van UWV, Mijn Belastingdienst Zakelijk en een subsidiedienst van RVO. Die vragen hetzelfde of een lager niveau (EH3 of lager), dus is Bilal daar via SSO meteen ingelogd."
    ],
@@ -447,6 +457,15 @@
      "Dat is het betere alternatief voor V5: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
     ],
     [
+     "V5",
+     "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
+     [
+      "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
+      "Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie.",
+      "Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
+     ]
+    ],
+    [
      "V3",
      "Is er een grondslag voor MOZa om te zien voor welke diensten iemand namens een onderneming gemachtigd is? (DPIA nodig)",
      "Pseudoniemen voorkomen dat dienstverleners dezelfde persoon koppelen, maar bij MOZa komen de relaties van een onderneming met meerdere overheden samen. Bij een eenmanszaak of vof gaat het al snel om persoonsgegevens."
@@ -457,38 +476,27 @@
   },
   {
    "n": "11",
-   "kop": "diensten",
+   "kop": "SSO",
    "kenmerken": [
     "Concept-voorstel",
-    "Antwoord van de leverancier"
+    "Door de dienstverleners, via SSO"
    ],
    "soort": [
-    "Verklaring",
-    "antwoord van de leverancier",
-    "#1f5fa8"
+    "Controle",
+    "door de dienstverleners, via SSO",
+    "#7a4f8c"
    ],
-   "lead": "Z login antwoordt met de diensten",
+   "lead": "De diensten verwerken het inlogverzoek via SSO",
    "punten": [
-    "Het antwoord is een lijst, bijvoorbeeld UWV werkgeversportaal, Belastingdienst en RVO.",
-    "Heeft Bilal een stermachtiging, dan is het antwoord: alle diensten."
+    "Elke dienst handelt het inlogverzoek af via SSO, zodat Bilal niet opnieuw hoeft in te loggen.",
+    "Bij een dienst op een hoger niveau dan EH3 is een extra stap nodig."
    ],
-   "aannames": [
-    "Het antwoord noemt alleen diensten, geen gegevens over Bilal zelf."
-   ],
+   "aannames": [],
    "vragen": [
     [
-     "V5",
-     "Stel dat Bilal gemachtigd is voor alle diensten in het MOZa portaal, misschien wel 1500: worden er dan 1500 inlogverzoeken verstuurd om te kijken wat hij allemaal mag?",
-     [
-      "Aandachtspunt 1, efficiëntie: alle diensten krijgen onnodig een inlogverzoek en worden daarmee belast, ook de diensten die Bilal nooit gebruikt.",
-      "Aandachtspunt 2, privacy: elke dienst hoort zo van een inlog door Bilal namens Koffiezaak Noon, ook als hij die dienst niet nodig heeft. Dat gaat in tegen het principe van dataminimalisatie.",
-      "Een stermachtiging (alle diensten) maakt dit groter. Hoe vaak die voorkomt, is niet openbaar; Z login noemt het voor ketenmachtigingen een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
-     ]
-    ],
-    [
-     "V6",
-     "Kan MOZa het machtigingenregister van de leverancier direct inzien of bevragen, en alleen voor de diensten waarvoor Bilal gemachtigd is inlogverzoeken versturen?",
-     "Dat is het betere alternatief voor V5: geen onnodige inlogverzoeken en geen onnodige gegevens bij diensten. Nu kan alleen de leverancier van de onderneming het register inzien; of het huidige stelsel dit toestaat, weten we nog niet."
+     "V2",
+     "Ondersteunt de makelaar SSO tussen diensten, ook op hogere betrouwbaarheidsniveaus?",
+     "Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst."
     ]
    ],
    "kaarten": [],
