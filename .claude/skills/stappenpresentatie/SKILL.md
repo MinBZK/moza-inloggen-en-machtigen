@@ -12,7 +12,8 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
 
 ## Wat de gebruiker ziet
 
-- Boven het schema de knop **Presenteer de stappen**.
+- Boven het schema de knop **Presenteer de stappen (Shift+P)**. Shift+P opent de presentatie en sluit hem
+  weer, net als op het EBW-landschap (niet tijdens het typen in een veld).
 - Een klik op een stap of op de knop opent links een paneel (600px); de pagina schuift op en schaalt mee.
 - In het schema blijft de actieve stap op kleur; alle andere stappen dimmen tot 20%.
 - Het paneel:
@@ -23,7 +24,7 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
   - in de opsomming: aannames als **Aanname.** en open vragen als **Open vraag Vn.**
   - gegevens of een echt scherm in een witte kaart; eventueel een bronregel
   - voet: sluiten, teller, "← → bladeren · Esc sluit", vorige/volgende
-- Pijltjestoetsen, Home/End en Esc; Enter of spatie op een stapnummer opent die stap.
+- Shift+P openen/sluiten, pijltjestoetsen, Home/End en Esc; Enter of spatie op een stapnummer opent die stap.
 - Option/Alt + klik blijft voor opmerkingen.
 
 ## Hoe je het toepast
@@ -35,7 +36,7 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
 
    ```html
    <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen"
-     text="Presenteer de stappen" accessible-label="Presenteer de stappen uit het schema hieronder"></nldd-button>
+     text="Presenteer de stappen (Shift+P)" accessible-label="Presenteer de stappen uit het schema hieronder (Shift+P)"></nldd-button>
    <nldd-spacer size="12"></nldd-spacer>
    ```
 
@@ -58,10 +59,14 @@ De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die
    `"rijen": [[veld, waarde, uitleg]]` in plaats van `img`.
 
 4. **Script:** `<script type="module" src="stappen-presentatie.js"></script>` (na het gegevensblok).
-5. **Bouwen en testen:** `python3 build.py`, en lokaal in de browser: knop, klik op een stap, bladeren, Esc.
+5. **Bouwen en testen:** `python3 build.py`, en lokaal in de browser: knop, Shift+P, klik op een stap, bladeren, Esc.
    Een nieuwe pagina moet ook in `PAGES` in `build.py` en in de `COPY` van het `Containerfile`.
 
 ## Valkuilen
+
+- Eén stappenpresentatie per pagina: Shift+P opent die. Heeft een pagina meer presentaties (zoals het
+  EBW-landschap), dan opent Shift+P de keuze tussen de presentaties en houden de knoppen bij de schema's
+  de tekst "Presenteer de stappen".
 
 - Zet nooit een letterlijke script-tag in `stappen-presentatie.js` (ook niet in commentaar): het script
   wordt ingebakken en zo'n tag sluit het te vroeg af. `build.py` controleert hierop.

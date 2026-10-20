@@ -4,7 +4,7 @@
 //
 // Gebruik in een pagina:
 //   - een knop  <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm"
-//                 start-icon="desk-with-screen" text="Presenteer de stappen"></nldd-button>
+//                 start-icon="desk-with-screen" text="Presenteer de stappen (Shift+P)"></nldd-button>
 //   - een schema <div class="canvas" id="..."><svg> met data-stap="n" op alle onderdelen van een stap
 //   - de gegevens als JSON in een script-element van het type application/json met id="stappen-data":
 //     { "naam": ..., "schema": "#id", "stappen": [...] }
@@ -148,7 +148,13 @@ if (bron) {
     if (el) open(index(el.dataset.stap));
   });
   document.getElementById('presenteer-stappen')?.addEventListener('click', () => open(0));
+  // Shift+P opent de presentatie (en sluit hem weer), zoals op het EBW-landschap; niet tijdens typen
+  const inInvoer = (e) => e.composedPath().some((x) => x instanceof HTMLElement && (x.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(x.tagName)));
   window.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.code === 'KeyP' && !e.ctrlKey && !e.metaKey && !e.altKey && !inInvoer(e)) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      return paneel && !paneel.hidden ? sluit() : open(0);
+    }
     const el = e.target instanceof Element && e.target.dataset?.stap && e.target.closest(schema) ? e.target : null;
     if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(index(el.dataset.stap)); return; }
     if (!paneel || paneel.hidden || e.ctrlKey || e.metaKey || e.altKey) return;
