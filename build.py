@@ -16,6 +16,7 @@ DIST = ROOT / 'dist'
 PAGES = ['index.html', 'eherkenning.html', 'ebw.html', 'ebw-landschap.html', 'ebw-flows.html', 'webuild.html', 'eherkenning-inlogflow.html', 'eherkenning-concept.html', 'inloggen.html']
 COMMENTS_JS = '<script type="module" src="opmerkingen.js"></script>'
 TERMS_JS = '<script defer src="begrippen.js"></script>'
+STEPS_JS = '<script type="module" src="stappen-presentatie.js"></script>'
 
 CDN_CSS = '<link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">'
 CDN_JS = '<script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>'
@@ -39,7 +40,10 @@ def main() -> None:
     js = (VENDOR / 'design-system.bundle.mjs').read_text()
     comments = (ROOT / 'opmerkingen.js').read_text()
     terms = (ROOT / 'begrippen.js').read_text()
+    steps = (ROOT / 'stappen-presentatie.js').read_text()
     assert '</script' not in js.lower(), 'bundel bevat </script>, kan niet inline'
+    for naam, inhoud in (('opmerkingen.js', comments), ('begrippen.js', terms), ('stappen-presentatie.js', steps)):
+        assert '</script' not in inhoud.lower() and '<script' not in inhoud.lower(), f'{naam} bevat een script-tag, kan niet inline'
     DIST.mkdir(exist_ok=True)
     for name in PAGES:
         html = (ROOT / name).read_text()
@@ -48,6 +52,7 @@ def main() -> None:
         html = html.replace(CDN_JS, f'<script type="module">\n{js}\n</script>')
         html = html.replace(COMMENTS_JS, f'<script type="module">\n{comments}\n</script>')
         html = html.replace(TERMS_JS, f'<script>\n{terms}\n</script>')
+        html = html.replace(STEPS_JS, f'<script type="module">\n{steps}\n</script>')
         html = re.sub(r'(logos|avatars|schermen)/([\w.-]+\.(?:png|svg|jpg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
         (DIST / name).write_text(html)
         print(f'dist/{name}: {len(html) / 1024 / 1024:.1f} MB')
