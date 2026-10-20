@@ -177,23 +177,17 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V6**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?**" supporting-text="Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten. (stap 2, 5, 13)"></nldd-text-cell>
+          <nldd-text-cell text="**Kan en mag MOZa het machtigingenregister van een leverancier bevragen?**" supporting-text="Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel. (stap 10)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="32px" text="**V7**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Kan en mag MOZa het machtigingenregister van een leverancier bevragen?**" supporting-text="Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel. (stap 10)"></nldd-text-cell>
-        </nldd-list-item>
-        <nldd-list-item>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell vertical-alignment="top" width="32px" text="**V8**"></nldd-text-cell>
-          <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Hoe werkt een stermachtiging, en wat betekent die voor gerichte SSO?**" supporting-text="Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont: bijvoorbeeld de meest gekozen diensten voor dit soort onderneming (zie stap 12). Een stermachtiging verraadt wel minder over de onderneming dan een lijst. Ze geeft geen toegang boven het niveau van het account. Hoe vaak stermachtigingen voorkomen, is niet openbaar; dat weten alleen de leveranciers, en navragen kan bij Logius en leveranciers als Z login en KPN. Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025). (stap 7, 11, 12)"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell vertical-alignment="top" width="32px" text="**V9**"></nldd-text-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**V8**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell text="**Is het mogelijk om het machtigingenregister van een onderneming uit te lezen?**" supporting-text="Nu kan alleen de leverancier van de onderneming dat register inzien. Kan MOZa het uitlezen, zodat het als dienstbemiddelaar gericht SSO kan inzetten voor precies de diensten waarvoor iemand gemachtigd is? (stap 10, 13)"></nldd-text-cell>
         </nldd-list-item>
@@ -271,13 +265,7 @@
     "MOZa krijgt ook de rol van dienstverlener, hoogstwaarschijnlijk op EH3 (nog te valideren). De meeste diensten vereisen dat niveau, en zo kan MOZa SSO bieden voor alle diensten op hetzelfde niveau of lager.",
     "MOZa heeft, net als elke dienstverlener, één herkenningsmakelaar. Welke dat wordt, is nog niet gekozen."
    ],
-   "vragen": [
-    [
-     "V6",
-     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
-     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
-    ]
-   ],
+   "vragen": [],
    "kaarten": [],
    "bron": ""
   },
@@ -342,15 +330,10 @@
     "Het niveau van Bilals account moet minstens zijn wat MOZa vraagt: EH3."
    ],
    "aannames": [
-    "MOZa vraagt EH3 (nog te valideren)."
+    "MOZa vraagt EH3 (nog te valideren).",
+    "De herkenningsmakelaar ondersteunt een extra stap per dienst bij een hoger niveau. Als dienstbemiddelaar vraagt MOZa per dienst toegang: iemand logt in op het laagste niveau en zet alleen bij een dienst met een hoger niveau een extra stap."
    ],
-   "vragen": [
-    [
-     "V6",
-     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
-     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
-    ]
-   ],
+   "vragen": [],
    "kaarten": [],
    "bron": ""
   },
@@ -401,7 +384,7 @@
      "Een alternatief voor het bevragen van het machtigingenregister na het inloggen (stap 10)."
     ],
     [
-     "V8",
+     "V7",
      "Hoe werkt een stermachtiging, en wat betekent die voor gerichte SSO?",
      "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont: bijvoorbeeld de meest gekozen diensten voor dit soort onderneming (zie stap 12). Een stermachtiging verraadt wel minder over de onderneming dan een lijst. Ze geeft geen toegang boven het niveau van het account. Hoe vaak stermachtigingen voorkomen, is niet openbaar; dat weten alleen de leveranciers, en navragen kan bij Logius en leveranciers als Z login en KPN. Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
     ]
@@ -490,12 +473,12 @@
    ],
    "vragen": [
     [
-     "V7",
+     "V6",
      "Kan en mag MOZa het machtigingenregister van een leverancier bevragen?",
      "Het afsprakenstelsel kent zo’n bevraging nu niet, en elk register is van een andere leverancier. MOZa moet ook weten bij welke leverancier de onderneming zit; uit de inlog blijkt dat wel."
     ],
     [
-     "V9",
+     "V8",
      "Is het mogelijk om het machtigingenregister van een onderneming uit te lezen?",
      "Nu kan alleen de leverancier van de onderneming dat register inzien. Kan MOZa het uitlezen, zodat het als dienstbemiddelaar gericht SSO kan inzetten voor precies de diensten waarvoor iemand gemachtigd is?"
     ],
@@ -530,7 +513,7 @@
    ],
    "vragen": [
     [
-     "V8",
+     "V7",
      "Hoe werkt een stermachtiging, en wat betekent die voor gerichte SSO?",
      "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont: bijvoorbeeld de meest gekozen diensten voor dit soort onderneming (zie stap 12). Een stermachtiging verraadt wel minder over de onderneming dan een lijst. Ze geeft geen toegang boven het niveau van het account. Hoe vaak stermachtigingen voorkomen, is niet openbaar; dat weten alleen de leveranciers, en navragen kan bij Logius en leveranciers als Z login en KPN. Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
     ]
@@ -560,7 +543,7 @@
    ],
    "vragen": [
     [
-     "V8",
+     "V7",
      "Hoe werkt een stermachtiging, en wat betekent die voor gerichte SSO?",
      "Met een stermachtiging mag Bilal alle diensten gebruiken. Het register geeft dan geen lijst, dus MOZa bepaalt zelf welke diensten het toont: bijvoorbeeld de meest gekozen diensten voor dit soort onderneming (zie stap 12). Een stermachtiging verraadt wel minder over de onderneming dan een lijst. Ze geeft geen toegang boven het niveau van het account. Hoe vaak stermachtigingen voorkomen, is niet openbaar; dat weten alleen de leveranciers, en navragen kan bij Logius en leveranciers als Z login en KPN. Z login kent dit voor ketenmachtigingen al als een Algemene bevoegdheid (handleiding Z login ketenmachtigingen 1.1, okt 2025)."
     ]
@@ -586,7 +569,8 @@
    ],
    "aannames": [
     "De dienstverleners blijven zelf aangesloten op eHerkenning, elk via hun eigen makelaar.",
-    "Omdat Bilal op EH3 bij MOZa is ingelogd, kan MOZa SSO bieden voor alle diensten op EH3 of lager. Alleen voor een dienst op EH4 is een extra stap nodig."
+    "Omdat Bilal op EH3 bij MOZa is ingelogd, kan MOZa SSO bieden voor alle diensten op EH3 of lager. Alleen voor een dienst op EH4 is een extra stap nodig.",
+    "De herkenningsmakelaar ondersteunt een extra stap per dienst bij een hoger niveau. Als dienstbemiddelaar vraagt MOZa per dienst toegang: iemand logt in op het laagste niveau en zet alleen bij een dienst met een hoger niveau een extra stap."
    ],
    "vragen": [
     [
@@ -595,14 +579,9 @@
      "Gewenst: vanuit MOZa directe toegang tot UWV, Belastingdienst en RVO, bij voorkeur zonder opnieuw inloggen per dienst."
     ],
     [
-     "V9",
+     "V8",
      "Is het mogelijk om het machtigingenregister van een onderneming uit te lezen?",
      "Nu kan alleen de leverancier van de onderneming dat register inzien. Kan MOZa het uitlezen, zodat het als dienstbemiddelaar gericht SSO kan inzetten voor precies de diensten waarvoor iemand gemachtigd is?"
-    ],
-    [
-     "V6",
-     "Ondersteunt de herkenningsmakelaar een extra stap per dienst bij een hoger niveau?",
-     "Als dienstbemiddelaar vraagt MOZa per dienst toegang. Dan kan iemand op het laagste niveau inloggen en alleen bij een dienst met een hoger niveau een extra stap zetten."
     ]
    ],
    "kaarten": [],
