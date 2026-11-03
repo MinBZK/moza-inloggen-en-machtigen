@@ -28,7 +28,7 @@
     }
     @media (max-width: 767px) { #roadmap-table { --label-w: 220px; } }
     .g-row { display: grid; grid-template-columns: var(--label-w) 1fr; min-height: 34px; position: relative; }
-    .g-row[hidden], .g-summary[hidden] { display: none; }
+    .g-row[hidden] { display: none; }
     .g-label {
       position: sticky; left: 0; z-index: 3;
       display: flex; align-items: center; gap: 6px;
@@ -38,7 +38,7 @@
     }
     .g-track { position: relative; }
     .g-track > * { position: absolute; z-index: 1; }
-    .g-head { position: sticky; top: 0; z-index: 4; background-color: var(--semantics-surfaces-base-background-color);
+    .g-head { position: sticky; top: 0; z-index: 6; background-color: var(--semantics-surfaces-base-background-color);
       box-shadow: 0 1px 0 var(--semantics-surfaces-base-border-color); }
     .g-head .g-label { z-index: 5; font-weight: 700; align-items: flex-end; padding-bottom: 8px; }
     .g-axis { display: grid; padding-top: 8px; }
@@ -50,9 +50,11 @@
       background-color: var(--semantics-surfaces-tinted-background-color); }
     .g-section + .g-group { margin-top: 0; border-top: 0; }
     /* Kop per type onderneming: sterker dan de kop per middel */
-    .g-section { margin-top: 28px; border-top: 3px solid var(--primitives-color-accent-500);
+    /* Kop per type plakt onder de tijdas tot de kop van het volgende type hem wegduwt */
+    .g-block { margin-top: 28px; }
+    .g-head + .g-grid + .g-block { margin-top: 0; }
+    .g-section { position: sticky; top: var(--head-h, 56px); z-index: 4; border-top: 3px solid var(--primitives-color-accent-500);
       background-color: var(--primitives-color-accent-100); }
-    .g-head + .g-grid + .g-section { margin-top: 0; }
     .g-section .g-label { grid-column: 1 / -1; box-shadow: none; padding-top: 12px; padding-bottom: 12px; background-color: var(--primitives-color-accent-100); }
     .g-group .g-label { padding-top: 12px; padding-bottom: 10px; background-color: var(--semantics-surfaces-tinted-background-color); }
     .g-group img { display: block; }
@@ -79,8 +81,6 @@
       background-color: var(--primitives-color-robijnrood-500); z-index: 2; }
     .mark.open { background-color: var(--semantics-surfaces-base-background-color); border: 2px dashed var(--primitives-color-robijnrood-500); }
     .mark.alt { opacity: .55; width: 9px; height: 9px; margin-left: -4.5px; top: 12.5px; }
-    .g-summary { inset: 0; }
-    .g-summary > * { position: absolute; }
     .mark-label { top: 9px; font-size: 12px; white-space: nowrap; color: var(--primitives-color-robijnrood-600); font-weight: 700; z-index: 2;
       background-color: color-mix(in srgb, var(--semantics-surfaces-base-background-color) 80%, transparent); padding: 0 3px; }
     .geldt { top: 16px; height: 2px; background-color: var(--primitives-color-robijnrood-500); opacity: .45; }
@@ -774,19 +774,16 @@ const releaseRow = (lane, r, host = lane) => {
   </div>`;
 };
 
-// Kaders per wallet in- of uitgeklapt; ingeklapt staan alle data als ruit op één regel. Onthouden in deze browser.
+// Kaders per wallet in- of uitgeklapt. Onthouden in deze browser.
 const KADER_KEY = 'roadmap-kaders-open';
 const openKaders = () => { try { return new Set(JSON.parse(localStorage.getItem(KADER_KEY) || '[]')); } catch { return new Set(); } };
 const kaderToggleRow = (lane, kaders, isOpen) => `
   <div class="g-row g-sub" data-kader-toggle-row="${lane.id}">
     <div class="g-label"><nldd-button appearance="neutral-transparent" size="xs" data-toggle-kaders="${lane.id}" aria-expanded="${isOpen}"
       start-icon="${isOpen ? 'chevron-down' : 'chevron-right'}" text="Kaders EU en NL (${kaders.length})"></nldd-button></div>
-    <div class="g-track"><span class="g-summary"${isOpen ? ' hidden' : ''}>${kaders.map((k) => marksOf(k, false)).join('')}</span></div>
+    <div class="g-track"></div>
   </div>`;
 
-// Sporen waarvan de planning nog nader te bepalen is
-const TBD_LANES = new Set(['ebw', 'edi']);
-const tbdTag = (lane) => TBD_LANES.has(lane.id) ? '<nldd-tag size="sm" color="neutral" icon="clock" text="Nader te bepalen"></nldd-tag>' : '';
 const laneHead = (lane) => {
   const title = GROUP_TITLE[lane.id] || lane.name;
   return `<div class="g-row g-group" id="spoor-${lane.id}">
@@ -794,7 +791,7 @@ const laneHead = (lane) => {
       ${LOGOS[lane.id] ? laneLogo(lane) : ''}
       <nldd-container layout="wrap" gap="8" vertical-alignment="center">
         ${LOGOS[lane.id] ? '' : `<nldd-icon icon="${lane.icon}" size="20" color="${lane.color}"></nldd-icon>`}
-        <nldd-title size="5"><h3>${esc(title)}</h3></nldd-title>${tbdTag(lane)}
+        <nldd-title size="5"><h3>${esc(title)}</h3></nldd-title>
       </nldd-container>
       ${infoLink(lane.id)}
     </nldd-container></div>
@@ -822,7 +819,7 @@ const renderGantt = () => {
   const showToday = todayAt >= START && todayAt <= START + TOTAL;
   table.innerHTML = `${ganttHeader}
     <div class="g-grid" aria-hidden="true">${lines}${showToday ? `<span class="today" style="left:${pct(todayAt)}"></span><span class="g-today-label" style="left:${pct(todayAt)}">vandaag</span>` : ''}</div>
-    ${GANTT_SECTIONS.map((sec) => `
+    ${GANTT_SECTIONS.map((sec) => `<div class="g-block">
     <div class="g-row g-section" id="type-${sec.id}">
       <div class="g-label"><nldd-title size="4"><h3>${esc(sec.title)}</h3><p slot="supporting-text">${esc(sec.sub)}</p></nldd-title></div>
     </div>${sec.lanes.map(({ id, extra = [], skip = [] }) => {
@@ -838,8 +835,12 @@ const renderGantt = () => {
         + kaders.map(kaderRow).join('').replaceAll('data-kader-of=', isOpen ? 'data-kader-of=' : 'hidden data-kader-of=')
         + `<div class="g-row g-sub"><div class="g-label">MOZa</div><div class="g-track"></div></div>`
         + rows;
-    }).join('')}`).join('')}`;
+    }).join('')}</div>`).join('')}`;
+  setHeadHeight();
 };
+// Hoogte van de tijdas, zodat de kop per type er net onder plakt
+const setHeadHeight = () => table.style.setProperty('--head-h', `${table.querySelector('.g-head').offsetHeight}px`);
+addEventListener('resize', setHeadHeight);
 renderGantt();
 
 const toggleKaders = (laneId) => {
@@ -849,7 +850,6 @@ const toggleKaders = (laneId) => {
   try { localStorage.setItem(KADER_KEY, JSON.stringify([...opened])); } catch { /* geen opslag: alleen voor nu */ }
   table.querySelectorAll(`[data-kader-of="${laneId}"]`).forEach((row) => { row.hidden = !isOpen; });
   const row = table.querySelector(`[data-kader-toggle-row="${laneId}"]`);
-  row.querySelector('.g-summary').hidden = isOpen;
   const btn = row.querySelector('[data-toggle-kaders]');
   btn.setAttribute('aria-expanded', String(isOpen));
   btn.setAttribute('start-icon', isOpen ? 'chevron-down' : 'chevron-right');
