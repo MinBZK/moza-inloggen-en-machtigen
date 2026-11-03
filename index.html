@@ -41,9 +41,10 @@
     .g-head { position: sticky; top: 0; z-index: 4; background-color: var(--semantics-surfaces-base-background-color);
       box-shadow: 0 1px 0 var(--semantics-surfaces-base-border-color); }
     .g-head .g-label { z-index: 5; font-weight: 700; align-items: flex-end; padding-bottom: 8px; }
-    .g-axis { display: grid; grid-template-columns: repeat(19, 1fr); padding-top: 8px; }
+    .g-axis { display: grid; padding-top: 8px; }
     .g-year { font-size: 13px; padding: 0 0 2px 6px; white-space: nowrap; overflow: hidden; border-left: 2px solid var(--semantics-surfaces-base-border-color); }
     .g-tert { font-size: 11px; color: var(--semantics-content-secondary-color); padding: 0 0 8px 6px; white-space: nowrap; }
+    .g-tert.now { font-weight: 700; color: var(--semantics-content-color, inherit); }
     /* Scheiding tussen de middelen: getinte kopregel per spoor met een lijn erboven */
     .g-group { margin-top: 12px; border-top: 2px solid var(--primitives-color-neutral-300);
       background-color: var(--semantics-surfaces-tinted-background-color); }
@@ -700,16 +701,20 @@ const kaderTag = (code, size = 'sm') => {
 
 // Roadmap als balkenplanning, opgebouwd zoals de roadmap op mijnoverheidzakelijk.nl: per spoor één regel per
 // release, in één oogopslag over alle jaren. Bij de wallets staan ook de externe kaders (in- en uitklapbaar).
-// Een regel aanklikken opent de verdieping. Tijdas in maanden vanaf oktober 2026 (T3 2026, fase 5).
-const AXIS = [T3_2026, ...TERTIALS];
-const TOTAL = AXIS.length * 4;
+// Een regel aanklikken opent de verdieping. Tijdas in maanden (0 is oktober 2026); de as loopt mee met de datum:
+// hij begint bij het tertiaal waarin we nu zitten, afgelopen tertialen vallen eraf.
 const mo = (y, m, d = 1) => (y - 2026) * 12 + (m - 10) + (d - 1) / 31;
 const at = (date) => mo(...date);
-const pct = (m) => `${(Math.max(0, Math.min(TOTAL, m)) / TOTAL) * 100}%`;
-const span = (from, to) => `left:${pct(from)};width:calc(${pct(to)} - ${pct(from)})`;
 const tStart = (id) => { const [y, n] = id.split('-').map(Number); return mo(y, { 1: 2, 2: 6, 3: 10 }[n]); };
 const NOW = new Date();
 const todayAt = mo(NOW.getFullYear(), NOW.getMonth() + 1, NOW.getDate());
+const ALL_TERTIALS = [T3_2026, ...TERTIALS];
+const CURRENT = ALL_TERTIALS.find((t) => todayAt >= tStart(t.id) && todayAt < tStart(t.id) + 4);
+const AXIS = ALL_TERTIALS.filter((t) => tStart(t.id) + 4 > todayAt).concat(ALL_TERTIALS.slice(-1)).filter((t, i, l) => l.indexOf(t) === i);
+const START = tStart(AXIS[0].id);
+const TOTAL = AXIS.length * 4;
+const pct = (m) => `${(Math.max(0, Math.min(TOTAL, m - START)) / TOTAL) * 100}%`;
+const span = (from, to) => `left:${pct(from)};width:calc(${pct(to)} - ${pct(from)})`;
 
 // Volgorde in de planning: de persoonlijke wallet boven de business wallet (de EBW steunt erop)
 // Indeling naar type onderneming, niet naar middel. Per type alleen de middelen die ertoe doen.
@@ -733,7 +738,7 @@ const SURE = {
   scenario: { text: 'Scenario', icon: 'circle-dashed' },
 };
 const markClass = (m) => `mark${m.sure === 'vast' || m.sure === 'interpretatie' ? '' : ' open'}${m.alt ? ' alt' : ''}`;
-const marksOf = (k, labels) => k.marks.map((m) => `<span class="${markClass(m)}" title="${esc(`${m.date}: ${m.what}`)}" style="left:${pct(at(m.at))}"></span>`
+const marksOf = (k, labels) => k.marks.filter((m) => at(m.at) >= START).map((m) => `<span class="${markClass(m)}" title="${esc(`${m.date}: ${m.what}`)}" style="left:${pct(at(m.at))}"></span>`
   + (labels && m.label ? `<span class="mark-label" style="left:calc(${pct(at(m.at))} + 9px)">${esc(m.label)}</span>` : '')).join('');
 
 const rowLabel = (laneId, code, text, extra = '') => `<div class="g-label">
@@ -800,21 +805,21 @@ const laneHead = (lane) => {
 const ganttHeader = `
   <div class="g-row g-head">
     <div class="g-label">Onderdeel</div>
-    <div class="g-axis">
+    <div class="g-axis" style="grid-template-columns: repeat(${AXIS.length}, 1fr)">
       ${[...new Set(AXIS.map((t) => t.year))].map((y) => {
         const first = AXIS.findIndex((t) => t.year === y);
         const n = AXIS.filter((t) => t.year === y).length;
         return `<div class="g-year" style="grid-column: ${first + 1} / span ${n}"><b>${y}</b>${YEAR_THEMES[y] && n === 3 ? ` · ${YEAR_THEMES[y]}` : ''}</div>`;
       }).join('')}
-      ${AXIS.map((t, i) => `<div class="g-tert" style="grid-row: 2; grid-column: ${i + 1}" title="${esc(t.months || 'okt 2026 - jan 2027')}">T${t.n} · F${t.phase}</div>`).join('')}
+      ${AXIS.map((t, i) => `<div class="g-tert${t === CURRENT ? ' now' : ''}" style="grid-row: 2; grid-column: ${i + 1}" title="${esc(`${t.months}${t === CURRENT ? ', loopt nu' : ''}`)}">T${t.n} · F${t.phase}${t === CURRENT ? ' · nu' : ''}</div>`).join('')}
     </div>
   </div>`;
 
 const table = document.getElementById('roadmap-table');
 const renderGantt = () => {
   const opened = openKaders();
-  const lines = Array.from({ length: AXIS.length + 1 }, (_, i) => `<span class="${i > 0 && (i - 1) % 3 === 0 ? 'year' : ''}" style="left:${pct(i * 4)}"></span>`).join('');
-  const showToday = todayAt >= 0 && todayAt <= TOTAL;
+  const lines = [...AXIS, null].map((t, i) => `<span class="${i > 0 && (!t || t.n === 1) ? 'year' : ''}" style="left:${pct(START + i * 4)}"></span>`).join('');
+  const showToday = todayAt >= START && todayAt <= START + TOTAL;
   table.innerHTML = `${ganttHeader}
     <div class="g-grid" aria-hidden="true">${lines}${showToday ? `<span class="today" style="left:${pct(todayAt)}"></span><span class="g-today-label" style="left:${pct(todayAt)}">vandaag</span>` : ''}</div>
     ${GANTT_SECTIONS.map((sec) => `
@@ -868,7 +873,7 @@ table.addEventListener('focusin', (e) => highlightDeps(releaseKey(e)));
 table.addEventListener('focusout', () => highlightDeps(null));
 
 // Wat de ondernemer per tertiaal merkt
-document.getElementById('ervaring-lijst').innerHTML = AXIS.filter((t) => EXPERIENCE[t.id]).map((t) => `
+document.getElementById('ervaring-lijst').innerHTML = ALL_TERTIALS.filter((t) => EXPERIENCE[t.id]).map((t) => `
   <nldd-list-item>
     <nldd-spacer-cell size="12"></nldd-spacer-cell>
     <nldd-text-cell width="132px" vertical-alignment="top" text="**${t.label}**" supporting-text="Fase ${t.phase}"></nldd-text-cell>
