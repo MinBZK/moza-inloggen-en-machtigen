@@ -12,10 +12,15 @@
 // Een stap: { n, kop, kenmerken: [..], soort: [naam, uitleg, kleur], lead, punten: [tekst of [tekst, [subpunten]]],
 //             opties: { tekst, items: [[label, tekst, [subpunten]]] }, aannames: [..],
 //             vragen: [[V1, vraag, toelichting of [subpunten]]], kaarten: [{ label, titel, bij, img, alt, rijen: [[veld, waarde, uitleg]] }], bron }
+// Optioneel "reeks": meerdere presentaties op losse pagina's met één overzicht (slide 0), zoals op het EBW-landschap:
+//   { titel, sub, items: [{ href, soort, naam, uitleg, stappen }] }. Het paneel krijgt dan "← Alle presentaties",
+//   terug vanaf de eerste stap gaat naar het overzicht, en ?presentatie (zonder #) opent het overzicht,
+//   ?presentatie#/n opent de presentatie van deze pagina op stap n.
 
 const bron = document.getElementById('stappen-data');
 if (bron) {
-  const { naam: NAAM, schema, stappen: STAPPEN, stapnaam: STAP = 'Stap' } = JSON.parse(bron.textContent);
+  const { naam: NAAM, schema, stappen: STAPPEN, stapnaam: STAP = 'Stap', reeks: REEKS } = JSON.parse(bron.textContent);
+  const hier = location.pathname.split('/').pop() || 'index.html';
   const svg = document.querySelector(`${schema} svg`);
   const stijl = document.createElement('style');
   stijl.textContent = `
@@ -78,6 +83,39 @@ if (bron) {
     .att-voet button:hover { background: rgb(255 255 255 / 0.15); }
     .att-voet button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) { #att-overlay { animation: none; } }
+    /* Overzicht van alle presentaties in een reeks (slide 0), gelijk aan het EBW-landschap */
+    .att-balk { padding: 16px 32px 0; }
+    .att-overzicht { font: inherit; font-size: 14px; color: #fff; background: transparent; border: 1px solid rgb(255 255 255 / 0.45); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .att-overzicht:hover { background: rgb(255 255 255 / 0.15); }
+    .att-overzicht:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
+    #pres-keuze {
+      --pres-pad: clamp(24px, 3.5vw, 72px);
+      position: fixed; inset: 0; z-index: 2147483002; box-sizing: border-box; overflow: auto;
+      display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4vh, 48px);
+      padding: var(--pres-pad); color: #fff; font-family: "RijksSans", system-ui, sans-serif;
+      background: radial-gradient(120% 140% at 0% 0%, #1d4f86 0%, #1a3a66 48%, #172b4f 100%);
+    }
+    #pres-keuze[hidden] { display: none; }
+    #pres-keuze:focus { outline: none; }
+    #pres-keuze .pres-titel { margin: 0; font-size: clamp(36px, min(4.4vw, 7.5vh), 92px); line-height: 1.04; font-weight: 700; letter-spacing: -0.01em; }
+    #pres-keuze .pres-titel span { display: block; color: #ffb612; }
+    @keyframes pres-in { from { opacity: 0; transform: translateY(8px); } }
+    .keuze-opties { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(16px, 2vw, 32px); max-width: 1400px; }
+    .keuze-opties button {
+      display: flex; flex-direction: column; gap: 12px; text-align: left; font: inherit; color: #fff; cursor: pointer;
+      padding: clamp(20px, 2.5vw, 40px); background: rgb(255 255 255 / 0.08); border: 1px solid rgb(255 255 255 / 0.3);
+      border-radius: 16px; animation: pres-in 0.6s ease both;
+    }
+    .keuze-opties button + button { animation-delay: 0.1s; }
+    .keuze-opties button:hover { background: rgb(255 255 255 / 0.16); }
+    .keuze-opties button:focus-visible { outline: 3px solid #ffb612; outline-offset: 3px; }
+    .keuze-opties button[aria-current] { border-color: #ffb612; }
+    .keuze-nr { color: #ffb612; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: clamp(12px, 1vw, 16px); }
+    .keuze-naam { font-size: clamp(22px, min(2vw, 3.6vh), 36px); font-weight: 700; line-height: 1.1; }
+    .keuze-uitleg { font-size: clamp(15px, min(1.1vw, 2vh), 20px); line-height: 1.45; color: rgb(255 255 255 / 0.85); }
+    .keuze-voet { display: flex; align-items: center; gap: 16px; font-size: 14px; color: rgb(255 255 255 / 0.7); }
+    .keuze-voet button { font: inherit; color: #fff; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+    @media (prefers-reduced-motion: reduce) { .keuze-opties button { animation: none; } }
 `;
   document.head.append(stijl);
   const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -89,7 +127,7 @@ if (bron) {
     paneel = document.createElement('aside');
     paneel.id = 'att-overlay'; paneel.hidden = true; paneel.tabIndex = -1;
     paneel.setAttribute('aria-label', `Presentatie: ${NAAM}`);
-    paneel.innerHTML = `<div class="att-inhoud" aria-live="polite"></div>
+    paneel.innerHTML = `${REEKS ? '<div class="att-balk"><button type="button" class="att-overzicht" data-overzicht>&#8592; Alle presentaties</button></div>' : ''}<div class="att-inhoud" aria-live="polite"></div>
       <div class="att-voet">
         <button type="button" data-att-close aria-label="Presentatie sluiten (Esc)">&times;</button>
         <span class="att-teller"></span>
@@ -100,6 +138,7 @@ if (bron) {
     paneel.addEventListener('click', (e) => {
       const k = e.target.closest('button'); if (!k) return;
       if (k.hasAttribute('data-att-close')) return sluit();
+      if (k.hasAttribute('data-overzicht')) return openKeuze();
       naar(huidig + Number(k.dataset.richting));
     });
   };
@@ -139,7 +178,9 @@ if (bron) {
     inhoud.scrollTop = 0;
     paneel.querySelector('.att-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
     const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');
-    vorige.disabled = huidig === 0; volgende.disabled = huidig === STAPPEN.length - 1;
+    // In een reeks gaat terug vanaf de eerste stap naar het overzicht
+    vorige.disabled = huidig === 0 && !REEKS; volgende.disabled = huidig === STAPPEN.length - 1;
+    if (REEKS) history.replaceState(null, '', `${location.pathname}?presentatie#/${huidig}`);
     svg.classList.add('pres-dim');
     svg.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
     const doel = svg.querySelectorAll(`[data-stap="${s.n}"]`);
@@ -151,7 +192,10 @@ if (bron) {
       setTimeout(() => { const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) el.scrollIntoView({ block: 'center' }); }, 800);
     }
   };
-  const naar = (i) => { huidig = Math.max(0, Math.min(STAPPEN.length - 1, i)); toon(); };
+  const naar = (i) => {
+    if (i < 0 && REEKS) return openKeuze();
+    huidig = Math.max(0, Math.min(STAPPEN.length - 1, i)); toon();
+  };
   const open = (i) => {
     if (!paneel) bouw();
     if (paneel.hidden) terugFocus = document.activeElement;
@@ -161,7 +205,52 @@ if (bron) {
     if (!paneel || paneel.hidden) return;
     paneel.hidden = true; document.body.classList.remove('met-paneel');
     svg.classList.remove('pres-dim'); svg.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
+    if (REEKS) history.replaceState(null, '', location.pathname);
     terugFocus?.focus?.({ preventScroll: true });
+  };
+  // Slide 0: overzicht van alle presentaties in de reeks; een andere presentatie opent op zijn eigen pagina
+  let keuze, keuzeFocus;
+  const items = REEKS?.items || [];
+  const openKeuze = () => {
+    if (!REEKS) return;
+    if (paneel && !paneel.hidden) sluit();
+    if (!keuze) {
+      keuze = document.createElement('div');
+      keuze.id = 'pres-keuze'; keuze.tabIndex = -1;
+      keuze.setAttribute('role', 'dialog'); keuze.setAttribute('aria-modal', 'true'); keuze.setAttribute('aria-label', 'Kies een presentatie');
+      keuze.innerHTML = `
+        <h2 class="pres-titel">${esc(REEKS.titel)} <span>${esc(REEKS.sub)}</span></h2>
+        <div class="keuze-opties">${items.map((x, i) => `
+          <button type="button" data-kies="${i}"${x.href === hier ? ' aria-current="page"' : ''}>
+            <span class="keuze-nr">Presentatie ${i + 1} · ${esc(x.soort)} · ${x.stappen} ${x.stappen === 1 ? 'slide' : 'slides'}</span>
+            <span class="keuze-naam">${esc(x.naam)}</span>
+            <span class="keuze-uitleg">${esc(x.uitleg)}</span>
+          </button>`).join('')}
+        </div>
+        <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>Kies met 1 tot en met ${items.length} · Esc sluit</span></div>`;
+      document.body.append(keuze);
+      keuze.addEventListener('click', (e) => {
+        const k = e.target.closest('button'); if (!k) return;
+        if (k.hasAttribute('data-sluit')) return sluitKeuze();
+        kies(Number(k.dataset.kies));
+      });
+    }
+    if (keuze.hidden !== false) keuzeFocus = document.activeElement;
+    keuze.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    history.replaceState(null, '', `${location.pathname}?presentatie`);
+    (keuze.querySelector('[aria-current]') || keuze.querySelector('[data-kies]')).focus();
+  };
+  const sluitKeuze = (terug = true) => {
+    if (!keuze || keuze.hidden) return;
+    keuze.hidden = true;
+    document.documentElement.style.overflow = '';
+    if (terug) { history.replaceState(null, '', location.pathname); keuzeFocus?.focus?.({ preventScroll: true }); }
+  };
+  const kies = (i) => {
+    const x = items[i]; if (!x) return;
+    if (x.href === hier) { sluitKeuze(false); open(0); }
+    else location.href = `${x.href}?presentatie#/0`;
   };
   const index = (n) => STAPPEN.findIndex((s) => String(s.n) === String(n));
   svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `${STAP} ${t.dataset.stap} openen`); });
@@ -174,6 +263,18 @@ if (bron) {
   // Shift+P opent de presentatie (en sluit hem weer), zoals op het EBW-landschap; niet tijdens typen
   const inInvoer = (e) => e.composedPath().some((x) => x instanceof HTMLElement && (x.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(x.tagName)));
   window.addEventListener('keydown', (e) => {
+    // Het overzicht (slide 0): kies met een cijfer, Esc sluit, Tab blijft binnen het overzicht
+    if (keuze && !keuze.hidden && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const nr = Number(e.key);
+      if (nr >= 1 && nr <= items.length) { e.preventDefault(); e.stopImmediatePropagation(); kies(nr - 1); }
+      else if (e.key === 'Escape' || (e.shiftKey && e.code === 'KeyP')) { e.preventDefault(); e.stopImmediatePropagation(); sluitKeuze(); }
+      else if (e.key === 'Tab') {
+        e.preventDefault();
+        const knoppen = [...keuze.querySelectorAll('button')], i = knoppen.indexOf(document.activeElement);
+        knoppen[(i + (e.shiftKey ? -1 : 1) + knoppen.length) % knoppen.length].focus();
+      }
+      return;
+    }
     if (e.shiftKey && e.code === 'KeyP' && !e.ctrlKey && !e.metaKey && !e.altKey && !inInvoer(e)) {
       e.preventDefault(); e.stopImmediatePropagation();
       return paneel && !paneel.hidden ? sluit() : open(0);
@@ -187,4 +288,10 @@ if (bron) {
     else if (e.key === 'End') { e.preventDefault(); naar(STAPPEN.length - 1); }
     else if (e.key === 'Escape') { e.preventDefault(); sluit(); }
   }, true);
+  // Direct openen via de link: ?presentatie toont het overzicht, ?presentatie#/n deze presentatie op stap n
+  if (REEKS && new URLSearchParams(location.search).has('presentatie')) {
+    const m = location.hash.match(/^#\/(\d+)/);
+    const start = () => (m ? open(Math.min(Number(m[1]), STAPPEN.length - 1)) : openKeuze());
+    document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
+  }
 }
