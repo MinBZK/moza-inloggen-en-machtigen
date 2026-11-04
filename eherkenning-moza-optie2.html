@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eHerkenning: MOZa optie 2</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: de schema's zijn SVG-tekeningen op een 'papieren' canvas in dezelfde
+       stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
+    .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="eherkenning.html" start-icon="chevron-left" text="Terug naar eHerkenning: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">eHerkenning · plaat 6 · conceptflow</span>
+        <h1>MOZa-portaal via dienstbemiddeling zónder portaaldienst</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner variant="accent" icon="lightbulb" text="Conceptflow" supporting-text="Dit is een denkrichting, geen bestaande flow. We weten nog niet of dit binnen het eHerkenningsstelsel allemaal kan: de vragen op deze pagina moeten dat uitwijzen."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text><p>Conceptflow voor MOZa optie 2: Bilal logt in bij het MOZa-portaal en MOZa bemiddelt voor elke dienst afzonderlijk. Stap 4 en 11 kennen elk drie mogelijke varianten (A, B of C); na stap 13 gaat alleen variant B verder. De bestaande flow staat op <a href="eherkenning-inloggen.html">plaat 4</a>.</p></nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="stappen">
+      <nldd-title size="2"><h2>Van klik tot ingelogd op MOZa</h2><p slot="supporting-text">Klik op een stap of presenteer de stappen, voor de uitleg en de open vragen. Groen gestippeld is wat een persoon doet, grijs een vraag aan de gebruiker, oranje een verzoek, blauw de (versleutelde) verklaring, paars een eigen controle en turquoise het resultaat.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen (Shift+P)"
+        accessible-label="Presenteer de stappen uit het schema hieronder (Shift+P)"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
+      <div class="canvas" id="moza-optie2-schema" role="img" aria-labelledby="moza-optie2-titel moza-optie2-uitleg">
+<svg viewBox="0 0 1280 1276" xmlns="http://www.w3.org/2000/svg">
+  <title id="moza-optie2-titel">Volgordediagram: MOZa-portaal via dienstbemiddeling zónder portaaldienst</title>
+  <desc id="moza-optie2-uitleg">Stap 1: Bilal Yılmaz naar Herkenningsmakelaar, klikt op &quot;Inloggen MOZa-website met eHerkenning&quot;. Stap 2: Herkenningsmakelaar naar Bilal Yılmaz, Verzoek aan Bilal: selecteer je leverancier. Stap 3: Bilal Yılmaz naar Herkenningsmakelaar, Bilal selecteert zijn leverancier. Stap 4: Herkenningsmakelaar naar Leverancier Z login, Inlogverzoek: variant A, B of C. Stap 5: Leverancier Z login naar Bilal Yılmaz, Verzoek aan Bilal: vul gebruikersnaam en wachtwoord in. Stap 6: Bilal Yılmaz naar Leverancier Z login, Bilal logt in met zijn accountgegevens van Z login. Stap 7: Leverancier Z login, Controle niveau. Stap 8: Leverancier Z login naar Bilal Yılmaz, Verzoek aan Bilal: namens welk bedrijf wil je inloggen?. Stap 9: Bilal Yılmaz naar Leverancier Z login, Bilal selecteert Koffiezaak Noon. Stap 10: Leverancier Z login, Controle machtigingen. Stap 11: Leverancier Z login naar Herkenningsmakelaar, Versleutelde assertion(s): variant A, B of C. Stap 12: Herkenningsmakelaar naar MOZa, Doorgeven aan MOZa. Stap 13: MOZa naar Bilal Yılmaz, Toegang tot MOZa-portaal. Stap 14: Bilal Yılmaz naar Herkenningsmakelaar, Trigger voor SSO-inlogverzoeken. Stap 15: Herkenningsmakelaar naar Leverancier Z login, SSO-inlogverzoeken. Stap 16: Leverancier Z login naar Herkenningsmakelaar, Versleutelde assertion(s). Stap 17: Herkenningsmakelaar naar MOZa, Doorgeven aan MOZa. Stap 18: MOZa naar Bilal Yılmaz, Toegang tot diensten.</desc>
+  <defs>
+    <pattern id="moza-optie2-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="moza-optie2-0e7c86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
+    <marker id="moza-optie2-1f5fa8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
+    <marker id="moza-optie2-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
+    <marker id="moza-optie2-666666" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666666"/></marker>
+    <marker id="moza-optie2-7a4f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7a4f8c"/></marker>
+    <marker id="moza-optie2-b46504" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
+  </defs>
+  <rect width="1280" height="1276" fill="#fff"/>
+  <rect width="1280" height="1276" fill="url(#moza-optie2-grid)"/>
+  <path d="M175 78V1264" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="35" y="18" width="280" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <circle cx="63" cy="48" r="16" fill="oklch(0.859 0.091 308.6)"/>
+  <svg x="47" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="moza-optie2-bilal"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/bilal.svg" width="264" height="280" clip-path="url(#moza-optie2-bilal)"/></svg>
+  <text x="193" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Bilal Yılmaz</text>
+  <text x="193" y="63" font-size="11.5" fill="#555" text-anchor="middle">werknemer, op het MOZa-portaal</text>
+  <path d="M485 78V1264" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="345" y="18" width="280" height="60" rx="10" fill="#e1d5e7" stroke="#9673a6"/>
+  <text x="485" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">MOZa</text>
+  <text x="485" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstbemiddelaar</text>
+  <path d="M795 78V1264" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="655" y="18" width="280" height="60" rx="10" fill="#ffe6cc" stroke="#d79b00"/>
+  <text x="795" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Herkenningsmakelaar</text>
+  <text x="795" y="63" font-size="11.5" fill="#555" text-anchor="middle">gekozen door MOZa</text>
+  <path d="M1105 78V1264" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="965" y="18" width="280" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="1105" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Leverancier Z login</text>
+  <text x="1105" y="63" font-size="11.5" fill="#555" text-anchor="middle">gekozen door Karin (werkgever)</text>
+  <rect data-stap="1" x="161" y="94" width="648" height="52" fill="transparent"/>
+  <path data-stap="1" d="M193 132H791" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#moza-optie2-2d7a46)"/>
+  <circle data-stap="1" cx="175" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="175" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="485" y="110" font-size="11.5" fill="#2d7a46" text-anchor="middle">klikt op &quot;Inloggen MOZa-website met</text>
+  <text data-stap="1" x="485" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">eHerkenning&quot;</text>
+  <rect data-stap="2" x="161" y="182" width="648" height="38" fill="transparent"/>
+  <path data-stap="2" d="M777 206H179" stroke="#666666" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-666666)"/>
+  <circle data-stap="2" cx="795" cy="206" r="12" fill="#666666"/><text data-stap="2" x="795" y="210" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-stap="2" x="485" y="198" font-size="11.5" fill="#666666" text-anchor="middle">Verzoek aan Bilal: selecteer je leverancier</text>
+  <rect data-stap="3" x="161" y="242" width="648" height="38" fill="transparent"/>
+  <path data-stap="3" d="M193 266H791" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#moza-optie2-2d7a46)"/>
+  <circle data-stap="3" cx="175" cy="266" r="12" fill="#2d7a46"/><text data-stap="3" x="175" y="270" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text data-stap="3" x="485" y="258" font-size="11.5" fill="#2d7a46" text-anchor="middle">Bilal selecteert zijn leverancier</text>
+  <rect data-stap="4" x="781" y="302" width="338" height="38" fill="transparent"/>
+  <path data-stap="4" d="M813 326H1101" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-b46504)"/>
+  <circle data-stap="4" cx="795" cy="326" r="12" fill="#b46504"/><text data-stap="4" x="795" y="330" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text data-stap="4" x="950" y="318" font-size="11.5" fill="#b46504" text-anchor="middle">Inlogverzoek: variant A, B of C</text>
+  <rect data-stap="5" x="161" y="348" width="958" height="52" fill="transparent"/>
+  <path data-stap="5" d="M1087 386H179" stroke="#666666" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-666666)"/>
+  <circle data-stap="5" cx="1105" cy="386" r="12" fill="#666666"/><text data-stap="5" x="1105" y="390" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+  <text data-stap="5" x="640" y="364" font-size="11.5" fill="#666666" text-anchor="middle">Verzoek aan Bilal: vul gebruikersnaam en</text>
+  <text data-stap="5" x="640" y="378" font-size="11.5" fill="#666666" text-anchor="middle">wachtwoord in</text>
+  <rect data-stap="6" x="161" y="422" width="958" height="52" fill="transparent"/>
+  <path data-stap="6" d="M193 460H1101" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#moza-optie2-2d7a46)"/>
+  <circle data-stap="6" cx="175" cy="460" r="12" fill="#2d7a46"/><text data-stap="6" x="175" y="464" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+  <text data-stap="6" x="640" y="438" font-size="11.5" fill="#2d7a46" text-anchor="middle">Bilal logt in met zijn accountgegevens van Z</text>
+  <text data-stap="6" x="640" y="452" font-size="11.5" fill="#2d7a46" text-anchor="middle">login</text>
+  <rect data-stap="7" x="975" y="518" width="260" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
+  <circle data-stap="7" cx="975" cy="534" r="12" fill="#7a4f8c"/><text data-stap="7" x="975" y="538" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+  <text data-stap="7" x="1111" y="538" font-size="11.5" fill="#7a4f8c" text-anchor="middle">Controle niveau</text>
+  <rect data-stap="8" x="161" y="556" width="958" height="52" fill="transparent"/>
+  <path data-stap="8" d="M1087 594H179" stroke="#666666" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-666666)"/>
+  <circle data-stap="8" cx="1105" cy="594" r="12" fill="#666666"/><text data-stap="8" x="1105" y="598" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+  <text data-stap="8" x="640" y="572" font-size="11.5" fill="#666666" text-anchor="middle">Verzoek aan Bilal: namens welk bedrijf wil je</text>
+  <text data-stap="8" x="640" y="586" font-size="11.5" fill="#666666" text-anchor="middle">inloggen?</text>
+  <rect data-stap="9" x="161" y="644" width="958" height="38" fill="transparent"/>
+  <path data-stap="9" d="M193 668H1101" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#moza-optie2-2d7a46)"/>
+  <circle data-stap="9" cx="175" cy="668" r="12" fill="#2d7a46"/><text data-stap="9" x="175" y="672" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">9</text>
+  <text data-stap="9" x="640" y="660" font-size="11.5" fill="#2d7a46" text-anchor="middle">Bilal selecteert Koffiezaak Noon</text>
+  <rect data-stap="10" x="975" y="712" width="260" height="32" rx="8" fill="#f3eef6" stroke="#7a4f8c"/>
+  <circle data-stap="10" cx="975" cy="728" r="12" fill="#7a4f8c"/><text data-stap="10" x="975" y="732" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text data-stap="10" x="1111" y="732" font-size="11.5" fill="#7a4f8c" text-anchor="middle">Controle machtigingen</text>
+  <rect data-stap="11" x="781" y="764" width="338" height="38" fill="transparent"/>
+  <path data-stap="11" d="M1087 788H799" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-1f5fa8)"/>
+  <circle data-stap="11" cx="1105" cy="788" r="12" fill="#1f5fa8"/><text data-stap="11" x="1105" y="792" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">11</text>
+  <text data-stap="11" x="950" y="780" font-size="11.5" fill="#1f5fa8" text-anchor="middle">Versleutelde assertion(s): variant A, B of C</text>
+  <rect data-stap="12" x="471" y="824" width="338" height="38" fill="transparent"/>
+  <path data-stap="12" d="M777 848H489" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-1f5fa8)"/>
+  <circle data-stap="12" cx="795" cy="848" r="12" fill="#1f5fa8"/><text data-stap="12" x="795" y="852" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">12</text>
+  <text data-stap="12" x="640" y="840" font-size="11.5" fill="#1f5fa8" text-anchor="middle">Doorgeven aan MOZa</text>
+  <rect data-stap="13" x="161" y="884" width="338" height="38" fill="transparent"/>
+  <path data-stap="13" d="M467 908H179" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-0e7c86)"/>
+  <circle data-stap="13" cx="485" cy="908" r="12" fill="#0e7c86"/><text data-stap="13" x="485" y="912" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">13</text>
+  <text data-stap="13" x="330" y="900" font-size="11.5" fill="#0e7c86" text-anchor="middle">Toegang tot MOZa-portaal</text>
+  <path d="M20 956H1260" stroke="#7a4f8c" stroke-dasharray="2 4"/>
+  <text x="24" y="948" font-size="11.5" font-weight="700" fill="#7a4f8c">Alleen bij variant B: daarna via SSO bij de onderliggende diensten</text>
+  <rect data-stap="14" x="161" y="972" width="648" height="38" fill="transparent"/>
+  <path data-stap="14" d="M193 996H791" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#moza-optie2-2d7a46)"/>
+  <circle data-stap="14" cx="175" cy="996" r="12" fill="#2d7a46"/><text data-stap="14" x="175" y="1000" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">14</text>
+  <text data-stap="14" x="485" y="988" font-size="11.5" fill="#2d7a46" text-anchor="middle">Trigger voor SSO-inlogverzoeken</text>
+  <rect data-stap="15" x="781" y="1032" width="338" height="38" fill="transparent"/>
+  <path data-stap="15" d="M813 1056H1101" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-b46504)"/>
+  <circle data-stap="15" cx="795" cy="1056" r="12" fill="#b46504"/><text data-stap="15" x="795" y="1060" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">15</text>
+  <text data-stap="15" x="950" y="1048" font-size="11.5" fill="#b46504" text-anchor="middle">SSO-inlogverzoeken</text>
+  <rect data-stap="16" x="781" y="1092" width="338" height="38" fill="transparent"/>
+  <path data-stap="16" d="M1087 1116H799" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-1f5fa8)"/>
+  <circle data-stap="16" cx="1105" cy="1116" r="12" fill="#1f5fa8"/><text data-stap="16" x="1105" y="1120" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">16</text>
+  <text data-stap="16" x="950" y="1108" font-size="11.5" fill="#1f5fa8" text-anchor="middle">Versleutelde assertion(s)</text>
+  <rect data-stap="17" x="471" y="1152" width="338" height="38" fill="transparent"/>
+  <path data-stap="17" d="M777 1176H489" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-1f5fa8)"/>
+  <circle data-stap="17" cx="795" cy="1176" r="12" fill="#1f5fa8"/><text data-stap="17" x="795" y="1180" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">17</text>
+  <text data-stap="17" x="640" y="1168" font-size="11.5" fill="#1f5fa8" text-anchor="middle">Doorgeven aan MOZa</text>
+  <rect data-stap="18" x="161" y="1212" width="338" height="38" fill="transparent"/>
+  <path data-stap="18" d="M467 1236H179" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#moza-optie2-0e7c86)"/>
+  <circle data-stap="18" cx="485" cy="1236" r="12" fill="#0e7c86"/><text data-stap="18" x="485" y="1240" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">18</text>
+  <text data-stap="18" x="330" y="1228" font-size="11.5" fill="#0e7c86" text-anchor="middle">Toegang tot diensten</text>
+</svg>
+      </div>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="De stappen toegelicht">
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**1**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen starten**" supporting-text="Bilal klikt op de MOZa-website op &quot;Inloggen MOZa-website met eHerkenning&quot;."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**2**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Verzoek: kies leverancier**" supporting-text="De makelaar vraagt Bilal zijn leverancier te selecteren."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**3**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Leverancier gekozen**" supporting-text="Bilal selecteert zijn leverancier (Z login)."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**4**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inlogverzoek**" supporting-text="De makelaar stuurt een inlogverzoek naar de leverancier. Hoe dat verzoek eruitziet is nog een vraag; er zijn drie mogelijke varianten: Variant A (19a): een los inlogverzoek per dienst. Variant B (19b): één inlogverzoek voor MOZa (leeg portaal), later SSO. Variant C (19c): één inlogverzoek voor alle diensten tegelijk."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**5**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Verzoek: inloggegevens**" supporting-text="De leverancier vraagt Bilal zijn gebruikersnaam en wachtwoord in te vullen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**6**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Inloggen bij Z login**" supporting-text="Bilal logt in met zijn accountgegevens van Z login."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**7**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Controle niveau**" supporting-text="Z login controleert of het account van Bilal het gevraagde niveau heeft."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**8**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Verzoek: kies bedrijf**" supporting-text="De leverancier vraagt Bilal namens welk bedrijf hij wil inloggen."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**9**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Bedrijf gekozen**" supporting-text="Bilal selecteert Koffiezaak Noon."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**10**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Controle machtigingen**" supporting-text="Z login controleert of Bilal namens Noon gemachtigd is voor de diensten in het portaal."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**11**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Versleutelde assertion(s)**" supporting-text="De leverancier stuurt een versleutelde assertion (verklaring) naar de makelaar. Welke variant van toepassing is, hangt af van de variant bij stap 4: Variant A: een losse assertion per dienst. Variant B: één assertion voor MOZa (leeg portaal). Variant C: één overkoepelende assertion."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**12**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Doorgeven aan MOZa**" supporting-text="De makelaar geeft het bericht ongeopend door aan MOZa."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**13**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Toegang tot MOZa-portaal**" supporting-text="Bilal krijgt toegang tot het MOZa-portaal."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**14**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Trigger voor SSO-inlogverzoeken (alleen variant B)**" supporting-text="Na binnenkomst in het lege MOZa-portaal wordt er (het liefst automatisch) een trigger gestuurd om de SSO-inlogverzoeken voor de losse onderliggende diensten te gaan versturen. Zo krijgt Bilal ook toegang tot die diensten."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**15**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**SSO-inlogverzoeken (alleen variant B)**" supporting-text="De makelaar stuurt inlogverzoek(en) voor de onderliggende diensten naar de leverancier, met SSO."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**16**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Versleutelde assertion(s) (alleen variant B)**" supporting-text="De leverancier stuurt versleutelde assertion(s) naar de makelaar, met daarin dat:"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**17**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Doorgeven aan MOZa (alleen variant B)**" supporting-text="De makelaar geeft het bericht ongeopend door aan MOZa."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="32px" text="**18**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Toegang tot diensten (alleen variant B)**" supporting-text="Bilal krijgt toegang tot de diensten in het portaal."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+
+
+    <nldd-simple-section id="open-vragen">
+      <nldd-title size="2"><h2>Open vragen</h2><p slot="supporting-text">De vragen zijn over alle platen heen doorgenummerd. Hier de nieuwe vragen van deze plaat; eerder gestelde vragen staan bij de stap waar ze weer terugkomen.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="Open vragen">
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V18**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Bestaan er al voorbeelden van dienstbemiddelaars die diensten van verschillende dienstverleners bemiddelen? Het is moeilijk voor te stellen dat dit nog helemaal niet voorkomt; dat moet nog worden onderzocht. Zo ja: hoe is het daar ingericht?**" supporting-text="Plaat 6, MOZa: MOZa als dienstbemiddelaar"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V19a**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?**" supporting-text="Plaat 6, stap 4 en 11: Variant A (19a): een los inlogverzoek per dienst"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V19b**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst &quot;MOZa&quot; (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.**" supporting-text="Plaat 6, stap 4 en 11: Variant B (19b): één inlogverzoek voor MOZa (leeg portaal), later SSO"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V19c**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?**" supporting-text="Plaat 6, stap 4 en 11: Variant C (19c): één inlogverzoek voor alle diensten tegelijk"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V20**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Er komen dan losse assertions per dienst, die allemaal bij MOZa (als dienstbemiddelaar) terechtkomen, inclusief alle PseudoID&#x27;s van de verschillende dienstverleners. Gaat dit in tegen privacyoverwegingen, omdat één dienstverlener dan kan zien voor welke diensten Bilal allemaal gemachtigd is?**" supporting-text="Plaat 6, stap 10: Machtigingen opvragen per variant"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V21**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Bij deze variant bevraagt MOZa het machtigingenregister in één keer (in bulk) voor alle diensten. Binnen het huidige stelsel kan dat niet op deze manier: bulkbevraging is alleen mogelijk bij portaaldiensten, en waarschijnlijk alleen bij portaaldiensten van één dienstverlener. Is er een grondslag voor MOZa om het machtigingenregister op deze manier te bevragen, en om te laten inrichten dat dit mogelijk wordt?**" supporting-text="Plaat 6, stap 10: Machtigingen opvragen per variant"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V22**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Hoe werkt dit met het PseudoID? Is dat dan nog van toepassing?**" supporting-text="Plaat 6, stap 10: Machtigingen opvragen per variant"></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten (eHerkenning)</a></li>
+          <li><a href="https://www.eherkenning.nl/">eHerkenning.nl</a></li>
+          <li>Verkenning eHerkenning en MOZa (platen 1-6) van het MOZa-team, november 2026</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie november 2026. Vereenvoudigde weergave op basis van het Afsprakenstelsel Elektronische Toegangsdiensten. Koffiezaak Noon, Karin en Bilal zijn een voorbeeld.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script type="application/json" id="stappen-data">
+{
+ "naam": "MOZa-portaal via dienstbemiddeling zónder portaaldienst",
+ "schema": "#moza-optie2-schema",
+ "stappen": [
+  {
+   "n": "1",
+   "kop": "Inloggen starten",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Handeling",
+    "van Bilal Yılmaz naar Herkenningsmakelaar",
+    "#2d7a46"
+   ],
+   "lead": "Bilal klikt op de MOZa-website op \"Inloggen MOZa-website met eHerkenning\".",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "2",
+   "kop": "Verzoek: kies leverancier",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Vraag aan de gebruiker",
+    "van Herkenningsmakelaar naar Bilal Yılmaz",
+    "#666666"
+   ],
+   "lead": "De makelaar vraagt Bilal zijn leverancier te selecteren.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "3",
+   "kop": "Leverancier gekozen",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Handeling",
+    "van Bilal Yılmaz naar Herkenningsmakelaar",
+    "#2d7a46"
+   ],
+   "lead": "Bilal selecteert zijn leverancier (Z login).",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "4",
+   "kop": "Inlogverzoek",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Verzoek",
+    "van Herkenningsmakelaar naar Leverancier Z login",
+    "#b46504"
+   ],
+   "lead": "De makelaar stuurt een inlogverzoek naar de leverancier. Hoe dat verzoek eruitziet is nog een vraag; er zijn drie mogelijke varianten:",
+   "punten": [
+    "**Nog beter zou zijn**",
+    "MOZa weet al vóór het versturen van de inlogverzoeken voor welke diensten Bilal gemachtigd is (die informatie is in principe bekend bij de leverancier). Dan hoeft er alleen voor de gemachtigde diensten een inlogverzoek te worden verstuurd, wat het systeem minder belast."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
+     "titel": "Verzoek voor UWV",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
+     "rijen": [
+      [
+       "ServiceProvider",
+       "MOZa (namens UWV)",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Ziekmelden werknemer",
+       "Dienstnaam"
+      ],
+      [
+       "ServiceID",
+       "Service_123",
+       "Dienstcode"
+      ],
+      [
+       "Vereist niveau",
+       "EH2",
+       ""
+      ]
+     ]
+    },
+    {
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
+     "titel": "Verzoek voor RVO",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
+     "rijen": [
+      [
+       "ServiceProvider",
+       "MOZa (namens RVO)",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Vergunning aanvragen",
+       "Dienstnaam"
+      ],
+      [
+       "ServiceID",
+       "Service_456",
+       "Dienstcode"
+      ],
+      [
+       "Vereist niveau",
+       "EH3",
+       ""
+      ]
+     ]
+    },
+    {
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
+     "titel": "Verzoek voor BD",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
+     "rijen": [
+      [
+       "ServiceProvider",
+       "MOZa (namens BD)",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Belasting doorgeven",
+       "Dienstnaam"
+      ],
+      [
+       "ServiceID",
+       "Service_789",
+       "Dienstcode"
+      ],
+      [
+       "Vereist niveau",
+       "EH3",
+       ""
+      ]
+     ]
+    },
+    {
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant B (19b)",
+     "titel": "één inlogverzoek voor MOZa (leeg portaal), later SSO",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
+     "rijen": [
+      [
+       "ServiceProvider",
+       "MOZa",
+       ""
+      ],
+      [
+       "ServiceName",
+       "MOZa (leeg portaal)",
+       "Dienstnaam"
+      ],
+      [
+       "ServiceID",
+       "MOZa_portal",
+       "Dienstcode"
+      ],
+      [
+       "Vereist niveau",
+       "EH3, vanwege de SSO later in de flow",
+       ""
+      ]
+     ]
+    },
+    {
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant C (19c)",
+     "titel": "één inlogverzoek voor alle diensten tegelijk",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
+     "rijen": [
+      [
+       "ServiceProvider",
+       "MOZa (namens UWV, BD en RVO)",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Ziekmelden werknemer, Vergunning aanvragen, Belasting doorgeven",
+       "Dienstnaam"
+      ],
+      [
+       "ServiceID",
+       "Service_123, Service_456, Service_789",
+       "Dienstcode"
+      ],
+      [
+       "Vereist niveau",
+       "EH2, EH3",
+       ""
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief.",
+   "opties": {
+    "tekst": "",
+    "items": [
+     [
+      "Variant A (19a): een los inlogverzoek per dienst",
+      "",
+      [
+       "Vraag 19a: Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
+       "Nadeel: efficiëntie: Alle aangesloten diensten krijgen een inlogverzoek en worden daarmee belast, ook diensten die Bilal in deze sessie niet gebruikt of helemaal niet wil gebruiken."
+      ]
+     ],
+     [
+      "Variant B (19b): één inlogverzoek voor MOZa (leeg portaal), later SSO",
+      "",
+      [
+       "Vraag 19b: Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten."
+      ]
+     ],
+     [
+      "Variant C (19c): één inlogverzoek voor alle diensten tegelijk",
+      "",
+      [
+       "Vraag 19c: Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?"
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "n": "5",
+   "kop": "Verzoek: inloggegevens",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Vraag aan de gebruiker",
+    "van Leverancier Z login naar Bilal Yılmaz",
+    "#666666"
+   ],
+   "lead": "De leverancier vraagt Bilal zijn gebruikersnaam en wachtwoord in te vullen.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "6",
+   "kop": "Inloggen bij Z login",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Handeling",
+    "van Bilal Yılmaz naar Leverancier Z login",
+    "#2d7a46"
+   ],
+   "lead": "Bilal logt in met zijn accountgegevens van Z login.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "7",
+   "kop": "Controle niveau",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Eigen controle",
+    "van Leverancier Z login",
+    "#7a4f8c"
+   ],
+   "lead": "Z login controleert of het account van Bilal het gevraagde niveau heeft.",
+   "punten": [
+    "Welk niveau hier wordt gecontroleerd, hangt af van het antwoord op deze eerder gestelde vragen:"
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "19a (eerder)",
+     "**Variant A** Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
+     ""
+    ],
+    [
+     "19b (eerder)",
+     "**Variant B** Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.",
+     ""
+    ],
+    [
+     "19c (eerder)",
+     "**Variant C** Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "8",
+   "kop": "Verzoek: kies bedrijf",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Vraag aan de gebruiker",
+    "van Leverancier Z login naar Bilal Yılmaz",
+    "#666666"
+   ],
+   "lead": "De leverancier vraagt Bilal namens welk bedrijf hij wil inloggen.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "9",
+   "kop": "Bedrijf gekozen",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Handeling",
+    "van Bilal Yılmaz naar Leverancier Z login",
+    "#2d7a46"
+   ],
+   "lead": "Bilal selecteert Koffiezaak Noon.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "10",
+   "kop": "Controle machtigingen",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Eigen controle",
+    "van Leverancier Z login",
+    "#7a4f8c"
+   ],
+   "lead": "Z login controleert of Bilal namens Noon gemachtigd is voor de diensten in het portaal.",
+   "punten": [
+    "Ook hoe de machtigingen worden opgevraagd, hangt af van het antwoord op vraag (19a-c). Per variant:",
+    "**Variant A: Los verzoek per dienst**",
+    "Is Bilal gemachtigd voor dienst 1? Voor dienst 2? Voor dienst 3?",
+    "**Variant B: Eén inlogverzoek alleen voor MOZa (leeg portaal)**",
+    "Op dit punt wordt alleen de machtiging voor de dienst MOZa (leeg portaal) gecontroleerd: is Bilal gemachtigd voor MOZa?",
+    "**Variant C: Eén inlogverzoek voor alle diensten tegelijk**",
+    "Het machtigingenregister wordt in één keer bevraagd voor alle diensten binnen MOZa: is Bilal gemachtigd voor diensten x, y en z?"
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "19a (eerder)",
+     "Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
+     ""
+    ],
+    [
+     "20",
+     "Er komen dan losse assertions per dienst, die allemaal bij MOZa (als dienstbemiddelaar) terechtkomen, inclusief alle PseudoID's van de verschillende dienstverleners. Gaat dit in tegen privacyoverwegingen, omdat één dienstverlener dan kan zien voor welke diensten Bilal allemaal gemachtigd is?",
+     ""
+    ],
+    [
+     "19b (eerder)",
+     "Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.",
+     ""
+    ],
+    [
+     "19c (eerder)",
+     "Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?",
+     ""
+    ],
+    [
+     "21",
+     "Bij deze variant bevraagt MOZa het machtigingenregister in één keer (in bulk) voor alle diensten. Binnen het huidige stelsel kan dat niet op deze manier: bulkbevraging is alleen mogelijk bij portaaldiensten, en waarschijnlijk alleen bij portaaldiensten van één dienstverlener. Is er een grondslag voor MOZa om het machtigingenregister op deze manier te bevragen, en om te laten inrichten dat dit mogelijk wordt?",
+     ""
+    ],
+    [
+     "22",
+     "Hoe werkt dit met het PseudoID? Is dat dan nog van toepassing?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "11",
+   "kop": "Versleutelde assertion(s)",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Verklaring",
+    "van Leverancier Z login naar Herkenningsmakelaar",
+    "#1f5fa8"
+   ],
+   "lead": "De leverancier stuurt een versleutelde assertion (verklaring) naar de makelaar. Welke variant van toepassing is, hangt af van de variant bij stap 4:",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
+     "titel": "Assertion 1",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_123",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    },
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
+     "titel": "Assertion 2",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID5678",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_456",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    },
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
+     "titel": "Assertion 3",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID9010212",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_789",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    },
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant B",
+     "titel": "één assertion voor MOZa (leeg portaal)",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID8888",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_MOZa (leeg portaal)",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    },
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant C",
+     "titel": "één overkoepelende assertion",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID8888",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_123, Service_456, Service_789, enz",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief.",
+   "opties": {
+    "tekst": "",
+    "items": [
+     [
+      "Variant A: een losse assertion per dienst",
+      "",
+      []
+     ],
+     [
+      "Variant B: één assertion voor MOZa (leeg portaal)",
+      "",
+      []
+     ],
+     [
+      "Variant C: één overkoepelende assertion",
+      "",
+      []
+     ]
+    ]
+   }
+  },
+  {
+   "n": "12",
+   "kop": "Doorgeven aan MOZa",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Verklaring",
+    "van Herkenningsmakelaar naar MOZa",
+    "#1f5fa8"
+   ],
+   "lead": "De makelaar geeft het bericht ongeopend door aan MOZa.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "13",
+   "kop": "Toegang tot MOZa-portaal",
+   "kenmerken": [
+    "Conceptflow"
+   ],
+   "soort": [
+    "Resultaat",
+    "van MOZa naar Bilal Yılmaz",
+    "#0e7c86"
+   ],
+   "lead": "Bilal krijgt toegang tot het MOZa-portaal.",
+   "punten": [
+    "Afhankelijk van de variant (het antwoord op vraag 19a-c) is Bilal nu:",
+    "**Variant A en C**",
+    "Ingelogd op de MOZa-website/het portaal én al ingelogd bij alle onderliggende diensten waarvoor hij gemachtigd is. De flow eindigt hier.",
+    "**Variant B**",
+    "Ingelogd op de MOZa-website/het portaal, maar nog niet bij de onderliggende diensten. De inlogverzoeken voor die diensten worden pas bij of na binnenkomst in het portaal verstuurd, met SSO (stap 14-18)."
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "19a (eerder)",
+     "Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
+     ""
+    ],
+    [
+     "19c (eerder)",
+     "Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?",
+     ""
+    ],
+    [
+     "19b (eerder)",
+     "Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "14",
+   "kop": "Trigger voor SSO-inlogverzoeken",
+   "kenmerken": [
+    "Conceptflow",
+    "Alleen bij variant B"
+   ],
+   "soort": [
+    "Handeling",
+    "van Bilal Yılmaz naar Herkenningsmakelaar",
+    "#2d7a46"
+   ],
+   "lead": "Na binnenkomst in het lege MOZa-portaal wordt er (het liefst automatisch) een trigger gestuurd om de SSO-inlogverzoeken voor de losse onderliggende diensten te gaan versturen. Zo krijgt Bilal ook toegang tot die diensten.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "15",
+   "kop": "SSO-inlogverzoeken",
+   "kenmerken": [
+    "Conceptflow",
+    "Alleen bij variant B"
+   ],
+   "soort": [
+    "Verzoek",
+    "van Herkenningsmakelaar naar Leverancier Z login",
+    "#b46504"
+   ],
+   "lead": "De makelaar stuurt inlogverzoek(en) voor de onderliggende diensten naar de leverancier, met SSO.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "16",
+   "kop": "Versleutelde assertion(s)",
+   "kenmerken": [
+    "Conceptflow",
+    "Alleen bij variant B"
+   ],
+   "soort": [
+    "Verklaring",
+    "van Leverancier Z login naar Herkenningsmakelaar",
+    "#1f5fa8"
+   ],
+   "lead": "De leverancier stuurt versleutelde assertion(s) naar de makelaar, met daarin dat:",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion)",
+     "titel": "Versleutelde assertion(s)",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
+     "rijen": [
+      [
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_123, Service_456 en Service_789",
+       "Voor welke dienst(en) gemachtigd"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "17",
+   "kop": "Doorgeven aan MOZa",
+   "kenmerken": [
+    "Conceptflow",
+    "Alleen bij variant B"
+   ],
+   "soort": [
+    "Verklaring",
+    "van Herkenningsmakelaar naar MOZa",
+    "#1f5fa8"
+   ],
+   "lead": "De makelaar geeft het bericht ongeopend door aan MOZa.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "18",
+   "kop": "Toegang tot diensten",
+   "kenmerken": [
+    "Conceptflow",
+    "Alleen bij variant B"
+   ],
+   "soort": [
+    "Resultaat",
+    "van MOZa naar Bilal Yılmaz",
+    "#0e7c86"
+   ],
+   "lead": "Bilal krijgt toegang tot de diensten in het portaal.",
+   "punten": [],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  }
+ ]
+}
+</script>
+<script type="module" src="stappen-presentatie.js"></script>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>

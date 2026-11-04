@@ -12,8 +12,12 @@ Online: https://roadmap-moza.rijksapp.dev (ZAD-project `mr-7qd`). Het EBW-landsc
 |---|---|
 | `index.html` | De roadmap. Alle inhoud (sporen, releases, kaders, tabellen) staat als data bovenaan het script: `LANES`, `EXPERIENCE`, `WISHES`, `LOGIN_MATRIX`. |
 | `eherkenning.html` | Achtergrondpagina eHerkenning, met links naar: |
-| `eherkenning-inlogflow.html` | Bestaande situatie: wie zit waar, hoe UWV aansluit, hoe Karin eHerkenning inricht en hoe Bilal inlogt bij UWV (met de echte schermen). |
-| `eherkenning-concept.html` | Concept-voorstel: Bilal logt in op MOZa met eHerkenning, met aannames en open vragen. |
+| `eherkenning-aansluiten.html` | Plaat 1: een dienstverlener sluit een dienst aan op eHerkenning (bestaande flow, met het landschap). |
+| `eherkenning-machtigen.html` | Plaat 2: Karin neemt eHerkenning af en machtigt Bilal (bestaande flow). |
+| `eherkenning-dienstencatalogus.html` | Plaat 3: de dienstencatalogus en waar MOZa zou kunnen passen, vragen 1-9b. |
+| `eherkenning-inloggen.html` | Plaat 4: Bilal logt in bij een losse dienst (bestaande flow), vragen 10-11. |
+| `eherkenning-moza-optie1.html` | Plaat 5: conceptflow MOZa-portaal mét portaaldienst, vragen 12-17. |
+| `eherkenning-moza-optie2.html` | Plaat 6: conceptflow MOZa-portaal zónder portaaldienst (varianten A, B, C), vragen 18-22. |
 | `ebw.html` | Achtergrondpagina EBW, met links naar: |
 | `ebw-landschap.html` | Schema EBW-landschap en vier presentaties (openbaar). |
 | `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, NLDD alleen voor de opmerkingen). |
