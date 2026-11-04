@@ -418,7 +418,7 @@ const LANES = [
     id: 'edi', name: 'EDI-wallet', icon: 'link', color: 'secondary-content', prerequisite: true,
     tagline: 'Nodig voor EBW: identiteit van de persoon achter de business wallet',
     releases: [
-      { t: '2027-2', code: 'R1', title: 'Inloggen in MOZa met de EDI-wallet', horizon: 'gepland', enables: 'EBW R1', kader: ['k1', 'k8'],
+      { t: '2027-2', code: 'R1', title: 'Inloggen in MOZa met de EDI-wallet', horizon: 'gepland', doorbouw: 2, enables: 'EBW R1', kader: ['k1', 'k8'],
         attention: 'Wallets uit andere lidstaten moet MOZa al vanaf 24-12-2026 accepteren; deze release volgt in T2 2027. De NL Wallet is uitgesteld naar 2027 en Nederlandse wallets zijn formeel pas bruikbaar na de uitvoeringswet (verwacht 1-1-2028).',
         summary: 'De ondernemer logt in MOZa in met de EDI-wallet (PID), zoals eIDAS 2.0 van overheidsdiensten vraagt. De eigenaar van een eenmanszaak ziet meteen de eigen onderneming: MOZa vindt die via het BSN in het Handelsregister (voorheen EBW R0a). Gepland in fase 7.',
         features: ['MOZa als verifier van de NL Wallet', 'Verificatie van PID op niveau hoog', 'Inloggen als persoon met de wallet naast DigiD', 'Na de PID-presentatie bevraagt MOZa het Handelsregister op het BSN (KVK Zoeken op natuurlijk persoon)', 'MOZa krijgt alle ondernemingen waar de persoon eigenaar of functionaris is, met het KVK-nummer', 'Geen extra handeling voor de gebruiker; bij meerdere eenmanszaken volgt een keuzescherm'],
@@ -427,7 +427,7 @@ const LANES = [
         deps: ['NL Wallet beschikbaar: uitgesteld naar 2027; Nederlandse wallets formeel bruikbaar na de uitvoeringswet (verwacht 1-1-2028)', 'Registratie van MOZa als relying party (UV 2025/848)',
           'De Nederlandse PID moet het BSN bevatten. Dat is een nationale keuze die nog niet is bevestigd: als eerste navragen bij het NL Wallet-team',
           'MOZa heeft de BSN-autorisatie bij KVK nodig voor Zoeken op natuurlijk persoon; die is er voor de DigiD-route vermoedelijk al'] },
-      { t: '2027-3', until: '2028-2', code: 'R2', title: 'Eén inlog voor alle dienstverleners via MOZa', horizon: 'gepland', explore: { t: '2027-2' },
+      { t: '2027-3', until: '2028-2', code: 'R2', title: 'Eén inlog voor alle dienstverleners via MOZa', horizon: 'gepland', doorbouw: 3, explore: { t: '2027-2' },
         summary: 'Met één keer inloggen met de EDI-wallet via MOZa is de ondernemer ingelogd bij alle aangesloten dienstverleners. Zelfde tijdlijn als DigiD R3: verkenning in fase 7, oplevering in fase 8 tot en met 10.',
         features: ['Uitloggen bij MOZa logt ook uit bij de aangesloten dienstverleners'],
         experience: 'De eigenaar van een eenmanszaak logt één keer in met de eigen wallet en kan bij alle aangesloten dienstverleners terecht.',
