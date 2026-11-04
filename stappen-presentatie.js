@@ -7,7 +7,7 @@
 //                 start-icon="desk-with-screen" text="Presenteer de stappen (Shift+P)"></nldd-button>
 //   - een schema <div class="canvas" id="..."><svg> met data-stap="n" op alle onderdelen van een stap
 //   - de gegevens als JSON in een script-element van het type application/json met id="stappen-data":
-//     { "naam": ..., "schema": "#id", "stappen": [...] }
+//     { "naam": ..., "schema": "#id", "stappen": [...] } (optioneel "stapnaam", standaard "Stap", bv. "Toelichting")
 //   - dit bestand als module-script (src="stappen-presentatie.js"); build.py bakt het in
 // Een stap: { n, kop, kenmerken: [..], soort: [naam, uitleg, kleur], lead, punten: [tekst of [tekst, [subpunten]]],
 //             opties: { tekst, items: [[label, tekst, [subpunten]]] }, aannames: [..],
@@ -15,7 +15,7 @@
 
 const bron = document.getElementById('stappen-data');
 if (bron) {
-  const { naam: NAAM, schema, stappen: STAPPEN } = JSON.parse(bron.textContent);
+  const { naam: NAAM, schema, stappen: STAPPEN, stapnaam: STAP = 'Stap' } = JSON.parse(bron.textContent);
   const svg = document.querySelector(`${schema} svg`);
   const stijl = document.createElement('style');
   stijl.textContent = `
@@ -112,8 +112,8 @@ if (bron) {
       ...(s.vragen || []).map(([v, q, t]) => `<li><strong>Open vraag ${esc(v)}.</strong> ${esc(q)} ${Array.isArray(t) ? sub(t) : esc(t)}</li>`)].join('');
     const inhoud = paneel.querySelector('.att-inhoud');
     inhoud.innerHTML = `
-      <p class="att-label">${esc(NAAM)} · Stap ${esc(s.n)}${(s.kenmerken || []).map((k) => ` · ${esc(k)}`).join('')}</p>
-      <h2 class="att-titel">Stap ${esc(s.n)} <span>${esc(s.kop)}</span></h2>
+      <p class="att-label">${esc(NAAM)} · ${esc(STAP)} ${esc(s.n)}${(s.kenmerken || []).map((k) => ` · ${esc(k)}`).join('')}</p>
+      <h2 class="att-titel">${esc(STAP)} ${esc(s.n)} <span>${esc(s.kop)}</span></h2>
       ${s.soort ? `<p class="att-soort" style="--soort-kleur:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>` : ''}
       <p class="att-lead">${esc(s.lead)}</p>
       ${s.opties ? `${s.opties.tekst ? `<p class="att-tekst">${esc(s.opties.tekst)}</p>` : ''}<ul class="att-punten">${s.opties.items.map(([l, t, z]) => `<li><strong>${esc(l)}:</strong> ${esc(t)}${z && z.length ? sub(z) : ''}</li>`).join('')}</ul>${punten ? '<hr class="att-scheiding">' : ''}` : ''}
@@ -148,7 +148,7 @@ if (bron) {
     terugFocus?.focus?.({ preventScroll: true });
   };
   const index = (n) => STAPPEN.findIndex((s) => String(s.n) === String(n));
-  svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `Gegevens bij stap ${t.dataset.stap}`); });
+  svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `${STAP} ${t.dataset.stap} openen`); });
   svg.addEventListener('click', (e) => {
     if (e.altKey) return; // Option/Alt + klik is voor opmerkingen
     const el = e.target.closest?.('[data-stap]');

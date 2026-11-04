@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eHerkenning: dienstencatalogus</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: de schema's zijn SVG-tekeningen op een 'papieren' canvas in dezelfde
+       stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
+    .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="eherkenning.html" start-icon="chevron-left" text="Terug naar eHerkenning: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">eHerkenning · plaat 3 · overzicht</span>
+        <h1>Dienstencatalogus eHerkenning</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text><p>Hoe dienstaanbieders, diensten, portaaldiensten en dienstbemiddelaars in de dienstencatalogus van eHerkenning samenhangen, en waar MOZa daarin zou kunnen passen: als bemiddelaar voor één portaaldienst met diensten van meerdere dienstaanbieders (<a href="eherkenning-moza-optie1.html">optie 1</a>), of als bemiddelaar voor losse diensten zonder portaaldienst (<a href="eherkenning-moza-optie2.html">optie 2</a>).</p></nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="schema">
+      <nldd-title size="2"><h2>De dienstencatalogus in één schema</h2><p slot="supporting-text">Klik op een genummerd onderdeel of presenteer de toelichtingen. Gestippeld is een hypothese voor MOZa: we weten nog niet of dat binnen het stelsel kan.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de toelichtingen (Shift+P)"
+        accessible-label="Presenteer de toelichtingen bij het schema hieronder (Shift+P)"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
+      <div class="canvas" id="catalogus-schema" role="img" aria-labelledby="catalogus-titel catalogus-uitleg">
+<svg viewBox="0 0 1100 790" xmlns="http://www.w3.org/2000/svg">
+  <title id="catalogus-titel">Schema: de dienstencatalogus van eHerkenning en waar MOZa zou kunnen passen</title>
+  <desc id="catalogus-uitleg">Bovenin de dienstverleners: dienstaanbieders RVO, Belastingdienst en Justis, en dienstbemiddelaars: Loket Zorgtoeslag en twee hypotheses voor MOZa. Onderin de diensten per dienstaanbieder, de portaaldienst MijnToeslagen van de Belastingdienst (zorgtoeslag en huurtoeslag), en als hypothese een MOZa portaal namens meerdere dienstaanbieders. MOZa optie 1 bemiddelt via dat portaal, MOZa optie 2 bemiddelt rechtstreeks voor losse diensten.</desc>
+  <defs><pattern id="catalogus-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern><marker id="catalogus-666" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666"/></marker><marker id="catalogus-b46504" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker><marker id="catalogus-0e7c86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker><marker id="catalogus-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker><marker id="catalogus-1f5fa8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker><marker id="catalogus-7a4f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7a4f8c"/></marker></defs>
+  <rect width="1100" height="790" fill="#fff"/>
+  <rect width="1100" height="790" fill="url(#catalogus-grid)"/>
+  <rect x="10" y="10" width="1080" height="250" rx="24" fill="#fff" stroke="#bbb"/>
+  <text x="550" y="38" font-size="13.5" font-weight="700" fill="#333" text-anchor="middle">Dienstverleners</text>
+  <rect x="30" y="58" width="640" height="182" rx="20" fill="#f5f5f5" stroke="#ccc"/>
+  <text x="350" y="90" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Dienstaanbieders</text>
+  <rect x="70" y="135" width="100" height="44" rx="10" fill="#e6f0e9" stroke="#2d7a46" stroke-width="1.4"/><text x="120" y="161" font-size="12.5" fill="#333" text-anchor="middle" font-weight="700">RVO</text>
+  <rect x="260" y="135" width="140" height="44" rx="10" fill="#dae8fc" stroke="#1f5fa8" stroke-width="1.4"/><text x="330" y="161" font-size="12.5" fill="#333" text-anchor="middle" font-weight="700">Belastingdienst</text>
+  <rect x="510" y="135" width="100" height="44" rx="10" fill="#f3eef6" stroke="#7a4f8c" stroke-width="1.4"/><text x="560" y="161" font-size="12.5" fill="#333" text-anchor="middle" font-weight="700">Justis</text>
+  <rect data-stap="4" x="690" y="58" width="380" height="182" rx="20" fill="#f5f5f5" stroke="#ccc"/>
+  <text data-stap="4" x="870" y="90" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Dienstbemiddelaars</text>
+  <circle data-stap="4" cx="990" cy="86" r="11" fill="#154273"/><text data-stap="4" x="990" y="90" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <rect data-stap="5" x="705" y="125" width="110" height="60" rx="10" fill="#fff" stroke="#666" stroke-width="1.4"/><text data-stap="5" x="760" y="151" font-size="12" fill="#333" text-anchor="middle" font-weight="700">&quot;Loket</text><text data-stap="5" x="760" y="167" font-size="12" fill="#333" text-anchor="middle">Zorgtoeslag&quot;</text>
+  <circle data-stap="5" cx="815" cy="125" r="11" fill="#154273"/><text data-stap="5" x="815" y="129" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+  <rect data-stap="6" x="825" y="125" width="110" height="60" rx="10" fill="#fff" stroke="#b46504" stroke-width="1.4" stroke-dasharray="6 4"/><text data-stap="6" x="880" y="151" font-size="12" fill="#333" text-anchor="middle" font-weight="700">MOZa?</text><text data-stap="6" x="880" y="167" font-size="12" fill="#333" text-anchor="middle">optie 1</text>
+  <circle data-stap="6" cx="935" cy="125" r="11" fill="#154273"/><text data-stap="6" x="935" y="129" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+  <rect data-stap="7" x="945" y="125" width="110" height="60" rx="10" fill="#fff" stroke="#b46504" stroke-width="1.4" stroke-dasharray="6 4"/><text data-stap="7" x="1000" y="151" font-size="12" fill="#333" text-anchor="middle" font-weight="700">MOZa?</text><text data-stap="7" x="1000" y="167" font-size="12" fill="#333" text-anchor="middle">optie 2</text>
+  <circle data-stap="7" cx="1055" cy="125" r="11" fill="#154273"/><text data-stap="7" x="1055" y="129" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+  <rect data-stap="1" x="10" y="290" width="1080" height="490" rx="24" fill="#fff" stroke="#bbb"/>
+  <text data-stap="1" x="870" y="322" font-size="13.5" font-weight="700" fill="#333" text-anchor="middle">Diensten</text>
+  <circle data-stap="1" cx="930" cy="317" r="11" fill="#154273"/><text data-stap="1" x="930" y="321" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <rect x="35" y="340" width="170" height="300" rx="14" fill="#e6f0e9" fill-opacity="0.45" stroke="#2d7a46" stroke-opacity="0.35"/>
+  <text x="120" y="628" font-size="11" font-weight="700" fill="#2d7a46" text-anchor="middle" letter-spacing="0.06em">RVO</text>
+  <rect x="230" y="340" width="200" height="300" rx="14" fill="#dae8fc" fill-opacity="0.45" stroke="#1f5fa8" stroke-opacity="0.35"/>
+  <text x="330" y="628" font-size="11" font-weight="700" fill="#1f5fa8" text-anchor="middle" letter-spacing="0.06em">BELASTINGDIENST</text>
+  <rect x="460" y="340" width="200" height="300" rx="14" fill="#f3eef6" fill-opacity="0.45" stroke="#7a4f8c" stroke-opacity="0.35"/>
+  <text x="560" y="628" font-size="11" font-weight="700" fill="#7a4f8c" text-anchor="middle" letter-spacing="0.06em">JUSTIS</text>
+  <path d="M120 181V330" stroke="#2d7a46" stroke-width="1.6" fill="none" marker-end="url(#catalogus-2d7a46)"/>
+  <path d="M330 181V330" stroke="#1f5fa8" stroke-width="1.6" fill="none" marker-end="url(#catalogus-1f5fa8)"/>
+  <path d="M560 181V330" stroke="#7a4f8c" stroke-width="1.6" fill="none" marker-end="url(#catalogus-7a4f8c)"/>
+  <rect x="45" y="358" width="150" height="44" rx="22" fill="#fff" stroke="#2d7a46" stroke-width="1.4"/><text x="120" y="384" font-size="12" fill="#333" text-anchor="middle">Subsidie aanvragen</text>
+  <rect x="45" y="418" width="150" height="44" rx="22" fill="#fff" stroke="#2d7a46" stroke-width="1.4"/><text x="120" y="436" font-size="12" fill="#333" text-anchor="middle">Vergunning</text><text x="120" y="452" font-size="12" fill="#333" text-anchor="middle">aanvragen</text>
+  <rect x="245" y="358" width="170" height="44" rx="22" fill="#fff" stroke="#1f5fa8" stroke-width="1.4"/><text x="330" y="384" font-size="12" fill="#333" text-anchor="middle">Belastingaangifte doen</text>
+  <rect x="245" y="418" width="170" height="44" rx="22" fill="#fff" stroke="#1f5fa8" stroke-width="1.4"/><text x="330" y="444" font-size="12" fill="#333" text-anchor="middle">Zorgtoeslag aanvragen</text>
+  <rect x="245" y="478" width="170" height="44" rx="22" fill="#fff" stroke="#1f5fa8" stroke-width="1.4"/><text x="330" y="504" font-size="12" fill="#333" text-anchor="middle">Huurtoeslag aanvragen</text>
+  <rect data-stap="2" x="250" y="540" width="160" height="60" rx="30" fill="#dae8fc" stroke="#1f5fa8" stroke-width="1.4"/><text data-stap="2" x="330" y="566" font-size="12" fill="#333" text-anchor="middle" font-weight="700">Portaaldienst</text><text data-stap="2" x="330" y="582" font-size="12" fill="#333" text-anchor="middle">&quot;MijnToeslagen&quot;</text>
+  <circle data-stap="2" cx="405" cy="545" r="11" fill="#154273"/><text data-stap="2" x="405" y="549" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <rect x="485" y="358" width="150" height="44" rx="22" fill="#fff" stroke="#7a4f8c" stroke-width="1.4"/><text x="560" y="384" font-size="12" fill="#333" text-anchor="middle">VOG aanvragen</text>
+  <rect x="485" y="418" width="150" height="44" rx="22" fill="#fff" stroke="#7a4f8c" stroke-width="1.4"/><text x="560" y="436" font-size="12" fill="#333" text-anchor="middle">Naamswijziging</text><text x="560" y="452" font-size="12" fill="#333" text-anchor="middle">doorgeven</text>
+  <rect data-stap="3" x="45" y="672" width="615" height="80" rx="40" fill="#fff" stroke="#b46504" stroke-width="1.4" stroke-dasharray="6 4"/><text data-stap="3" x="352" y="708" font-size="12.5" fill="#333" text-anchor="middle" font-weight="700">Portaaldienst namens meerdere dienstaanbieders?</text><text data-stap="3" x="352" y="724" font-size="12.5" fill="#333" text-anchor="middle">&quot;MOZa portaal&quot;</text>
+  <circle data-stap="3" cx="645" cy="680" r="11" fill="#154273"/><text data-stap="3" x="645" y="684" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <path data-stap="2" d="M250,570 H236 V440 H243" stroke="#666" stroke-width="1.6" fill="none" marker-end="url(#catalogus-666)"/>
+  <path data-stap="2" d="M250,570 H236 V500 H243" stroke="#666" stroke-width="1.6" fill="none" marker-end="url(#catalogus-666)"/>
+  <path data-stap="5" d="M760,185 V268 H428 V440 H417" stroke="#666" stroke-width="1.6" fill="none" marker-end="url(#catalogus-666)"/>
+  <path data-stap="7" d="M1000,185 V280 H165 V356" stroke="#0e7c86" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-0e7c86)"/>
+  <path data-stap="7" d="M1000,185 V280 H375 V356" stroke="#0e7c86" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-0e7c86)"/>
+  <path data-stap="7" d="M1000,185 V280 H605 V356" stroke="#0e7c86" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-0e7c86)"/>
+  <path data-stap="6" d="M880,185 V712 H662" stroke="#b46504" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-b46504)"/>
+  <path data-stap="3" d="M45,712 H22 V388 H43" stroke="#b46504" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-b46504)"/>
+  <path data-stap="3" d="M217,672 V388 H243" stroke="#b46504" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-b46504)"/>
+  <path data-stap="3" d="M447,672 V388 H483" stroke="#b46504" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#catalogus-b46504)"/>
+  <text x="896" y="440" font-size="11" fill="#b46504">Oranje gestippeld: MOZa optie 1</text>
+  <text x="896" y="456" font-size="11" fill="#b46504">(met portaaldienst)</text>
+  <text x="896" y="480" font-size="11" fill="#0e7c86">Turquoise gestippeld: MOZa optie 2</text>
+  <text x="896" y="496" font-size="11" fill="#0e7c86">(zonder portaaldienst)</text>
+  <text x="896" y="520" font-size="11" fill="#5b6573">Gestippelde vakken: hypothese,</text>
+  <text x="896" y="536" font-size="11" fill="#5b6573">nog niet bekend of het kan</text>
+</svg>
+      </div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="toelichting">
+      <nldd-title size="2"><h2>Toelichting</h2><p slot="supporting-text">Dezelfde uitleg als in het paneel, met het nummer uit het schema.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="4"><h3>Diensten</h3><p slot="supporting-text">Toelichting 1</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p><strong>Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:</strong></p>
+  <ul>
+    <li>Dienstverlenernaam (<code>OrganizationDisplayName</code>)</li>
+    <li>Dienstnaam (<code>ServiceName</code>)</li>
+    <li>Dienstomschrijving (<code>ServiceDescription</code>)</li>
+    <li>Betrouwbaarheidsniveau (<code>AuthnContextClassRef</code>)</li>
+  </ul>
+  <p>Bron: <a href="https://www.eherkenning.nl/sites/default/files/2022-02/Handleiding%20Dienstencatalogus%20versie%20VII.pdf">Communicatie Handleiding eHerkenning versie 2 2017</a></p>
+    <p>Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (<code>SSOSupport</code>) en of de dienst door een dienstbemiddelaar mag worden ontsloten (<code>ServiceIntermediationAllowed</code>).</p>
+    <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog">Service catalog | Afsprakenstelsel eToegang</a></p>
+    <p>Een dienstverlener sluit aan op het eHerkenningsstelsel via een herkenningsmakelaar (een marktpartij) naar eigen keuze.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>Portaaldiensten</h3><p slot="supporting-text">Toelichting 2</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p>Een dienstaanbieder registreert de afzonderlijke diensten, maar kan daarnaast ook een portaaldienst registreren (<code>IsPortal = true</code>). Een portaaldienst is dus een speciaal type dienst. Daarin wordt verwezen naar de diensten die onder het portaal vallen, via <code>PortalForService</code> met de <code>ServiceID</code>'s van die diensten.</p>
+    <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog">Service catalog | Afsprakenstelsel eToegang</a></p>
+    <p>Bij het inloggen op een portaaldienst kan het machtigingenregister in één keer (in bulk) worden bevraagd: "Voor welke diensten in dit portaal is deze gebruiker gemachtigd namens zijn onderneming?" De gebruiker hoeft dan maar één keer in te loggen; aparte inlogverzoeken voor de onderliggende diensten zijn niet nodig.</p>
+    <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/guc4-3-portaalfunctie">GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang</a></p>
+    <p><strong>Mogelijk interessant voor MOZa:</strong></p>
+    <ul>
+      <li>Hypothese: MOZa registreert een portaaldienst ("MOZa portaal") die verwijst naar alle diensten die op MOZa zijn aangesloten.</li>
+      <li>Bij het inloggen op het MOZa portaal wordt het register in bulk bevraagd.</li>
+      <li>MOZa krijgt terug voor welke diensten (bijv. x, y en z) de gebruiker gemachtigd is. Direct na het inloggen zijn die diensten beschikbaar, <em>zonder</em> dat er per onderliggende dienst een apart inlogverzoek en een nieuwe bevoegdheidscheck in het register nodig is.</li>
+    </ul>
+  <p><strong>Maar:</strong></p>
+    <p><strong>Belangrijke beperking in het stelsel:</strong></p>
+    <blockquote><em>PortalForService MUST ONLY contain existing ServiceIDs referring to service(s) of the same ServiceProvider that the portal belongs to.</em></blockquote>
+    <p>Met andere woorden: een portaaldienst hoort bij één dienstaanbieder en kan alleen diensten van diezelfde dienstaanbieder bevatten.</p>
+    <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog">Service catalog | Afsprakenstelsel eToegang</a></p>
+  <p><strong>Dit leidt tot een vraag → zie  (toelichting 3).</strong></p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>Portaaldienst namens meerdere dienstaanbieders? - &quot;MOZa portaal&quot;</h3><p slot="supporting-text">Toelichting 3</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p><strong>Vraag 1.</strong> Kan een portaaldienst worden geregistreerd die verwijst naar diensten van <em>verschillende</em> dienstaanbieders?</p>
+    <ul>
+      <li>Enerzijds lijkt dit uitgesloten door de regel (zie toelichting 2):
+        <blockquote>"<em>PortalForService MUST ONLY contain existing ServiceIDs referring to service(s) of the same ServiceProvider that the portal belongs to.</em>"</blockquote>
+      </li>
+      <li>Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/aansluiten-als-dienstbemiddelaar">Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang</a>:
+        <blockquote>"<em>Er is sprake van <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/dienstbemiddeling">Dienstbemiddeling</a> in de volgende gevallen: 1. ... , 2. ... , 3. <strong>Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden.</strong></em>"</blockquote>
+      </li>
+    </ul></p>
+  <p><strong>Vraag 2.</strong> Als zo'n portaaldienst namens meerdere dienstaanbieders inderdaad kan bestaan: betekent geval 3 uit dit citaat dan dat er altijd dienstbemiddeling nodig is om de authenticatie/autorisatie voor zo'n portaal te regelen?</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>Dienstbemiddelaars</h3><p slot="supporting-text">Toelichting 4</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p>Een aparte dienstverlener sluit zich aan als dienstbemiddelaar om namens een andere dienstaanbieder de dienst te leveren aan de gebruiker (de dienstafnemer).</p>
+    <p><a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/aansluiten-als-dienstbemiddelaar">Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang</a></p>
+    <p><strong>Belangrijke beperking in het stelsel:</strong></p>
+    <p>Dienstbemiddeling is op dit moment nog beperkt tot eIDAS-outbound.</p>
+    <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog">Service catalog | Afsprakenstelsel eToegang</a>: "<em>only available for eIDAS-outbound</em>"</p>
+    <p>Bron: <a href="https://docs.rijksapp.nl/docs/3f27cbcd-1ca7-4d34-a3e4-8a8fdc24a55f/">Analyse e-herkenning - Mijn Bureau Docs</a>: "<em>Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -&gt; lange doorlooptijd</em>."</p>
+  <p><strong>Vraag 3.</strong> Wat betekent deze beperking precies? En hoe ziet de tijdlijn voor de verdere ontwikkeling van dienstbemiddeling eruit?</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>&quot;Loket Zorgtoeslag&quot;</h3><p slot="supporting-text">Toelichting 5</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p><strong>Voorbeeld van dienstbemiddeling (huidige situatie)</strong></p>
+    <p>Fictief voorbeeld: een aparte dienstverlener met een eigen website helpt gebruikers namens de Belastingdienst met de <em>dienst</em> "Zorgtoeslag aanvragen".</p>
+    <ol>
+      <li>De gebruiker logt ogenschijnlijk in op de website van de bemiddelaar.</li>
+      <li>De bemiddelaar controleert de authenticatie/autorisatie van de gebruiker bij de dienst zelf.</li>
+      <li>De gebruiker is ingelogd op de website van de bemiddelaar, die de dienst namens de gebruiker regelt.</li>
+    </ol>
+  <p><strong>Vraag 4.</strong> Klopt dit (ongeveer)?</p>
+  <p><strong>Vraag 5.</strong> Kan één dienstbemiddelaar ook méérdere diensten (van één dienstaanbieder) bemiddelen?</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>MOZa? - Optie 1</h3><p slot="supporting-text">Toelichting 6</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p><strong>Zo nee</strong> op vraag (5)  (toelichting 5) → MOZa Optie 1</p>
+  <p><strong>MOZa als bemiddelaar voor één portaaldienst met meerdere diensten</strong></p>
+      <p><strong>Voordeel</strong></p>
+      <p>De machtigingen voor alle diensten kunnen mogelijk in bulk worden opgevraagd, omdat de diensten in een portaal gebundeld zijn (zie toelichting 2).</p>
+      <p><strong>Nadeel</strong></p>
+      <p>Het is onduidelijk of een portaaldienst diensten van meerdere dienstaanbieders kan bevatten (zie vraag (1)  (toelichting 3)).</p>
+  <p><strong>Vragen</strong></p>
+    <p><strong>Vraag 6.</strong> Kan een portaaldienst worden geregistreerd voor diensten van meerdere dienstaanbieders? (Zie vraag (1)  (toelichting 3).)</p>
+    <p><strong>Vraag 7a.</strong> Kan de authenticatie/autorisatie voor een portaaldienst <em>überhaupt</em> door een dienstbemiddelaar worden geregeld?</p>
+    <p><strong>Vraag 7b.</strong> Vervolgvraag: kan dit ook voor een portaaldienst met diensten van meerdere dienstaanbieders? (Afhankelijk van de antwoorden op vraag (6) en (7a).)</p>
+    <p><strong>Vraag 7c.</strong> Zo ja: kunnen de machtigingen voor alle diensten in dat portaal dan ook in bulk worden opgevraagd? Bij een portaaldienst kan dat normaal gesproken wel (zie toelichting 2), maar de vraag is of dat ook geldt als het portaal diensten van meerdere dienstaanbieders bevat.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>MOZa? - Optie 2</h3><p slot="supporting-text">Toelichting 7</p></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+<p><strong>Zo ja</strong> op vraag (5)  (toelichting 5) → MOZa Optie 2</p>
+  <p><strong>MOZa als bemiddelaar voor meerdere diensten (zonder portaaldienst)</strong></p>
+      <p><strong>Voordeel</strong></p>
+      <p>Er is geen portaaldienst nodig. Dat is relevant, omdat een portaaldienst voor diensten van <em>verschillende</em> dienstaanbieders mogelijk niet kan (zie vraag (1)  (toelichting 3)).</p>
+      <p><strong>Nadeel</strong></p>
+      <p>Mogelijk (?) moet per dienst een apart inlogverzoek worden verstuurd (eventueel met SSO), omdat bulkbevraging alleen bij portaaldiensten kan.</p>
+  <p><strong>Vragen</strong></p>
+    <p><strong>Vraag 8.</strong> Vervolg op vraag (5): kan een dienstbemiddelaar ook meerdere diensten van <em>verschillende</em> dienstaanbieders bemiddelen?</p>
+    <p><strong>Vraag 9a.</strong> Kan dit inderdaad zonder portaaldienst waarin de betreffende diensten gebundeld zijn?</p>
+    <p><strong>Vraag 9b.</strong> Zo ja: als de diensten <em>niet</em> in een portaaldienst gebundeld zijn, kunnen machtigingen niet in bulk worden opgevraagd (dat kan alleen bij portaaldiensten). Moet de bemiddelaar dan voor elke dienst een apart inlogverzoek versturen om de autorisatie te controleren?</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="open-vragen">
+      <nldd-title size="2"><h2>Open vragen</h2><p slot="supporting-text">De vragen zijn over alle platen heen doorgenummerd. Op plaat 5 en 6 komen een aantal ervan terug.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="Open vragen">
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V1**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Kan een portaaldienst worden geregistreerd die verwijst naar diensten van verschillende dienstaanbieders?**" supporting-text="Plaat 3, toelichting 3: Portaaldienst namens meerdere dienstaanbieders? - &quot;MOZa portaal&quot;"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V2**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Als zo&#x27;n portaaldienst namens meerdere dienstaanbieders inderdaad kan bestaan: betekent geval 3 uit dit citaat dan dat er altijd dienstbemiddeling nodig is om de authenticatie/autorisatie voor zo&#x27;n portaal te regelen?**" supporting-text="Plaat 3, toelichting 3: Portaaldienst namens meerdere dienstaanbieders? - &quot;MOZa portaal&quot;"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V3**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Wat betekent deze beperking precies? En hoe ziet de tijdlijn voor de verdere ontwikkeling van dienstbemiddeling eruit?**" supporting-text="Plaat 3, toelichting 4: Dienstbemiddelaars"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V4**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Klopt dit (ongeveer)?**" supporting-text="Plaat 3, toelichting 5: &quot;Loket Zorgtoeslag&quot;"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V5**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Kan één dienstbemiddelaar ook méérdere diensten (van één dienstaanbieder) bemiddelen?**" supporting-text="Plaat 3, toelichting 5: &quot;Loket Zorgtoeslag&quot;"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V6**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Kan een portaaldienst worden geregistreerd voor diensten van meerdere dienstaanbieders? (Zie vraag (1) (toelichting 3).)**" supporting-text="Plaat 3, toelichting 6: MOZa? - Optie 1"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V7a**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Kan de authenticatie/autorisatie voor een portaaldienst überhaupt door een dienstbemiddelaar worden geregeld?**" supporting-text="Plaat 3, toelichting 6: MOZa? - Optie 1"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V7b**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Vervolgvraag: kan dit ook voor een portaaldienst met diensten van meerdere dienstaanbieders? (Afhankelijk van de antwoorden op vraag (6) en (7a).)**" supporting-text="Plaat 3, toelichting 6: MOZa? - Optie 1"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V7c**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Zo ja: kunnen de machtigingen voor alle diensten in dat portaal dan ook in bulk worden opgevraagd? Bij een portaaldienst kan dat normaal gesproken wel (zie toelichting 2), maar de vraag is of dat ook geldt als het portaal diensten van meerdere dienstaanbieders bevat.**" supporting-text="Plaat 3, toelichting 6: MOZa? - Optie 1"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V8**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Vervolg op vraag (5): kan een dienstbemiddelaar ook meerdere diensten van verschillende dienstaanbieders bemiddelen?**" supporting-text="Plaat 3, toelichting 7: MOZa? - Optie 2"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V9a**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Kan dit inderdaad zonder portaaldienst waarin de betreffende diensten gebundeld zijn?**" supporting-text="Plaat 3, toelichting 7: MOZa? - Optie 2"></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell vertical-alignment="top" width="48px" text="**V9b**"></nldd-text-cell>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell text="**Zo ja: als de diensten niet in een portaaldienst gebundeld zijn, kunnen machtigingen niet in bulk worden opgevraagd (dat kan alleen bij portaaldiensten). Moet de bemiddelaar dan voor elke dienst een apart inlogverzoek versturen om de autorisatie te controleren?**" supporting-text="Plaat 3, toelichting 7: MOZa? - Optie 2"></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten (eHerkenning)</a></li>
+          <li><a href="https://www.eherkenning.nl/">eHerkenning.nl</a></li>
+          <li>Verkenning eHerkenning en MOZa (platen 1-6) van het MOZa-team, november 2026</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie november 2026. Vereenvoudigde weergave op basis van het Afsprakenstelsel Elektronische Toegangsdiensten. Koffiezaak Noon, Karin en Bilal zijn een voorbeeld.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script type="application/json" id="stappen-data">
+{
+ "naam": "Dienstencatalogus eHerkenning",
+ "schema": "#catalogus-schema",
+ "stapnaam": "Toelichting",
+ "stappen": [
+  {
+   "n": "1",
+   "kop": "Diensten",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:",
+   "punten": [
+    "Dienstverlenernaam ( OrganizationDisplayName )",
+    "Dienstnaam ( ServiceName )",
+    "Dienstomschrijving ( ServiceDescription )",
+    "Betrouwbaarheidsniveau ( AuthnContextClassRef )",
+    "Bron: Communicatie Handleiding eHerkenning versie 2 2017",
+    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt ( SSOSupport ) en of de dienst door een dienstbemiddelaar mag worden ontsloten ( ServiceIntermediationAllowed ).",
+    "Bron: Service catalog | Afsprakenstelsel eToegang",
+    "Een dienstverlener sluit aan op het eHerkenningsstelsel via een herkenningsmakelaar (een marktpartij) naar eigen keuze."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "2",
+   "kop": "Portaaldiensten",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Een dienstaanbieder registreert de afzonderlijke diensten, maar kan daarnaast ook een portaaldienst registreren ( IsPortal = true ). Een portaaldienst is dus een speciaal type dienst. Daarin wordt verwezen naar de diensten die onder het portaal vallen, via PortalForService met de ServiceID 's van die diensten.",
+   "punten": [
+    "Bron: Service catalog | Afsprakenstelsel eToegang",
+    "Bij het inloggen op een portaaldienst kan het machtigingenregister in één keer (in bulk) worden bevraagd: \"Voor welke diensten in dit portaal is deze gebruiker gemachtigd namens zijn onderneming?\" De gebruiker hoeft dan maar één keer in te loggen; aparte inlogverzoeken voor de onderliggende diensten zijn niet nodig.",
+    "Bron: GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang",
+    "Mogelijk interessant voor MOZa:",
+    "Hypothese: MOZa registreert een portaaldienst (\"MOZa portaal\") die verwijst naar alle diensten die op MOZa zijn aangesloten.",
+    "Bij het inloggen op het MOZa portaal wordt het register in bulk bevraagd.",
+    "MOZa krijgt terug voor welke diensten (bijv. x, y en z) de gebruiker gemachtigd is. Direct na het inloggen zijn die diensten beschikbaar, zonder dat er per onderliggende dienst een apart inlogverzoek en een nieuwe bevoegdheidscheck in het register nodig is.",
+    "Maar:",
+    "Belangrijke beperking in het stelsel:",
+    "Met andere woorden: een portaaldienst hoort bij één dienstaanbieder en kan alleen diensten van diezelfde dienstaanbieder bevatten.",
+    "Bron: Service catalog | Afsprakenstelsel eToegang",
+    "Dit leidt tot een vraag → zie (toelichting 3)."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "3",
+   "kop": "Portaaldienst namens meerdere dienstaanbieders? - \"MOZa portaal\"",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Enerzijds lijkt dit uitgesloten door de regel (zie toelichting 2): \" PortalForService MUST ONLY contain existing ServiceIDs referring to service(s) of the same ServiceProvider that the portal belongs to. \"",
+   "punten": [
+    "Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang : \" Er is sprake van Dienstbemiddeling in de volgende gevallen: 1. ... , 2. ... , 3. Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden. \""
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "1",
+     "Kan een portaaldienst worden geregistreerd die verwijst naar diensten van verschillende dienstaanbieders?",
+     ""
+    ],
+    [
+     "2",
+     "Als zo'n portaaldienst namens meerdere dienstaanbieders inderdaad kan bestaan: betekent geval 3 uit dit citaat dan dat er altijd dienstbemiddeling nodig is om de authenticatie/autorisatie voor zo'n portaal te regelen?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "4",
+   "kop": "Dienstbemiddelaars",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Een aparte dienstverlener sluit zich aan als dienstbemiddelaar om namens een andere dienstaanbieder de dienst te leveren aan de gebruiker (de dienstafnemer).",
+   "punten": [
+    "Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang",
+    "Belangrijke beperking in het stelsel:",
+    "Dienstbemiddeling is op dit moment nog beperkt tot eIDAS-outbound.",
+    "Bron: Service catalog | Afsprakenstelsel eToegang : \" only available for eIDAS-outbound \"",
+    "Bron: Analyse e-herkenning - Mijn Bureau Docs : \" Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -> lange doorlooptijd .\""
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "3",
+     "Wat betekent deze beperking precies? En hoe ziet de tijdlijn voor de verdere ontwikkeling van dienstbemiddeling eruit?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "5",
+   "kop": "\"Loket Zorgtoeslag\"",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Voorbeeld van dienstbemiddeling (huidige situatie)",
+   "punten": [
+    "Fictief voorbeeld: een aparte dienstverlener met een eigen website helpt gebruikers namens de Belastingdienst met de dienst \"Zorgtoeslag aanvragen\".",
+    "De gebruiker logt ogenschijnlijk in op de website van de bemiddelaar.",
+    "De bemiddelaar controleert de authenticatie/autorisatie van de gebruiker bij de dienst zelf.",
+    "De gebruiker is ingelogd op de website van de bemiddelaar, die de dienst namens de gebruiker regelt."
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "4",
+     "Klopt dit (ongeveer)?",
+     ""
+    ],
+    [
+     "5",
+     "Kan één dienstbemiddelaar ook méérdere diensten (van één dienstaanbieder) bemiddelen?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "6",
+   "kop": "MOZa? - Optie 1",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Zo nee op vraag (5) (toelichting 5) → MOZa Optie 1",
+   "punten": [
+    "MOZa als bemiddelaar voor één portaaldienst met meerdere diensten",
+    "Voordeel",
+    "De machtigingen voor alle diensten kunnen mogelijk in bulk worden opgevraagd, omdat de diensten in een portaal gebundeld zijn (zie toelichting 2).",
+    "Nadeel",
+    "Het is onduidelijk of een portaaldienst diensten van meerdere dienstaanbieders kan bevatten (zie vraag (1) (toelichting 3)).",
+    "Vragen"
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "6",
+     "Kan een portaaldienst worden geregistreerd voor diensten van meerdere dienstaanbieders? (Zie vraag (1) (toelichting 3).)",
+     ""
+    ],
+    [
+     "7a",
+     "Kan de authenticatie/autorisatie voor een portaaldienst überhaupt door een dienstbemiddelaar worden geregeld?",
+     ""
+    ],
+    [
+     "7b",
+     "Vervolgvraag: kan dit ook voor een portaaldienst met diensten van meerdere dienstaanbieders? (Afhankelijk van de antwoorden op vraag (6) en (7a).)",
+     ""
+    ],
+    [
+     "7c",
+     "Zo ja: kunnen de machtigingen voor alle diensten in dat portaal dan ook in bulk worden opgevraagd? Bij een portaaldienst kan dat normaal gesproken wel (zie toelichting 2), maar de vraag is of dat ook geldt als het portaal diensten van meerdere dienstaanbieders bevat.",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  },
+  {
+   "n": "7",
+   "kop": "MOZa? - Optie 2",
+   "kenmerken": [
+    "Overzicht"
+   ],
+   "lead": "Zo ja op vraag (5) (toelichting 5) → MOZa Optie 2",
+   "punten": [
+    "MOZa als bemiddelaar voor meerdere diensten (zonder portaaldienst)",
+    "Voordeel",
+    "Er is geen portaaldienst nodig. Dat is relevant, omdat een portaaldienst voor diensten van verschillende dienstaanbieders mogelijk niet kan (zie vraag (1) (toelichting 3)).",
+    "Nadeel",
+    "Mogelijk (?) moet per dienst een apart inlogverzoek worden verstuurd (eventueel met SSO), omdat bulkbevraging alleen bij portaaldiensten kan.",
+    "Vragen"
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "8",
+     "Vervolg op vraag (5): kan een dienstbemiddelaar ook meerdere diensten van verschillende dienstaanbieders bemiddelen?",
+     ""
+    ],
+    [
+     "9a",
+     "Kan dit inderdaad zonder portaaldienst waarin de betreffende diensten gebundeld zijn?",
+     ""
+    ],
+    [
+     "9b",
+     "Zo ja: als de diensten niet in een portaaldienst gebundeld zijn, kunnen machtigingen niet in bulk worden opgevraagd (dat kan alleen bij portaaldiensten). Moet de bemiddelaar dan voor elke dienst een apart inlogverzoek versturen om de autorisatie te controleren?",
+     ""
+    ]
+   ],
+   "kaarten": [],
+   "bron": ""
+  }
+ ]
+}
+</script>
+<script type="module" src="stappen-presentatie.js"></script>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>
