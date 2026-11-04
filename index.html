@@ -839,7 +839,6 @@ const renderGantt = () => {
       return laneHead(lane)
         + kaderToggleRow(lane, kaders, isOpen)
         + kaders.map(kaderRow).join('').replaceAll('data-kader-of=', isOpen ? 'data-kader-of=' : 'hidden data-kader-of=')
-        + `<div class="g-row g-sub"><div class="g-label">MOZa</div><div class="g-track"></div></div>`
         + rows;
     }).join('')}</div>`).join('')}`;
   setHeadHeight();
