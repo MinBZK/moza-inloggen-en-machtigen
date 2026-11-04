@@ -216,7 +216,7 @@
    "kenmerken": [
     "Overzicht"
    ],
-   "lead": "Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:",
+   "lead": "**Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:**",
    "punten": [
     "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (SSOSupport) en of de dienst door een dienstbemiddelaar mag worden ontsloten (ServiceIntermediationAllowed).",
     "Een dienstverlener sluit aan op het eHerkenningsstelsel via een herkenningsmakelaar (een marktpartij) naar eigen keuze."
@@ -253,7 +253,7 @@
      ]
     }
    ],
-   "bron": "Bron: Communicatie Handleiding eHerkenning versie 2 2017 Bron: Service catalog | Afsprakenstelsel eToegang"
+   "bron": "Bron: [Communicatie Handleiding eHerkenning versie 2 2017](https://www.eherkenning.nl/sites/default/files/2022-02/Handleiding%20Dienstencatalogus%20versie%20VII.pdf) Bron: [Service catalog | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog)"
   },
   {
    "n": "2",
@@ -264,17 +264,17 @@
    "lead": "Een dienstaanbieder registreert de afzonderlijke diensten, maar kan daarnaast ook een portaaldienst registreren (IsPortal = true). Een portaaldienst is dus een speciaal type dienst. Daarin wordt verwezen naar de diensten die onder het portaal vallen, via PortalForService met de ServiceID 's van die diensten.",
    "punten": [
     "Bij het inloggen op een portaaldienst kan het machtigingenregister in één keer (in bulk) worden bevraagd: \"Voor welke diensten in dit portaal is deze gebruiker gemachtigd namens zijn onderneming?\" De gebruiker hoeft dan maar één keer in te loggen; aparte inlogverzoeken voor de onderliggende diensten zijn niet nodig.",
-    "Mogelijk interessant voor MOZa:",
+    "**Mogelijk interessant voor MOZa:**",
     "Hypothese: MOZa registreert een portaaldienst (\"MOZa portaal\") die verwijst naar alle diensten die op MOZa zijn aangesloten.",
     "Bij het inloggen op het MOZa portaal wordt het register in bulk bevraagd.",
     "MOZa krijgt terug voor welke diensten (bijv. x, y en z) de gebruiker gemachtigd is. Direct na het inloggen zijn die diensten beschikbaar, zonder dat er per onderliggende dienst een apart inlogverzoek en een nieuwe bevoegdheidscheck in het register nodig is.",
-    "Belangrijke beperking in het stelsel:",
+    "**Belangrijke beperking in het stelsel:**",
     "Met andere woorden: een portaaldienst hoort bij één dienstaanbieder en kan alleen diensten van diezelfde dienstaanbieder bevatten."
    ],
    "aannames": [],
    "vragen": [],
    "kaarten": [],
-   "bron": "Bron: Service catalog | Afsprakenstelsel eToegang Bron: GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang Bron: Service catalog | Afsprakenstelsel eToegang"
+   "bron": "Bron: [Service catalog | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog) Bron: [GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/guc4-3-portaalfunctie) Bron: [Service catalog | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog)"
   },
   {
    "n": "3",
@@ -284,7 +284,7 @@
    ],
    "lead": "Enerzijds lijkt dit uitgesloten door de regel (zie toelichting 2): \" PortalForService MUST ONLY contain existing ServiceIDs referring to service(s) of the same ServiceProvider that the portal belongs to. \"",
    "punten": [
-    "Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang: \" Er is sprake van Dienstbemiddeling in de volgende gevallen: 1...., 2...., 3. Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden. \""
+    "Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina [Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/aansluiten-als-dienstbemiddelaar): \" Er is sprake van [Dienstbemiddeling](https://afsprakenstelsel.etoegang.nl/Startpagina/as/dienstbemiddeling) in de volgende gevallen: 1...., 2...., 3. **Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden.** \""
    ],
    "aannames": [],
    "vragen": [
@@ -310,8 +310,8 @@
    ],
    "lead": "Een aparte dienstverlener sluit zich aan als dienstbemiddelaar om namens een andere dienstaanbieder de dienst te leveren aan de gebruiker (de dienstafnemer).",
    "punten": [
-    "Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang",
-    "Belangrijke beperking in het stelsel:",
+    "[Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/aansluiten-als-dienstbemiddelaar)",
+    "**Belangrijke beperking in het stelsel:**",
     "Dienstbemiddeling is op dit moment nog beperkt tot eIDAS-outbound."
    ],
    "aannames": [],
@@ -323,7 +323,7 @@
     ]
    ],
    "kaarten": [],
-   "bron": "Bron: Service catalog | Afsprakenstelsel eToegang: \" only available for eIDAS-outbound \" Bron: Analyse e-herkenning - Mijn Bureau Docs: \" Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -> lange doorlooptijd.\""
+   "bron": "Bron: [Service catalog | Afsprakenstelsel eToegang](https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog): \" only available for eIDAS-outbound \" Bron: [Analyse e-herkenning - Mijn Bureau Docs](https://docs.rijksapp.nl/docs/3f27cbcd-1ca7-4d34-a3e4-8a8fdc24a55f/): \" Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -> lange doorlooptijd.\""
   },
   {
    "n": "5",
@@ -331,7 +331,7 @@
    "kenmerken": [
     "Overzicht"
    ],
-   "lead": "Voorbeeld van dienstbemiddeling (huidige situatie)",
+   "lead": "**Voorbeeld van dienstbemiddeling (huidige situatie)**",
    "punten": [
     "Fictief voorbeeld: een aparte dienstverlener met een eigen website helpt gebruikers namens de Belastingdienst met de dienst \"Zorgtoeslag aanvragen\".",
     "De gebruiker logt ogenschijnlijk in op de website van de bemiddelaar.",
@@ -360,11 +360,11 @@
    "kenmerken": [
     "Overzicht"
    ],
-   "lead": "Zo nee op vraag (5) (toelichting 5) → MOZa Optie 1",
+   "lead": "**Zo nee** op vraag (5) (toelichting 5) → MOZa Optie 1",
    "punten": [
-    "Voordeel",
+    "**Voordeel**",
     "De machtigingen voor alle diensten kunnen mogelijk in bulk worden opgevraagd, omdat de diensten in een portaal gebundeld zijn (zie toelichting 2).",
-    "Nadeel",
+    "**Nadeel**",
     "Het is onduidelijk of een portaaldienst diensten van meerdere dienstaanbieders kan bevatten (zie vraag (1) (toelichting 3))."
    ],
    "aannames": [],
@@ -399,11 +399,11 @@
    "kenmerken": [
     "Overzicht"
    ],
-   "lead": "Zo ja op vraag (5) (toelichting 5) → MOZa Optie 2",
+   "lead": "**Zo ja** op vraag (5) (toelichting 5) → MOZa Optie 2",
    "punten": [
-    "Voordeel",
+    "**Voordeel**",
     "Er is geen portaaldienst nodig. Dat is relevant, omdat een portaaldienst voor diensten van verschillende dienstaanbieders mogelijk niet kan (zie vraag (1) (toelichting 3)).",
-    "Nadeel",
+    "**Nadeel**",
     "Mogelijk (?) moet per dienst een apart inlogverzoek worden verstuurd (eventueel met SSO), omdat bulkbevraging alleen bij portaaldiensten kan."
    ],
    "aannames": [],

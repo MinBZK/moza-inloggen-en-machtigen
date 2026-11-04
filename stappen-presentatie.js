@@ -67,6 +67,9 @@ if (bron) {
     .att-velden dt { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: #5b6573; overflow-wrap: anywhere; }
     .att-velden dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
     .att-velden dd small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: #5b6573; }
+    #att-overlay .att-inhoud a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+    #att-overlay .att-inhoud a:hover { color: #ffb612; }
+    #att-overlay .att-inhoud a:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .att-bron { margin: 0; font-size: 13px; line-height: 1.5; color: rgb(255 255 255 / 0.8); }
     .att-voet { display: flex; align-items: center; gap: 16px; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .att-voet button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff; font: inherit; font-size: 18px; cursor: pointer; }
@@ -76,6 +79,9 @@ if (bron) {
 `;
   document.head.append(stijl);
   const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // Tekst in het paneel mag **vet** en [links](pagina.html of https://...) bevatten; de rest blijft platte tekst
+  const md = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(((?:https?:\/\/|[\w-]+\.html)[^)\s]*)\)/g, '<a href="$2">$1</a>');
   let paneel, huidig = 0, terugFocus;
   const bouw = () => {
     paneel = document.createElement('aside');
@@ -105,22 +111,22 @@ if (bron) {
     </div>`;
   const toon = () => {
     const s = STAPPEN[huidig];
-    const sub = (t) => `<ul>${t.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    const sub = (t) => `<ul>${t.map((x) => `<li>${md(x)}</li>`).join('')}</ul>`;
     // Een punt mag ook [tekst, [subpunten]] zijn, bijvoorbeeld voor oplossingsrichtingen
-    const punten = [...(s.punten || []).map((p) => (Array.isArray(p) ? `<li>${esc(p[0])}${sub(p[1])}</li>` : `<li>${esc(p)}</li>`)),
-      ...(s.aannames || []).map((a) => `<li><strong>Aanname.</strong> ${esc(a)}</li>`),
+    const punten = [...(s.punten || []).map((p) => (Array.isArray(p) ? `<li>${md(p[0])}${sub(p[1])}</li>` : `<li>${md(p)}</li>`)),
+      ...(s.aannames || []).map((a) => `<li><strong>Aanname.</strong> ${md(a)}</li>`),
       // Een toelichting mag ook een lijst zijn: dan als subpunten (bijvoorbeeld twee losse problemen)
-      ...(s.vragen || []).map(([v, q, t]) => `<li><strong>Open vraag ${esc(v)}.</strong> ${esc(q)} ${Array.isArray(t) ? sub(t) : esc(t)}</li>`)].join('');
+      ...(s.vragen || []).map(([v, q, t]) => `<li><strong>Open vraag ${esc(v)}.</strong> ${md(q)} ${Array.isArray(t) ? sub(t) : md(t)}</li>`)].join('');
     const inhoud = paneel.querySelector('.att-inhoud');
     inhoud.innerHTML = `
       <p class="att-label">${esc(NAAM)} · ${esc(STAP)} ${esc(s.n)}${(s.kenmerken || []).map((k) => ` · ${esc(k)}`).join('')}</p>
       <h2 class="att-titel">${esc(STAP)} ${esc(s.n)} <span>${esc(s.kop)}</span></h2>
       ${s.soort ? `<p class="att-soort" style="--soort-kleur:${s.soort[2]}"><strong>${esc(s.soort[0])}</strong><span>${esc(s.soort[1])}</span></p>` : ''}
-      <p class="att-lead">${esc(s.lead)}</p>
+      <p class="att-lead">${md(s.lead)}</p>
       ${s.opties ? `${s.opties.tekst ? `<p class="att-tekst">${esc(s.opties.tekst)}</p>` : ''}<ul class="att-punten">${s.opties.items.map(([l, t, z]) => `<li><strong>${esc(l)}:</strong> ${esc(t)}${z && z.length ? sub(z) : ''}</li>`).join('')}</ul>${punten ? '<hr class="att-scheiding">' : ''}` : ''}
       ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
       ${(s.kaarten || []).map(kaart).join('')}
-      ${s.bron ? `<p class="att-bron">${esc(s.bron).replace(/^Voorbeeldwaarden zijn fictief\./, '<em>$&</em>')}</p>` : ''}`;
+      ${s.bron ? `<p class="att-bron">${md(s.bron).replace(/^Voorbeeldwaarden zijn fictief\./, '<em>$&</em>')}</p>` : ''}`;
     inhoud.scrollTop = 0;
     paneel.querySelector('.att-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
     const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');

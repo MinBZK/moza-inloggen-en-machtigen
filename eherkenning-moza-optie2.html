@@ -406,7 +406,7 @@
    ],
    "lead": "De makelaar stuurt een inlogverzoek naar de leverancier. Hoe dat verzoek eruitziet is nog een vraag; er zijn drie mogelijke varianten:",
    "punten": [
-    "Nog beter zou zijn:",
+    "**Nog beter zou zijn:**",
     "MOZa weet al vóór het versturen van de inlogverzoeken voor welke diensten Bilal gemachtigd is (die informatie is in principe bekend bij de leverancier). Dan hoeft er alleen voor de gemachtigde diensten een inlogverzoek te worden verstuurd, wat het systeem minder belast."
    ],
    "aannames": [],
@@ -642,17 +642,17 @@
    "vragen": [
     [
      "19a (eerder)",
-     "Variant A Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
+     "** Variant A**Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?",
      ""
     ],
     [
      "19b (eerder)",
-     "Variant B Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.",
+     "** Variant B**Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst \"MOZa\" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.",
      ""
     ],
     [
      "19c (eerder)",
-     "Variant C Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?",
+     "** Variant C**Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?",
      ""
     ]
    ],
@@ -709,13 +709,13 @@
    "lead": "Z login controleert of Bilal namens Noon gemachtigd is voor de diensten in het portaal.",
    "punten": [
     "Ook hoe de machtigingen worden opgevraagd, hangt af van het antwoord op vraag (19a-c). Per variant:",
-    "Variant A Los verzoek per dienst",
+    "Variant A **Los verzoek per dienst**",
     "Is Bilal gemachtigd voor dienst 1? Voor dienst 2? Voor dienst 3?",
-    "OF",
-    "Variant B Eén inlogverzoek alleen voor MOZa (leeg portaal)",
+    "**OF**",
+    "Variant B **Eén inlogverzoek alleen voor MOZa (leeg portaal)**",
     "Op dit punt wordt alleen de machtiging voor de dienst MOZa (leeg portaal) gecontroleerd: is Bilal gemachtigd voor MOZa?",
-    "OF",
-    "Variant C Eén inlogverzoek voor alle diensten tegelijk",
+    "**OF**",
+    "Variant C **Eén inlogverzoek voor alle diensten tegelijk**",
     "Het machtigingenregister wordt in één keer bevraagd voor alle diensten binnen MOZa: is Bilal gemachtigd voor diensten x, y en z?"
    ],
    "aannames": [],
@@ -945,9 +945,9 @@
    "lead": "Bilal krijgt toegang tot het MOZa-portaal.",
    "punten": [
     "Afhankelijk van de variant (het antwoord op vraag 19a-c) is Bilal nu:",
-    "Variant A Variant C",
+    "Variant AVariant C",
     "Ingelogd op de MOZa-website/het portaal én al ingelogd bij alle onderliggende diensten waarvoor hij gemachtigd is. De flow eindigt hier.",
-    "OF",
+    "**OF**",
     "Variant B",
     "Ingelogd op de MOZa-website/het portaal, maar nog niet bij de onderliggende diensten. De inlogverzoeken voor die diensten worden pas bij of na binnenkomst in het portaal verstuurd, met SSO (stap 14-18)."
    ],
