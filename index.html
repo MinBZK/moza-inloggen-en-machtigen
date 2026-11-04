@@ -12,7 +12,7 @@
     .gantt-scroll {
       overflow: auto;
       max-height: calc(100dvh - 96px);
-      overscroll-behavior: contain;
+      overscroll-behavior: contain auto; /* horizontaal binnen de tabel, verticaal door naar de pagina */
       border: var(--semantics-surfaces-border-width, 1px) solid var(--semantics-surfaces-base-border-color);
       border-radius: var(--semantics-surfaces-corner-radius, 8px);
       background-color: var(--semantics-surfaces-base-background-color);
