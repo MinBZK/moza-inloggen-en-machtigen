@@ -56,6 +56,11 @@
     .g-section { position: sticky; top: var(--head-h, 56px); z-index: 4; border-top: 3px solid var(--primitives-color-accent-500);
       background-color: var(--primitives-color-accent-100); }
     .g-section .g-label { grid-column: 1 / -1; box-shadow: none; padding-top: 12px; padding-bottom: 12px; background-color: var(--primitives-color-accent-100); }
+    /* Eigen kop i.p.v. nldd-title: die begrenst de titel op 40ch (!important), zodat hij over twee regels liep */
+    .g-section-title h3 { margin: 0; font: var(--primitives-font-display-4-lg); color: var(--semantics-content-color); }
+    .g-section-title p { margin: 0; font: var(--primitives-font-body-md-regular-tight); color: var(--semantics-content-secondary-color); }
+    @media (max-width: 1007px) { .g-section-title h3 { font: var(--primitives-font-display-4-md); } }
+    @media (max-width: 640px) { .g-section-title h3 { font: var(--primitives-font-display-4-sm); } }
     .g-group .g-label { padding-top: 12px; padding-bottom: 10px; background-color: var(--semantics-surfaces-tinted-background-color); }
     .g-group img { display: block; }
     .g-sub .g-label { padding-top: 8px; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
@@ -822,7 +827,7 @@ const renderGantt = () => {
     <div class="g-grid" aria-hidden="true">${lines}${showToday ? `<span class="today" style="left:${pct(todayAt)}"></span><span class="g-today-label" style="left:${pct(todayAt)}">vandaag</span>` : ''}</div>
     ${GANTT_SECTIONS.map((sec) => `<div class="g-block">
     <div class="g-row g-section" id="type-${sec.id}">
-      <div class="g-label"><nldd-title size="4"><h3>${esc(sec.title)}</h3><p slot="supporting-text">${esc(sec.sub)}</p></nldd-title></div>
+      <div class="g-label"><div class="g-section-title"><h3>${esc(sec.title)}</h3><p>${esc(sec.sub)}</p></div></div>
     </div>${sec.lanes.map(({ id, extra = [], skip = [] }) => {
       const lane = LANES.find((l) => l.id === id);
       const own = lane.releases.filter((r) => !skip.includes(r.code)).map((r) => [r.t, releaseRow(lane, r)]);
