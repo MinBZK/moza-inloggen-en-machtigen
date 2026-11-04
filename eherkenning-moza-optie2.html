@@ -264,69 +264,6 @@
       </nldd-list>
     </nldd-simple-section>
 
-    <nldd-simple-section id="toelichting">
-      <nldd-title size="2"><h2>Toelichting</h2><p slot="supporting-text">Dezelfde uitleg als in het paneel, met de stappen waar ze bij horen.</p></nldd-title>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>MOZa als dienstbemiddelaar</h3><p slot="supporting-text">MOZa</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>Of dienstbemiddeling voor méérdere diensten van verschillende dienstverleners bestaat (en mogelijk is), is nog een vraag:</p>
-    <p><strong>Vraag 5 (eerder gesteld).</strong> Kan één dienstbemiddelaar ook méérdere diensten (van één dienstaanbieder) bemiddelen?</p>
-    <p><strong>Vraag 8 (eerder gesteld).</strong> Vervolg op vraag (5): kan een dienstbemiddelaar ook meerdere diensten van <em>verschillende</em> dienstaanbieders bemiddelen?</p>
-  <p><strong>Vraag 18.</strong> Bestaan er al voorbeelden van dienstbemiddelaars die diensten van verschillende dienstverleners bemiddelen? Het is moeilijk voor te stellen dat dit nog helemaal niet voorkomt; dat moet nog worden onderzocht. Zo ja: hoe is het daar ingericht?</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3></h3><p slot="supporting-text">stap 4</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p><strong>Nog beter zou zijn:</strong></p>
-    <p>MOZa weet al vóór het versturen van de inlogverzoeken voor welke diensten Bilal gemachtigd is (die informatie is in principe bekend bij de leverancier). Dan hoeft er alleen voor de gemachtigde diensten een inlogverzoek te worden verstuurd, wat het systeem minder belast.</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Gecontroleerd niveau</h3><p slot="supporting-text">stap 7</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>Welk niveau hier wordt gecontroleerd, hangt af van het antwoord op deze eerder gestelde vragen:</p>
-    <p><strong>Vraag 19a (eerder gesteld).</strong> <strong>Variant A</strong>Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?</p>
-    <p><strong>Vraag 19b (eerder gesteld).</strong> <strong>Variant B</strong>Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst "MOZa" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.</p>
-    <p><strong>Vraag 19c (eerder gesteld).</strong> <strong>Variant C</strong>Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Machtigingen opvragen per variant</h3><p slot="supporting-text">stap 10</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>Ook hoe de machtigingen worden opgevraagd, hangt af van het antwoord op vraag (19a-c). Per variant:</p>
-      <p><strong><strong>Variant A</strong>Los verzoek per dienst</strong></p>
-      <p><strong>Vraag 19a (eerder gesteld).</strong> Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?</p>
-      <p>Is Bilal gemachtigd voor dienst 1? Voor dienst 2? Voor dienst 3?</p>
-      <p><strong>Vraag 20.</strong> Er komen dan losse assertions per dienst, die allemaal bij MOZa (als dienstbemiddelaar) terechtkomen, inclusief alle PseudoID's van de verschillende dienstverleners. Gaat dit in tegen privacyoverwegingen, omdat één dienstverlener dan kan zien voor welke diensten Bilal allemaal gemachtigd is?</p>
-    <p><strong>OF</strong></p>
-      <p><strong><strong>Variant B</strong>Eén inlogverzoek alleen voor MOZa (leeg portaal)</strong></p>
-      <p><strong>Vraag 19b (eerder gesteld).</strong> Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst "MOZa" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.</p>
-      <p>Op dit punt wordt alleen de machtiging voor de dienst MOZa (leeg portaal) gecontroleerd: is Bilal gemachtigd voor MOZa?</p>
-    <p><strong>OF</strong></p>
-      <p><strong><strong>Variant C</strong>Eén inlogverzoek voor alle diensten tegelijk</strong></p>
-      <p><strong>Vraag 19c (eerder gesteld).</strong> Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?</p>
-      <p>Het machtigingenregister wordt in één keer bevraagd voor alle diensten binnen MOZa: is Bilal gemachtigd voor diensten x, y en z?</p>
-      <p><strong>Vraag 21.</strong> Bij deze variant bevraagt MOZa het machtigingenregister in één keer (in bulk) voor alle diensten. Binnen het huidige stelsel kan dat niet op deze manier: bulkbevraging is alleen mogelijk bij portaaldiensten, en waarschijnlijk alleen bij portaaldiensten van één dienstverlener. Is er een grondslag voor MOZa om het machtigingenregister op deze manier te bevragen, en om te laten inrichten dat dit mogelijk wordt?</p>
-      <p><strong>Vraag 22.</strong> Hoe werkt dit met het PseudoID? Is dat dan nog van toepassing?</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Situatie na inloggen</h3><p slot="supporting-text">stap 13</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>Afhankelijk van de variant (het antwoord op vraag 19a-c) is Bilal nu:</p>
-      <p><strong><strong>Variant A</strong><strong>Variant C</strong></strong></p>
-      <p><strong>Vraag 19a (eerder gesteld).</strong> Als er geen portaaldienst is: moet er op dit punt een inlogverzoek worden verstuurd voor élke losse dienst die op MOZa is aangesloten?</p>
-      <p><strong>Vraag 19c (eerder gesteld).</strong> Of kan er in één keer één inlogverzoek worden verstuurd voor alle diensten?</p>
-      <p>Ingelogd op de MOZa-website/het portaal én al ingelogd bij alle onderliggende diensten waarvoor hij gemachtigd is. De flow eindigt hier.</p>
-    <p><strong>OF</strong></p>
-      <p><strong><strong>Variant B</strong></strong></p>
-      <p><strong>Vraag 19b (eerder gesteld).</strong> Of kan er op dit punt één inlogverzoek worden verstuurd voor alleen de dienst "MOZa" (een leeg portaal)? Daarna worden alle stappen doorlopen, en na binnenkomst volgen (via SSO) nieuwe inlogverzoeken voor alle onderliggende diensten.</p>
-      <p>Ingelogd op de MOZa-website/het portaal, maar nog niet bij de onderliggende diensten. De inlogverzoeken voor die diensten worden pas bij of na binnenkomst in het portaal verstuurd, met SSO (stap 14-18).</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-    </nldd-simple-section>
 
     <nldd-simple-section id="open-vragen">
       <nldd-title size="2"><h2>Open vragen</h2><p slot="supporting-text">De vragen zijn over alle platen heen doorgenummerd. Hier de nieuwe vragen van deze plaat; eerder gestelde vragen staan bij de stap waar ze weer terugkomen.</p></nldd-title>

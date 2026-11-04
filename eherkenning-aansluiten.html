@@ -246,52 +246,6 @@
       </nldd-list>
     </nldd-simple-section>
 
-    <nldd-simple-section id="toelichting">
-      <nldd-title size="2"><h2>Toelichting</h2><p slot="supporting-text">Dezelfde uitleg als in het paneel, met de stappen waar ze bij horen.</p></nldd-title>
-      <nldd-spacer size="16"></nldd-spacer>
-      <nldd-title size="4"><h3>herkenningsmakelaar</h3><p slot="supporting-text">stap 1, Herkenningsmakelaar</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p><strong>Wat doet een makelaar?</strong></p>
-  <p>De makelaar regelt voor de dienstverlener de aansluiting op het eHerkenningsstelsel.</p>
-    <p><strong>Eén aansluiting in plaats van vele</strong></p>
-    <p>Ondernemers kiezen zelf hun leverancier (bijv. Z login), en er zijn meerdere leveranciers. Zonder makelaar zou de dienstverlener met al die leveranciers een eigen koppeling moeten inrichten. De makelaar regelt die koppelingen, zodat de dienstverlener maar één aansluiting nodig heeft.</p>
-  <p>Ook bij het inloggen speelt de makelaar een rol: hij stuurt het inlogverzoek door naar de leverancier van de gebruiker, en geeft het antwoord (de versleutelde assertion) ongeopend door aan de dienstverlener. Zie <a href="eherkenning-inloggen.html">plaat 4</a>: "Bilal logt in bij een losse dienst".</p>
-  <p><strong>Marktpartijen</strong></p>
-  <p>Makelaars zijn marktpartijen (bijv. Digidentity). De dienstverlener kiest zelf via welke makelaar hij aansluit.</p>
-  <p><strong>Hoe hangt het samen?</strong></p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Gegevens voor registratie</h3><p slot="supporting-text">stap 2, stap 3</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p><strong>Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:</strong></p>
-  <ul>
-    <li>Dienstverlenernaam (<code>OrganizationDisplayName</code>)</li>
-    <li>Dienstnaam (<code>ServiceName</code>)</li>
-    <li>Dienstomschrijving (<code>ServiceDescription</code>)</li>
-    <li>Betrouwbaarheidsniveau (<code>AuthnContextClassRef</code>)</li>
-  </ul>
-  <p>Bron: <a href="https://www.eherkenning.nl/sites/default/files/2022-02/Handleiding%20Dienstencatalogus%20versie%20VII.pdf">Communicatie Handleiding eHerkenning versie 2 2017</a></p>
-  <p>Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (<code>SSOSupport</code>) en of de dienst door een dienstbemiddelaar mag worden ontsloten (<code>ServiceIntermediationAllowed</code>).</p>
-  <p>Bron: <a href="https://afsprakenstelsel.etoegang.nl/Startpagina/as/service-catalog">Service catalog | Afsprakenstelsel eToegang</a></p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Dienstencatalogus eHerkenning</h3><p slot="supporting-text">stap 4, stap 5, Dienstencatalogus</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>De <a href="eherkenning-dienstencatalogus.html">dienstencatalogus</a> is het centrale register van alle diensten die op het eHerkenningsstelsel zijn aangesloten. Per dienst staat er onder andere in welke dienstverlener de dienst aanbiedt, wat de dienst is en welk betrouwbaarheidsniveau nodig is.</p>
-    <p><strong>Vooruitblik: medewerkers machtigen</strong></p>
-    <p>Wanneer een werkgever een werknemer machtigt, selecteert de werkgever de betreffende diensten uit deze dienstencatalogus. Zie <a href="eherkenning-machtigen.html">plaat 2</a>.</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-      <nldd-title size="4"><h3>Zo staat Justis nu in de dienstencatalogus</h3><p slot="supporting-text">stap 5</p></nldd-title>
-      <nldd-spacer size="8"></nldd-spacer>
-      <nldd-rich-text>
-<p>Dit is het diagram van <a href="eherkenning-dienstencatalogus.html">plaat 3</a> (de dienstencatalogus), met daarin gemarkeerd waar Justis en de nieuwe dienst nu staan. Klik op het diagram om het groter te bekijken.</p>
-      </nldd-rich-text>
-      <nldd-spacer size="24"></nldd-spacer>
-    </nldd-simple-section>
 
     <nldd-simple-section id="bronnen">
       <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
@@ -337,8 +291,7 @@
     "Ondernemers kiezen zelf hun leverancier (bijv. Z login), en er zijn meerdere leveranciers. Zonder makelaar zou de dienstverlener met al die leveranciers een eigen koppeling moeten inrichten. De makelaar regelt die koppelingen, zodat de dienstverlener maar één aansluiting nodig heeft.",
     "Ook bij het inloggen speelt de makelaar een rol: hij stuurt het inlogverzoek door naar de leverancier van de gebruiker, en geeft het antwoord (de versleutelde assertion) ongeopend door aan de dienstverlener. Zie plaat 4: \"Bilal logt in bij een losse dienst\".",
     "Marktpartijen",
-    "Makelaars zijn marktpartijen (bijv. Digidentity). De dienstverlener kiest zelf via welke makelaar hij aansluit.",
-    "Hoe hangt het samen?"
+    "Makelaars zijn marktpartijen (bijv. Digidentity). De dienstverlener kiest zelf via welke makelaar hij aansluit."
    ],
    "aannames": [],
    "vragen": [],
