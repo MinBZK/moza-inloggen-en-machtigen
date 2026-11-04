@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roadmap inloggen en machtigen</title>
+  <title>Rollende roadmap inloggen en machtigen</title>
   <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
   <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
   <style>
@@ -19,8 +19,12 @@
     }
     #roadmap-table {
       --label-w: 340px;
+      /* Lopende roadmap: de as begint bij het huidige tertiaal en ongeveer drie jaar (10 tertialen) past in beeld;
+         latere tertialen zie je door horizontaal te scrollen. Minimaal 64px per tertiaal (smalle schermen). */
+      --tert-zicht: 10;
       position: relative;
-      min-width: 1240px;
+      width: max(calc(var(--label-w) + var(--tert-n, 19) * 64px),
+                 calc(var(--label-w) + (100% - var(--label-w)) * var(--tert-n, 19) / var(--tert-zicht)));
       font-family: var(--typography-font-family-base, "RijksSans", system-ui, sans-serif);
       font-size: 14px;
       line-height: 1.3;
@@ -132,7 +136,7 @@
       <nldd-skip-link href="#roadmap" text="Direct naar de roadmap"></nldd-skip-link>
       <nldd-title size="1">
         <span slot="overline">MijnOverheid Zakelijk</span>
-        <h1>Roadmap inlog- en machtigings&shy;middelen 2027-2032</h1>
+        <h1>Rollende roadmap inlog- en machtigings&shy;middelen</h1>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
@@ -140,7 +144,7 @@
       <nldd-rich-text><p>Hoe DigiD, eHerkenning, de persoonlijke wallet (EDI-wallet) en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p></nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Concept - indicatieve planning"
-        supporting-text="De planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) vanaf februari 2027. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Klik op een regel voor de verdieping. De Europese en Nederlandse termijnen voor de wallets staan bij de stand van 14 oktober 2026; de EBW-termijnen tellen vanaf de inwerkingtreding (T0), hier aangenomen op medio 2027."></nldd-banner>
+        supporting-text="Een rollende roadmap: de planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) en begint altijd bij het tertiaal van nu. Je ziet ongeveer drie jaar vooruit; scroll naar rechts voor later. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Klik op een regel voor de verdieping. De Europese en Nederlandse termijnen voor de wallets staan bij de stand van 14 oktober 2026; de EBW-termijnen tellen vanaf de inwerkingtreding (T0), hier aangenomen op medio 2027."></nldd-banner>
       <nldd-spacer size="24"></nldd-spacer>
       <div id="comment-hint-wrap" hidden>
         <nldd-banner id="comment-hint" variant="neutral" icon="message-rectangle-text" heading-level="2" dismissible
@@ -819,6 +823,7 @@ const ganttHeader = `
   </div>`;
 
 const table = document.getElementById('roadmap-table');
+table.style.setProperty('--tert-n', AXIS.length);
 const renderGantt = () => {
   const opened = openKaders();
   const lines = [...AXIS, null].map((t, i) => `<span class="${i > 0 && (!t || t.n === 1) ? 'year' : ''}" style="left:${pct(START + i * 4)}"></span>`).join('');

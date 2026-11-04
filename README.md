@@ -1,6 +1,6 @@
 # MOZa - roadmap inlog- en machtigingsmiddelen
 
-Concept-roadmap voor MijnOverheid Zakelijk (MOZa): hoe DigiD, eHerkenning, de EDI-wallet en de European Business Wallet (EBW) per tertiaal (2027-2032) beschikbaar komen, met externe kaders, het MOZa portaal en verkenningen.
+Rollende concept-roadmap voor MijnOverheid Zakelijk (MOZa): hoe DigiD, eHerkenning, de EDI-wallet en de European Business Wallet (EBW) per tertiaal beschikbaar komen, vanaf het tertiaal van nu met ongeveer drie jaar in beeld, met externe kaders, het MOZa portaal en verkenningen.
 
 **Status: concept.** De planning is indicatief; tertialen na 2028 zijn richtinggevend.
 
