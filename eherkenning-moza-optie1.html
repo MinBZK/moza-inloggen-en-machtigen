@@ -320,7 +320,7 @@
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
           <nldd-text-cell vertical-alignment="top" width="48px" text="**V15a**"></nldd-text-cell>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
-          <nldd-text-cell text="**Wordt er één niveau ingesteld voor het portaal als dienst ? Kiest de dienstverlener dat niveau dan zelf?**" supporting-text="Plaat 5, stap 4, stap 7: Vereist niveau bij een portaaldienst"></nldd-text-cell>
+          <nldd-text-cell text="**Wordt er één niveau ingesteld voor het portaal als dienst? Kiest de dienstverlener dat niveau dan zelf?**" supporting-text="Plaat 5, stap 4, stap 7: Vereist niveau bij een portaaldienst"></nldd-text-cell>
         </nldd-list-item>
         <nldd-list-item>
           <nldd-spacer-cell size="12"></nldd-spacer-cell>
@@ -479,7 +479,7 @@
     ],
     [
      "15a",
-     "Wordt er één niveau ingesteld voor het portaal als dienst ? Kiest de dienstverlener dat niveau dan zelf?",
+     "Wordt er één niveau ingesteld voor het portaal als dienst? Kiest de dienstverlener dat niveau dan zelf?",
      ""
     ],
     [
@@ -490,24 +490,26 @@
    ],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek",
      "titel": "Anoniem inlogverzoek",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
-       "ServiceProvider (dienstverlener)",
+       "ServiceProvider",
        "MOZa",
-       ""
+       "Dienstverlener"
       ],
       [
-       "ServiceName (dienstnaam)",
-       "\"MOZa-portaaldienst\"",
-       ""
+       "ServiceName",
+       "MOZa-portaaldienst",
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
-       "\"PortalService_MOZa123\"",
-       ""
+       "ServiceID",
+       "PortalService_MOZa123",
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -517,7 +519,7 @@
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief."
   },
   {
    "n": "5",
@@ -580,7 +582,7 @@
     ],
     [
      "15a",
-     "Wordt er één niveau ingesteld voor het portaal als dienst ? Kiest de dienstverlener dat niveau dan zelf?",
+     "Wordt er één niveau ingesteld voor het portaal als dienst? Kiest de dienstverlener dat niveau dan zelf?",
      ""
     ],
     [
@@ -711,29 +713,31 @@
    ],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion)",
      "titel": "Versleutelde assertion",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID1234 gemachtigd is om in te loggen",
-       ""
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
       ],
       [
-       "",
-       "namens KVK-nummer1234",
-       ""
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
       ],
       [
-       "",
-       "voor Service_ABC123, Service_CDF345, Service_FGH567, Service_HIJ789, …",
-       ""
+       "ServiceID",
+       "Service_ABC123, Service_CDF345, Service_FGH567, Service_HIJ789, …",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief."
   },
   {
    "n": "12",

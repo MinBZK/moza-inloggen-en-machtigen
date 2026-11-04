@@ -95,7 +95,8 @@ if (bron) {
       naar(huidig + Number(k.dataset.richting));
     });
   };
-  const kaart = (k) => `<div class="att-kaart">
+  // Een kaart mag een soort hebben (verzoek: gestippeld grijs, zoals op het EBW-landschap) en een eigen randkleur
+  const kaart = (k) => `<div class="att-kaart"${k.soort ? ` data-soort="${esc(k.soort)}"` : ''}${k.kleur && k.soort !== 'verzoek' ? ` style="--soort-kleur:${esc(k.kleur)}"` : ''}>
       ${k.label ? `<p class="att-kaart-label">${esc(k.label)}</p>` : ''}
       <div class="att-kaart-kop"><strong>${esc(k.titel)}</strong><span>${esc(k.bij || '')}</span></div>
       ${k.img ? `<img class="att-kaart-scherm" src="${k.img}" alt="${esc(k.alt)}">` : ''}
@@ -119,7 +120,7 @@ if (bron) {
       ${s.opties ? `${s.opties.tekst ? `<p class="att-tekst">${esc(s.opties.tekst)}</p>` : ''}<ul class="att-punten">${s.opties.items.map(([l, t, z]) => `<li><strong>${esc(l)}:</strong> ${esc(t)}${z && z.length ? sub(z) : ''}</li>`).join('')}</ul>${punten ? '<hr class="att-scheiding">' : ''}` : ''}
       ${punten ? `<ul class="att-punten">${punten}</ul>` : ''}
       ${(s.kaarten || []).map(kaart).join('')}
-      ${s.bron ? `<p class="att-bron">${esc(s.bron)}</p>` : ''}`;
+      ${s.bron ? `<p class="att-bron">${esc(s.bron).replace(/^Voorbeeldwaarden zijn fictief\./, '<em>$&</em>')}</p>` : ''}`;
     inhoud.scrollTop = 0;
     paneel.querySelector('.att-teller').textContent = `${huidig + 1} / ${STAPPEN.length}`;
     const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');

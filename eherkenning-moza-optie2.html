@@ -476,9 +476,11 @@
    "vragen": [],
    "kaarten": [
     {
-     "label": "Variant A (19a)",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
      "titel": "Verzoek voor UWV",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
        "ServiceProvider",
@@ -486,14 +488,14 @@
        ""
       ],
       [
-       "ServiceName (dienstnaam)",
-       "\"Ziekmelden werknemer\"",
-       ""
+       "ServiceName",
+       "Ziekmelden werknemer",
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
+       "ServiceID",
        "Service_123",
-       ""
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -503,9 +505,11 @@
      ]
     },
     {
-     "label": "Variant A (19a)",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
      "titel": "Verzoek voor RVO",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
        "ServiceProvider",
@@ -513,14 +517,14 @@
        ""
       ],
       [
-       "ServiceName (dienstnaam)",
-       "\"Vergunning aanvragen\"",
-       ""
+       "ServiceName",
+       "Vergunning aanvragen",
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
+       "ServiceID",
        "Service_456",
-       ""
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -530,9 +534,11 @@
      ]
     },
     {
-     "label": "Variant A (19a)",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant A (19a)",
      "titel": "Verzoek voor BD",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
        "ServiceProvider",
@@ -540,14 +546,14 @@
        ""
       ],
       [
-       "ServiceName (dienstnaam)",
-       "\"Belasting doorgeven\"",
-       ""
+       "ServiceName",
+       "Belasting doorgeven",
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
+       "ServiceID",
        "Service_789",
-       ""
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -557,9 +563,11 @@
      ]
     },
     {
-     "label": "Variant B (19b)",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant B (19b)",
      "titel": "één inlogverzoek voor MOZa (leeg portaal), later SSO",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
        "ServiceProvider",
@@ -567,14 +575,14 @@
        ""
       ],
       [
-       "ServiceName (dienstnaam)",
+       "ServiceName",
        "MOZa (leeg portaal)",
-       ""
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
+       "ServiceID",
        "MOZa_portal",
-       ""
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -584,9 +592,11 @@
      ]
     },
     {
-     "label": "Variant C (19c)",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek · Variant C (19c)",
      "titel": "één inlogverzoek voor alle diensten tegelijk",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
        "ServiceProvider",
@@ -594,14 +604,14 @@
        ""
       ],
       [
-       "ServiceName (dienstnaam)",
+       "ServiceName",
        "Ziekmelden werknemer, Vergunning aanvragen, Belasting doorgeven",
-       ""
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
+       "ServiceID",
        "Service_123, Service_456, Service_789",
-       ""
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
@@ -611,7 +621,7 @@
      ]
     }
    ],
-   "bron": "",
+   "bron": "Voorbeeldwaarden zijn fictief.",
    "opties": {
     "tekst": "",
     "items": [
@@ -824,67 +834,127 @@
    "vragen": [],
    "kaarten": [
     {
-     "label": "Variant A",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
      "titel": "Assertion 1",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID1234 is gemachtigd om in te loggen namens KVK-nummer1234 voor Service_123",
-       ""
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_123",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     },
     {
-     "label": "Variant A",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
      "titel": "Assertion 2",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID5678 is gemachtigd om in te loggen namens KVK-nummer1234 voor Service_456",
-       ""
+       "PseudoID",
+       "PseudoID5678",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_456",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     },
     {
-     "label": "Variant A",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant A",
      "titel": "Assertion 3",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID9010212 is gemachtigd om in te loggen namens KVK-nummer1234 voor Service_789",
-       ""
+       "PseudoID",
+       "PseudoID9010212",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_789",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     },
     {
-     "label": "Variant B",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant B",
      "titel": "één assertion voor MOZa (leeg portaal)",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID8888 is gemachtigd om in te loggen namens KVK-nummer1234 voor Service_MOZa (leeg portaal)",
-       ""
+       "PseudoID",
+       "PseudoID8888",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_MOZa (leeg portaal)",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     },
     {
-     "label": "Variant C",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion) · Variant C",
      "titel": "één overkoepelende assertion",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID8888 is gemachtigd om in te loggen namens KVK-nummer1234 voor Service_123, Service_456, Service_789, enz.",
-       ""
+       "PseudoID",
+       "PseudoID8888",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
+      ],
+      [
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
+      ],
+      [
+       "ServiceID",
+       "Service_123, Service_456, Service_789, enz",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     }
    ],
-   "bron": "",
+   "bron": "Voorbeeldwaarden zijn fictief.",
    "opties": {
     "tekst": "",
     "items": [
@@ -1021,29 +1091,31 @@
    "vragen": [],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion)",
      "titel": "Versleutelde assertion(s)",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID1234 gemachtigd is om in te loggen",
-       ""
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
       ],
       [
-       "",
-       "namens KVK-nummer1234",
-       ""
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
       ],
       [
-       "",
-       "voor Service_123, Service_456 en Service_789",
-       ""
+       "ServiceID",
+       "Service_123, Service_456 en Service_789",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief."
   },
   {
    "n": "17",

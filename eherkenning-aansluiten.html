@@ -256,7 +256,7 @@
   <p>De makelaar regelt voor de dienstverlener de aansluiting op het eHerkenningsstelsel.</p>
     <p><strong>Eén aansluiting in plaats van vele</strong></p>
     <p>Ondernemers kiezen zelf hun leverancier (bijv. Z login), en er zijn meerdere leveranciers. Zonder makelaar zou de dienstverlener met al die leveranciers een eigen koppeling moeten inrichten. De makelaar regelt die koppelingen, zodat de dienstverlener maar één aansluiting nodig heeft.</p>
-  <p>Ook bij het inloggen speelt de makelaar een rol: hij stuurt het inlogverzoek door naar de leverancier van de gebruiker, en geeft het antwoord (de versleutelde assertion) ongeopend door aan de dienstverlener. Zie plaat 4: "Bilal logt in bij een losse dienst".</p>
+  <p>Ook bij het inloggen speelt de makelaar een rol: hij stuurt het inlogverzoek door naar de leverancier van de gebruiker, en geeft het antwoord (de versleutelde assertion) ongeopend door aan de dienstverlener. Zie <a href="eherkenning-inloggen.html">plaat 4</a>: "Bilal logt in bij een losse dienst".</p>
   <p><strong>Marktpartijen</strong></p>
   <p>Makelaars zijn marktpartijen (bijv. Digidentity). De dienstverlener kiest zelf via welke makelaar hij aansluit.</p>
   <p><strong>Hoe hangt het samen?</strong></p>
@@ -280,17 +280,15 @@
       <nldd-title size="4"><h3>Dienstencatalogus eHerkenning</h3><p slot="supporting-text">stap 4, stap 5, Dienstencatalogus</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
-<p>De dienstencatalogus is het centrale register van alle diensten die op het eHerkenningsstelsel zijn aangesloten. Per dienst staat er onder andere in welke dienstverlener de dienst aanbiedt, wat de dienst is en welk betrouwbaarheidsniveau nodig is.</p>
-  <p><a href="eherkenning-dienstencatalogus.html">Bekijk plaat 3: Dienstencatalogus eHerkenning</a></p>
+<p>De <a href="eherkenning-dienstencatalogus.html">dienstencatalogus</a> is het centrale register van alle diensten die op het eHerkenningsstelsel zijn aangesloten. Per dienst staat er onder andere in welke dienstverlener de dienst aanbiedt, wat de dienst is en welk betrouwbaarheidsniveau nodig is.</p>
     <p><strong>Vooruitblik: medewerkers machtigen</strong></p>
-    <p>Wanneer een werkgever een werknemer machtigt, selecteert de werkgever de betreffende diensten uit deze dienstencatalogus. Zie plaat 2.</p>
-    <p><a href="eherkenning-machtigen.html">Plaat 2: Karin neemt eHerkenning af en machtigt Bilal</a></p>
+    <p>Wanneer een werkgever een werknemer machtigt, selecteert de werkgever de betreffende diensten uit deze dienstencatalogus. Zie <a href="eherkenning-machtigen.html">plaat 2</a>.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4"><h3>Zo staat Justis nu in de dienstencatalogus</h3><p slot="supporting-text">stap 5</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
-<p>Dit is het diagram van plaat 3 (de dienstencatalogus), met daarin gemarkeerd waar Justis en de nieuwe dienst nu staan. Klik op het diagram om het groter te bekijken.</p>
+<p>Dit is het diagram van <a href="eherkenning-dienstencatalogus.html">plaat 3</a> (de dienstencatalogus), met daarin gemarkeerd waar Justis en de nieuwe dienst nu staan. Klik op het diagram om het groter te bekijken.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
     </nldd-simple-section>
@@ -361,18 +359,42 @@
    "lead": "De makelaar vraagt Justis de gegevens aan te leveren van de dienst(en) die Justis wil registreren.",
    "punten": [
     "Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:",
-    "Dienstverlenernaam ( OrganizationDisplayName )",
-    "Dienstnaam ( ServiceName )",
-    "Dienstomschrijving ( ServiceDescription )",
-    "Betrouwbaarheidsniveau ( AuthnContextClassRef )",
-    "Bron: Communicatie Handleiding eHerkenning versie 2 2017",
-    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt ( SSOSupport ) en of de dienst door een dienstbemiddelaar mag worden ontsloten ( ServiceIntermediationAllowed ).",
-    "Bron: Service catalog | Afsprakenstelsel eToegang"
+    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (SSOSupport) en of de dienst door een dienstbemiddelaar mag worden ontsloten (ServiceIntermediationAllowed)."
    ],
    "aannames": [],
    "vragen": [],
-   "kaarten": [],
-   "bron": ""
+   "kaarten": [
+    {
+     "soort": "verzoek",
+     "label": "Gevraagde gegevens · nog zonder waarden",
+     "titel": "Gegevens voor registratie",
+     "bij": "Van Herkenningsmakelaar · aan Dienstverlener Justis",
+     "rijen": [
+      [
+       "OrganizationDisplayName",
+       "Dienstverlenernaam",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Dienstnaam",
+       ""
+      ],
+      [
+       "ServiceDescription",
+       "Dienstomschrijving",
+       ""
+      ],
+      [
+       "AuthnContextClassRef",
+       "Betrouwbaarheidsniveau",
+       ""
+      ]
+     ],
+     "kleur": "#b46504"
+    }
+   ],
+   "bron": "Bron: Communicatie Handleiding eHerkenning versie 2 2017 Bron: Service catalog | Afsprakenstelsel eToegang"
   },
   {
    "n": "3",
@@ -388,46 +410,42 @@
    "lead": "Justis levert de ingevulde dienstgegevens aan bij de makelaar, bijvoorbeeld:",
    "punten": [
     "Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:",
-    "Dienstverlenernaam ( OrganizationDisplayName )",
-    "Dienstnaam ( ServiceName )",
-    "Dienstomschrijving ( ServiceDescription )",
-    "Betrouwbaarheidsniveau ( AuthnContextClassRef )",
-    "Bron: Communicatie Handleiding eHerkenning versie 2 2017",
-    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt ( SSOSupport ) en of de dienst door een dienstbemiddelaar mag worden ontsloten ( ServiceIntermediationAllowed ).",
-    "Bron: Service catalog | Afsprakenstelsel eToegang"
+    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (SSOSupport) en of de dienst door een dienstbemiddelaar mag worden ontsloten (ServiceIntermediationAllowed)."
    ],
    "aannames": [],
    "vragen": [],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van de dienst · voor de dienstencatalogus",
      "titel": "Gegevens aanleveren",
-     "bij": "",
+     "bij": "Van Dienstverlener Justis · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "Dienstverlenernaam (OrganizationDisplayName)",
+       "OrganizationDisplayName",
        "Justis",
-       ""
+       "Dienstverlenernaam"
       ],
       [
-       "Dienstnaam (ServiceName)",
+       "ServiceName",
        "VOG aanvragen",
-       ""
+       "Dienstnaam"
       ],
       [
-       "Dienstomschrijving (ServiceDescription)",
+       "ServiceDescription",
        "Aanvragen van een Verklaring Omtrent het Gedrag",
-       ""
+       "Dienstomschrijving"
       ],
       [
-       "Betrouwbaarheidsniveau (AuthnContextClassRef)",
+       "AuthnContextClassRef",
        "EH3",
-       ""
+       "Betrouwbaarheidsniveau"
       ]
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief. Bron: Communicatie Handleiding eHerkenning versie 2 2017 Bron: Service catalog | Afsprakenstelsel eToegang"
   },
   {
    "n": "4",
@@ -443,7 +461,6 @@
    "lead": "De makelaar geeft de dienstgegevens door aan de dienstencatalogus van eHerkenning.",
    "punten": [
     "De dienstencatalogus is het centrale register van alle diensten die op het eHerkenningsstelsel zijn aangesloten. Per dienst staat er onder andere in welke dienstverlener de dienst aanbiedt, wat de dienst is en welk betrouwbaarheidsniveau nodig is.",
-    "Bekijk plaat 3: Dienstencatalogus eHerkenning",
     "Vooruitblik: medewerkers machtigen",
     "Wanneer een werkgever een werknemer machtigt, selecteert de werkgever de betreffende diensten uit deze dienstencatalogus. Zie plaat 2."
    ],
@@ -467,7 +484,6 @@
    "punten": [
     "Dit is het diagram van plaat 3 (de dienstencatalogus), met daarin gemarkeerd waar Justis en de nieuwe dienst nu staan. Klik op het diagram om het groter te bekijken.",
     "De dienstencatalogus is het centrale register van alle diensten die op het eHerkenningsstelsel zijn aangesloten. Per dienst staat er onder andere in welke dienstverlener de dienst aanbiedt, wat de dienst is en welk betrouwbaarheidsniveau nodig is.",
-    "Bekijk plaat 3: Dienstencatalogus eHerkenning",
     "Vooruitblik: medewerkers machtigen",
     "Wanneer een werkgever een werknemer machtigt, selecteert de werkgever de betreffende diensten uit deze dienstencatalogus. Zie plaat 2."
    ],

@@ -222,17 +222,15 @@
     <p>Heeft het account niet het vereiste niveau, dan stopt de inlogpoging hier.</p>
     <p><strong>Nog uitwerken</strong></p>
     <p>Toevoegen dat Karin kan kiezen om Bilal te machtigen voor "alle diensten met EH2", en dat dát niveau telt, niet het niveau van zijn account. (Klopt dit, en wat is hiervoor de bron?)</p>
-  <p>Hoe Karin eHerkenning afneemt, het niveau kiest en Bilal machtigt: zie plaat 2.</p>
-  <p><a href="eherkenning-machtigen.html">Plaat 2: Karin neemt eHerkenning af en machtigt Bilal</a></p>
+  <p>Hoe Karin eHerkenning afneemt, het niveau kiest en Bilal machtigt: zie <a href="eherkenning-machtigen.html">plaat 2</a>.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4"><h3>Machtigingenregister</h3><p slot="supporting-text">stap 10</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
 <p>Elke leverancier heeft een machtigingenregister. Daarin legt de werkgever vast voor welke diensten een werknemer gemachtigd is. In deze stap raadpleegt de leverancier (Z login) dit register.</p>
-    <p><strong>NB:</strong> logt Bilal in bij een portaaldienst, dan worden de machtigingen voor alle diensten binnen dat portaal in één keer (in bulk) opgevraagd. Zie ook <a href="eherkenning-dienstencatalogus.html">Dienstencatalogus eHerkenning</a> (plaat 3), toelichting 2.</p>
-  <p>Hoe Karin Bilal machtigt en die machtiging in het register terechtkomt: zie plaat 2.</p>
-  <p><a href="eherkenning-machtigen.html">Plaat 2: Karin neemt eHerkenning af en machtigt Bilal</a></p>
+    <p><strong>NB:</strong> logt Bilal in bij een portaaldienst, dan worden de machtigingen voor alle diensten binnen dat portaal in één keer (in bulk) opgevraagd. Zie ook <a href="eherkenning-dienstencatalogus.html">Dienstencatalogus eHerkenning</a> (<a href="eherkenning-dienstencatalogus.html">plaat 3</a>), toelichting 2.</p>
+  <p>Hoe Karin Bilal machtigt en die machtiging in het register terechtkomt: zie <a href="eherkenning-machtigen.html">plaat 2</a>.</p>
       </nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4"><h3>Assertion en PseudoID</h3><p slot="supporting-text">stap 11</p></nldd-title>
@@ -372,34 +370,36 @@
    "vragen": [],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verzoek",
+     "kleur": "#b46504",
+     "label": "Gegevens van het verzoek",
      "titel": "Anoniem inlogverzoek",
-     "bij": "",
+     "bij": "Van Herkenningsmakelaar · aan Leverancier Z login",
      "rijen": [
       [
-       "ServiceProvider (dienstverlener)",
-       "\"UWV\"",
-       ""
+       "ServiceProvider",
+       "UWV",
+       "Dienstverlener"
       ],
       [
-       "ServiceName (dienstnaam)",
-       "\"werkgeversportaal\"",
-       ""
+       "ServiceName",
+       "werkgeversportaal",
+       "Dienstnaam"
       ],
       [
-       "ServiceID (dienstcode)",
-       "\"Service_ABC123\"",
-       ""
+       "ServiceID",
+       "Service_ABC123",
+       "Dienstcode"
       ],
       [
        "Vereist niveau",
-       "\"EH3\"",
+       "EH3",
        ""
       ]
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief."
   },
   {
    "n": "5",
@@ -558,29 +558,31 @@
    ],
    "kaarten": [
     {
-     "label": "Gegevens",
+     "soort": "verklaring",
+     "kleur": "#1f5fa8",
+     "label": "Versleutelde verklaring (assertion)",
      "titel": "Versleutelde assertion",
-     "bij": "",
+     "bij": "Van Leverancier Z login · aan Herkenningsmakelaar",
      "rijen": [
       [
-       "",
-       "PseudoID1234 gemachtigd is om in te loggen",
-       ""
+       "PseudoID",
+       "PseudoID1234",
+       "Pseudoniem van Bilal, alleen voor deze dienst(verlener)"
       ],
       [
-       "",
-       "namens KVK-nummer1234",
-       ""
+       "KVK-nummer",
+       "KVK-nummer1234",
+       "Namens welke onderneming"
       ],
       [
-       "",
-       "voor Service_ABC123",
-       ""
+       "ServiceID",
+       "Service_ABC123",
+       "Voor welke dienst(en) gemachtigd"
       ]
      ]
     }
    ],
-   "bron": ""
+   "bron": "Voorbeeldwaarden zijn fictief."
   },
   {
    "n": "12",

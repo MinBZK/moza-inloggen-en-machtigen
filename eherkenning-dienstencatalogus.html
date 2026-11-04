@@ -331,19 +331,42 @@
    ],
    "lead": "Bij het registreren van een dienst moet de volgende informatie worden vastgelegd:",
    "punten": [
-    "Dienstverlenernaam ( OrganizationDisplayName )",
-    "Dienstnaam ( ServiceName )",
-    "Dienstomschrijving ( ServiceDescription )",
-    "Betrouwbaarheidsniveau ( AuthnContextClassRef )",
-    "Bron: Communicatie Handleiding eHerkenning versie 2 2017",
-    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt ( SSOSupport ) en of de dienst door een dienstbemiddelaar mag worden ontsloten ( ServiceIntermediationAllowed ).",
-    "Bron: Service catalog | Afsprakenstelsel eToegang",
+    "Daarnaast kan (of moet?) onder andere worden aangegeven of de dienst SSO ondersteunt (SSOSupport) en of de dienst door een dienstbemiddelaar mag worden ontsloten (ServiceIntermediationAllowed).",
     "Een dienstverlener sluit aan op het eHerkenningsstelsel via een herkenningsmakelaar (een marktpartij) naar eigen keuze."
    ],
    "aannames": [],
    "vragen": [],
-   "kaarten": [],
-   "bron": ""
+   "kaarten": [
+    {
+     "soort": "verzoek",
+     "label": "Gegevens in de dienstencatalogus",
+     "titel": "Diensten",
+     "bij": "Per dienst vastgelegd",
+     "rijen": [
+      [
+       "OrganizationDisplayName",
+       "Dienstverlenernaam",
+       ""
+      ],
+      [
+       "ServiceName",
+       "Dienstnaam",
+       ""
+      ],
+      [
+       "ServiceDescription",
+       "Dienstomschrijving",
+       ""
+      ],
+      [
+       "AuthnContextClassRef",
+       "Betrouwbaarheidsniveau",
+       ""
+      ]
+     ]
+    }
+   ],
+   "bron": "Bron: Communicatie Handleiding eHerkenning versie 2 2017 Bron: Service catalog | Afsprakenstelsel eToegang"
   },
   {
    "n": "2",
@@ -351,11 +374,9 @@
    "kenmerken": [
     "Overzicht"
    ],
-   "lead": "Een dienstaanbieder registreert de afzonderlijke diensten, maar kan daarnaast ook een portaaldienst registreren ( IsPortal = true ). Een portaaldienst is dus een speciaal type dienst. Daarin wordt verwezen naar de diensten die onder het portaal vallen, via PortalForService met de ServiceID 's van die diensten.",
+   "lead": "Een dienstaanbieder registreert de afzonderlijke diensten, maar kan daarnaast ook een portaaldienst registreren (IsPortal = true). Een portaaldienst is dus een speciaal type dienst. Daarin wordt verwezen naar de diensten die onder het portaal vallen, via PortalForService met de ServiceID 's van die diensten.",
    "punten": [
-    "Bron: Service catalog | Afsprakenstelsel eToegang",
     "Bij het inloggen op een portaaldienst kan het machtigingenregister in één keer (in bulk) worden bevraagd: \"Voor welke diensten in dit portaal is deze gebruiker gemachtigd namens zijn onderneming?\" De gebruiker hoeft dan maar één keer in te loggen; aparte inlogverzoeken voor de onderliggende diensten zijn niet nodig.",
-    "Bron: GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang",
     "Mogelijk interessant voor MOZa:",
     "Hypothese: MOZa registreert een portaaldienst (\"MOZa portaal\") die verwijst naar alle diensten die op MOZa zijn aangesloten.",
     "Bij het inloggen op het MOZa portaal wordt het register in bulk bevraagd.",
@@ -363,13 +384,12 @@
     "Maar:",
     "Belangrijke beperking in het stelsel:",
     "Met andere woorden: een portaaldienst hoort bij één dienstaanbieder en kan alleen diensten van diezelfde dienstaanbieder bevatten.",
-    "Bron: Service catalog | Afsprakenstelsel eToegang",
     "Dit leidt tot een vraag → zie (toelichting 3)."
    ],
    "aannames": [],
    "vragen": [],
    "kaarten": [],
-   "bron": ""
+   "bron": "Bron: Service catalog | Afsprakenstelsel eToegang Bron: GUC4.3 Portaalfunctie | Afsprakenstelsel eToegang Bron: Service catalog | Afsprakenstelsel eToegang"
   },
   {
    "n": "3",
@@ -379,7 +399,7 @@
    ],
    "lead": "Enerzijds lijkt dit uitgesloten door de regel (zie toelichting 2): \" PortalForService MUST ONLY contain existing ServiceIDs referring to service(s) of the same ServiceProvider that the portal belongs to. \"",
    "punten": [
-    "Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang : \" Er is sprake van Dienstbemiddeling in de volgende gevallen: 1. ... , 2. ... , 3. Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden. \""
+    "Anderzijds lijkt het wél te kunnen, gezien dit citaat van de pagina Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang: \" Er is sprake van Dienstbemiddeling in de volgende gevallen: 1...., 2...., 3. Hetzelfde portaal/dezelfde aansluiting wordt namens meer dan één dienstverlener aangeboden. \""
    ],
    "aannames": [],
    "vragen": [
@@ -407,9 +427,7 @@
    "punten": [
     "Aansluiten als dienstbemiddelaar | Afsprakenstelsel eToegang",
     "Belangrijke beperking in het stelsel:",
-    "Dienstbemiddeling is op dit moment nog beperkt tot eIDAS-outbound.",
-    "Bron: Service catalog | Afsprakenstelsel eToegang : \" only available for eIDAS-outbound \"",
-    "Bron: Analyse e-herkenning - Mijn Bureau Docs : \" Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -> lange doorlooptijd .\""
+    "Dienstbemiddeling is op dit moment nog beperkt tot eIDAS-outbound."
    ],
    "aannames": [],
    "vragen": [
@@ -420,7 +438,7 @@
     ]
    ],
    "kaarten": [],
-   "bron": ""
+   "bron": "Bron: Service catalog | Afsprakenstelsel eToegang: \" only available for eIDAS-outbound \" Bron: Analyse e-herkenning - Mijn Bureau Docs: \" Tevens ondersteunt het alleen EIDAS uitgaand. Is dus nog in ontwikkeling en heeft ten opzichte van andere wensen binnen het stelsel minder prio -> lange doorlooptijd.\""
   },
   {
    "n": "5",
