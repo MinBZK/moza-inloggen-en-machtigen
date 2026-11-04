@@ -354,19 +354,19 @@ const LANES = [
     id: 'digid', name: 'DigiD', icon: 'person', color: 'oranje',
     tagline: 'Inloggen als persoon; KvK-gegevens van de eigen ondernemingen in beeld',
     releases: [
-      { t: '2027-1', code: 'R1', title: 'Inloggen met DigiD, eigen ondernemingen in beeld', horizon: 'gepland', fit: 'deels',
+      { t: '2027-1', code: 'R1', title: 'Inloggen met DigiD, eigen ondernemingen in beeld', horizon: 'gepland', fit: 'deels', doorbouw: 2,
         summary: 'De ondernemer logt in met DigiD; MOZa toont de KvK-gegevens van alle ondernemingen waarin de ondernemer staat ingeschreven.',
         features: ['Inloggen met DigiD op niveau substantieel (DigiD-app)', 'KvK-gegevens van alle eigen ondernemingen tonen op de landingspagina (MOZa portaal R1), zoals MijnOverheid dat al doet', 'De ondernemer ziet direct meerdere ondernemingen en kiest daaruit'],
         experience: 'De zzp\'er hoeft geen eHerkenning aan te schaffen om MOZa te gebruiken en ziet meteen alle eigen ondernemingen.',
         gaps: ['De ondernemer logt in als persoon: KvK-gegevens worden alleen getoond, er is nog geen inloggen namens de onderneming', 'Nog geen inloggen voor een andere onderneming: een gemachtigde kan niet met DigiD inloggen', 'Nog geen berichten in het portaal (volgt in MOZa portaal R3, T1 2028)'],
         deps: ['Aansluiting DigiD voor MOZa', 'Bevraging Handelsregister op BSN (KvK API), zoals MijnOverheid die al gebruikt'] },
-      { t: '2027-2', code: 'R2', title: 'Inloggen bij MOZa en de Belastingdienst', horizon: 'gepland', fit: 'deels', explore: { t: '2027-1' },
+      { t: '2027-2', code: 'R2', title: 'Inloggen bij MOZa en de Belastingdienst', horizon: 'gepland', fit: 'deels', doorbouw: 2, explore: { t: '2027-1' },
         summary: 'Met dezelfde DigiD-inlog in MOZa is de ondernemer ook ingelogd bij de Belastingdienst. Verkenning in fase 6, oplevering in fase 7.',
         features: ['De Belastingdienst als eerste dienstverlener achter de MOZa-inlog'],
         experience: 'De ondernemer logt één keer in met DigiD en kan zonder opnieuw in te loggen door naar de Belastingdienst.',
         gaps: ['Inloggen gebeurt als persoon, niet namens de onderneming'],
         deps: ['Afspraken en koppeling met de Belastingdienst'] },
-      { t: '2027-3', until: '2028-2', code: 'R3', title: 'Eén inlog voor alle dienstverleners via MOZa', horizon: 'gepland', fit: 'grotendeels', explore: { t: '2027-2' },
+      { t: '2027-3', until: '2028-2', code: 'R3', title: 'Eén inlog voor alle dienstverleners via MOZa', horizon: 'gepland', fit: 'grotendeels', doorbouw: 3, explore: { t: '2027-2' },
         summary: 'Met één keer inloggen met DigiD via MOZa is de ondernemer ingelogd bij alle aangesloten dienstverleners. Verkenning in fase 7, oplevering in fase 8 tot en met 10.',
         features: ['Uitloggen bij MOZa logt ook uit bij de aangesloten dienstverleners'],
         experience: 'De ondernemer logt één keer in en kan bij alle aangesloten dienstverleners terecht.',
@@ -775,7 +775,7 @@ const releaseRow = (lane, r, host = lane) => {
     <div class="g-track">
       ${x ? `<span class="bar verkenning" title="${esc(`Verkenning · ${x.label}, fase ${x.phase} (${x.months})`)}" style="left:${pct(xs)};width:calc(${pct(xe)} - ${pct(xs)} - 2px)"></span>` : ''}
       <span class="bar ${r.horizon}" title="${esc(`${HORIZON[r.horizon].text} · ${t.label}, fase ${t.phase} (${t.months})`)}" style="left:${pct(s)};width:calc(${pct(e)} - ${pct(s)} - 2px)"></span>
-      ${lane.explore ? '' : `<span class="bar beschikbaar" title="Beschikbaar, we bouwen door" style="left:${pct(e)};right:0"></span>`}
+      ${lane.explore ? '' : `<span class="bar beschikbaar" title="Beschikbaar, we bouwen door${r.doorbouw ? ` (${r.doorbouw} tertialen)` : ''}" style="left:${pct(e)};${r.doorbouw ? `width:calc(${pct(e + r.doorbouw * 4)} - ${pct(e)} - 2px)` : 'right:0'}"></span>`}
     </div>
   </div>`;
 };
