@@ -284,9 +284,9 @@
 <script type="module">
 // Tertialen vanaf februari 2027: T1 feb-mei, T2 jun-sep, T3 okt-jan. T1 2027 is fase 6, daarna doortellen.
 const FIRST_PHASE = 6;
-const YEAR_THEMES = { 2027: 'Fundament', 2028: 'Uitbreiden', 2029: 'Vertegenwoordigen', 2030: 'Zelf regelen', 2031: 'Samenvoegen', 2032: 'Volwaardig' };
+const YEARS = [2027, 2028, 2029, 2030, 2031, 2032];
 const MONTHS = { 1: 'feb - mei', 2: 'jun - sep', 3: 'okt - jan' };
-const TERTIALS = Object.keys(YEAR_THEMES).flatMap((y) => [1, 2, 3].map((n) => ({
+const TERTIALS = YEARS.flatMap((y) => [1, 2, 3].map((n) => ({
   id: `${y}-${n}`, year: Number(y), n, label: `T${n} ${y}`,
   months: n === 3 ? `okt ${y} - jan ${Number(y) + 1}` : `${MONTHS[n]} ${y}`,
 }))).map((t, i) => ({ ...t, phase: FIRST_PHASE + i }));
@@ -794,10 +794,10 @@ const laneHead = (lane) => {
   const title = GROUP_TITLE[lane.id] || lane.name;
   return `<div class="g-row g-group" id="spoor-${lane.id}">
     <div class="g-label"><nldd-container gap="4">
-      ${LOGOS[lane.id] ? laneLogo(lane) : ''}
-      <nldd-container layout="wrap" gap="8" vertical-alignment="center">
+      <nldd-container layout="row" gap="12" vertical-alignment="center">
         ${LOGOS[lane.id] ? '' : `<nldd-icon icon="${lane.icon}" size="20" color="${lane.color}"></nldd-icon>`}
         <nldd-title size="5"><h3>${esc(title)}</h3></nldd-title>
+        ${LOGOS[lane.id] ? laneLogo(lane) : ''}
       </nldd-container>
       ${infoLink(lane.id)}
     </nldd-container></div>
@@ -812,7 +812,7 @@ const ganttHeader = `
       ${[...new Set(AXIS.map((t) => t.year))].map((y) => {
         const first = AXIS.findIndex((t) => t.year === y);
         const n = AXIS.filter((t) => t.year === y).length;
-        return `<div class="g-year" style="grid-column: ${first + 1} / span ${n}"><b>${y}</b>${YEAR_THEMES[y] && n === 3 ? ` · ${YEAR_THEMES[y]}` : ''}</div>`;
+        return `<div class="g-year" style="grid-column: ${first + 1} / span ${n}"><b>${y}</b></div>`;
       }).join('')}
       ${AXIS.map((t, i) => `<div class="g-tert${t === CURRENT ? ' now' : ''}" style="grid-row: 2; grid-column: ${i + 1}" title="${esc(`${t.months}${t === CURRENT ? ', loopt nu' : ''}`)}">T${t.n} · F${t.phase}${t === CURRENT ? ' · nu' : ''}</div>`).join('')}
     </div>
