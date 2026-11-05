@@ -53,7 +53,7 @@ def main() -> None:
         html = html.replace(COMMENTS_JS, f'<script type="module">\n{comments}\n</script>')
         html = html.replace(TERMS_JS, f'<script>\n{terms}\n</script>')
         html = html.replace(STEPS_JS, f'<script type="module">\n{steps}\n</script>')
-        html = re.sub(r'(logos|avatars|schermen)/([\w.-]+\.(?:png|svg|jpg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
+        html = re.sub(r'(logos|avatars|schermen|icons)/([\w.-]+\.(?:png|svg|jpg))', lambda m: data_uri(ROOT / m.group(1) / m.group(2)), html)
         (DIST / name).write_text(html)
         print(f'dist/{name}: {len(html) / 1024 / 1024:.1f} MB')
 
