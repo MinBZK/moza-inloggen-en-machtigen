@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rollende roadmap inloggen en machtigen</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/touch-icon.png">
   <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
   <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
   <style>
@@ -141,7 +144,7 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
       <nldd-spacer size="16"></nldd-spacer>
-      <nldd-rich-text><p>Hoe DigiD, eHerkenning, de persoonlijke wallet (EDI-wallet) en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p></nldd-rich-text>
+      <nldd-rich-text><p>Hoe DigiD, eHerkenning, de persoonlijke wallet (EDI-wallet) en de European Business Wallet (EBW) per tertiaal stap voor stap beschikbaar komen in MOZa, met de EDI-wallet als randvoorwaarde voor de EBW. Elke release levert werkende functies op; latere releases vullen aan wat de ondernemer in eerdere versies nog mist.</p><p>De releases van het MOZa portaal over profiel en berichten volgen de <a href="https://mijnoverheidzakelijk.nl/over-moza/roadmap/">roadmap van MOZa</a>; die is leidend en we werken ze elke maand bij.</p></nldd-rich-text>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-banner variant="accent" text="Concept - indicatieve planning"
         supporting-text="Een rollende roadmap: de planning loopt per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan) en begint altijd bij het tertiaal van nu. Je ziet ongeveer drie jaar vooruit; scroll naar rechts voor later. Tertialen na 2028 zijn richtinggevend en hangen af van Europese uitvoeringshandelingen en de beschikbaarheid van wallets. Klik op een regel voor de verdieping. De Europese en Nederlandse termijnen voor de wallets staan bij de stand van 14 oktober 2026; de EBW-termijnen tellen vanaf de inwerkingtreding (T0), hier aangenomen op medio 2027."></nldd-banner>
@@ -288,6 +291,8 @@
 <script type="module">
 // Tertialen vanaf februari 2027: T1 feb-mei, T2 jun-sep, T3 okt-jan. T1 2027 is fase 6, daarna doortellen.
 const FIRST_PHASE = 6;
+// Leidend voor de releases van het MOZa portaal (R2 en R3); elke maand nalopen
+const MOZA_ROADMAP = 'https://mijnoverheidzakelijk.nl/over-moza/roadmap/';
 const YEARS = [2027, 2028, 2029, 2030, 2031, 2032];
 const MONTHS = { 1: 'feb - mei', 2: 'jun - sep', 3: 'okt - jan' };
 const TERTIALS = YEARS.flatMap((y) => [1, 2, 3].map((n) => ({
@@ -362,7 +367,7 @@ const LANES = [
         summary: 'De ondernemer logt in met DigiD; MOZa toont de KvK-gegevens van alle ondernemingen waarin de ondernemer staat ingeschreven.',
         features: ['Inloggen met DigiD op niveau substantieel (DigiD-app)', 'KvK-gegevens van alle eigen ondernemingen tonen op de landingspagina (MOZa portaal R1), zoals MijnOverheid dat al doet', 'De ondernemer ziet direct meerdere ondernemingen en kiest daaruit'],
         experience: 'De zzp\'er hoeft geen eHerkenning aan te schaffen om MOZa te gebruiken en ziet meteen alle eigen ondernemingen.',
-        gaps: ['De ondernemer logt in als persoon: KvK-gegevens worden alleen getoond, er is nog geen inloggen namens de onderneming', 'Nog geen inloggen voor een andere onderneming: een gemachtigde kan niet met DigiD inloggen', 'Nog geen berichten in het portaal (volgt in MOZa portaal R3, T1 2028)'],
+        gaps: ['De ondernemer logt in als persoon: KvK-gegevens worden alleen getoond, er is nog geen inloggen namens de onderneming', 'Nog geen inloggen voor een andere onderneming: een gemachtigde kan niet met DigiD inloggen', 'Nog geen berichten in het portaal (volgt in MOZa portaal R3, T3 2027)'],
         deps: ['Aansluiting DigiD voor MOZa', 'Bevraging Handelsregister op BSN (KvK API), zoals MijnOverheid die al gebruikt'] },
       { t: '2027-2', code: 'R2', title: 'Inloggen bij MOZa en de Belastingdienst', horizon: 'gepland', fit: 'deels', doorbouw: 2, explore: { t: '2027-1' },
         summary: 'Met dezelfde DigiD-inlog in MOZa is de ondernemer ook ingelogd bij de Belastingdienst. Verkenning in fase 6, oplevering in fase 7.',
@@ -449,24 +454,18 @@ const LANES = [
         experience: 'De ondernemer ziet na het inloggen meteen dat MOZa de onderneming kent, zonder iets in te vullen.',
         gaps: ['Met DigiD alleen inloggen als persoon; inloggen namens of voor een onderneming: zie "Wie logt in met welk middel?"', 'KvK-gegevens worden alleen getoond: dat is nog geen inloggen namens de onderneming of controle van bevoegdheid', 'Wijzigen van KvK-gegevens gaat via de KvK', 'Nog geen profiel of berichten in het portaal (volgen in R2 en R3)'],
         deps: ['DigiD-aansluiting (DigiD R1)', 'eHerkenning R1 voor bestuurders, medewerkers en gemachtigden', 'Bevraging Handelsregister (KvK API)'] },
-      { t: '2027-2', code: 'R2', title: 'Profiel in het portaal (profieldienst)', horizon: 'gepland', fit: 'deels',
-        summary: 'MOZa portaal neemt de profieldienst af en toont het profiel van de ondernemer in het portaal.',
-        features: ['MOZa portaal sluit aan op de profieldienst als afnemer', 'Profiel van de ondernemer tonen in het portaal, zoals contactgegevens en voorkeuren'],
+      { t: '2026-3', until: '2027-1', code: 'R2', title: 'Profielservice (tijdig informeren)', horizon: 'gepland', fit: 'deels', bron: 'moza',
+        summary: 'MOZa consumeert de profielservice uit het onderdeel Tijdig informeren: de contactgegevens en voorkeuren van de ondernemer, één keer voor de hele overheid. Volgens de MOZa-roadmap: realisatie Q4 2026 t/m Q2 2027, doorbouwen vanaf Q3 2027.',
+        features: ['MOZa portaal sluit aan op de profielservice als afnemer', 'Contactgegevens en voorkeuren van de ondernemer tonen in het portaal'],
         experience: 'De ondernemer ziet in het portaal welke contactgegevens en voorkeuren bekend zijn.',
-        gaps: ['Wat er getoond wordt, hangt af van de gegevens die de profieldienst levert'],
-        deps: ['Profieldienst beschikbaar als af te nemen service', 'Inloggen in MOZa'] },
-      { t: '2028-1', code: 'R3', title: 'Berichten van één dienstverlener', horizon: 'gepland', fit: 'deels',
-        summary: 'Eerste iteratie: MOZa portaal toont de berichten uit het berichtenmagazijn van één eerste dienstverlener.',
-        features: ['Berichten ophalen uit het berichtenmagazijn en tonen in het portaal', 'Stap 1: inloggen op het MOZa portaal', 'Stap 2: ingelogd bij de eerste dienstverlener, zodat diens berichten zichtbaar zijn', 'Bij een nieuw bericht stuurt de notificatiedienst van MOZa een melding die naar het portaal leidt'],
+        gaps: ['Wat er getoond wordt, hangt af van de gegevens die de profielservice levert', 'Waar de profielservice het beste past, verkent MOZa samen met KVK (Q4 2026)'],
+        deps: ['Profielservice (MOZa-roadmap, Tijdig informeren)', 'Inloggen in MOZa'] },
+      { t: '2027-1', until: '2027-2', code: 'R3', title: 'Berichten van één dienstverlener', horizon: 'gepland', fit: 'deels', explore: { t: '2026-3' }, bron: 'moza',
+        summary: 'Eerste iteratie: MOZa portaal consumeert het berichtenstelsel en toont de berichten van één eerste dienstverlener. Volgens de MOZa-roadmap: verkenning Q4 2026 t/m januari 2027, realisatie februari t/m Q3 2027, doorbouwen vanaf Q4 2027.',
+        features: ['Berichten ophalen via het berichtenstelsel en tonen in het portaal', 'Stap 1: inloggen op het MOZa portaal', 'Stap 2: ingelogd bij de eerste dienstverlener, zodat diens berichten zichtbaar zijn', 'Bij een nieuw bericht stuurt de notificatiedienst van MOZa een melding die naar het portaal leidt'],
         experience: 'De ondernemer ziet in het portaal de berichten van een eerste dienstverlener.',
-        gaps: ['Berichten van andere dienstverleners nog niet zichtbaar (volgt in R4)', 'Berichten nog niet in de business wallet (volgt in EBW R2)'],
-        deps: ['Berichtenmagazijn', 'Inloggen op het MOZa portaal (DigiD R1, eHerkenning R1)', 'Eerste dienstverlener aangesloten op het berichtenmagazijn en de MOZa-inlog', 'De notificatiedienst van MOZa'] },
-      { t: '2028-3', code: 'R4', title: 'Berichten van meerdere dienstverleners', horizon: 'verkenning', fit: 'grotendeels',
-        summary: 'Vervolgiteratie: stap voor stap komen er dienstverleners bij, zodat de ondernemer steeds meer berichten in het portaal ziet.',
-        features: ['Per iteratie dienstverleners toevoegen aan het berichtenoverzicht', 'Ingelogd bij alle toegevoegde dienstverleners met één inlog (met DigiD via DigiD R3)'],
-        experience: 'Steeds meer berichten van de overheid op één plek in het portaal.',
-        gaps: ['Met eHerkenning of de business wallet pas vanaf T1 2030 bij alle dienstverleners ingelogd (eHerkenning R2, EBW R3)', 'Tempo hangt af van het aansluiten van dienstverleners op het berichtenmagazijn'],
-        deps: ['Berichten van één dienstverlener (R3)', 'Eén inlog voor alle dienstverleners (DigiD R3)'] },
+        gaps: ['Berichten van andere dienstverleners komen er stap voor stap bij tijdens het doorbouwen', 'Berichten nog niet in de business wallet (volgt in EBW R2)'],
+        deps: ['Berichtenstelsel (MOZa-roadmap, Tijdig informeren)', 'Inloggen op het MOZa portaal (DigiD R1, eHerkenning R1)', 'Eerste dienstverlener aangesloten op het berichtenstelsel en de MOZa-inlog', 'De notificatiedienst van MOZa'] },
     ],
   },
   {
@@ -668,10 +667,8 @@ LANES.sort((x, y) => LANE_ORDER.indexOf(x.id) - LANE_ORDER.indexOf(y.id));
 const EXPERIENCE = {
   '2027-1': 'Nieuw middel: DigiD voor het MOZa-portaal; KvK-gegevens in beeld',
   '2027-2': 'Nieuw middel: inloggen in MOZa met de EDI-wallet (als persoon); met DigiD door naar de Belastingdienst zonder opnieuw in te loggen; eigen profiel (contactgegevens en voorkeuren) zichtbaar in het portaal; eigenaar van een eenmanszaak logt in met de persoonlijke wallet en ziet meteen de eigen onderneming',
-  '2027-3': 'Nieuw middel: eHerkenning voor het MOZa-portaal; afgevaardigden van een onderneming loggen zakelijk in en zien de onderneming uit het Handelsregister',
-  '2028-1': 'Berichten van een eerste dienstverlener in het portaal',
-  '2028-3': 'Berichten van meerdere dienstverleners in het portaal',
-  '2028-2': 'Met DigiD of de EDI-wallet via MOZa in één keer ingelogd bij alle aangesloten dienstverleners; nieuw middel: de business wallet (pilot)',
+  '2027-3': 'Nieuw middel: eHerkenning voor het MOZa-portaal; afgevaardigden van een onderneming loggen zakelijk in en zien de onderneming uit het Handelsregister; berichten van een eerste dienstverlener in het portaal',
+    '2028-2': 'Met DigiD of de EDI-wallet via MOZa in één keer ingelogd bij alle aangesloten dienstverleners; nieuw middel: de business wallet (pilot)',
   '2029-2': 'Officiële post komt aantoonbaar aan in de business wallet',
   '2030-1': 'Nieuw middel: de business wallet voor iedere onderneming, ook uit andere EU-landen; zelf machtigen in MOZa; met eHerkenning en business wallet overal ingelogd',
   '2031-1': 'Machtigingen mee naar de business wallet; machtigingen vanuit de EBW; gegevens één keer delen',
@@ -835,8 +832,8 @@ const renderGantt = () => {
       <div class="g-label"><div class="g-section-title"><h3>${esc(sec.title)}</h3><p>${esc(sec.sub)}</p></div></div>
     </div>${sec.lanes.map(({ id, extra = [], skip = [] }) => {
       const lane = LANES.find((l) => l.id === id);
-      const own = lane.releases.filter((r) => !skip.includes(r.code)).map((r) => [r.t, releaseRow(lane, r)]);
-      const others = extra.map((key) => { const { lane: l, r } = releaseRef(key); return [r.t, releaseRow(l, r, lane)]; });
+      const own = lane.releases.filter((r) => !skip.includes(r.code)).map((r) => [r.explore?.t || r.t, releaseRow(lane, r)]);
+      const others = extra.map((key) => { const { lane: l, r } = releaseRef(key); return [r.explore?.t || r.t, releaseRow(l, r, lane)]; });
       const rows = [...own, ...others].sort((a, b) => tStart(a[0]) - tStart(b[0])).map(([, html]) => html).join('');
       const kaders = KADERS.filter((k) => k.group === lane.id);
       if (!kaders.length) return laneHead(lane) + rows;
@@ -1318,6 +1315,9 @@ function renderDetail(laneId, code) {
     <nldd-container layout="wrap" gap="8">${tags}${r.reach ? tag(REACH[r.reach], 'md') : ''}${(r.kader || []).map((c) => kaderTag(c, 'md')).join('')}</nldd-container>
     ${r.attention ? `<nldd-banner variant="warning" icon="exclamation-triangle" heading-level="3" text="Aandachtspunt" supporting-text="${esc(r.attention)}"></nldd-banner>` : ''}
     ${banner}
+    ${r.bron === 'moza' ? `<nldd-banner variant="neutral" icon="info-circle" heading-level="3" text="Afgeleid van de MOZa-roadmap" supporting-text="Planning en termen volgen de roadmap op mijnoverheidzakelijk.nl; die is leidend. We werken deze release elke maand bij.">
+      <nldd-button slot="actions" appearance="neutral-tinted" size="sm" end-icon="external-link" text="MOZa-roadmap" href="${MOZA_ROADMAP}" target="_blank"></nldd-button>
+    </nldd-banner>` : ''}
     ${r.note ? `<nldd-banner variant="neutral" icon="info-circle" heading-level="3" text="In relatie tot de termijnen" supporting-text="${esc(r.note)}"></nldd-banner>` : ''}
     ${depSection(lane, r)}
     ${(r.kader || []).map((c) => {

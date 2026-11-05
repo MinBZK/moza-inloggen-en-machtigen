@@ -8,6 +8,7 @@ COPY build.py index.html eherkenning.html ebw.html ebw-landschap.html ebw-flows.
 COPY logos logos
 COPY avatars avatars
 COPY schermen schermen
+COPY icons icons
 COPY vendor vendor
 RUN python3 build.py
 
