@@ -933,15 +933,15 @@ const openKeuze = () => {
           <span class="keuze-naam">Gegevens per attestatie</span>
           <span class="keuze-uitleg">Wat er in de PID, de vertegenwoordigingsbevoegdheid, de EBWOID en de EUCC staat, met het hele schema ernaast.</span>
         </button>
-        <button type="button" data-kies="flow">
-          <span class="keuze-nr">Presentatie 3 · ${FLOWS.flow.aantal} slides</span>
-          <span class="keuze-naam">Van nieuwe EBW tot machtiging</span>
-          <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
-        </button>
         <button type="button" data-kies="inloggen">
-          <span class="keuze-nr">Presentatie 4 · ${FLOWS.inloggen.aantal} slides</span>
+          <span class="keuze-nr">Presentatie 3 · ${FLOWS.inloggen.aantal} slides</span>
           <span class="keuze-naam">Inloggen zonder eigen EBW</span>
           <span class="keuze-uitleg">Karin logt één keer in bij MOZa met haar persoonlijke wallet; MOZa geeft haar bevoegdheid door aan de KVK, de Belastingdienst en RVO.</span>
+        </button>
+        <button type="button" data-kies="flow">
+          <span class="keuze-nr">Presentatie 4 · ${FLOWS.flow.aantal} slides</span>
+          <span class="keuze-naam">Van nieuwe EBW tot machtiging</span>
+          <span class="keuze-uitleg">De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.</span>
         </button>
       </div>
       <div class="keuze-voet"><button type="button" data-sluit>Sluiten</button><span>Kies met 1 tot en met 4 · Esc sluit</span></div>`;
@@ -988,7 +988,7 @@ const inInvoer = (e) => e.composedPath().some((el) => el instanceof HTMLElement 
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey || e.metaKey || e.altKey || inInvoer(e)) return;
   if (keuze && !keuze.hidden) {
-    const acties = { 1: () => kies('landschap'), 2: () => kies('attestaties'), 3: () => kies('flow'), 4: () => kies('inloggen'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
+    const acties = { 1: () => kies('landschap'), 2: () => kies('attestaties'), 3: () => kies('inloggen'), 4: () => kies('flow'), ArrowRight: () => kies('landschap'), Escape: () => sluitKeuze(), P: () => sluitKeuze() };
     if (e.key in acties) { e.preventDefault(); e.stopPropagation(); acties[e.key](); }
     else if (e.key === 'Tab') {
       e.preventDefault();
