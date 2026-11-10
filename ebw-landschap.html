@@ -16,6 +16,7 @@
     .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
     .legend-line { display: block; }
+    .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); column-gap: 32px; align-items: start; }
     /* Presentatielaag (Shift+P of ?presentatie): het schema laag voor laag, in de stijl van de
        MOZa-presentaties op plak.rijks.app. Eigen CSS, want dit is een schermvullende presentatie. */
     #presentatie {
@@ -521,7 +522,7 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-title size="4"><h3>Legenda</h3></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
-      <nldd-list appearance="simple" id="legend" aria-label="Legenda"></nldd-list>
+      <div id="legend" class="legend-grid" role="group" aria-label="Legenda"></div>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="4" id="keten"><h3>Toelichting bij het schema</h3><p slot="supporting-text">Zo lees je het schema hierboven, van links naar rechts.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
@@ -898,12 +899,15 @@ const walletItems = WALLETS.map(([src, w, vb, text]) => {
     <nldd-text-cell size="sm" text="${esc(text)}"></nldd-text-cell>
   </nldd-list-item>`;
 }).join('');
-document.getElementById('legend').innerHTML = walletItems + LEGEND.map(([color, dash, text]) => `
+const lineItems = LEGEND.map(([color, dash, text]) => `
   <nldd-list-item size="sm">
     <nldd-cell vertical-alignment="center"><svg class="legend-line" width="32" height="10" aria-hidden="true"><path d="M1 5H31" stroke="${color}" stroke-width="2" stroke-dasharray="${dash}"/></svg></nldd-cell>
     <nldd-spacer-cell size="8"></nldd-spacer-cell>
     <nldd-text-cell size="sm" text="${esc(text)}"></nldd-text-cell>
-  </nldd-list-item>`).join('');
+  </nldd-list-item>`);
+// Legenda in kolommen: wallets, dan de lijnsoorten in twee groepen van drie
+document.getElementById('legend').innerHTML = [walletItems, lineItems.slice(0, 3).join(''), lineItems.slice(3).join('')]
+  .map(items => `<nldd-list appearance="simple">${items}</nldd-list>`).join('');
 
 const HOLDERS = [
   ['apartment-building', 'Ondernemingen', 'Economische actoren, zoals Koffiezaak Noon.'],
