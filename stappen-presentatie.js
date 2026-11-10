@@ -1,5 +1,5 @@
 // Stappenpresentatie: één gedeelde opbouw voor alle stappenschema's op de roadmap-site, gelijk aan de
-// presentaties op het EBW-landschap (ebw-landschap.html?presentatie=flow). Paneel links, de pagina schuift
+// presentaties op het EBW-landschap (ebw-machtigen.html?presentatie#/0). Paneel links, de pagina schuift
 // op, de actieve stap blijft op kleur en de andere stappen dimmen tot 20%.
 //
 // Gebruik in een pagina:
@@ -250,7 +250,7 @@ if (bron) {
   const kies = (i) => {
     const x = items[i]; if (!x) return;
     if (x.href === hier) { sluitKeuze(false); open(0); }
-    else location.href = `${x.href}?presentatie#/0`;
+    else location.href = x.href.includes('?') ? `${x.href}#/0` : `${x.href}?presentatie#/0`;
   };
   const index = (n) => STAPPEN.findIndex((s) => String(s.n) === String(n));
   svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `${STAP} ${t.dataset.stap} openen`); });

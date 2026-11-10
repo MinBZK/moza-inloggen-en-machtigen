@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EBW: inloggen zonder eigen EBW</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/touch-icon.png">
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: de schema's zijn SVG-tekeningen op een 'papieren' canvas in dezelfde
+       stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
+    .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="ebw.html" start-icon="chevron-left" text="Terug naar EBW: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">European Business Wallet · deel 3 · conceptflow</span>
+        <h1>Inloggen bij MOZa zonder eigen EBW</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner variant="accent" icon="lightbulb" text="Conceptflow" supporting-text="Dit is een denkrichting, geen bestaande flow. De EBW bestaat nog niet: hoe het precies gaat werken, hangt af van de uitwerking van de EBW en de open punten op deze pagina."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text><p>Koffiezaak Noon heeft geen EBW. Karin logt één keer in bij MOZa met haar persoonlijke wallet; MOZa geeft haar vertegenwoordigingsbevoegdheid onder water door aan de KVK, de Belastingdienst en RVO. Zo is ze in één keer bij alle drie ingelogd. Onderdeel van <a href="ebw-landschap.html">het EBW-landschap</a>, met Koffiezaak Noon, eigenaar Karin Jansen en werknemer Bilal Yılmaz als voorbeeld.</p></nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="stappen">
+      <nldd-title size="2"><h2>Van inloggen bij MOZa tot ingelogd bij drie dienstverleners</h2><p slot="supporting-text">Klik op een stap of presenteer de stappen, om te zien welke gegevens er worden gevraagd en verstuurd.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen (Shift+P)"
+        accessible-label="Presenteer de stappen uit het schema hieronder (Shift+P)"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
+      <div class="canvas" id="login-schema" role="img" aria-labelledby="login-titel login-uitleg">
+<svg viewBox="0 0 1280 730" xmlns="http://www.w3.org/2000/svg">
+  <title id="login-titel">Volgordediagram: inloggen bij MOZa en andere dienstverleners zonder eigen EBW</title>
+  <desc id="login-uitleg">Stap 1: Karin Jansen naar KVK, inloggen met PID. Stap 2: KVK naar Karin Jansen, vertegenwoordigingsbevoegdheid (Pub-EAA). Stap 3a: Karin Jansen naar MOZa, toont PID en bevoegdheid (OpenID4VP). Stap 3b: MOZa naar Karin Jansen, ingelogd; ziet haar dienstverleners. Stap 4a: MOZa naar KVK, geeft bevoegdheid door. Stap 4b: KVK naar Karin Jansen, ingelogd zonder opnieuw in te loggen. Stap 5a: MOZa naar Belastingdienst, geeft bevoegdheid door. Stap 5b: Belastingdienst naar Karin Jansen, ingelogd zonder opnieuw in te loggen. Stap 6a: MOZa naar RVO, geeft bevoegdheid door. Stap 6b: RVO naar Karin Jansen, ingelogd zonder opnieuw in te loggen.</desc>
+  <defs>
+    <pattern id="grid3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="l-issue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f5fa8"/></marker>
+    <marker id="l-login" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
+    <marker id="l-door" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7a4f8c"/></marker>
+    <marker id="l-sessie" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
+  </defs>
+  <rect width="1280" height="730" fill="#fff"/>
+  <rect width="1280" height="730" fill="url(#grid3)"/>
+  <path d="M128 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="18" y="18" width="220" height="60" rx="10" fill="#fff" stroke="#666"/>
+  <circle cx="44" cy="48" r="16" fill="oklch(0.858 0.073 29.5)"/>
+  <svg x="28" y="32" width="32" height="32" viewBox="0 0 264 264"><clipPath id="lcp-karin"><circle cx="132" cy="132" r="132"/></clipPath><image href="avatars/karin.svg" width="264" height="280" clip-path="url(#lcp-karin)"/></svg>
+  <svg x="196" y="37" width="32" height="22" viewBox="0 0 188 130"><title>EUDI-wallet</title><image href="logos/edi-wallet.png" width="398" height="130"/></svg>
+  <text x="128" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Karin Jansen</text>
+  <text x="128" y="63" font-size="11.5" fill="#555" text-anchor="middle">EUDI-wallet</text>
+  <path d="M384 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="274" y="18" width="220" height="60" rx="10" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="384" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">KVK</text>
+  <text x="384" y="63" font-size="11.5" fill="#555" text-anchor="middle">uitgever en dienstverlener</text>
+  <path d="M640 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="530" y="18" width="220" height="60" rx="10" fill="#e8eef6" stroke="#154273"/>
+  <text x="640" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">MOZa</text>
+  <text x="640" y="63" font-size="11.5" fill="#555" text-anchor="middle">MijnOverheid Zakelijk</text>
+  <path d="M896 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="786" y="18" width="220" height="60" rx="10" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="896" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">Belastingdienst</text>
+  <text x="896" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstverlener</text>
+  <path d="M1152 78V718" stroke="#bbb" stroke-dasharray="4 4"/>
+  <rect x="1042" y="18" width="220" height="60" rx="10" fill="#f8cecc" stroke="#b85450"/>
+  <text x="1152" y="45" font-size="13" font-weight="700" fill="#333" text-anchor="middle">RVO</text>
+  <text x="1152" y="63" font-size="11.5" fill="#555" text-anchor="middle">dienstverlener</text>
+  <rect data-stap="1" x="114" y="94" width="284" height="54" fill="transparent"/>
+  <path data-stap="1" d="M144 132H380" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-stap="1" cx="128" cy="132" r="12" fill="#2d7a46"/><text data-stap="1" x="128" y="136" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="256" y="124" font-size="11.5" fill="#2d7a46" text-anchor="middle">inloggen met PID</text>
+  <rect data-stap="2" x="114" y="154" width="284" height="54" fill="transparent"/>
+  <path data-stap="2" d="M368 192H132" stroke="#1f5fa8" stroke-width="1.8" fill="none" marker-end="url(#l-issue)"/>
+  <circle data-stap="2" cx="384" cy="192" r="12" fill="#1f5fa8"/><text data-stap="2" x="384" y="196" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-stap="2" x="256" y="170" font-size="11.5" fill="#1f5fa8" text-anchor="middle">vertegenwoordigings-</text>
+  <text data-stap="2" x="256" y="184" font-size="11.5" fill="#1f5fa8" text-anchor="middle">bevoegdheid (Pub-EAA)</text>
+  <rect data-stap="3a" x="114" y="214" width="540" height="54" fill="transparent"/>
+  <path data-stap="3a" d="M144 252H636" stroke="#2d7a46" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-login)"/>
+  <circle data-stap="3a" cx="128" cy="252" r="12" fill="#2d7a46"/><text data-stap="3a" x="128" y="256" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3a</text>
+  <text data-stap="3a" x="384" y="230" font-size="11.5" fill="#2d7a46" text-anchor="middle">toont PID en bevoegdheid</text>
+  <text data-stap="3a" x="384" y="244" font-size="11.5" fill="#2d7a46" text-anchor="middle">(OpenID4VP)</text>
+  <rect data-stap="3b" x="114" y="274" width="540" height="54" fill="transparent"/>
+  <path data-stap="3b" d="M624 312H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-stap="3b" cx="640" cy="312" r="12" fill="#0e7c86"/><text data-stap="3b" x="640" y="316" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3b</text>
+  <text data-stap="3b" x="384" y="304" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd; ziet haar dienstverleners</text>
+  <rect data-stap="4a" x="370" y="334" width="284" height="54" fill="transparent"/>
+  <path data-stap="4a" d="M624 372H388" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-door)"/>
+  <circle data-stap="4a" cx="640" cy="372" r="12" fill="#7a4f8c"/><text data-stap="4a" x="640" y="376" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4a</text>
+  <text data-stap="4a" x="512" y="364" font-size="11.5" fill="#7a4f8c" text-anchor="middle">geeft bevoegdheid door</text>
+  <rect data-stap="4b" x="114" y="394" width="284" height="54" fill="transparent"/>
+  <path data-stap="4b" d="M368 432H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-stap="4b" cx="384" cy="432" r="12" fill="#0e7c86"/><text data-stap="4b" x="384" y="436" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4b</text>
+  <text data-stap="4b" x="256" y="424" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd, zonder opnieuw</text>
+  <rect data-stap="5a" x="626" y="454" width="284" height="54" fill="transparent"/>
+  <path data-stap="5a" d="M656 492H892" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-door)"/>
+  <circle data-stap="5a" cx="640" cy="492" r="12" fill="#7a4f8c"/><text data-stap="5a" x="640" y="496" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5a</text>
+  <text data-stap="5a" x="768" y="484" font-size="11.5" fill="#7a4f8c" text-anchor="middle">geeft bevoegdheid door</text>
+  <rect data-stap="5b" x="114" y="514" width="796" height="54" fill="transparent"/>
+  <path data-stap="5b" d="M880 552H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-stap="5b" cx="896" cy="552" r="12" fill="#0e7c86"/><text data-stap="5b" x="896" y="556" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5b</text>
+  <text data-stap="5b" x="512" y="544" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd, zonder opnieuw in te loggen</text>
+  <rect data-stap="6a" x="626" y="574" width="540" height="54" fill="transparent"/>
+  <path data-stap="6a" d="M656 612H1148" stroke="#7a4f8c" stroke-width="1.8" fill="none" stroke-dasharray="6 4" marker-end="url(#l-door)"/>
+  <circle data-stap="6a" cx="640" cy="612" r="12" fill="#7a4f8c"/><text data-stap="6a" x="640" y="616" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6a</text>
+  <text data-stap="6a" x="896" y="604" font-size="11.5" fill="#7a4f8c" text-anchor="middle">geeft bevoegdheid door</text>
+  <rect data-stap="6b" x="114" y="634" width="1052" height="54" fill="transparent"/>
+  <path data-stap="6b" d="M1136 672H132" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#l-sessie)"/>
+  <circle data-stap="6b" cx="1152" cy="672" r="12" fill="#0e7c86"/><text data-stap="6b" x="1152" y="676" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6b</text>
+  <text data-stap="6b" x="640" y="664" font-size="11.5" fill="#0e7c86" text-anchor="middle">ingelogd, zonder opnieuw in te loggen</text>
+</svg>
+      </div>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-container gap="4">
+          <nldd-title size="4"><h2>Meedoen</h2></nldd-title>
+          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p></nldd-rich-text>
+        </nldd-container>
+        <nldd-rich-text spacing="tight"><p>Concept roadmap MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Rotterdam en Koffiezaak Noon zijn een voorbeeld.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+
+<script type="application/json" id="stappen-data">
+{
+ "naam": "Inloggen zonder eigen EBW",
+ "schema": "#login-schema",
+ "stappen": [
+  {
+   "n": "1",
+   "kop": "inloggen met PID",
+   "kenmerken": [
+    "Gevraagd door de KVK",
+    "Uit de wallet van Karin"
+   ],
+   "soort": [
+    "Attestaties tonen",
+    "OpenID4VP: gegevens uit attestaties die er al zijn",
+    "#2d7a46"
+   ],
+   "lead": "Karin logt met de PID uit haar EUDI-wallet in bij de KVK (OpenID4VP). De KVK vraagt alleen wat nodig is om haar in het Handelsregister te vinden.",
+   "punten": [
+    "Geen geboortedatum: het BSN is uniek en staat bij de eigenaar in het Handelsregister, dus naam en geboortedatum zijn niet nodig om haar te vinden. Niet gedeeld: geboortedatum, adres, nationaliteit en geboorteplaats. De wallet deelt alleen de gevraagde velden (selective disclosure)."
+   ],
+   "kaarten": [
+    {
+     "soort": "tonen",
+     "label": "Attestatie · PID",
+     "titel": "PID",
+     "bij": "van de RvIG · uit de wallet van Karin",
+     "rijen": [
+      [
+       "personal_administrative_number",
+       "999999990",
+       "BSN: hiermee vindt de KVK haar in het Handelsregister"
+      ],
+      [
+       "given_name",
+       "Karin",
+       "Voornamen, ter controle en om haar aan te spreken"
+      ],
+      [
+       "family_name",
+       "Jansen",
+       "Achternaam"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief. Het Handelsregister legt het BSN van eigenaren en bestuurders vast (niet openbaar); de PID van de Nederlandse wallet bevat het BSN als personal_administrative_number."
+  },
+  {
+   "n": "2",
+   "kop": "vertegenwoordigings­bevoegdheid",
+   "kenmerken": [
+    "Verstuurd door de KVK",
+    "Naar de wallet van Karin"
+   ],
+   "soort": [
+    "Attestatie uitgeven",
+    "OpenID4VCI: er komt een nieuwe attestatie bij",
+    "#1f5fa8"
+   ],
+   "lead": "De KVK geeft Karin haar bevoegdheid als Pub-EAA in haar persoonlijke wallet (OpenID4VCI). De attestatie identificeert ook de onderneming; zonder EBW is dit de bron die zegt namens wie Karin handelt.",
+   "punten": [
+    "Aanname voor nu: voor een eenmanszaak geeft de KVK één attestatie, met de onderneming en de bevoegdheid samen, in de persoonlijke wallet. Aanname: Karin is volledig bevoegd (full_powers), dus diensten accepteren deze ene attestatie voor alles wat ze namens de onderneming doet. Bij beperkte of gezamenlijke bevoegdheid volstaat dat niet.",
+    "**Open punt.** Voor een eenmanszaak bestaat voor zover bekend nog geen Europese attestatie over vertegenwoordiging. Dit zou een aparte KVK-attestatie moeten worden, bijvoorbeeld \"persoon X is eigenaar van KVK-nummer Y\". Juist hier vervult eHerkenning nu die rol."
+   ],
+   "kaarten": [
+    {
+     "soort": "uitgifte",
+     "label": "Nieuwe attestatie · Pub-EAA van de KVK",
+     "titel": "Vertegenwoordigingsbevoegdheid",
+     "bij": "Verstuurd door de KVK · Naar de wallet van Karin",
+     "rijen": [
+      [
+       "legal_person_identifier",
+       "12345678",
+       "KVK-nummer: welke onderneming. Geen EUID, want dat krijgt een eenmanszaak alleen via de EBWOID (aanname)"
+      ],
+      [
+       "legal_name",
+       "Koffiezaak Noon",
+       "Naam van de onderneming zoals in het Handelsregister"
+      ],
+      [
+       "full_powers",
+       "true",
+       "Volledig bevoegd voor de onderneming als geheel"
+      ],
+      [
+       "eService",
+       "(leeg)",
+       "Leeg bij volledige bevoegdheid; anders de dienst waarvoor de bevoegdheid geldt"
+      ],
+      [
+       "effective_from_date",
+       "2021-03-01",
+       "Ingangsdatum"
+      ],
+      [
+       "effective_until_date",
+       "(niet ingevuld)",
+       "Einddatum, optioneel"
+      ],
+      [
+       "Houder",
+       "Karin Jansen",
+       "Gekoppeld aan dezelfde wallet als de PID van Karin (aanname); daardoor is geen geboortedatum nodig"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief. full_powers, eService en de datums volgens het concept-rulebook Power of Representation uit WE BUILD BU4 (D2.1 p. 418-419); legal_person_identifier en legal_name zijn illustratief, de veldnamen voor de onderneming liggen nog niet vast."
+  },
+  {
+   "n": "3a",
+   "kop": "inloggen bij MOZa",
+   "kenmerken": [
+    "Gevraagd door MOZa",
+    "Uit de wallet van Karin"
+   ],
+   "soort": [
+    "Attestaties tonen",
+    "OpenID4VP: gegevens uit attestaties die er al zijn",
+    "#2d7a46"
+   ],
+   "lead": "MOZa vraagt Karin haar PID en vertegenwoordigingsbevoegdheid te tonen (OpenID4VP). Karin ziet in haar wallet welke gegevens MOZa vraagt en deelt ze.",
+   "punten": [
+    "Zonder EBW is er geen EBWOID: de bevoegdheid van de KVK zegt om welke onderneming het gaat.",
+    "**Open punt.** Geen geboortedatum (aanname): dat de PID en de bevoegdheid bij dezelfde persoon horen, blijkt uit de koppeling van beide attestaties aan dezelfde wallet (gecombineerde presentatie). Kan dat niet, dan is ook de geboortedatum nodig, want een naam is niet uniek."
+   ],
+   "kaarten": [
+    {
+     "soort": "tonen",
+     "label": "Attestatie · PID",
+     "titel": "PID",
+     "bij": "van de RvIG · uit de wallet van Karin",
+     "rijen": [
+      [
+       "given_name",
+       "Karin",
+       "Voornamen"
+      ],
+      [
+       "family_name",
+       "Jansen",
+       "Achternaam"
+      ]
+     ]
+    },
+    {
+     "soort": "tonen",
+     "label": "Attestatie · Pub-EAA",
+     "titel": "Vertegenwoordigingsbevoegdheid",
+     "bij": "van de KVK · uit de wallet van Karin",
+     "rijen": [
+      [
+       "legal_person_identifier",
+       "12345678",
+       "KVK-nummer: welke onderneming"
+      ],
+      [
+       "legal_name",
+       "Koffiezaak Noon",
+       "Naam van de onderneming"
+      ],
+      [
+       "full_powers",
+       "true",
+       "Volledig bevoegd"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief. Veldnamen zijn illustratief."
+  },
+  {
+   "n": "3b",
+   "kop": "ingelogd",
+   "kenmerken": [
+    "Sessie bij MOZa",
+    "Voor Karin"
+   ],
+   "soort": [
+    "Resultaat: ingelogd",
+    "geen attestatie, een sessie bij de dienst",
+    "#0e7c86"
+   ],
+   "lead": "MOZa controleert de handtekeningen van de RvIG en de KVK, of de attestaties niet zijn ingetrokken (statuslijst) en of de PID en de bevoegdheid over dezelfde persoon gaan. Karin ziet daarna de dienstverleners waar ze verder kan.",
+   "punten": [
+    "**Open punt.** Nog op te lossen: hoe de lijst met dienstverleners voor Karin wordt bepaald. Mogelijkheden: wat er over de onderneming bekend is (rechtsvorm en activiteiten in het Handelsregister, btw-plicht, vergunningen), diensten die de onderneming eerder gebruikte, of Karin kiest zelf."
+   ],
+   "kaarten": [
+    {
+     "soort": "sessie",
+     "label": "Sessie · geen attestatie",
+     "titel": "Sessie bij MOZa",
+     "bij": "Sessie bij MOZa · Voor Karin",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "Namens",
+       "Koffiezaak Noon · KVK 12345678",
+       "Uit de vertegenwoordigingsbevoegdheid"
+      ],
+      [
+       "Bevoegdheid",
+       "volledig (full_powers)",
+       "Eigenaar van een eenmanszaak"
+      ],
+      [
+       "Dienst",
+       "berichten en zaken van Koffiezaak Noon inzien",
+       "Wat Karin bij MOZa kan doen (voorbeeld)"
+      ],
+      [
+       "Dienstverleners",
+       "KVK, Belastingdienst, RVO",
+       "Waar Karin met één klik verder kan (voorbeeld)"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "4a",
+   "kop": "MOZa geeft door aan de KVK",
+   "kenmerken": [
+    "Doorgegeven door MOZa",
+    "Naar de KVK"
+   ],
+   "soort": [
+    "Doorgegeven door MOZa",
+    "onder water, geen nieuwe attestatie: Karin hoeft niets te doen",
+    "#7a4f8c"
+   ],
+   "lead": "Onder water geeft MOZa door wat het in stap 3a heeft gecontroleerd. Karin hoeft niets te doen.",
+   "punten": [
+    "**Open punt.** Een presentatie uit de wallet is gebonden aan MOZa: de KVK kan die niet zelf opnieuw controleren. MOZa geeft daarom een eigen ondertekende verklaring door, op basis van de gecontroleerde Pub-EAA, zoals een makelaar bij eHerkenning. De dienstverleners moeten MOZa daarvoor vertrouwen; hoe dat geregeld wordt, staat nog niet vast."
+   ],
+   "kaarten": [
+    {
+     "soort": "doorgeven",
+     "label": "Doorgegeven door MOZa · op basis van de Pub-EAA van de KVK",
+     "titel": "Bevoegdheid van Karin",
+     "bij": "gecontroleerd door MOZa",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "legal_person_identifier",
+       "12345678",
+       "KVK-nummer: namens welke onderneming"
+      ],
+      [
+       "full_powers",
+       "true",
+       "Volledig bevoegd"
+      ],
+      [
+       "Gecontroleerd",
+       "handtekening KVK, statuslijst, tijdstip",
+       "Wat MOZa heeft nagekeken"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "4b",
+   "kop": "ingelogd",
+   "kenmerken": [
+    "Sessie bij de KVK",
+    "Voor Karin"
+   ],
+   "soort": [
+    "Resultaat: ingelogd",
+    "geen attestatie, een sessie bij de dienst",
+    "#0e7c86"
+   ],
+   "lead": "De KVK laat Karin binnen namens Koffiezaak Noon, zonder dat ze opnieuw haar wallet toont.",
+   "punten": [],
+   "kaarten": [
+    {
+     "soort": "sessie",
+     "label": "Sessie · geen attestatie",
+     "titel": "Sessie bij de KVK",
+     "bij": "Sessie bij de KVK · Voor Karin",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "Namens",
+       "Koffiezaak Noon · KVK 12345678",
+       "Uit de vertegenwoordigingsbevoegdheid"
+      ],
+      [
+       "Bevoegdheid",
+       "volledig (full_powers)",
+       "Eigenaar van een eenmanszaak"
+      ],
+      [
+       "Dienst",
+       "wijziging doorgeven in het Handelsregister",
+       "Wat Karin bij de KVK kan doen (voorbeeld)"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "5a",
+   "kop": "MOZa geeft door aan de Belastingdienst",
+   "kenmerken": [
+    "Doorgegeven door MOZa",
+    "Naar de Belastingdienst"
+   ],
+   "soort": [
+    "Doorgegeven door MOZa",
+    "onder water, geen nieuwe attestatie: Karin hoeft niets te doen",
+    "#7a4f8c"
+   ],
+   "lead": "Onder water geeft MOZa door wat het in stap 3a heeft gecontroleerd. Karin hoeft niets te doen.",
+   "punten": [
+    "**Open punt.** Of de Belastingdienst dit accepteert of toch zelf de wallet van Karin wil zien, en of de volledige bevoegdheid volstaat, staat nog niet vast."
+   ],
+   "kaarten": [
+    {
+     "soort": "doorgeven",
+     "label": "Doorgegeven door MOZa · op basis van de Pub-EAA van de KVK",
+     "titel": "Bevoegdheid van Karin",
+     "bij": "gecontroleerd door MOZa",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "legal_person_identifier",
+       "12345678",
+       "KVK-nummer: namens welke onderneming"
+      ],
+      [
+       "full_powers",
+       "true",
+       "Volledig bevoegd"
+      ],
+      [
+       "Gecontroleerd",
+       "handtekening KVK, statuslijst, tijdstip",
+       "Wat MOZa heeft nagekeken"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "5b",
+   "kop": "ingelogd",
+   "kenmerken": [
+    "Sessie bij de Belastingdienst",
+    "Voor Karin"
+   ],
+   "soort": [
+    "Resultaat: ingelogd",
+    "geen attestatie, een sessie bij de dienst",
+    "#0e7c86"
+   ],
+   "lead": "De Belastingdienst laat Karin binnen namens Koffiezaak Noon, zonder dat ze opnieuw haar wallet toont.",
+   "punten": [],
+   "kaarten": [
+    {
+     "soort": "sessie",
+     "label": "Sessie · geen attestatie",
+     "titel": "Sessie bij de Belastingdienst",
+     "bij": "Sessie bij de Belastingdienst · Voor Karin",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "Namens",
+       "Koffiezaak Noon · KVK 12345678",
+       "Uit de vertegenwoordigingsbevoegdheid"
+      ],
+      [
+       "Bevoegdheid",
+       "volledig (full_powers)",
+       "Eigenaar van een eenmanszaak"
+      ],
+      [
+       "Dienst",
+       "btw-aangifte doen",
+       "Wat Karin bij de Belastingdienst kan doen (voorbeeld)"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "6a",
+   "kop": "MOZa geeft door aan RVO",
+   "kenmerken": [
+    "Doorgegeven door MOZa",
+    "Naar RVO"
+   ],
+   "soort": [
+    "Doorgegeven door MOZa",
+    "onder water, geen nieuwe attestatie: Karin hoeft niets te doen",
+    "#7a4f8c"
+   ],
+   "lead": "Onder water geeft MOZa door wat het in stap 3a heeft gecontroleerd. Karin hoeft niets te doen.",
+   "punten": [
+    "**Open punt.** RVO werkt nu met eHerkenning en machtigingen per dienst. Hoe dat zich verhoudt tot de doorgegeven bevoegdheid, staat nog niet vast."
+   ],
+   "kaarten": [
+    {
+     "soort": "doorgeven",
+     "label": "Doorgegeven door MOZa · op basis van de Pub-EAA van de KVK",
+     "titel": "Bevoegdheid van Karin",
+     "bij": "gecontroleerd door MOZa",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "legal_person_identifier",
+       "12345678",
+       "KVK-nummer: namens welke onderneming"
+      ],
+      [
+       "full_powers",
+       "true",
+       "Volledig bevoegd"
+      ],
+      [
+       "Gecontroleerd",
+       "handtekening KVK, statuslijst, tijdstip",
+       "Wat MOZa heeft nagekeken"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  },
+  {
+   "n": "6b",
+   "kop": "ingelogd",
+   "kenmerken": [
+    "Sessie bij RVO",
+    "Voor Karin"
+   ],
+   "soort": [
+    "Resultaat: ingelogd",
+    "geen attestatie, een sessie bij de dienst",
+    "#0e7c86"
+   ],
+   "lead": "RVO laat Karin binnen namens Koffiezaak Noon, zonder dat ze opnieuw haar wallet toont.",
+   "punten": [],
+   "kaarten": [
+    {
+     "soort": "sessie",
+     "label": "Sessie · geen attestatie",
+     "titel": "Sessie bij RVO",
+     "bij": "Sessie bij RVO · Voor Karin",
+     "rijen": [
+      [
+       "Gebruiker",
+       "Karin Jansen",
+       "Uit de PID"
+      ],
+      [
+       "Namens",
+       "Koffiezaak Noon · KVK 12345678",
+       "Uit de vertegenwoordigingsbevoegdheid"
+      ],
+      [
+       "Bevoegdheid",
+       "volledig (full_powers)",
+       "Eigenaar van een eenmanszaak"
+      ],
+      [
+       "Dienst",
+       "subsidie aanvragen",
+       "Wat Karin bij RVO kan doen (voorbeeld)"
+      ]
+     ]
+    }
+   ],
+   "bron": "Voorbeeldwaarden zijn fictief."
+  }
+ ],
+ "reeks": {
+  "titel": "Het EBW-landschap",
+  "sub": "in vier presentaties",
+  "items": [
+   {
+    "href": "ebw-landschap.html",
+    "soort": "Landschap",
+    "naam": "Het landschap",
+    "uitleg": "Het schema stap voor stap: van Karin met een lege wallet tot het hele landschap.",
+    "stappen": 8
+   },
+   {
+    "href": "ebw-landschap.html?presentatie=attestaties",
+    "soort": "Landschap",
+    "naam": "Gegevens per attestatie",
+    "uitleg": "Wat er in de PID, de vertegenwoordigingsbevoegdheid, de EBWOID en de EUCC staat, met het hele schema ernaast.",
+    "stappen": 5
+   },
+   {
+    "href": "ebw-machtigen.html",
+    "soort": "Flow",
+    "naam": "Van nieuwe EBW tot machtiging",
+    "uitleg": "De stappen van het volgordediagram, met per stap welke gegevens gevraagd en gestuurd worden.",
+    "stappen": 16
+   },
+   {
+    "href": "ebw-inloggen.html",
+    "soort": "Flow",
+    "naam": "Inloggen zonder eigen EBW",
+    "uitleg": "Karin logt één keer in bij MOZa met haar persoonlijke wallet; MOZa geeft haar bevoegdheid door aan de KVK, de Belastingdienst en RVO.",
+    "stappen": 10
+   }
+  ]
+ }
+}
+</script>
+<script type="module" src="stappen-presentatie.js"></script>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>
