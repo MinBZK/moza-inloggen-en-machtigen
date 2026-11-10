@@ -175,6 +175,9 @@
     .att-velden dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
     .att-velden dd small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: #5b6573; }
     .att-bron { margin: 0; font-size: 13px; line-height: 1.5; color: rgb(255 255 255 / 0.8); }
+    #att-overlay .att-inhoud a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+    #att-overlay .att-inhoud a:hover { color: #ffb612; }
+    #att-overlay .att-inhoud a:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
     .att-voet { display: flex; align-items: center; gap: 16px; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); font-size: 13px; color: rgb(255 255 255 / 0.8); }
     .att-voet button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.5); background: transparent; color: #fff; font: inherit; font-size: 18px; cursor: pointer; }
     .att-voet button:hover { background: rgb(255 255 255 / 0.15); }
@@ -779,7 +782,7 @@ const ATTESTATIES = {
       ['effective_until_date', '(niet ingevuld)', 'Einddatum, optioneel'],
       ['Houder', 'Karin Jansen', 'Gekoppeld aan dezelfde wallet als de PID van Karin (aanname); daardoor is geen geboortedatum nodig'],
     ],
-    bron: 'full_powers, eService en de datums volgens het concept-rulebook Power of Representation uit WE BUILD BU4 (D2.1 p. 418-419); legal_person_identifier en legal_name zijn illustratief, de veldnamen voor de onderneming liggen nog niet vast.',
+    bron: 'full_powers, eService en de datums volgens het concept-rulebook Power of Representation uit [WE BUILD BU4](webuild.html#bu4) (D2.1 p. 418-419); legal_person_identifier en legal_name zijn illustratief, de veldnamen voor de onderneming liggen nog niet vast.',
   },
 };
 
@@ -856,7 +859,7 @@ const gegevensHtml = (a, [kop, regel2], soort) => {
         <div><dt>${esc(veld)}</dt><dd>${esc(waarde)}${uitleg ? `<small>${esc(uitleg)}</small>` : ''}</dd></div>`).join('')}
       </dl>
     </div>`).join('')}
-    <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron || '')}</p>`;
+    <p class="att-bron"><em>Voorbeeldwaarden zijn fictief.</em> ${esc(a.bron || '').replace(/\[([^\]]+)\]\(([\w-]+\.html[^)\s]*)\)/g, '<a href="$2">$1</a>')}</p>`;
 };
 // Scrollen na de herindeling van de pagina (die wordt smaller bij het openen); vangnet als soepel scrollen wordt onderbroken
 const inBeeld = (el, blok = 'center') => {
