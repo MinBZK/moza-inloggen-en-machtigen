@@ -20,7 +20,7 @@
       border-radius: var(--semantics-surfaces-corner-radius, 8px);
       background-color: var(--semantics-surfaces-base-background-color);
     }
-    #roadmap-table {
+    .g-table {
       --label-w: 340px;
       /* Lopende roadmap: de as begint bij het huidige tertiaal en ongeveer drie jaar (10 tertialen) past in beeld;
          latere tertialen zie je door horizontaal te scrollen. Minimaal 64px per tertiaal (smalle schermen). */
@@ -33,7 +33,15 @@
       line-height: 1.3;
       color: var(--semantics-content-color);
     }
-    @media (max-width: 767px) { #roadmap-table { --label-w: 220px; } }
+    @media (max-width: 767px) { .g-table { --label-w: 220px; } }
+    /* CBS-grafiek bedrijven naar rechtsvorm: balken met DS-tokens (het DS kent geen grafieken) */
+    .rv-hero { margin: 0; font-size: 48px; line-height: 1; font-weight: 700; color: var(--semantics-content-accent-color); }
+    .rv-bars { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(120px, max-content) 1fr 3.5em; gap: 8px 12px; align-items: center; }
+    .rv-bars li { display: contents; }
+    .rv-track { display: block; height: 12px; }
+    .rv-bar { display: block; height: 100%; min-width: 2px; border-radius: 0 4px 4px 0; background: light-dark(var(--primitives-color-neutral-300), var(--primitives-color-neutral-500)); }
+    .rv-bar.is-accent { background: var(--semantics-content-accent-color); }
+    .rv-val { text-align: right; font-variant-numeric: tabular-nums; }
     .g-row { display: grid; grid-template-columns: var(--label-w) 1fr; min-height: 34px; position: relative; }
     .g-row[hidden] { display: none; }
     .g-label {
@@ -164,8 +172,35 @@
     </nldd-simple-section>
 
     <nldd-simple-section width="full" id="roadmap">
-      <nldd-title size="3" slot="header"><h2>Per onderdeel</h2>
-        <p slot="supporting-text">Hier zie je wanneer we wat verwachten, per spoor en per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan; F = fase). Hoe verder vooruit, hoe minder precies. Ingedeeld naar type onderneming: voor de eenmanszaak doen DigiD en de persoonlijke wallet ertoe, voor een bedrijf of organisatie, een fiscale eenheid en inloggen voor een andere onderneming eHerkenning en de business wallet. Wijs een release van de persoonlijke wallet aan om de EBW-release te markeren die erop steunt.</p></nldd-title>
+      <nldd-title size="3" slot="header"><h2>Eerst de eenmanszaak</h2>
+        <p slot="supporting-text">Twee op de drie bedrijven in Nederland is een eenmanszaak. Daarom richten we ons in de eerste periode op hen.</p></nldd-title>
+      <nldd-container layout="grid" column-count="2" sm-column-count="1" gap="24">
+        <nldd-rich-text>
+          <p>Van de 2,5 miljoen bedrijven in Nederland is <strong>67,6 procent een eenmanszaak</strong> (CBS, vierde kwartaal 2026, voorlopige cijfers). In 2007 was dat nog 53 procent, en vooral het aantal bedrijven met één werkzame persoon groeit.</p>
+          <p>Een eenmanszaak is geen rechtspersoon: de eigenaar staat zelf in het Handelsregister en handelt als persoon. Daardoor kan de eigenaar inloggen met een middel dat er al is, DigiD of de persoonlijke wallet (EDI-wallet), zonder eHerkenning aan te schaffen en zonder machtigingen in te richten.</p>
+          <p>Zo bereikt MOZa in de eerste periode de grootste groep ondernemers, met middelen die ze al hebben. De roadmap hieronder laat zien wanneer dat beschikbaar komt.</p>
+        </nldd-rich-text>
+        <nldd-box id="rechtsvorm">
+          <nldd-container padding="16" gap="12">
+            <nldd-title size="5"><h3>Bedrijven naar rechtsvorm, vierde kwartaal 2026*</h3><p slot="supporting-text">Alle economische activiteiten, aandeel van het aantal bedrijven</p></nldd-title>
+            <nldd-title size="2"><p class="rv-hero">67,6%</p><p slot="supporting-text">van alle bedrijven is een eenmanszaak (1.656.905 van 2.450.355)</p></nldd-title>
+            <ul class="rv-bars" aria-label="Bedrijven naar rechtsvorm">
+            <li title="Eenmanszaak: 1.656.905 bedrijven (67,6%)"><nldd-text size="sm">Eenmanszaak</nldd-text><span class="rv-track"><span class="rv-bar is-accent" style="width:67.6%"></span></span><nldd-text size="sm" class="rv-val">67,6%</nldd-text></li>
+            <li title="Besloten vennootschap (bv): 530.890 bedrijven (21,7%)"><nldd-text size="sm">Besloten vennootschap (bv)</nldd-text><span class="rv-track"><span class="rv-bar" style="width:21.7%"></span></span><nldd-text size="sm" class="rv-val">21,7%</nldd-text></li>
+            <li title="Vennootschap onder firma (vof): 167.930 bedrijven (6,9%)"><nldd-text size="sm">Vennootschap onder firma (vof)</nldd-text><span class="rv-track"><span class="rv-bar" style="width:6.9%"></span></span><nldd-text size="sm" class="rv-val">6,9%</nldd-text></li>
+            <li title="Overige rechtspersonen: 49.740 bedrijven (2,0%)"><nldd-text size="sm">Overige rechtspersonen</nldd-text><span class="rv-track"><span class="rv-bar" style="width:2.0%"></span></span><nldd-text size="sm" class="rv-val">2,0%</nldd-text></li>
+            <li title="Maatschap, samenwerking: 31.565 bedrijven (1,3%)"><nldd-text size="sm">Maatschap, samenwerking</nldd-text><span class="rv-track"><span class="rv-bar" style="width:1.3%"></span></span><nldd-text size="sm" class="rv-val">1,3%</nldd-text></li>
+            <li title="Commanditaire vennootschap (cv): 6.575 bedrijven (0,3%)"><nldd-text size="sm">Commanditaire vennootschap (cv)</nldd-text><span class="rv-track"><span class="rv-bar" style="width:0.3%"></span></span><nldd-text size="sm" class="rv-val">0,3%</nldd-text></li>
+            <li title="Overig of onbekend: 6.750 bedrijven (0,3%)"><nldd-text size="sm">Overig of onbekend</nldd-text><span class="rv-track"><span class="rv-bar" style="width:0.3%"></span></span><nldd-text size="sm" class="rv-val">0,3%</nldd-text></li>
+            </ul>
+            <nldd-rich-text spacing="tight"><p><small>* Voorlopige cijfers. Bron: <a href="https://www.cbs.nl/nl-nl/visualisaties/dashboard-economie/bedrijven#A-U" target="_blank" rel="noopener noreferrer">CBS, Dashboard economie: bedrijven</a> (CC BY 4.0).</small></p></nldd-rich-text>
+          </nldd-container>
+        </nldd-box>
+      </nldd-container>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h3>Roadmap voor de eenmanszaak</h3>
+        <p slot="supporting-text">Wanneer we wat verwachten, per spoor en per tertiaal (T1 feb-mei, T2 jun-sep, T3 okt-jan; F = fase). Hoe verder vooruit, hoe minder precies. Voor de eenmanszaak doen DigiD en de persoonlijke wallet ertoe.</p></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
       <nldd-container layout="wrap" gap="8" id="legenda">
         <span class="legend-item"><span class="lg bar verkenning"></span><nldd-text size="sm">Verkenning: richting bekend, invulling volgt</nldd-text></span>
         <span class="legend-item"><span class="lg bar gepland"></span><nldd-text size="sm">Gepland: oplevering in dit tertiaal</nldd-text></span>
@@ -177,8 +212,24 @@
         <span class="legend-item"><nldd-icon icon="exclamation-triangle" color="warning" size="16"></nldd-icon><nldd-text size="sm">Aandachtspunt in de verdieping</nldd-text></span>
       </nldd-container>
       <nldd-spacer size="16"></nldd-spacer>
-      <div class="gantt-scroll" tabindex="0" aria-label="Roadmap per onderdeel, scrollbaar">
-        <div id="roadmap-table"></div>
+      <div class="gantt-scroll" tabindex="0" aria-label="Roadmap voor de eenmanszaak, scrollbaar">
+        <div id="roadmap-table" class="g-table" data-sections="eenmanszaak"></div>
+      </div>
+    </nldd-simple-section>
+
+    <nldd-simple-section width="full" id="roadmap-bedrijf">
+      <nldd-title size="3" slot="header"><h2>Bedrijf of organisatie, fiscale eenheid en inloggen voor een andere onderneming</h2>
+        <p slot="supporting-text">Waar iemand namens een onderneming handelt, zijn eHerkenning en de business wallet nodig.</p></nldd-title>
+      <nldd-rich-text>
+        <p>Een derde van de bedrijven heeft een andere rechtsvorm, zoals een bv (21,7 procent) of een vof (6,9 procent). Daar handelt niet één eigenaar als persoon, maar vertegenwoordigt iemand de onderneming: een bestuurder, een vennoot of een medewerker met een machtiging. Dat geldt ook voor een fiscale eenheid, waarin moeder- en dochtermaatschappijen als één worden gezien, en voor wie inlogt voor een andere onderneming, zoals een boekhouder, adviseur of bewindvoerder.</p>
+        <p>Voor deze groepen zijn eHerkenning en later de business wallet (EBW) nodig, met machtigingen per persoon en per dienst. Dat vraagt meer voorbereiding: afspraken met leveranciers en herkenningsmakelaars, het inrichten van machtigingen en de Europese regels voor de EBW. Daarom volgt dit spoor na de eenmanszaak, met eHerkenning in T3 2027 als eerste stap. Onderaan staan de verkenningen die voor alle ondernemers gelden.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h3>Roadmap voor bedrijf of organisatie, fiscale eenheid en inloggen voor een andere onderneming</h3>
+        <p slot="supporting-text">Dezelfde legenda als hierboven. Wijs een release van de business wallet aan om de release van de persoonlijke wallet te markeren waarop die steunt.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <div class="gantt-scroll" tabindex="0" aria-label="Roadmap voor bedrijf of organisatie, fiscale eenheid en inloggen voor een andere onderneming, scrollbaar">
+        <div id="roadmap-table-bedrijf" class="g-table" data-sections="bedrijf,onderzoek"></div>
       </div>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-title size="6"><p slot="supporting-text">Bij T0 medio 2027 valt de acceptatieplicht voor de EBW rond medio 2029, terwijl MOZa volledige acceptatie (EBW R3) in T1 2030 plant. Voor de persoonlijke wallet zit er ongeveer een jaar tussen de plicht voor wallets uit andere lidstaten (24-12-2026) en die voor Nederlandse wallets (verwacht 1-1-2028).</p></nldd-title>
@@ -709,7 +760,6 @@ const span = (from, to) => `left:${pct(from)};width:calc(${pct(to)} - ${pct(from
 // 'extra' toont een release van een ander spoor op deze plek (bijvoorbeeld een EBW-release over de eenmanszaak
 // met de persoonlijke wallet); 'skip' laat die releases bij het eigen spoor weg. Codes blijven gelijk.
 const GANTT_SECTIONS = [
-  { id: 'alle', title: 'Voor alle ondernemers', sub: 'Het MOZa-portaal zelf', lanes: [{ id: 'sw' }] },
   { id: 'eenmanszaak', title: 'Eenmanszaak', sub: 'DigiD en de persoonlijke wallet (EUDI)',
     lanes: [{ id: 'digid' }, { id: 'edi' }] },
   { id: 'bedrijf', title: 'Bedrijf of organisatie, fiscale eenheid en inloggen voor een andere onderneming', sub: 'eHerkenning en de business wallet (EBW)',
@@ -801,14 +851,17 @@ const ganttHeader = `
   </div>`;
 
 const table = document.getElementById('roadmap-table');
-table.style.setProperty('--tert-n', AXIS.length);
-const renderGantt = () => {
+// Twee planningen: eenmanszaak en bedrijf/organisatie (+ onderzoek); welke secties staat in data-sections
+const tables = [...document.querySelectorAll('.g-table')];
+tables.forEach((t) => t.style.setProperty('--tert-n', AXIS.length));
+const renderGantt = () => tables.forEach((table) => {
+  const sections = GANTT_SECTIONS.filter((x) => table.dataset.sections.split(',').includes(x.id));
   const opened = openKaders();
   const lines = [...AXIS, null].map((t, i) => `<span class="${i > 0 && (!t || t.n === 1) ? 'year' : ''}" style="left:${pct(START + i * 4)}"></span>`).join('');
   const showToday = todayAt >= START && todayAt <= START + TOTAL;
   table.innerHTML = `${ganttHeader}
     <div class="g-grid" aria-hidden="true">${lines}${showToday ? `<span class="today" style="left:${pct(todayAt)}"></span><span class="g-today-label" style="left:${pct(todayAt)}">vandaag</span>` : ''}</div>
-    ${GANTT_SECTIONS.map((sec) => `<div class="g-block">
+    ${sections.map((sec) => `<div class="g-block">
     <div class="g-row g-section" id="type-${sec.id}">
       <div class="g-label"><div class="g-section-title"><h3>${esc(sec.title)}</h3><p>${esc(sec.sub)}</p></div></div>
     </div>${sec.lanes.map(({ id, extra = [], skip = [] }) => {
@@ -825,9 +878,9 @@ const renderGantt = () => {
         + rows;
     }).join('')}</div>`).join('')}`;
   setHeadHeight();
-};
+});
 // Hoogte van de tijdas, zodat de kop per type er net onder plakt
-const setHeadHeight = () => table.style.setProperty('--head-h', `${table.querySelector('.g-head').offsetHeight}px`);
+const setHeadHeight = () => tables.forEach((t) => t.querySelector('.g-head') && t.style.setProperty('--head-h', `${t.querySelector('.g-head').offsetHeight}px`));
 addEventListener('resize', setHeadHeight);
 renderGantt();
 
@@ -836,29 +889,31 @@ const toggleKaders = (laneId) => {
   const isOpen = !opened.has(laneId);
   if (isOpen) opened.add(laneId); else opened.delete(laneId);
   try { localStorage.setItem(KADER_KEY, JSON.stringify([...opened])); } catch { /* geen opslag: alleen voor nu */ }
-  table.querySelectorAll(`[data-kader-of="${laneId}"]`).forEach((row) => { row.hidden = !isOpen; });
-  const row = table.querySelector(`[data-kader-toggle-row="${laneId}"]`);
+  document.querySelectorAll(`[data-kader-of="${laneId}"]`).forEach((row) => { row.hidden = !isOpen; });
+  const row = document.querySelector(`[data-kader-toggle-row="${laneId}"]`);
   const btn = row.querySelector('[data-toggle-kaders]');
   btn.setAttribute('aria-expanded', String(isOpen));
   btn.setAttribute('start-icon', isOpen ? 'chevron-down' : 'chevron-right');
 };
-table.addEventListener('click', (e) => {
+tables.forEach((t) => t.addEventListener('click', (e) => {
   const btn = e.composedPath().find((el) => el instanceof Element && el.hasAttribute('data-toggle-kaders'));
   if (btn && !e.altKey) toggleKaders(btn.getAttribute('data-toggle-kaders'));
-});
+}));
 
 // Afhankelijkheden: elke EDI-release maakt een EBW-release mogelijk. Wijs een regel aan om de relatie te markeren.
 const DEPS = LANES.find((l) => l.id === 'edi').releases
   .filter((r) => r.enables).map((r) => ({ from: `edi:${r.code}`, to: `ebw:${r.enables.replace('EBW ', '')}` }));
 const highlightDeps = (key) => {
   const related = new Set(key ? DEPS.filter((d) => d.from === key || d.to === key).flatMap((d) => [d.from, d.to]) : []);
-  table.querySelectorAll('.g-row[data-release]').forEach((row) => row.classList.toggle('is-related', related.size > 0 && related.has(row.dataset.release)));
+  document.querySelectorAll('.g-table .g-row[data-release]').forEach((row) => row.classList.toggle('is-related', related.size > 0 && related.has(row.dataset.release)));
 };
 const releaseKey = (e) => e.composedPath().find((el) => el instanceof Element && el.dataset?.release)?.dataset.release;
-table.addEventListener('pointerover', (e) => highlightDeps(releaseKey(e)));
-table.addEventListener('pointerleave', () => highlightDeps(null));
-table.addEventListener('focusin', (e) => highlightDeps(releaseKey(e)));
-table.addEventListener('focusout', () => highlightDeps(null));
+tables.forEach((t) => {
+  t.addEventListener('pointerover', (e) => highlightDeps(releaseKey(e)));
+  t.addEventListener('pointerleave', () => highlightDeps(null));
+  t.addEventListener('focusin', (e) => highlightDeps(releaseKey(e)));
+  t.addEventListener('focusout', () => highlightDeps(null));
+});
 
 // Wat de wallet-termijnen betekenen voor MOZa
 const MEANING = [
@@ -1061,7 +1116,7 @@ const generalComments = (lane, r, currentAnchors) => {
 
 // Teller op tegels met open opmerkingen
 const markCards = () => {
-  table.querySelectorAll('.g-row[data-release]').forEach((el) => {
+  document.querySelectorAll('.g-table .g-row[data-release]').forEach((el) => {
     const open = OPMERKINGEN.filter((o) => o.status === 'open' && o.anker.startsWith(`${el.dataset.release}|`)).length;
     el.querySelector('[data-comments]')?.remove();
     if (!open) return;
@@ -1318,7 +1373,7 @@ function renderDetail(laneId, code) {
 // Option/Alt + klik: opmerkingenveld op de geklikte plek
 const popover = document.getElementById('comment-popover');
 const popoverBody = document.getElementById('comment-popover-body');
-const PLACES = { intro: 'Bovenaan de pagina', wensen: 'Wanneer is een wens ingevuld?', roadmap: 'Roadmap per onderdeel', 'roadmap-table': 'Roadmap per onderdeel', ervaring: 'Wat de ondernemer merkt', onderdelen: 'De onderdelen in het kort', betekenis: 'Wat de wallet-termijnen betekenen', 'wie-logt-in': 'Wie logt in met welk middel?', 'login-table': 'Wie logt in met welk middel?', 'wishes-table': 'Wanneer is een wens ingevuld?' };
+const PLACES = { intro: 'Bovenaan de pagina', wensen: 'Wanneer is een wens ingevuld?', roadmap: 'Eerst de eenmanszaak', 'roadmap-table': 'Roadmap voor de eenmanszaak', rechtsvorm: 'Bedrijven naar rechtsvorm', 'roadmap-bedrijf': 'Bedrijf of organisatie, fiscale eenheid en inloggen voor een andere onderneming', 'roadmap-table-bedrijf': 'Roadmap voor bedrijf of organisatie', ervaring: 'Wat de ondernemer merkt', onderdelen: 'De onderdelen in het kort', betekenis: 'Wat de wallet-termijnen betekenen', 'wie-logt-in': 'Wie logt in met welk middel?', 'login-table': 'Wie logt in met welk middel?', 'wishes-table': 'Wanneer is een wens ingevuld?' };
 // Open-toestand van de verdieping: het 'open'-event komt niet altijd door, dus ook het interne dialoogvenster lezen
 let sheetOpenFlag = false;
 sheet.addEventListener('open', () => { sheetOpenFlag = true; });
