@@ -184,16 +184,6 @@
       <nldd-title size="6"><p slot="supporting-text">Bij T0 medio 2027 valt de acceptatieplicht voor de EBW rond medio 2029, terwijl MOZa volledige acceptatie (EBW R3) in T1 2030 plant. Voor de persoonlijke wallet zit er ongeveer een jaar tussen de plicht voor wallets uit andere lidstaten (24-12-2026) en die voor Nederlandse wallets (verwacht 1-1-2028).</p></nldd-title>
     </nldd-simple-section>
 
-    <nldd-simple-section width="full" id="ervaring">
-      <nldd-title size="3" slot="header"><h2>Wat de ondernemer merkt</h2><p slot="supporting-text">Wat er per tertiaal bijkomt, over alle sporen heen.</p></nldd-title>
-      <nldd-list appearance="box-tinted" id="ervaring-lijst"></nldd-list>
-    </nldd-simple-section>
-
-    <nldd-simple-section width="full" id="onderdelen">
-      <nldd-title size="3" slot="header"><h2>De onderdelen in het kort</h2></nldd-title>
-      <nldd-container layout="grid" column-count="2" sm-column-count="1" gap="24" id="onderdelen-lijst"></nldd-container>
-    </nldd-simple-section>
-
     <nldd-simple-section width="full" id="wie-logt-in">
       <nldd-title size="3" slot="header">
         <h2>Wie logt in met welk middel?</h2>
@@ -668,20 +658,6 @@ Object.entries(REACH_PLAN).forEach(([laneId, plan]) => {
 const LANE_ORDER = ['sw', 'kader', 'digid', 'eh', 'dz', 'ebw', 'edi', 'ok'];
 LANES.sort((x, y) => LANE_ORDER.indexOf(x.id) - LANE_ORDER.indexOf(y.id));
 
-// Wat de ondernemer per tertiaal merkt (samenvatting over alle sporen; leeg = geen nieuwe verandering)
-const EXPERIENCE = {
-  '2027-1': 'Nieuw middel: DigiD voor het MOZa-portaal; KvK-gegevens in beeld',
-  '2027-2': 'Nieuw middel: inloggen in MOZa met de EDI-wallet (als persoon); met DigiD door naar de Belastingdienst zonder opnieuw in te loggen; eigen profiel (contactgegevens en voorkeuren) zichtbaar in het portaal; eigenaar van een eenmanszaak logt in met de persoonlijke wallet en ziet meteen de eigen onderneming',
-  '2027-3': 'Nieuw middel: eHerkenning voor het MOZa-portaal; afgevaardigden van een onderneming loggen zakelijk in en zien de onderneming uit het Handelsregister; berichten van een eerste dienstverlener in het portaal',
-    '2028-2': 'Met DigiD of de EDI-wallet via MOZa in één keer ingelogd bij alle aangesloten dienstverleners; nieuw middel: de business wallet (pilot)',
-  '2029-2': 'Officiële post komt aantoonbaar aan in de business wallet',
-  '2030-1': 'Nieuw middel: de business wallet voor iedere onderneming, ook uit andere EU-landen; zelf machtigen in MOZa; met eHerkenning en business wallet overal ingelogd',
-  '2031-1': 'Machtigingen mee naar de business wallet; machtigingen vanuit de EBW; gegevens één keer delen',
-  '2031-2': 'Zelf kiezen tussen DigiD en wallet, met dezelfde toegang',
-  '2032-2': 'eHerkenning blijft als terugvaloptie; vrije keuze van middel',
-  '2032-3': 'Overheidszaken in heel de EU regelen vanuit één business wallet',
-};
-
 const WISHES = [
   { wish: 'Met één inlog ook naar andere dienstverleners', first: 'DigiD R2 (T2 2027) - MOZa en Belastingdienst; DigiD R3 en EDI-wallet R2 (T3 2027 - T2 2028) - alle dienstverleners', full: 'eHerkenning R2 en EBW R3 (T1 2030) - alle dienstverleners', via: 'Alle sporen' },
   { wish: 'Inloggen zonder extra kosten', first: 'DigiD R1 (T1 2027) - als persoon', full: 'EDI-wallet R1 (T2 2027) - eenmanszaak; namens vof, bv en nv via eHerkenning of de EBW', via: 'DigiD, EDI-wallet' },
@@ -883,30 +859,6 @@ table.addEventListener('pointerover', (e) => highlightDeps(releaseKey(e)));
 table.addEventListener('pointerleave', () => highlightDeps(null));
 table.addEventListener('focusin', (e) => highlightDeps(releaseKey(e)));
 table.addEventListener('focusout', () => highlightDeps(null));
-
-// Wat de ondernemer per tertiaal merkt
-document.getElementById('ervaring-lijst').innerHTML = ALL_TERTIALS.filter((t) => EXPERIENCE[t.id]).map((t) => `
-  <nldd-list-item>
-    <nldd-spacer-cell size="12"></nldd-spacer-cell>
-    <nldd-text-cell width="132px" vertical-alignment="top" text="**${t.label}**" supporting-text="Fase ${t.phase}"></nldd-text-cell>
-    <nldd-text-cell vertical-alignment="top" text="${esc(EXPERIENCE[t.id])}"></nldd-text-cell>
-  </nldd-list-item>`).join('');
-
-// De onderdelen in het kort, per spoor in dezelfde volgorde als de planning
-document.getElementById('onderdelen-lijst').innerHTML = GANTT_ORDER.map((id) => LANES.find((l) => l.id === id)).map((lane) => {
-  const kaders = KADERS.filter((k) => k.group === lane.id);
-  return `
-  <nldd-container gap="8">
-    <nldd-title size="4"><h3>${esc(GROUP_TITLE[lane.id] || lane.name)}</h3><p slot="supporting-text">${esc(lane.tagline)}</p></nldd-title>
-    <nldd-rich-text spacing="tight"><ul>
-      ${lane.releases.map((r) => `<li><strong>${esc(`${r.code} ${r.title}`)}</strong> (${periodOf(r).label}): ${esc(r.summary)}</li>`).join('')}
-    </ul></nldd-rich-text>
-    ${kaders.length ? `<nldd-title size="6"><h4>Kaders</h4></nldd-title>
-    <nldd-rich-text spacing="tight"><ul>
-      ${kaders.map((k) => `<li><strong>${esc(k.title)}</strong> (${esc(k.when)}): ${esc(k.marks.filter((m) => !m.alt).at(-1).what)}</li>`).join('')}
-    </ul></nldd-rich-text>` : ''}
-  </nldd-container>`;
-}).join('');
 
 // Wat de wallet-termijnen betekenen voor MOZa
 const MEANING = [
@@ -1161,6 +1113,7 @@ function renderKader(lane, idx) {
     <nldd-title size="3">
       <span slot="overline">${esc(`${GROUP_TITLE[group.id] || group.name} · ${k.track === 'EU' ? 'Europees kader' : 'Nationaal kader'} · ${k.ref}`)}</span>
       <h2>${esc(k.title)}</h2>
+      <p slot="supporting-text">${esc(lane.tagline)}</p>
       <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
     <nldd-container layout="wrap" gap="8">
@@ -1317,6 +1270,7 @@ function renderDetail(laneId, code) {
       <p slot="supporting-text">${esc(r.summary)}</p>
       <nldd-icon-button slot="end" icon="dismiss" appearance="neutral-transparent" text="Sluiten" data-close></nldd-icon-button>
     </nldd-title>
+    <nldd-rich-text spacing="tight"><p><strong>${esc(lane.name)}:</strong> ${esc(lane.tagline)}</p></nldd-rich-text>
     <nldd-container layout="wrap" gap="8">${tags}${r.reach ? tag(REACH[r.reach], 'md') : ''}${(r.kader || []).map((c) => kaderTag(c, 'md')).join('')}</nldd-container>
     ${r.attention ? `<nldd-banner variant="warning" icon="exclamation-triangle" heading-level="3" text="Aandachtspunt" supporting-text="${esc(r.attention)}"></nldd-banner>` : ''}
     ${banner}
