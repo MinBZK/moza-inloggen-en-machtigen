@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DigiD: achtergrond</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/touch-icon.png">
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="inhoud">
+      <nldd-link size="sm" href="index.html" start-icon="chevron-left" text="Inloggen en machtigen bij MOZa"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <h1>DigiD: achtergrond</h1>
+        <img slot="end" src="logos/digid.png" alt="Logo DigiD" height="40">
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <p>DigiD kennen ondernemers al als burger. Voor MOZa onderscheiden we twee varianten: de gewone DigiD, waarmee we het portaal starten, en DigiD Zakelijk, een aparte implementatie die we nu verkennen.</p>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="varianten">
+      <nldd-title size="2" slot="header"><h2>Twee varianten</h2></nldd-title>
+      <nldd-container layout="grid" column-count="2" sm-column-count="1" gap="16">
+        <nldd-box id="variant-digid">
+          <nldd-container padding="16" gap="12">
+            <nldd-container layout="wrap" gap="8"><nldd-tag color="success" size="sm" text="Eerste iteratie portaal"></nldd-tag></nldd-container>
+            <nldd-title size="4"><h3>DigiD</h3><p slot="supporting-text">De gewone DigiD van de burger</p></nldd-title>
+            <nldd-rich-text>
+              <p>Een burger die ook ondernemer is, logt in met de eigen DigiD. MOZa toont daarna de KvK-gegevens van de onderneming of ondernemingen van deze persoon.</p>
+            </nldd-rich-text>
+          </nldd-container>
+        </nldd-box>
+        <nldd-box id="variant-zakelijk">
+          <nldd-container padding="16" gap="12">
+            <nldd-container layout="wrap" gap="8"><nldd-tag color="accent" size="sm" text="Verkenning"></nldd-tag></nldd-container>
+            <nldd-title size="4"><h3>DigiD Zakelijk</h3><p slot="supporting-text">Een verrijking van DigiD, als aparte implementatie</p></nldd-title>
+            <nldd-rich-text>
+              <p>Bij het inloggen vraagt DigiD Zakelijk ook het KVK-nummer van de onderneming uit. Bedoeld voor de zelfstandig bevoegd bestuurder (ZBB). Nu alleen in de context van de Belastingdienst, gepland voor januari 2027.</p>
+            </nldd-rich-text>
+          </nldd-container>
+        </nldd-box>
+      </nldd-container>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="digid">
+      <nldd-title size="2" slot="header"><h2>DigiD: de eerste iteratie van het portaal</h2>
+        <p slot="supporting-text">Inloggen als persoon, met de eigen ondernemingen in beeld</p></nldd-title>
+      <nldd-rich-text>
+        <p>De gewone DigiD is het startpunt van het MOZa-portaal (DigiD R1 en MOZa portaal R1 in de <a href="roadmap.html#roadmap">roadmap</a>). Er is niets nieuws nodig bij de ondernemer: die heeft DigiD al.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="5"><h3>Zo werkt het</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="Zo werkt inloggen met DigiD">
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**1**"></nldd-text-cell>
+          <nldd-text-cell text="De ondernemer logt in bij MOZa met DigiD" supporting-text="Zoals bij MijnOverheid: als persoon, met het BSN."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**2**"></nldd-text-cell>
+          <nldd-text-cell text="MOZa bevraagt het Handelsregister op het BSN" supporting-text="Via de KVK API, zoals MijnOverheid die al gebruikt."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**3**"></nldd-text-cell>
+          <nldd-text-cell text="MOZa toont de KvK-gegevens van de eigen onderneming(en)" supporting-text="Naam, KVK-nummer, rechtsvorm en vestigingen. Bij meerdere ondernemingen kiest de ondernemer er een."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="5"><h3>Wat het nog niet is</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li>De ondernemer logt in als persoon. De KvK-gegevens worden getoond; dat is nog geen inloggen namens de onderneming.</li>
+          <li>Een gemachtigde, zoals een boekhouder, kan niet met DigiD inloggen voor een andere onderneming.</li>
+          <li>Voor de eigenaar van een eenmanszaak is dit genoeg om te starten. Een bestuurder of medewerker van een bv of nv heeft eHerkenning nodig.</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="digid-zakelijk">
+      <nldd-title size="2" slot="header"><h2>DigiD Zakelijk: in verkenning</h2>
+        <p slot="supporting-text">Een aparte implementatie van DigiD voor de zelfstandig bevoegd bestuurder</p></nldd-title>
+      <nldd-rich-text>
+        <p>DigiD Zakelijk verkennen we nog (DigiD Zakelijk en DigiD Machtigen V1 in de <a href="roadmap.html#roadmap-bedrijf">roadmap</a>). Het is een verrijking van DigiD, maar wel een aparte implementatie: naast de gewone inlog vraagt DigiD Zakelijk het KVK-nummer van de onderneming uit.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="5"><h3>Zo werkt het</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-list appearance="box-tinted" aria-label="Zo werkt inloggen met DigiD Zakelijk">
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**1**"></nldd-text-cell>
+          <nldd-text-cell text="De ondernemer logt in met DigiD" supporting-text="Als persoon, met het BSN."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**2**"></nldd-text-cell>
+          <nldd-text-cell text="De ondernemer vult het KVK-nummer van de onderneming in" supporting-text="Dat is het verschil met de gewone DigiD."></nldd-text-cell>
+        </nldd-list-item>
+        <nldd-list-item>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-text-cell width="32px" text="**3**"></nldd-text-cell>
+          <nldd-text-cell text="Er wordt een match gemaakt op basis van het RSIN" supporting-text="Zo wordt vastgesteld dat deze persoon zelfstandig bevoegd bestuurder (ZBB) is van de onderneming."></nldd-text-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-title size="5"><h3>Stand van zaken</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><strong>Doelgroep:</strong> de zelfstandig bevoegd bestuurder (ZBB), die de onderneming alleen mag vertegenwoordigen.</li>
+          <li><strong>Eerste toepassing:</strong> nu alleen in de context van de Belastingdienst, gepland voor januari 2027.</li>
+          <li><strong>Andere dienstverleners:</strong> vergelijkbare implementaties zijn in theorie mogelijk, bijvoorbeeld bij de KVK of RVO, maar dat is nog niet concreet.</li>
+          <li><strong>Voor MOZa:</strong> de verkenning moet uitwijzen of en hoe DigiD Zakelijk in MOZa past, naast eHerkenning en de wallets.</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-simple-section width="full" id="vergelijking">
+      <nldd-title size="2" slot="header"><h2>Naast elkaar</h2></nldd-title>
+      <nldd-table accessible-label="DigiD en DigiD Zakelijk naast elkaar" columns="minmax(160px,1fr) minmax(220px,2fr) minmax(220px,2fr)">
+        <nldd-table-row slot="header">
+          <nldd-text-cell text=""></nldd-text-cell>
+          <nldd-text-cell text="DigiD"></nldd-text-cell>
+          <nldd-text-cell text="DigiD Zakelijk"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Status**"></nldd-text-cell>
+          <nldd-text-cell text="Eerste iteratie van het MOZa-portaal"></nldd-text-cell>
+          <nldd-text-cell text="In verkenning"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Doelgroep**"></nldd-text-cell>
+          <nldd-text-cell text="Burger die ook ondernemer is"></nldd-text-cell>
+          <nldd-text-cell text="Zelfstandig bevoegd bestuurder (ZBB)"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Wat de ondernemer doet**"></nldd-text-cell>
+          <nldd-text-cell text="Inloggen met DigiD"></nldd-text-cell>
+          <nldd-text-cell text="Inloggen met DigiD en het KVK-nummer invullen"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Koppeling met de onderneming**"></nldd-text-cell>
+          <nldd-text-cell text="MOZa zoekt de ondernemingen op het BSN in het Handelsregister"></nldd-text-cell>
+          <nldd-text-cell text="Match op basis van het RSIN"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Implementatie**"></nldd-text-cell>
+          <nldd-text-cell text="De bestaande DigiD"></nldd-text-cell>
+          <nldd-text-cell text="Een aparte implementatie van DigiD"></nldd-text-cell>
+        </nldd-table-row>
+        <nldd-table-row>
+          <nldd-text-cell text="**Waar**"></nldd-text-cell>
+          <nldd-text-cell text="MOZa-portaal"></nldd-text-cell>
+          <nldd-text-cell text="Nu alleen de Belastingdienst (januari 2027); KVK of RVO in theorie mogelijk"></nldd-text-cell>
+        </nldd-table-row>
+      </nldd-table>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://www.digid.nl/">DigiD.nl</a></li>
+          <li><a href="https://www.logius.nl/domeinen/toegang/digid">Logius: DigiD</a></li>
+          <li>Verkenning DigiD Zakelijk: eigen notities van het MOZa-team (november 2026)</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-container gap="4">
+          <nldd-title size="4"><h2>Meedoen</h2></nldd-title>
+          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p></nldd-rich-text>
+        </nldd-container>
+        <nldd-divider style="--semantics-dividers-color: var(--primitives-color-neutral-200)"></nldd-divider>
+        <nldd-rich-text spacing="tight"><p>Concept MOZa - inlog- en machtigingsmiddelen. Versie november 2026.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>

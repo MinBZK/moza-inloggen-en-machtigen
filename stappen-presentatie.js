@@ -21,6 +21,9 @@ const bron = document.getElementById('stappen-data');
 if (bron) {
   const { naam: NAAM, schema, stappen: STAPPEN, stapnaam: STAP = 'Stap', reeks: REEKS } = JSON.parse(bron.textContent);
   const hier = location.pathname.split('/').pop() || 'index.html';
+  // Geopend via "Alle presentaties" op een andere pagina (?terug=pagina.html): sluiten gaat terug naar die pagina
+  const TERUG = ((t) => (t && /^[a-z0-9-]+\.html$/.test(t) ? t : ''))(new URLSearchParams(location.search).get('terug'));
+  const metTerug = (url) => (TERUG ? url.replace(/^([^#]*\?[^#]*)/, `$1&terug=${TERUG}`) : url);
   const svg = document.querySelector(`${schema} svg`);
   const stijl = document.createElement('style');
   stijl.textContent = `
@@ -180,7 +183,7 @@ if (bron) {
     const [vorige, volgende] = paneel.querySelectorAll('[data-richting]');
     // In een reeks gaat terug vanaf de eerste stap naar het overzicht
     vorige.disabled = huidig === 0 && !REEKS; volgende.disabled = huidig === STAPPEN.length - 1;
-    if (REEKS) history.replaceState(null, '', `${location.pathname}?presentatie#/${huidig}`);
+    if (REEKS) history.replaceState(null, '', metTerug(`${location.pathname}?presentatie#/${huidig}`));
     svg.classList.add('pres-dim');
     svg.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
     const doel = svg.querySelectorAll(`[data-stap="${s.n}"]`);
@@ -201,8 +204,9 @@ if (bron) {
     if (paneel.hidden) terugFocus = document.activeElement;
     paneel.hidden = false; document.body.classList.add('met-paneel'); naar(i); paneel.focus({ preventScroll: true });
   };
-  const sluit = () => {
+  const sluit = (weg = true) => {
     if (!paneel || paneel.hidden) return;
+    if (weg && REEKS && TERUG) { location.href = TERUG; return; }
     paneel.hidden = true; document.body.classList.remove('met-paneel');
     svg.classList.remove('pres-dim'); svg.querySelectorAll('.pres-licht').forEach((el) => el.classList.remove('pres-licht'));
     if (REEKS) history.replaceState(null, '', location.pathname);
@@ -213,7 +217,7 @@ if (bron) {
   const items = REEKS?.items || [];
   const openKeuze = () => {
     if (!REEKS) return;
-    if (paneel && !paneel.hidden) sluit();
+    if (paneel && !paneel.hidden) sluit(false);
     if (!keuze) {
       keuze = document.createElement('div');
       keuze.id = 'pres-keuze'; keuze.tabIndex = -1;
@@ -238,11 +242,12 @@ if (bron) {
     if (keuze.hidden !== false) keuzeFocus = document.activeElement;
     keuze.hidden = false;
     document.documentElement.style.overflow = 'hidden';
-    history.replaceState(null, '', `${location.pathname}?presentatie`);
+    history.replaceState(null, '', metTerug(`${location.pathname}?presentatie`));
     (keuze.querySelector('[aria-current]') || keuze.querySelector('[data-kies]')).focus();
   };
   const sluitKeuze = (terug = true) => {
     if (!keuze || keuze.hidden) return;
+    if (terug && TERUG) { location.href = TERUG; return; }
     keuze.hidden = true;
     document.documentElement.style.overflow = '';
     if (terug) { history.replaceState(null, '', location.pathname); keuzeFocus?.focus?.({ preventScroll: true }); }
@@ -250,7 +255,7 @@ if (bron) {
   const kies = (i) => {
     const x = items[i]; if (!x) return;
     if (x.href === hier) { sluitKeuze(false); open(0); }
-    else location.href = x.href.includes('?') ? `${x.href}#/0` : `${x.href}?presentatie#/0`;
+    else location.href = metTerug(x.href.includes('?') ? `${x.href}#/0` : `${x.href}?presentatie#/0`);
   };
   const index = (n) => STAPPEN.findIndex((s) => String(s.n) === String(n));
   svg.querySelectorAll('circle[data-stap] + text[data-stap]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('role', 'button'); t.setAttribute('aria-label', `${STAP} ${t.dataset.stap} openen`); });
