@@ -527,6 +527,7 @@
       <nldd-title size="4" id="keten"><h3>Toelichting bij het schema</h3><p slot="supporting-text">Zo lees je het schema hierboven, van links naar rechts.</p></nldd-title>
       <nldd-spacer size="8"></nldd-spacer>
       <nldd-rich-text>
+        <p><strong>Let op:</strong> nog niet bekend is of organisaties een eigen EBW krijgen en via die weg gaan communiceren, of dat ze alleen attestaties uitgeven. Het schema laat één van de mogelijkheden zien.</p>
         <ol>
           <li>De RvIG (Rijksdienst voor Identiteitsgegevens) is de dienstverlener die de PID uitgeeft: de persoonsgegevens uit de BRP, in de persoonlijke EUDI-wallet van Karin en van Bilal. Met de PID tonen zij wie ze zijn, bijvoorbeeld bij het inloggen bij de KVK.</li>
           <li>De KVK is ook een dienstverlener met een eigen EBW, en bronhouder van het handelsregister. Hij geeft de EBWOID, de identificatie van de onderneming, als Pub-EAA uit aan de EBW van Koffiezaak Noon. Bij een vennootschap komt daar de EUCC bij, met onder meer de bestuurders, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet.</li>
@@ -771,7 +772,7 @@ const ATTESTATIES = {
     titel: 'Vertegenwoordigingsbevoegdheid',
     sub: 'Verklaring van de KVK dat Karin de onderneming mag vertegenwoordigen, bijvoorbeeld als eigenaar van een eenmanszaak. De attestatie identificeert ook de onderneming: nodig als er geen EBW is. Bij een vennootschap staan de vertegenwoordigers in de EUCC.',
     noot: 'Aanname voor nu: voor een eenmanszaak geeft de KVK één attestatie, met de onderneming en de bevoegdheid samen, in de persoonlijke wallet. Aanname: Karin is volledig bevoegd (full_powers), dus diensten accepteren deze ene attestatie voor alles wat ze namens de onderneming doet. Bij beperkte of gezamenlijke bevoegdheid volstaat dat niet.',
-    open: 'Voor een eenmanszaak bestaat voor zover bekend nog geen Europese attestatie over vertegenwoordiging. Dit zou een aparte KVK-attestatie moeten worden, bijvoorbeeld "persoon X is eigenaar van KVK-nummer Y". Juist hier vervult eHerkenning nu die rol.',
+    open: 'Is deze attestatie bij een eenmanszaak nodig? Ons huidige beeld is dat Karin ook inlogt met alleen de PID uit haar persoonlijke wallet: het KVK-nummer van de eenmanszaak is gekoppeld aan haar BSN, dus MOZa vindt de onderneming via het Handelsregister (zoals bij EDI-wallet R1). Een Europese attestatie over vertegenwoordiging voor een eenmanszaak bestaat voor zover bekend ook nog niet.',
     tags: [['Pub-EAA', 'paars'], ['Uitgever: KVK', 'neutral'], ['In de wallet van Karin', 'neutral']],
     rijen: [
       ['legal_person_identifier', '12345678', 'KVK-nummer: welke onderneming. Geen EUID, want dat krijgt een eenmanszaak alleen via de EBWOID (aanname)'],
