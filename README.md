@@ -20,7 +20,6 @@ Online: https://roadmap-moza.rijksapp.dev (ZAD-project `mr-7qd`). Het EBW-landsc
 | `eherkenning-moza-optie2.html` | Deel 6: conceptflow MOZa-portaal zónder portaaldienst (varianten A, B, C), vragen 18-22. |
 | `ebw.html` | Achtergrondpagina EBW, met links naar: |
 | `ebw-landschap.html` | Schema EBW-landschap en vier presentaties (openbaar). |
-| `ebw-flows.html` | Interactieve wallet-flows (overgenomen van plak.rijks.app; eigen opmaak, NLDD alleen voor de opmerkingen). |
 | `webuild.html` | Analyses van WE BUILD-use cases BU3, BU4 en BU6 (op basis van D2.1 en D4.1). |
 | `begrippen.js` | Uitleg bij afkortingen en begrippen op alle pagina's, ook in schema's (stippellijn, uitleg bij aanwijzen). Elk begrip wordt één keer per pagina gemarkeerd; een paneel telt als eigen context. Nieuw begrip: toevoegen aan `BEGRIPPEN`. |
 | `opmerkingen.js` | Opmerkingen op de pagina's naast de roadmap. |
