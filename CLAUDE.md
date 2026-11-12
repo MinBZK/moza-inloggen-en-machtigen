@@ -19,7 +19,7 @@ Werkafspraken voor deze repo: de concept-roadmap inlog- en machtigingsmiddelen v
 ## Inloggen en openbare pagina's
 
 - `server.py` doet het inloggen zelf via Keycloak (SSO Rijk), met `AUTH=app` op ZAD. Openbaar is alleen wat in
-  `PUBLIC_PAGES` staat (nu `ebw-landschap.html` en `ebw.html`); de rest toont de pagina "Inloggen" (`inloggen.html`, één
+  `PUBLIC_PAGES` staat (nu `ebw-landschap.html`, `ebw.html` en `eherkenning.html`); de rest toont de pagina "Inloggen" (`inloggen.html`, één
   sjabloon voor alle inlogmomenten).
 - Opmerkingen lezen en plaatsen kan alleen ingelogd.
 - Haal `AUTH=app` nooit weg zonder de authorization-wall terug te zetten: zonder `AUTH=app` vertrouwt de
