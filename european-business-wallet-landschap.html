@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EBW-landschap</title>
+  <title>Landschap van de European Business Wallet</title>
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/touch-icon.png">
@@ -198,7 +198,7 @@
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="1">
         <span slot="overline">European Business Wallet · deel 1 · overzicht</span>
-        <h1>Het EBW-landschap</h1>
+        <h1>Het landschap van de European Business Wallet</h1>
       </nldd-title>
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
@@ -211,11 +211,11 @@
       <nldd-title size="2"><h2>Persoonlijke wallet, business wallet van de onderneming en van de dienstverleners</h2><p slot="supporting-text">Klik op een attestatie in het schema, zoals de PID of de EBWOID, om te zien welke gegevens erin staan.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
       <nldd-button id="presenteer" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer (Shift+P)"
-        accessible-label="Kies een van de vier presentaties over het EBW-landschap"></nldd-button>
+        accessible-label="Kies een van de vier presentaties over het landschap van de European Business Wallet"></nldd-button>
       <nldd-spacer size="16"></nldd-spacer>
       <div class="canvas" id="schema" role="img" aria-labelledby="schema-titel schema-uitleg">
 <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg">
-  <title id="schema-titel">Schema van het EBW-landschap</title>
+  <title id="schema-titel">Schema van het landschap van de European Business Wallet</title>
   <desc id="schema-uitleg">De RvIG is een dienstverlener en geeft de PID (persoonsgegevens uit de BRP) uit aan de persoonlijke EUDI-wallet van de eigenaar en van de werknemer. De KVK is een dienstverlener met een eigen EBW en geeft als bronhouder de EBWOID (identificatie van de onderneming) als Pub-EAA uit aan de EBW van de onderneming, en de eigenaar zijn vertegenwoordigingsbevoegdheid als Pub-EAA in zijn persoonlijke EUDI-wallet. De Belastingdienst geeft zelf als bronhouder meerdere attestaties als Pub-EAA uit aan de EBW van de onderneming en regelt inrichting, onderhoud en audits zelf. De gemeente Rotterdam laat een business wallet-aanbieder als QTSP namens haar meerdere vergunningen als QEAA uitgeven, tegen een abonnement. De Belastingdienst is ook zijn eigen wallet-provider; de gemeente Rotterdam neemt haar EBW af bij dezelfde aanbieder. Vanuit de EBW machtigt de eigenaar de werknemer met afgeleide machtigingen (EAA). De eigenaar logt in bij de Belastingdienst met zijn vertegenwoordigingsbevoegdheid, de werknemer bij de gemeente Rotterdam met zijn machtiging.</desc>
   <defs>
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -626,7 +626,7 @@
         <div id="opm-knop"></div>
         <nldd-container gap="4">
           <nldd-title size="4"><h2>Meedoen</h2></nldd-title>
-          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p><p>Heb je een Rijksaccount? Dan kun je <a href="/auth/inloggen?voor=opmerkingen&amp;rd=/ebw-landschap.html">inloggen</a> en opmerkingen plaatsen op de pagina's.</p></nldd-rich-text>
+          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p><p>Heb je een Rijksaccount? Dan kun je <a href="/auth/inloggen?voor=opmerkingen&amp;rd=/european-business-wallet-landschap.html">inloggen</a> en opmerkingen plaatsen op de pagina's.</p></nldd-rich-text>
         </nldd-container>
         <nldd-divider style="--semantics-dividers-color: var(--primitives-color-neutral-200)"></nldd-divider>
         <nldd-rich-text spacing="tight"><p>Concept MOZa - inlog- en machtigingsmiddelen. Versie oktober 2026. Belastingdienst, gemeente Rotterdam en Koffiezaak Noon zijn een voorbeeld.</p></nldd-rich-text>
@@ -926,7 +926,7 @@ const openKeuze = () => {
     keuze.setAttribute('aria-modal', 'true');
     keuze.setAttribute('aria-label', 'Kies een presentatie');
     keuze.innerHTML = `
-      <h2 class="pres-titel">Het EBW-landschap <span>in vier presentaties</span></h2>
+      <h2 class="pres-titel">Het landschap van de European Business Wallet <span>in vier presentaties</span></h2>
       <div class="keuze-opties">
         <button type="button" data-kies="landschap">
           <span class="keuze-nr">Presentatie 1 · ${FS} slides</span>
@@ -1084,7 +1084,7 @@ if (new URLSearchParams(location.search).has('presentatie')) {
     overlay.tabIndex = -1;
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Presentatie: het EBW-landschap');
+    overlay.setAttribute('aria-label', 'Presentatie: het landschap van de European Business Wallet');
     overlay.innerHTML = `
       <div class="pres-tekst">
         <p class="pres-status">In ontwerpfase · dit is nog een voorstel</p>

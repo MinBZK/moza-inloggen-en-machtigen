@@ -1,12 +1,12 @@
 ---
 name: stappenpresentatie
-description: Een volgordediagram (stappenschema) op de roadmap-site presenteerbaar maken, met het paneel links zoals op het EBW-landschap. Gebruik dit bij elke nieuwe of gewijzigde flow met stappen, zodat alle presentaties gelijk werken en eruitzien. Niet voor de schermvullende landschap-presentatie (Shift+P op ebw-landschap.html).
+description: Een volgordediagram (stappenschema) op de roadmap-site presenteerbaar maken, met het paneel links zoals op het EBW-landschap. Gebruik dit bij elke nieuwe of gewijzigde flow met stappen, zodat alle presentaties gelijk werken en eruitzien. Niet voor de schermvullende landschap-presentatie (Shift+P op european-business-wallet-landschap.html).
 ---
 
 # Stappenpresentatie
 
 Alle stappenschema's op de roadmap-site werken en ogen hetzelfde als de presentatie
-"Van nieuwe EBW tot machtiging" op `ebw-landschap.html?presentatie=flow`. Verzin geen eigen variant:
+"Van nieuwe EBW tot machtiging" op `european-business-wallet-landschap.html?presentatie=flow`. Verzin geen eigen variant:
 geen andere knoptekst, geen eigen paneel, geen extra markeringen (hoverbanden, ringen, pictogrammen).
 De gedeelde implementatie staat in `stappen-presentatie.js`; `build.py` bakt die in.
 

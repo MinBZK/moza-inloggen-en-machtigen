@@ -4,7 +4,7 @@
 
 FROM python:3.12-slim AS bouw
 WORKDIR /src
-COPY build.py index.html roadmap.html eherkenning.html digid.html ebw.html ebw-landschap.html ebw-machtigen.html ebw-inloggen.html webuild.html eherkenning-aansluiten.html eherkenning-machtigen.html eherkenning-dienstencatalogus.html eherkenning-inloggen.html eherkenning-moza-optie1.html eherkenning-moza-optie2.html inloggen.html opmerkingen.js stappen-presentatie.js begrippen.js ./
+COPY build.py index.html roadmap.html eherkenning.html digid.html ebw.html european-business-wallet-landschap.html ebw-machtigen.html ebw-inloggen.html webuild.html eherkenning-aansluiten.html eherkenning-machtigen.html eherkenning-dienstencatalogus.html eherkenning-inloggen.html eherkenning-moza-optie1.html eherkenning-moza-optie2.html inloggen.html opmerkingen.js stappen-presentatie.js begrippen.js ./
 COPY logos logos
 COPY avatars avatars
 COPY schermen schermen

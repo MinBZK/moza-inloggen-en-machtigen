@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 VENDOR = ROOT / 'vendor' / 'nldd'
 DIST = ROOT / 'dist'
-PAGES = ['index.html', 'roadmap.html', 'eherkenning.html', 'digid.html', 'ebw.html', 'ebw-landschap.html', 'ebw-machtigen.html', 'ebw-inloggen.html', 'webuild.html', 'eherkenning-aansluiten.html', 'eherkenning-machtigen.html', 'eherkenning-dienstencatalogus.html', 'eherkenning-inloggen.html', 'eherkenning-moza-optie1.html', 'eherkenning-moza-optie2.html', 'inloggen.html']
+PAGES = ['index.html', 'roadmap.html', 'eherkenning.html', 'digid.html', 'ebw.html', 'european-business-wallet-landschap.html', 'ebw-machtigen.html', 'ebw-inloggen.html', 'webuild.html', 'eherkenning-aansluiten.html', 'eherkenning-machtigen.html', 'eherkenning-dienstencatalogus.html', 'eherkenning-inloggen.html', 'eherkenning-moza-optie1.html', 'eherkenning-moza-optie2.html', 'inloggen.html']
 COMMENTS_JS = '<script type="module" src="opmerkingen.js"></script>'
 TERMS_JS = '<script defer src="begrippen.js"></script>'
 STEPS_JS = '<script type="module" src="stappen-presentatie.js"></script>'

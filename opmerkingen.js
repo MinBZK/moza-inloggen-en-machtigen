@@ -5,7 +5,10 @@
 // de knop 'Opmerkingen' (in de footer) toont alle open en opgeloste opmerkingen van deze pagina.
 // Plaatshouders in de pagina: #opm-hint (uitleg) en #opm-knop (knop naar het overzicht).
 
-const PAGE = decodeURIComponent(location.pathname.split('/').pop() || 'index.html');
+// Hernoemde pagina's houden hun oude naam als sleutel, zodat bestaande opmerkingen blijven staan
+const OUDE_NAAM = { 'european-business-wallet-landschap.html': 'ebw-landschap.html' };
+const BESTAND = decodeURIComponent(location.pathname.split('/').pop() || 'index.html');
+const PAGE = OUDE_NAAM[BESTAND] || BESTAND;
 const PREFIX = `pagina:${PAGE}|`;
 let OPMERKINGEN = [];
 let IK = null;

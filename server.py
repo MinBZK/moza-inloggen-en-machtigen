@@ -15,7 +15,7 @@ Omgevingsvariabelen:
   EDITORS    komma-gescheiden e-mailadressen die opmerkingen mogen oplossen; leeg = iedereen
   DEV_USER   alleen lokaal: e-mailadres om als ingelogde gebruiker te testen zonder Keycloak
   AUTH       'app' = zelf inloggen via Keycloak; leeg = achter de authorization-wall (headers)
-  PUBLIC_PAGES  komma-gescheiden pagina's die zonder inloggen te zien zijn (standaard: ebw-landschap.html,ebw.html,eherkenning.html)
+  PUBLIC_PAGES  komma-gescheiden pagina's die zonder inloggen te zien zijn (standaard: european-business-wallet-landschap.html,ebw.html,eherkenning.html)
   BASE_URL   adres van de site voor de redirect na het inloggen (standaard: https://<Host-header>)
   OIDC_DISCOVERY_URL, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET  van de ZAD-service keycloak
 
@@ -43,7 +43,9 @@ SITE_DIR = os.environ.get('SITE_DIR', 'dist')
 DATA_DIR = os.environ.get('DATA_DIR', '/data')
 EDITORS = {e.strip().lower() for e in os.environ.get('EDITORS', '').split(',') if e.strip()}
 DEV_USER = os.environ.get('DEV_USER', '')
-PUBLIC_PAGES = {p.strip() for p in os.environ.get('PUBLIC_PAGES', 'ebw-landschap.html,ebw.html,eherkenning.html').split(',') if p.strip()}
+# Hernoemde pagina's: oude links blijven werken via een permanente doorverwijzing
+RENAMED = {'/ebw-landschap.html': '/european-business-wallet-landschap.html'}
+PUBLIC_PAGES = {p.strip() for p in os.environ.get('PUBLIC_PAGES', 'european-business-wallet-landschap.html,ebw.html,eherkenning.html').split(',') if p.strip()}
 BASE_URL = os.environ.get('BASE_URL', '').rstrip('/')
 OIDC_DISCOVERY_URL = os.environ.get('OIDC_DISCOVERY_URL', '')
 OIDC_CLIENT_ID = os.environ.get('OIDC_CLIENT_ID', '')
@@ -237,6 +239,12 @@ class Handler(SimpleHTTPRequestHandler):
     def base_url(self) -> str:
         return BASE_URL or f"https://{self.headers.get('Host', 'localhost')}"
 
+    def redirect_permanent(self, location: str) -> None:
+        self.send_response(HTTPStatus.MOVED_PERMANENTLY)
+        self.send_header('Location', location)
+        self.send_header('Content-Length', '0')
+        self.end_headers()
+
     def redirect(self, location: str, cookie: str = '') -> None:
         self.send_response(HTTPStatus.FOUND)
         self.send_header('Location', location)
@@ -340,6 +348,8 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path, _, qs = self.path.partition('?')
         query = urllib.parse.parse_qs(qs)
+        if path in RENAMED:
+            return self.redirect_permanent(RENAMED[path] + ('?' + qs if qs else ''))
         if path == '/auth/login':
             return self.auth_login(query)
         if path == '/auth/inloggen':
@@ -367,6 +377,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_HEAD(self):
         path = self.path.split('?')[0]
+        if path in RENAMED:
+            return self.redirect_permanent(RENAMED[path])
         if LOGIN and (path.startswith(('/api/', '/auth/')) or (not self.is_public(path) and not self.user())):
             return self.redirect('/auth/login')
         return super().do_HEAD()
