@@ -60,14 +60,11 @@ const HINT_KEY = 'roadmap-opmerkingen-hint-weg';
 const hintDismissed = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
 const hintHost = document.getElementById('opm-hint');
 const buttonHost = document.getElementById('opm-knop');
-const loginUrl = () => `/auth/inloggen?voor=opmerkingen&rd=${encodeURIComponent(location.pathname + location.search + location.hash)}`;
 const renderChrome = () => {
-  // Openbare pagina zonder inlog: alleen een knop om in te loggen; opmerkingen zijn dan niet zichtbaar
+  // Openbare pagina zonder inlog: geen knop; de footer legt uit dat je met een rijksaccount kunt inloggen
   if (!AAN && INLOGGEN) {
-    const knop = `<nldd-button appearance="neutral-tinted" size="sm" start-icon="message-rectangle-text" href="${loginUrl()}"
-      text="Inloggen om opmerkingen te plaatsen" accessible-label="Inloggen met je rijksaccount om opmerkingen te lezen en te plaatsen"></nldd-button>`;
-    if (hintHost) hintHost.innerHTML = `<nldd-spacer size="16"></nldd-spacer>${knop}`;
-    if (buttonHost) buttonHost.innerHTML = knop;
+    if (hintHost) hintHost.innerHTML = '';
+    if (buttonHost) buttonHost.innerHTML = '';
     return;
   }
   if (hintHost) {
