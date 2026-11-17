@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eHerkenning: inloggen bij MOZa in schermen</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/touch-icon.png">
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: de schema's zijn SVG-tekeningen op een 'papieren' canvas in dezelfde
+       stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); }
+    .canvas > svg { display: block; width: 100%; min-width: 960px; height: auto; }
+    .canvas image { image-rendering: auto; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="eherkenning.html" start-icon="chevron-left" text="Terug naar eHerkenning: achtergrond"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">eHerkenning · deel 7 · concept in schermen</span>
+        <h1>Inloggen bij MOZa met eHerkenning</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text><p>Hoe komt een ondernemer bij MijnOverheid Zakelijk binnen? Niet via een inlogpagina, maar via een vraag: op Ondernemersplein leest de ondernemer over een regeling, rekent zonder inloggen uit wat die oplevert, en logt pas met eHerkenning in als de aanvraag ingevuld moet worden. De schermen komen uit het prototype Concept MoZa; de schermen van eHerkenning zelf zijn in dat prototype nagebootst en hier vervangen door de echte schermen.</p></nldd-rich-text>
+      <div id="opm-hint"></div>
+    </nldd-simple-section>
+
+    <nldd-simple-section background="base" id="stappen">
+      <nldd-title size="2"><h2>Van Ondernemersplein naar MOZa</h2><p slot="supporting-text">Klik op een scherm of presenteer de stappen, voor de uitleg per scherm en de open vragen. Bovenaan is de ondernemer nog niet ingelogd, onderaan is de ondernemer ingelogd in MOZa namens een organisatie.</p></nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-button id="presenteer-stappen" appearance="neutral-tinted" size="sm" start-icon="desk-with-screen" text="Presenteer de stappen (Shift+P)"
+        accessible-label="Presenteer de stappen uit het schema hieronder (Shift+P)"></nldd-button>
+      <nldd-spacer size="12"></nldd-spacer>
+      <div class="canvas" id="inlogconcept-schema" role="img" aria-labelledby="inlogconcept-titel inlogconcept-uitleg">
+<svg viewBox="0 0 1280 650" xmlns="http://www.w3.org/2000/svg">
+  <title id="inlogconcept-titel">Schermen: inloggen bij MijnOverheid Zakelijk met eHerkenning, vanaf Ondernemersplein</title>
+  <desc id="inlogconcept-uitleg">Stap 1: Informatie op Ondernemersplein. Stap 2: Drie vragen, nog zonder inloggen. Stap 3: Herkenningsmakelaar kiezen. Stap 4: Inloggen bij de leverancier. Stap 5: Namens welke organisatie?. Stap 6: Antwoorden overgenomen. Stap 7: Gegevens ophalen.</desc>
+  <defs>
+    <pattern id="inlogconcept-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef0f3" stroke-width="1"/></pattern>
+    <marker id="inlogconcept-0e7c86" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0e7c86"/></marker>
+    <marker id="inlogconcept-2d7a46" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2d7a46"/></marker>
+    <marker id="inlogconcept-666666" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#666666"/></marker>
+    <marker id="inlogconcept-7a4f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7a4f8c"/></marker>
+    <marker id="inlogconcept-b46504" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b46504"/></marker>
+    <clipPath id="inlogconcept-clip1"><rect x="40" y="70" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip2"><rect x="345" y="70" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip3"><rect x="650" y="70" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip4"><rect x="955" y="70" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip5"><rect x="40" y="385" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip6"><rect x="345" y="385" width="285" height="200" rx="8"/></clipPath>
+    <clipPath id="inlogconcept-clip7"><rect x="650" y="385" width="285" height="200" rx="8"/></clipPath>
+  </defs>
+  <rect width="1280" height="650" fill="#fff"/>
+  <rect width="1280" height="650" fill="url(#inlogconcept-grid)"/>
+  <rect x="20" y="20" width="610" height="300" rx="12" fill="#f5f5f5" fill-opacity="0.55" stroke="#999" stroke-dasharray="4 4"/>
+  <text x="40" y="52" font-size="13" font-weight="700" fill="#333">Ondernemersplein (KVK) <tspan font-weight="400" fill="#555">· niet ingelogd</tspan></text>
+  <rect x="630" y="20" width="630" height="300" rx="12" fill="#fff2cc" fill-opacity="0.55" stroke="#d6b656" stroke-dasharray="4 4"/>
+  <text x="650" y="52" font-size="13" font-weight="700" fill="#333">eHerkenning <tspan font-weight="400" fill="#555">· herkenningsmakelaar en leverancier</tspan></text>
+  <rect x="20" y="335" width="1240" height="300" rx="12" fill="#e8f0fa" fill-opacity="0.55" stroke="#1f5fa8" stroke-dasharray="4 4"/>
+  <text x="40" y="367" font-size="13" font-weight="700" fill="#333">MijnOverheid Zakelijk <tspan font-weight="400" fill="#555">· ingelogd namens een organisatie</tspan></text>
+  <rect data-stap="1" x="40" y="70" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="1" href="schermen/moza-eh-1.jpg" x="40" y="70" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip1)"/>
+  <rect data-stap="1" x="40" y="70" width="285" height="200" rx="8" fill="none" stroke="#2d7a46" stroke-width="2"/>
+  <circle data-stap="1" cx="40" cy="70" r="13" fill="#2d7a46"/><text data-stap="1" x="40" y="74" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text data-stap="1" x="182.5" y="292" font-size="12.5" font-weight="700" fill="#2d7a46" text-anchor="middle">Regeling bekijken</text>
+  <path data-stap="2" d="M327 170.0H341" stroke="#2d7a46" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-2d7a46)"/>
+  <rect data-stap="2" x="345" y="70" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="2" href="schermen/moza-eh-2.jpg" x="345" y="70" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip2)"/>
+  <rect data-stap="2" x="345" y="70" width="285" height="200" rx="8" fill="none" stroke="#2d7a46" stroke-width="2"/>
+  <circle data-stap="2" cx="345" cy="70" r="13" fill="#2d7a46"/><text data-stap="2" x="345" y="74" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text data-stap="2" x="487.5" y="292" font-size="12.5" font-weight="700" fill="#2d7a46" text-anchor="middle">Indicatie, anoniem</text>
+  <path data-stap="3" d="M632 170.0H646" stroke="#b46504" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-b46504)"/>
+  <rect data-stap="3" x="650" y="70" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="3" href="schermen/uwv-3-leverancier.jpg" x="650" y="70" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip3)"/>
+  <rect data-stap="3" x="650" y="70" width="285" height="200" rx="8" fill="none" stroke="#b46504" stroke-width="2"/>
+  <circle data-stap="3" cx="650" cy="70" r="13" fill="#b46504"/><text data-stap="3" x="650" y="74" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+  <text data-stap="3" x="792.5" y="292" font-size="12.5" font-weight="700" fill="#b46504" text-anchor="middle">Kies hoe u wilt inloggen</text>
+  <path data-stap="4" d="M937 170.0H951" stroke="#2d7a46" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-2d7a46)"/>
+  <rect data-stap="4" x="955" y="70" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="4" href="schermen/uwv-4-zlogin.jpg" x="955" y="70" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip4)"/>
+  <rect data-stap="4" x="955" y="70" width="285" height="200" rx="8" fill="none" stroke="#2d7a46" stroke-width="2"/>
+  <circle data-stap="4" cx="955" cy="70" r="13" fill="#2d7a46"/><text data-stap="4" x="955" y="74" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text data-stap="4" x="1097.5" y="292" font-size="12.5" font-weight="700" fill="#2d7a46" text-anchor="middle">Inloggen bij Z login</text>
+  <path data-stap="5" d="M1097.5 308V322H182.5V371" stroke="#666666" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-666666)"/>
+  <rect data-stap="5" x="40" y="385" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="5" href="schermen/moza-eh-5.jpg" x="40" y="385" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip5)"/>
+  <rect data-stap="5" x="40" y="385" width="285" height="200" rx="8" fill="none" stroke="#666666" stroke-width="2"/>
+  <circle data-stap="5" cx="40" cy="385" r="13" fill="#666666"/><text data-stap="5" x="40" y="389" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+  <text data-stap="5" x="182.5" y="607" font-size="12.5" font-weight="700" fill="#666666" text-anchor="middle">Organisatie kiezen</text>
+  <path data-stap="6" d="M327 485.0H341" stroke="#0e7c86" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-0e7c86)"/>
+  <rect data-stap="6" x="345" y="385" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="6" href="schermen/moza-eh-6.jpg" x="345" y="385" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip6)"/>
+  <rect data-stap="6" x="345" y="385" width="285" height="200" rx="8" fill="none" stroke="#0e7c86" stroke-width="2"/>
+  <circle data-stap="6" cx="345" cy="385" r="13" fill="#0e7c86"/><text data-stap="6" x="345" y="389" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+  <text data-stap="6" x="487.5" y="607" font-size="12.5" font-weight="700" fill="#0e7c86" text-anchor="middle">Verder in MOZa</text>
+  <path data-stap="7" d="M632 485.0H646" stroke="#7a4f8c" stroke-width="1.8" fill="none" marker-end="url(#inlogconcept-7a4f8c)"/>
+  <rect data-stap="7" x="650" y="385" width="285" height="200" rx="8" fill="#fff"/>
+  <image data-stap="7" href="schermen/moza-eh-7.jpg" x="650" y="385" width="285" height="200" preserveAspectRatio="xMidYMin slice" clip-path="url(#inlogconcept-clip7)"/>
+  <rect data-stap="7" x="650" y="385" width="285" height="200" rx="8" fill="none" stroke="#7a4f8c" stroke-width="2"/>
+  <circle data-stap="7" cx="650" cy="385" r="13" fill="#7a4f8c"/><text data-stap="7" x="650" y="389" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+  <text data-stap="7" x="792.5" y="607" font-size="12.5" font-weight="700" fill="#7a4f8c" text-anchor="middle">Aanvraag laten invullen</text>
+</svg>
+      </div>
+    </nldd-simple-section>
+
+
+    <nldd-simple-section id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://afsprakenstelsel.etoegang.nl/">Afsprakenstelsel Elektronische Toegangsdiensten (eHerkenning)</a></li>
+          <li><a href="https://www.eherkenning.nl/">eHerkenning.nl</a></li>
+          <li>Prototype Concept MoZa (voorkant: Ondernemersplein, drie vragen en inloggen), november 2026</li>
+          <li>Verkenning eHerkenning en MOZa (delen 1-7) van het MOZa-team, november 2026</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-container gap="4">
+          <nldd-title size="4"><h2>Meedoen</h2></nldd-title>
+          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p><p>Heb je een Rijksaccount? Dan kun je <a href="/auth/inloggen?voor=opmerkingen&amp;rd=/eherkenning-moza-inlogconcept.html">inloggen</a> en opmerkingen plaatsen op de pagina's.</p></nldd-rich-text>
+        </nldd-container>
+        <nldd-divider style="--semantics-dividers-color: var(--primitives-color-neutral-200)"></nldd-divider>
+        <nldd-rich-text spacing="tight"><p>Concept MOZa - inlog- en machtigingsmiddelen. Versie november 2026. Vereenvoudigde weergave op basis van het Afsprakenstelsel Elektronische Toegangsdiensten. Robin Vogel en de organisaties uit het prototype zijn verzonnen.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script type="application/json" id="stappen-data">
+{
+ "naam": "Inloggen bij MOZa met eHerkenning",
+ "schema": "#inlogconcept-schema",
+ "stappen": [
+  {
+   "n": "1",
+   "kop": "Informatie op Ondernemersplein",
+   "kenmerken": [
+    "Ondernemersplein (KVK)",
+    "Niet ingelogd"
+   ],
+   "soort": [
+    "Handeling",
+    "van de ondernemer, op Ondernemersplein",
+    "#2d7a46"
+   ],
+   "lead": "De ondernemer zoekt op Ondernemersplein uit welke regelingen er zijn om iemand met een arbeidsbeperking aan te nemen.",
+   "punten": [
+    "De ondernemer begint niet bij MOZa, maar bij de informatie: een pagina van Ondernemersplein (KVK).",
+    "Inloggen is hier niet nodig. Informatie is voor iedereen.",
+    "De knop \"Bekijk wat het u oplevert\" leidt naar drie vragen, nog steeds op Ondernemersplein."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "Ondernemersplein (KVK)",
+     "img": "schermen/moza-eh-1.jpg",
+     "alt": "Nagebootste pagina van Ondernemersplein over personeel aannemen met een arbeidsbeperking."
+    }
+   ],
+   "bron": "Scherm uit het prototype Concept MoZa, november 2026."
+  },
+  {
+   "n": "2",
+   "kop": "Drie vragen, nog zonder inloggen",
+   "kenmerken": [
+    "Ondernemersplein (KVK)",
+    "Niet ingelogd"
+   ],
+   "soort": [
+    "Handeling",
+    "van de ondernemer, op Ondernemersplein",
+    "#2d7a46"
+   ],
+   "lead": "De ondernemer beantwoordt drie vragen over de kandidaat en ziet meteen een indicatie van wat de regelingen opleveren.",
+   "punten": [
+    "De antwoorden blijven op het scherm van de ondernemer. Er gaat nog niets naar een overheidsorganisatie.",
+    "Pas als de ondernemer de aanvraag wil laten invullen, is inloggen nodig. Het inlogmoment volgt dus uit wat de ondernemer wil doen, niet andersom.",
+    "De knop \"Log in met eHerkenning\" start het inloggen bij MijnOverheid Zakelijk. De antwoorden gaan mee."
+   ],
+   "aannames": [
+    "De antwoorden gaan mee naar MOZa zonder dat Ondernemersplein ze opslaat (bijvoorbeeld in de browser tot na het inloggen)."
+   ],
+   "vragen": [],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "Ondernemersplein (KVK)",
+     "img": "schermen/moza-eh-2.jpg",
+     "alt": "Indicatie per jaar met de regelingen en het blok \"Wilt u de aanvraag laten invullen?\" met de knop \"Log in met eHerkenning\"."
+    }
+   ],
+   "bron": "Scherm uit het prototype Concept MoZa, november 2026."
+  },
+  {
+   "n": "3",
+   "kop": "Herkenningsmakelaar kiezen",
+   "kenmerken": [
+    "eHerkenning",
+    "Inlogverzoek van MOZa"
+   ],
+   "soort": [
+    "Verzoek",
+    "van MOZa, via de herkenningsmakelaar",
+    "#b46504"
+   ],
+   "lead": "MOZa stuurt een inlogverzoek naar zijn herkenningsmakelaar. De ondernemer kiest daar de leverancier van het eigen eHerkenning-account.",
+   "punten": [
+    "Dit scherm is in het prototype nagebootst en overgeslagen. Hier staat het echte keuzescherm van eHerkenning, uit de flow bij het werkgeversportaal van UWV.",
+    "In het inlogverzoek staat voor welke dienst de ondernemer inlogt en welk betrouwbaarheidsniveau nodig is (hier EH3).",
+    "Hoe het inlogverzoek er stap voor stap uitziet: zie [Bilal logt in bij een losse dienst](eherkenning-inloggen.html)."
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "V1",
+     "Voor welke dienst logt de ondernemer in?",
+     "Voor MOZa als één portaaldienst, of per achterliggende dienst (zie de [conceptflows mét](eherkenning-moza-optie1.html) en [zónder portaaldienst](eherkenning-moza-optie2.html))."
+    ]
+   ],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "eHerkenning",
+     "img": "schermen/uwv-3-leverancier.jpg",
+     "alt": "Scherm van eHerkenning: Kies hoe u wilt inloggen, met de keuze voor Z login."
+    }
+   ],
+   "bron": "Echt scherm van eHerkenning, nagelopen op 20 oktober 2026."
+  },
+  {
+   "n": "4",
+   "kop": "Inloggen bij de leverancier",
+   "kenmerken": [
+    "eHerkenning",
+    "Leverancier Z login"
+   ],
+   "soort": [
+    "Handeling",
+    "van de ondernemer, bij de leverancier",
+    "#2d7a46"
+   ],
+   "lead": "De ondernemer logt in bij de eigen leverancier, hier Z login. Die controleert het account en de machtigingen.",
+   "punten": [
+    "MOZa ziet de inloggegevens niet: inloggen gebeurt altijd bij de leverancier.",
+    "De leverancier controleert of het account het vereiste niveau heeft en of de ondernemer namens de onderneming mag handelen.",
+    "Daarna gaat een versleutelde verklaring (assertion) via de herkenningsmakelaar terug naar MOZa, met wie er inlogt en namens welke onderneming (KVK-nummer)."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "eHerkenning",
+     "img": "schermen/uwv-4-zlogin.jpg",
+     "alt": "Inlogscherm van Z login met gebruikersnaam en wachtwoord."
+    }
+   ],
+   "bron": "Echt scherm van eHerkenning, nagelopen op 20 oktober 2026."
+  },
+  {
+   "n": "5",
+   "kop": "Namens welke organisatie?",
+   "kenmerken": [
+    "MijnOverheid Zakelijk",
+    "Ingelogd"
+   ],
+   "soort": [
+    "Vraag aan de gebruiker",
+    "van MOZa aan de ondernemer",
+    "#666666"
+   ],
+   "lead": "Na het inloggen kiest de ondernemer namens welke organisatie de ondernemer verder gaat. MOZa toont alleen organisaties waarvoor de aanvraag kan.",
+   "punten": [
+    "Robin Vogel is in het prototype bestuurder, penningmeester en vennoot bij drie organisaties.",
+    "Pas vanaf hier staat MijnOverheid Zakelijk in de kop van de pagina.",
+    "Per organisatie ziet de ondernemer de rol, het KVK-nummer en wat er openstaat."
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "V2",
+     "Waar komt de lijst met organisaties vandaan?",
+     "Een eHerkenning-account hoort nu bij één onderneming. Een keuze tussen meerdere organisaties vraagt een account of machtiging per organisatie, of een andere bron (zoals de bevoegdheden uit het Handelsregister)."
+    ],
+    [
+     "V3",
+     "Kiest de ondernemer de organisatie vóór of na het inloggen?",
+     "Bij eHerkenning ligt de onderneming al vast in de assertion; dan is dit scherm alleen nodig als de leverancier meer organisaties teruggeeft."
+    ]
+   ],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "MijnOverheid Zakelijk",
+     "img": "schermen/moza-eh-5.jpg",
+     "alt": "Inloggen bij MijnOverheid Zakelijk: namens welke organisatie logt u in, met drie organisaties."
+    }
+   ],
+   "bron": "Scherm uit het prototype Concept MoZa, november 2026."
+  },
+  {
+   "n": "6",
+   "kop": "Antwoorden overgenomen",
+   "kenmerken": [
+    "MijnOverheid Zakelijk",
+    "Ingelogd"
+   ],
+   "soort": [
+    "Resultaat",
+    "in MOZa",
+    "#0e7c86"
+   ],
+   "lead": "De ondernemer is ingelogd namens Bakkerij De Korenschoof B.V. De antwoorden van Ondernemersplein staan al ingevuld.",
+   "punten": [
+    "De ondernemer hoeft niets opnieuw in te vullen: \"Uw antwoorden zijn overgenomen.\"",
+    "De berekening blijft op het scherm. Er gaat nog steeds niets naar een overheidsorganisatie.",
+    "Na het inloggen heeft de ondernemer de navigatie van MOZa: Overzicht, Meldingen en Dossiers."
+   ],
+   "aannames": [],
+   "vragen": [],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "MijnOverheid Zakelijk",
+     "img": "schermen/moza-eh-6.jpg",
+     "alt": "Wat kost het Bakkerij De Korenschoof B.V.? met de melding dat de antwoorden zijn overgenomen."
+    }
+   ],
+   "bron": "Scherm uit het prototype Concept MoZa, november 2026."
+  },
+  {
+   "n": "7",
+   "kop": "Gegevens ophalen",
+   "kenmerken": [
+    "MijnOverheid Zakelijk",
+    "Ingelogd"
+   ],
+   "soort": [
+    "Bevraging",
+    "van MOZa, bij de bronnen",
+    "#7a4f8c"
+   ],
+   "lead": "Omdat MOZa weet wie er inlogt en namens welke organisatie, kan het gegevens ophalen die de overheid al heeft en de aanvraag vooraf invullen.",
+   "punten": [
+    "Uit het KVK Handelsregister: naam, KVK-nummer en adres van de organisatie.",
+    "Bij de Belastingdienst: het loonheffingennummer.",
+    "Bij UWV: of de kandidaat in het doelgroepregister staat, pas als de kandidaat toestemming geeft.",
+    "Er wordt nog niets ingediend. De ondernemer controleert alles en dient zelf in."
+   ],
+   "aannames": [],
+   "vragen": [
+    [
+     "V4",
+     "Is de machtiging uit eHerkenning genoeg om gegevens op te halen?",
+     "De assertion zegt dat de ondernemer namens de organisatie mag inloggen bij een dienst. Of MOZa daarmee ook gegevens bij de Belastingdienst en UWV mag opvragen, is nog niet uitgezocht."
+    ]
+   ],
+   "kaarten": [
+    {
+     "label": "Scherm",
+     "titel": "Wat de ondernemer ziet",
+     "bij": "MijnOverheid Zakelijk",
+     "img": "schermen/moza-eh-7.jpg",
+     "alt": "Aanvraag laten invullen: welke gegevens halen we op, bij KVK, Belastingdienst en UWV."
+    }
+   ],
+   "bron": "Scherm uit het prototype Concept MoZa, november 2026."
+  }
+ ],
+ "reeks": {
+  "titel": "eHerkenning en MOZa",
+  "sub": "in 7 presentaties",
+  "items": [
+   {
+    "href": "eherkenning-aansluiten.html",
+    "soort": "Bestaande flow",
+    "naam": "Dienstverlener sluit een dienst aan op eHerkenning",
+    "uitleg": "Hoe Justis via een herkenningsmakelaar een dienst registreert in de dienstencatalogus.",
+    "stappen": 6
+   },
+   {
+    "href": "eherkenning-machtigen.html",
+    "soort": "Bestaande flow",
+    "naam": "Karin neemt eHerkenning af en machtigt Bilal",
+    "uitleg": "Een account voor Karin en voor Bilal, en een machtiging voor diensten uit de dienstencatalogus.",
+    "stappen": 11
+   },
+   {
+    "href": "eherkenning-dienstencatalogus.html",
+    "soort": "Overzicht",
+    "naam": "Dienstencatalogus eHerkenning",
+    "uitleg": "Dienstaanbieders, diensten, portaaldiensten en dienstbemiddelaars, en waar MOZa zou kunnen passen.",
+    "stappen": 7
+   },
+   {
+    "href": "eherkenning-inloggen.html",
+    "soort": "Bestaande flow",
+    "naam": "Bilal logt in bij een losse dienst",
+    "uitleg": "Inloggen bij het werkgeversportaal van UWV: makelaar, leverancier, machtigingen en de assertion.",
+    "stappen": 13
+   },
+   {
+    "href": "eherkenning-moza-optie1.html",
+    "soort": "Conceptflow",
+    "naam": "MOZa-portaal via dienstbemiddeling mét portaaldienst",
+    "uitleg": "Eén inlogverzoek voor het hele portaal en machtigingen in bulk.",
+    "stappen": 13
+   },
+   {
+    "href": "eherkenning-moza-optie2.html",
+    "soort": "Conceptflow",
+    "naam": "MOZa-portaal via dienstbemiddeling zónder portaaldienst",
+    "uitleg": "MOZa bemiddelt per dienst, met drie varianten (A, B, C) voor inlogverzoek en assertion.",
+    "stappen": 18
+   },
+   {
+    "href": "eherkenning-moza-inlogconcept.html",
+    "soort": "Concept in schermen",
+    "naam": "Inloggen bij MOZa met eHerkenning",
+    "uitleg": "Vanaf Ondernemersplein via eHerkenning naar MOZa, scherm voor scherm in het prototype.",
+    "stappen": 7
+   }
+  ]
+ }
+}
+</script>
+<script type="module" src="stappen-presentatie.js"></script>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>
