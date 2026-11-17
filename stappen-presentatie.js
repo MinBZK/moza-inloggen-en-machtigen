@@ -293,10 +293,11 @@ if (bron) {
     else if (e.key === 'End') { e.preventDefault(); naar(STAPPEN.length - 1); }
     else if (e.key === 'Escape') { e.preventDefault(); sluit(); }
   }, true);
-  // Direct openen via de link: ?presentatie toont het overzicht, ?presentatie#/n deze presentatie op stap n
-  if (REEKS && new URLSearchParams(location.search).has('presentatie')) {
+  // Direct openen via de link: ?presentatie toont het overzicht, ?presentatie#/n deze presentatie op stap n.
+  // Een losse pagina zonder reeks opent met ?presentatie meteen op de eerste stap (of op stap n).
+  if (new URLSearchParams(location.search).has('presentatie')) {
     const m = location.hash.match(/^#\/(\d+)/);
-    const start = () => (m ? open(Math.min(Number(m[1]), STAPPEN.length - 1)) : openKeuze());
+    const start = () => (m || !REEKS ? open(Math.min(Number(m?.[1] ?? 0), STAPPEN.length - 1)) : openKeuze());
     document.readyState === 'complete' ? start() : window.addEventListener('load', start, { once: true });
   }
 }
