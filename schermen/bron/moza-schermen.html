@@ -67,6 +67,23 @@
     <nldd-banner variant="neutral" icon="info-circle" text="U gaat naar de Belastingdienst" supporting-text="MijnOverheid Zakelijk geeft door voor welke onderneming u inlogt. U hoeft dat daar niet opnieuw te kiezen."></nldd-banner>
     <nldd-spacer size="24"></nldd-spacer>` + tekst(`<ul>${punten.map((p) => `<li>${p}</li>`).join('')}</ul>`) + knoppen(knop(knoptekst, 'verder', 'primary', 'arrow-right-out-bucket'), knop('Terug naar het overzicht', 'terug', 'secondary'));
 
+  // Gemachtigde met beperkte machtigingen: werknemer (standaard) of intermediair (&wie=intermediair)
+  const GEM = {
+    werknemer: { naam: 'Bilal Yılmaz', rol: 'Werknemer', taak: 'Loonaangifte november doen', dienst: 'Loonaangifte doen', datum: 'vóór 31 december', ander: 'Btw-aangifte doen', mist: 'Btw-aangifte, berichten van de Belastingdienst en machtigingen' },
+    intermediair: { naam: 'Femke de Boer', rol: 'Boekhoudkantoor De Balans', taak: 'Btw-aangifte 3e kwartaal doen', dienst: 'Btw-aangifte doen', datum: 'vóór 23 december', ander: 'Loonaangifte doen', mist: 'Loonaangifte, berichten van de Belastingdienst en machtigingen' },
+  };
+  const g = GEM[new URLSearchParams(location.search).get('wie')] || GEM.werknemer;
+  const ORG = 'Bakkerij De Korenschoof B.V.';
+  const rij = (icoon, tekstje, sub, keuze, tag) => `
+        <nldd-list-item button${keuze ? ` data-keuze="${keuze}"` : ''}>
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="${icoon}" color="${tag ? 'secondary' : 'accent'}" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="${tekstje}" supporting-text="${sub}"></nldd-text-cell>
+          ${tag ? `<nldd-cell width="150px" vertical-alignment="center"><nldd-tag size="sm" color="neutral" text="${tag}"></nldd-tag></nldd-cell>` : ''}
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>`;
+
   const SCHERMEN = {
     email: () => `
       <div class="mail">
@@ -141,10 +158,30 @@
       <li><strong>Machtig anderen.</strong> In het machtigingenregister van uw leverancier, of hier in MijnOverheid Zakelijk.</li></ol>
       <p>Een eHerkenningsmiddel kost geld. De prijs verschilt per leverancier.</p>`) +
       knoppen(knop('Kies een leverancier', 'leverancier', 'primary', 'arrow-right-out-bucket'), knop('Ik heb eHerkenning, log in', 'inloggen', 'secondary')),
+    beperkt: () => titel(ORG, `Ingelogd als ${g.naam} · ${g.rol}`, 'MijnOverheid Zakelijk') + `
+      <nldd-banner variant="neutral" icon="key" text="U bent gemachtigd voor: ${g.dienst}" supporting-text="U ziet alleen de taken en berichten waarvoor ${ORG} u heeft gemachtigd."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="4"><h2>Uw taken</h2></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Uw taken">${rij('check-list', `**${g.taak}**`, `Belastingdienst · ${g.datum}`, 'taak')}</nldd-list>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Niet zichtbaar voor u</h2><p slot="supporting-text">${g.mist}.</p></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Meer machtigingen">${rij('lock-closed', '**Machtiging aanvragen**', `Vraag ${ORG} om een machtiging voor meer taken.`, 'aanvragen', 'Geen machtiging')}</nldd-list>`,
+    gemtaak: () => doorgeven(ORG, g.taak, `U doet dit namens ${ORG}, met uw machtiging.`, ['De Belastingdienst ziet wie u bent en namens welke onderneming u handelt.', `Uw machtiging geldt alleen voor: ${g.dienst.toLowerCase()}.`, `Verstuur de aangifte ${g.datum}.`], 'Verder bij de Belastingdienst'),
+    machtigingvragen: () => titel('Machtiging aanvragen', `Vraag ${ORG} om een machtiging.`, `Ingelogd als ${g.naam}`) + `
+      <nldd-container gap="16">
+        <nldd-form-field label="Voor welke dienst?"><nldd-dropdown><select><option>${g.ander} (Belastingdienst)</option><option>Berichten lezen</option></select></nldd-dropdown></nldd-form-field>
+        <nldd-form-field label="Toelichting voor de onderneming" optional><nldd-text-field id="toelichting"></nldd-text-field></nldd-form-field>
+      </nldd-container>
+      <nldd-spacer size="24"></nldd-spacer>` + tekst(`<p>De eigenaar of bestuurder van ${ORG} krijgt uw verzoek in MijnOverheid Zakelijk en beslist erover.</p>`) + knoppen(knop('Verzoek versturen', 'versturen'), knop('Annuleren', 'terug', 'secondary')),
+    verzoek: () => titel('Verzoek verstuurd', '', `Ingelogd als ${g.naam}`) + `
+      <nldd-banner variant="success" icon="check-mark" text="Uw verzoek is verstuurd naar ${ORG}" supporting-text="U krijgt bericht zodra de onderneming heeft beslist. Daarna ziet u de nieuwe taken in uw overzicht."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>` + knoppen(knop('Naar het overzicht', 'klaar')),
   };
   const s = new URLSearchParams(location.search).get('s') || 'email';
   document.getElementById('inhoud').innerHTML = SCHERMEN[s]();
-  customElements.whenDefined('nldd-text-field').then(() => { const w = document.getElementById('wie'); if (w) w.value = 'Bilal Yılmaz'; });
+  customElements.whenDefined('nldd-text-field').then(() => { const w = document.getElementById('wie'); if (w) w.value = 'Bilal Yılmaz'; const t = document.getElementById('toelichting'); if (t) t.value = 'Graag doe ik dit ook voor u.'; });
 </script>
 </body>
 </html>

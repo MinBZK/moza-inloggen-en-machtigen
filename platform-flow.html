@@ -180,6 +180,15 @@
       <nldd-spacer size="16"></nldd-spacer>
       <nldd-banner variant="accent" size="sm" icon="info-circle" text="Concept" supporting-text="De stappen zijn een eerste opzet om de werking te laten zien. De inhoud en de schermen volgen nog."></nldd-banner>
       <div id="opm-hint"></div>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Ontwerp</h2><p slot="supporting-text">De flow hangt af van hoe het platform is ontworpen. Kies het ontwerp dat je wilt bekijken.</p></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-segmented-control id="ontwerp-keuze" value="ontwerp-1" width="fit-content" aria-label="Ontwerp">
+        <nldd-segmented-control-item value="ontwerp-1" text="Ontwerp 1"></nldd-segmented-control-item>
+        <nldd-segmented-control-item value="betaaloverzicht" text="Conform Mijnbetaaloverzicht"></nldd-segmented-control-item>
+        <nldd-segmented-control-item value="souverein" text="Souverein"></nldd-segmented-control-item>
+        <nldd-segmented-control-item value="niet-souverein" text="Niet souverein"></nldd-segmented-control-item>
+      </nldd-segmented-control>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-container layout="wrap" gap="8">
         <nldd-button id="doorloop-start" appearance="primary" start-icon="desk-with-screen" text="Doorloop de flow (Shift+P)"></nldd-button>
@@ -188,7 +197,8 @@
 
     <nldd-simple-section id="overzicht" width="full" padding-top="0">
       <nldd-container gap="16">
-        <nldd-title size="2"><h2>De hele flow</h2><p slot="supporting-text">Het pad dat je het laatst hebt doorlopen is blauw. Klik op een stap of keuze om de flow daar te openen.</p></nldd-title>
+        <nldd-title size="2" id="overzicht-titel"><h2>De hele flow</h2><p slot="supporting-text">Het pad dat je het laatst hebt doorlopen is blauw. Klik op een stap of keuze om de flow daar te openen.</p></nldd-title>
+        <div id="ontwerp-leeg" hidden><nldd-banner variant="neutral" icon="info-circle" text="Nog niet uitgewerkt" supporting-text=""></nldd-banner></div>
         <div class="canvas" id="overzicht-canvas" role="group" aria-label="Overzicht van de hele flow"></div>
       </nldd-container>
     </nldd-simple-section>
@@ -258,6 +268,7 @@
    schermNotitie: tekst in de plaatshouder als er (nog) geen scherm is
    systeem: true = gebeurt achter de schermen (de ondernemer ziet geen nieuw scherm)
    hotspots: klikbare vlakken op het scherm: { x, y, b, h (in % van de afbeelding), naar: volgende stap, label }
+   varianten: { stap: { scherm, context, ... } } = andere velden als het pad via die stap liep
    ------------------------------------------------------------------ */
 const OPENBAAR = ['uit', 'Openbaar'];
 const NAMENS = ['in', 'Ingelogd namens Koffiezaak Noon'];
@@ -310,6 +321,23 @@ const NODES = {
     hotspots: [{ x: 21.5, y: 88.3, b: 16.2, h: 4.8, naar: 'segment', label: 'Bekijk wat het u oplevert' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/ondernemersplein',
     bron: 'Nagebootste pagina van het Ondernemersplein uit het prototype van het MOZa platform (moza-vragen).' },
+  // Werknemer of intermediair met beperkte machtigingen: ziet na het inloggen alleen waarvoor die gemachtigd is.
+  // varianten: per stap in het pad een ander scherm (werknemer is de standaard)
+  namens: { type: 'keuze', col: 2, row: 8.4, groep: 'Gemachtigde', label: 'Wie regelt het namens de onderneming?', wie: 'een werknemer of intermediair', inlog: OPENBAAR,
+    context: 'De ondernemer regelt niet alles zelf. Een werknemer of een intermediair, zoals een boekhouder, doet een deel van de taken. Daarvoor heeft die een machtiging, alleen voor die taken.',
+    punten: ['Een gemachtigde logt altijd in met een eigen middel, niet met dat van de ondernemer.'] },
+  werknemer: { type: 'taak', col: 3, row: 8.4, groep: 'Werknemer', label: 'Werknemer: loonaangifte doen', wie: 'Bilal Yılmaz, werknemer', inlog: OPENBAAR,
+    context: 'Bilal Yılmaz is werknemer en doet de loonaangifte. De eigenaar heeft hem daarvoor gemachtigd, en alleen daarvoor.',
+    punten: ['Bilal logt in voor de organisatie waar hij werkt: hij kiest "Bedrijf of organisatie".', 'Hij logt in met zijn eigen eHerkenningsmiddel of met de EBW van de onderneming.'],
+    scherm: 'schermen/platform-m-start.png',
+    hotspots: [{ x: 18.8, y: 62.4, b: 9, h: 8.6, naar: 'segment', label: 'Inloggen' }],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  intermediair: { type: 'taak', col: 3, row: 9.4, groep: 'Intermediair', label: 'Intermediair: btw-aangifte doen', wie: 'Femke de Boer, Boekhoudkantoor De Balans', inlog: OPENBAAR,
+    context: 'Femke de Boer van Boekhoudkantoor De Balans doet de btw-aangifte voor haar klanten. De onderneming heeft haar gemachtigd voor de btw-aangifte, niet voor andere zaken.',
+    punten: ['Femke logt in voor een andere onderneming: ze kiest "Voor een andere onderneming".', 'Ze logt in met eHerkenning of de EBW van haar boekhoudkantoor.'],
+    scherm: 'schermen/platform-m-start.png',
+    hotspots: [{ x: 18.8, y: 62.4, b: 9, h: 8.6, naar: 'segment', label: 'Inloggen' }],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   // Segmentatie zoals bij Mijn Belastingdienst Zakelijk: eerst voor wie, dan het inlogmiddel dat daarbij past
   segment: { type: 'keuze', col: 5.0, row: 3.5, groep: 'MOZa', label: 'Inloggen: voor wie logt de ondernemer in?', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Bezig met inloggen'],
     context: 'De ondernemer gaat naar MOZa en logt in. MOZa vraagt eerst voor wie, zoals ondernemers dat kennen van Mijn Belastingdienst Zakelijk.',
@@ -543,6 +571,39 @@ const NODES = {
     scherm: 'schermen/platform-eh-makelaar.jpg',
     hotspots: [{ x: 45.6, y: 77, b: 7.6, h: 6, naar: 'machtig', label: 'Verder' }],
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning).' },
+  // Na het inloggen als gemachtigde met beperkte machtigingen
+  beperkt: { type: 'keuze', col: 13.2, row: -0.6, groep: 'MOZa', label: 'Overzicht: alleen waarvoor gemachtigd', wie: 'de gemachtigde, in MOZa', inlog: ['in', 'Ingelogd als gemachtigde'],
+    context: 'MOZa toont alleen de taken en berichten waarvoor Bilal gemachtigd is: de loonaangifte. De rest van de onderneming ziet hij niet.',
+    punten: ['MOZa haalt de machtigingen op bij het inloggen en filtert het overzicht daarop.', 'Mist de gemachtigde iets, dan vraagt die de onderneming om een extra machtiging.'],
+    scherm: 'schermen/platform-m-beperkt-werknemer.png',
+    hotspots: [
+      { x: 19.1, y: 44.4, b: 61.9, h: 8.9, naar: 'gemTaak', label: 'Taak waarvoor gemachtigd' },
+      { x: 19.1, y: 68.6, b: 61.9, h: 8.9, naar: 'vraagMachtiging', label: 'Machtiging aanvragen' },
+    ],
+    varianten: { intermediair: { context: 'MOZa toont alleen de taken en berichten waarvoor Femke gemachtigd is: de btw-aangifte. De rest van de onderneming ziet ze niet.', scherm: 'schermen/platform-m-beperkt-intermediair.png' } },
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  gemTaak: { type: 'taak', col: 14.2, row: -0.6, groep: 'MOZa', label: 'Taak doen waarvoor gemachtigd', wie: 'de gemachtigde, in MOZa', inlog: ['in', 'Ingelogd als gemachtigde'],
+    context: 'Bilal start de loonaangifte. Die doet hij bij de Belastingdienst.',
+    punten: ['MOZa geeft door wie er inlogt en namens welke onderneming.', 'De Belastingdienst controleert zelf ook of de machtiging geldt.'],
+    scherm: 'schermen/platform-m-gemtaak-werknemer.png',
+    hotspots: [{ x: 18.8, y: 68.1, b: 20.5, h: 7.3, naar: 'gemKlaar', label: 'Verder bij de Belastingdienst' }],
+    varianten: { intermediair: { context: 'Femke start de btw-aangifte. Die doet ze bij de Belastingdienst.', scherm: 'schermen/platform-m-gemtaak-intermediair.png' } },
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  gemKlaar: { type: 'einde', col: 15.2, row: -0.6, groep: 'Belastingdienst', label: 'Taak gedaan', wie: '', inlog: ['in', 'Ingelogd als gemachtigde'],
+    context: 'Einde van deze route.' },
+  vraagMachtiging: { type: 'taak', col: 14.2, row: -1.9, groep: 'MOZa', label: 'Machtiging aanvragen', wie: 'de gemachtigde, in MOZa', inlog: ['in', 'Ingelogd als gemachtigde'],
+    context: 'Bilal wil ook de btw-aangifte doen, maar is daarvoor niet gemachtigd. Hij vraagt de onderneming om een extra machtiging.',
+    punten: ['Een gemachtigde kan zichzelf geen machtiging geven: de ondernemer beslist.'],
+    scherm: 'schermen/platform-m-machtiging-vragen-werknemer.png',
+    hotspots: [{ x: 18.8, y: 68.4, b: 12.3, h: 7.2, naar: 'verzoek', label: 'Verzoek versturen' }],
+    varianten: { intermediair: { context: 'Femke wil ook de loonaangifte doen, maar is daarvoor niet gemachtigd. Ze vraagt de onderneming om een extra machtiging.', scherm: 'schermen/platform-m-machtiging-vragen-intermediair.png' } },
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  verzoek: { type: 'einde', col: 15.2, row: -1.9, groep: 'MOZa', label: 'Verzoek bij de ondernemer', wie: 'MOZa', inlog: ['in', 'Ingelogd als gemachtigde'],
+    context: 'De ondernemer krijgt een melding in MOZa en beslist over het verzoek.',
+    punten: ['Keurt de ondernemer het goed, dan legt die de machtiging vast, zoals in de route "Iemand machtigen".', 'Daarna ziet de gemachtigde de nieuwe taken in het overzicht.'],
+    scherm: 'schermen/platform-m-verzoek-werknemer.png',
+    varianten: { intermediair: { scherm: 'schermen/platform-m-verzoek-intermediair.png' } },
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   // Via 'iemand aannemen': na het inloggen direct verder met de aanvraag
   aanvraagInfo: { type: 'taak', col: 13.2, row: 8, groep: 'MOZa', label: 'Lees wat er kan', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'Na het inloggen komt Karin direct in de aanvraag "Iemand aannemen met een afstand tot de arbeidsmarkt", waar ze op het Ondernemersplein mee begon.',
@@ -596,7 +657,9 @@ const NODES = {
 // Verbindingen. label = de keuze (alleen bij een keuze). via = knikpunten in rasterposities.
 const EDGES = [
   ['start', 'aanleiding'],
-  ['aanleiding', 'bericht', 'Bericht'], ['aanleiding', 'ziek', 'Ziekmelding'], ['aanleiding', 'aannemen', 'Iemand aannemen'],
+  ['namens', 'werknemer', 'Werknemer'], ['namens', 'intermediair', 'Intermediair'],
+  ['werknemer', 'segment', null, [[5, 8.4]]], ['intermediair', 'segment', null, [[5, 9.4]]],
+  ['aanleiding', 'bericht', 'Bericht'], ['aanleiding', 'ziek', 'Ziekmelding'], ['aanleiding', 'aannemen', 'Iemand aannemen'], ['aanleiding', 'namens', 'Een gemachtigde regelt het', [[1, 8.4]]],
   ['bericht', 'berichtWaar'], ['berichtWaar', 'segment', 'MOZa', [[4.5, 2.5], [4.5, 3.5]]], ['berichtWaar', 'segment_bd', 'Belastingdienst'], ['ziek', 'segment'],
   ['aannemen', 'zoeken'], ['zoeken', 'zoekmachine', 'Zoekmachine'], ['zoeken', 'aitool', 'AI-tool'],
   ['zoekmachine', 'ondernemersplein'], ['aitool', 'ondernemersplein'], ['ondernemersplein', 'segment'],
@@ -609,7 +672,9 @@ const EDGES = [
   ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'], ['geen', 'anderMiddel'],
   ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'aantal'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
-  ['samen', 'doel', null, null, null, 'aannemen'], ['samen', 'aanvraagInfo', 'Iemand aannemen', [[12.75, 3.5], [12.75, 8]], 'aannemen'],
+  ['samen', 'doel', null, null, null, ['aannemen', 'namens']], ['samen', 'beperkt', null, [[12.75, 3.5], [12.75, -0.6]], 'namens'],
+  ['beperkt', 'gemTaak', 'Taak doen'], ['beperkt', 'vraagMachtiging', 'Meer nodig'], ['gemTaak', 'gemKlaar'], ['vraagMachtiging', 'verzoek'],
+   ['samen', 'aanvraagInfo', 'Iemand aannemen', [[12.75, 3.5], [12.75, 8]], 'aannemen'],
   ['aanvraagInfo', 'berekening'], ['berekening', 'toestemming'], ['toestemming', 'aanvraag'], ['aanvraag', 'aanvraagKlaar'],
   ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen', null, null, ['digid', 'wallet']], ['doel', 'machtigDigid', 'Iemand machtigen', null, ['digid', 'wallet']],
   ['machtigDigid', 'ehMachtigen', 'Ja'], ['machtigDigid', 'ehAanschaffen', 'Nee'],
@@ -777,13 +842,28 @@ function pannen(el) {
 }
 document.querySelectorAll('.canvas').forEach(pannen);
 
+/* ---------------- ontwerpen ----------------
+   De flow hangt af van het ontwerp van het platform. Alleen een ontwerp met klaar: true heeft een uitgewerkte flow
+   (NODES en EDGES hierboven); de andere tonen een plaatshouder. */
+const ONTWERPEN = {
+  'ontwerp-1': { naam: 'Ontwerp 1', klaar: true },
+  betaaloverzicht: { naam: 'Conform Mijnbetaaloverzicht', klaar: false, uitleg: 'De flow volgt de opzet van Mijnbetaaloverzicht.' },
+  souverein: { naam: 'Souverein', klaar: false, uitleg: 'De flow voor een souvereine opzet van het platform.' },
+  'niet-souverein': { naam: 'Niet souverein', klaar: false, uitleg: 'De flow voor een niet-souvereine opzet van het platform.' },
+};
+const ONTWERP_STD = 'ontwerp-1';
+let ontwerp = ONTWERP_STD;
+
 /* ---------------- toestand ---------------- */
 let pad = [START];
 let open = false;
 let getekend = [];   // het pad dat nu in de flow onderin staat (om te weten wat nieuw is)
 function leesHash() {
-  const m = decodeURIComponent(location.hash.slice(1)).match(/pad=([^&]+)/);
-  if (m) {
+  const h = decodeURIComponent(location.hash.slice(1));
+  const o = h.match(/ontwerp=([^&]+)/);
+  ontwerp = o && ONTWERPEN[o[1]] ? o[1] : ONTWERP_STD;
+  const m = h.match(/pad=([^&]+)/);
+  if (m && ONTWERPEN[ontwerp].klaar) {
     const ids = m[1].split(',').filter(id => NODES[id]);
     const geldig = ids.length && ids[0] === START && ids.every((id, i) => i === 0 || opties(ids[i - 1], ids.slice(0, i)).some(e => e.to === id));
     pad = overSamenkomst(geldig ? ids : [START]);
@@ -791,7 +871,10 @@ function leesHash() {
   } else open = new URLSearchParams(location.search).has('presentatie');
 }
 function schrijfHash() {
-  history.replaceState(null, '', location.pathname + location.search + (open ? '#pad=' + pad.join(',') : ''));
+  const delen = [];
+  if (ontwerp !== ONTWERP_STD) delen.push('ontwerp=' + ontwerp);
+  if (open) delen.push('pad=' + pad.join(','));
+  history.replaceState(null, '', location.pathname + location.search + (delen.length ? '#' + delen.join('&') : ''));
 }
 // Een samenkomst is geen stap voor de gebruiker: vooruit gaat er direct overheen, terug ook
 function overSamenkomst(p, terug = false) {
@@ -839,8 +922,14 @@ function kortstePad(doel) {
 
 /* ---------------- doorlopen: paneel ---------------- */
 const paneel = document.getElementById('dl-paneel');
+// Een stap met varianten toont een ander scherm of andere tekst als het pad via een bepaalde stap liep
+function knoopInPad(id, p = pad) {
+  const n = NODES[id];
+  const v = Object.entries(n.varianten || {}).find(([via]) => p.includes(via));
+  return v ? { ...n, ...v[1] } : n;
+}
 function renderPaneel() {
-  const id = pad[pad.length - 1], n = NODES[id], volgende = opties(id);
+  const id = pad[pad.length - 1], n = knoopInPad(id), volgende = opties(id);
   const keuzes = n.type === 'keuze'
     ? `<h3 class="att-kop">Maak een keuze</h3><div class="dl-keuzes">${volgende.map((e, i) =>
         `<button type="button" data-kies="${e.to}"><b>${i + 1}</b><span>${esc(e.label)}${NODES[e.to].label !== e.label ? `<small>${esc(NODES[e.to].label)}</small>` : ''}</span></button>`).join('')}</div>`
@@ -873,7 +962,7 @@ function renderPaneel() {
 
 /* ---------------- doorlopen: rechts ---------------- */
 function renderScherm() {
-  const id = pad[pad.length - 1], n = NODES[id];
+  const id = pad[pad.length - 1], n = knoopInPad(id);
   document.querySelector('#dl-rechts .gs-stap').innerHTML = `Stap ${stapNr()} <span>· ${esc(n.groep)} · ${esc(n.systeem ? 'Achter de schermen' : SOORT[n.type])}</span>`;
   const inlog = document.querySelector('#dl-rechts .gs-inlog');
   inlog.dataset.inlog = n.inlog[0];
@@ -1014,8 +1103,28 @@ function render() {
   if (open) {
     renderPaneel(); renderScherm(); renderFlow(wasOpen);
     if (!wasOpen) paneel.focus({ preventScroll: true });
-  } else { getekend = []; renderOverzicht(); }
+  } else { getekend = []; renderOntwerp(); if (ONTWERPEN[ontwerp].klaar) renderOverzicht(); }
 }
+// Het gekozen ontwerp: een niet-uitgewerkt ontwerp toont een plaatshouder in plaats van de flow
+function renderOntwerp() {
+  const o = ONTWERPEN[ontwerp];
+  const keuze = document.getElementById('ontwerp-keuze');
+  if (keuze.value !== ontwerp) keuze.value = ontwerp;
+  document.querySelector('#overzicht-titel h2').textContent = o.klaar ? 'De hele flow' : 'De hele flow: ' + o.naam;
+  document.querySelector('#overzicht-titel p').hidden = !o.klaar;
+  const leeg = document.getElementById('ontwerp-leeg');
+  leeg.hidden = o.klaar;
+  leeg.querySelector('nldd-banner').setAttribute('supporting-text', o.klaar ? '' : `${o.uitleg} De stappen en schermen voor dit ontwerp volgen nog.`);
+  document.getElementById('overzicht-canvas').style.display = o.klaar ? '' : 'none';
+  document.getElementById('keuzepunten').style.display = o.klaar ? '' : 'none';
+  const knop = document.getElementById('doorloop-start');
+  knop.toggleAttribute('disabled', !o.klaar);
+}
+document.getElementById('ontwerp-keuze').addEventListener('change', ev => {
+  const v = ev.detail?.value ?? ev.target.value;
+  if (!ONTWERPEN[v] || v === ontwerp) return;
+  ontwerp = v; schrijfHash(); render();
+});
 
 document.getElementById('doorloop-start').addEventListener('click', () => ga(pad));
 paneel.querySelector('[data-dl="sluit"]').addEventListener('click', sluit);
@@ -1036,7 +1145,7 @@ window.addEventListener('hashchange', () => { leesHash(); if (open) schrijfHash(
 document.addEventListener('keydown', ev => {
   if (ev.target.closest?.('input, textarea, [contenteditable]')) return;
   if (!open) {
-    if (ev.key === 'P' && ev.shiftKey && !ev.metaKey && !ev.ctrlKey && !ev.altKey) { ev.preventDefault(); ga(pad); }
+    if (ev.key === 'P' && ev.shiftKey && !ev.metaKey && !ev.ctrlKey && !ev.altKey && ONTWERPEN[ontwerp].klaar) { ev.preventDefault(); ga(pad); }
     return;
   }
   const volgende = opties(pad[pad.length - 1]);
