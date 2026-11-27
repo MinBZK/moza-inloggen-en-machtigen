@@ -476,10 +476,7 @@ const NODES = {
     scherm: 'schermen/platform-moza-overzicht.png',
     hotspots: [
       { x: 19.8, y: 59.6, b: 60.5, h: 6.4, naar: 'berichtLezen', label: 'Voorlopige aanslag vennootschapsbelasting 2027' },
-      { x: 19.8, y: 77.0, b: 60.5, h: 5.0, naar: 'dienst', label: 'Loonaangifte september controleren' },
       { x: 19.8, y: 82.1, b: 60.5, h: 5.0, naar: 'dienst', label: 'Btw-aangifte 3e kwartaal doen' },
-      { x: 19.8, y: 87.3, b: 60.5, h: 5.0, naar: 'dienst', label: 'Uiteindelijk belanghebbenden bevestigen' },
-      { x: 19.8, y: 92.4, b: 60.5, h: 5.0, naar: 'dienst', label: 'Terrasvergunning verlengen' },
     ],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/',
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen).' },
@@ -508,14 +505,14 @@ const NODES = {
     bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   klaar: { type: 'einde', col: 18.2, row: 2.5, groep: 'Dienstverlener', label: 'Zaak geregeld', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
-  machtig: { type: 'taak', col: 14.2, row: 4.5, groep: 'MOZa', label: 'Kies persoon en dienst', wie: 'de ondernemer, bij MOZa', inlog: NAMENS,
+  machtig: { type: 'taak', col: 16.2, row: 4.5, groep: 'MOZa', label: 'Kies persoon en dienst', wie: 'de ondernemer, bij MOZa', inlog: NAMENS,
     context: 'Karin machtigt bijvoorbeeld Bilal Yılmaz voor de loonaangifte.',
     scherm: 'schermen/platform-m-machtigen.png',
     hotspots: [
       { x: 18.8, y: 68.6, b: 14.9, h: 7.2, naar: 'vastleggen', label: 'Machtiging vastleggen' },
     ],
     bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
-  vastleggen: { type: 'taak', col: 15.2, row: 4.5, groep: 'MOZa', label: 'Machtiging vastleggen', wie: 'MOZa', inlog: NAMENS,
+  vastleggen: { type: 'taak', col: 17.2, row: 4.5, groep: 'MOZa', label: 'Machtiging vastleggen', wie: 'MOZa', inlog: NAMENS,
     context: 'MOZa legt de machtiging vast.',
     punten: ['Bilal kan daarna namens Koffiezaak Noon inloggen.'],
     scherm: 'schermen/platform-m-vastgelegd.png',
@@ -523,38 +520,59 @@ const NODES = {
       { x: 18.8, y: 67.6, b: 12.5, h: 7.4, naar: 'actief', label: 'Naar het overzicht' },
     ],
     bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
-  actief: { type: 'einde', col: 16.2, row: 4.5, groep: 'MOZa', label: 'Machtiging actief', wie: '', inlog: NAMENS,
+  actief: { type: 'einde', col: 18.2, row: 4.5, groep: 'MOZa', label: 'Machtiging actief', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
+  // Machtigen na inloggen met DigiD of de persoonlijke wallet: daarvoor is eHerkenning nodig
+  machtigDigid: { type: 'keuze', col: 14.2, row: 5.8, groep: 'MOZa', label: 'Heeft de ondernemer al eHerkenning?', wie: 'de ondernemer, in MOZa', inlog: ['in', 'Ingelogd als persoon'],
+    context: 'Karin is ingelogd met DigiD of haar persoonlijke wallet, dus als persoon. Om iemand namens de onderneming te machtigen, is eHerkenning nodig.',
+    punten: ['MOZa legt dit uit en wijst de weg: wie al eHerkenning heeft, logt daarmee opnieuw in; wie het nog niet heeft, schaft het eerst aan.'],
+    scherm: 'schermen/platform-m-machtigen-digid.png',
+    hotspots: [
+      { x: 18.8, y: 68.8, b: 19.3, h: 7.1, naar: 'ehMachtigen', label: 'Inloggen met eHerkenning' },
+      { x: 39, y: 68.8, b: 15.7, h: 7.1, naar: 'ehAanschaffen', label: 'eHerkenning aanvragen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  ehAanschaffen: { type: 'taak', col: 15.2, row: 7, groep: 'eHerkenning', label: 'eHerkenning aanschaffen', wie: 'de ondernemer, bij een leverancier', inlog: ['in', 'Ingelogd als persoon'],
+    context: 'Karin kiest een leverancier van eHerkenning, bijvoorbeeld Z login, en vraagt een eHerkenningsmiddel aan op niveau EH3.',
+    punten: ['De leverancier controleert bij KVK dat Karin de onderneming mag vertegenwoordigen, en registreert haar.', 'Een eHerkenningsmiddel kost geld; de onderneming betaalt de leverancier.', 'Zie [eHerkenning](eherkenning.html).'],
+    scherm: 'schermen/platform-m-eh-aanvragen.png',
+    hotspots: [{ x: 35.1, y: 67.9, b: 17, h: 7.3, naar: 'ehMachtigen', label: 'Ik heb eHerkenning, log in' }],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+  ehMachtigen: { type: 'taak', col: 15.2, row: 5.8, groep: 'eHerkenning', label: 'Opnieuw inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
+    context: 'Karin logt opnieuw in bij MOZa, nu met eHerkenning. Daarmee handelt ze namens de onderneming en kan ze anderen machtigen.',
+    scherm: 'schermen/platform-eh-makelaar.jpg',
+    hotspots: [{ x: 45.6, y: 77, b: 7.6, h: 6, naar: 'machtig', label: 'Verder' }],
+    bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning).' },
   // Via 'iemand aannemen': na het inloggen direct verder met de aanvraag
-  aanvraagInfo: { type: 'taak', col: 13.2, row: 6.2, groep: 'MOZa', label: 'Lees wat er kan', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+  aanvraagInfo: { type: 'taak', col: 13.2, row: 8, groep: 'MOZa', label: 'Lees wat er kan', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'Na het inloggen komt Karin direct in de aanvraag "Iemand aannemen met een afstand tot de arbeidsmarkt", waar ze op het Ondernemersplein mee begon.',
     punten: ['Zes regelingen kunnen gelden, uitgevoerd door UWV, de Belastingdienst en de gemeente.', 'Stap 1 van 4: lees wat er kan.'],
     scherm: 'schermen/platform-aanvraag-info.png',
     hotspots: [{ x: 19.6, y: 83.5, b: 17.5, h: 3.8, naar: 'berekening', label: 'Bereken wat het u oplevert' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/aanvraag/info',
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen). Lange pagina: bovenkant en knop, met een breuk ertussen.' },
-  berekening: { type: 'taak', col: 14.2, row: 6.2, groep: 'MOZa', label: 'Bereken wat het oplevert', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+  berekening: { type: 'taak', col: 14.2, row: 8, groep: 'MOZa', label: 'Bereken wat het oplevert', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'Karin rekent uit wat het aannemen haar onderneming kost en oplevert.',
     punten: ['De berekening blijft op haar scherm; er gaat niets naar een overheidsorganisatie.', 'Stap 2 van 4.'],
     scherm: 'schermen/platform-aanvraag-berekening.png',
     hotspots: [{ x: 19.6, y: 83.5, b: 16.7, h: 3.8, naar: 'toestemming', label: 'Laat de aanvraag invullen' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/aanvraag/berekening',
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen). Lange pagina: bovenkant en knop, met een breuk ertussen.' },
-  toestemming: { type: 'taak', col: 15.2, row: 6.2, groep: 'MOZa', label: 'Laat de aanvraag invullen', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+  toestemming: { type: 'taak', col: 15.2, row: 8, groep: 'MOZa', label: 'Laat de aanvraag invullen', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'MOZa haalt gegevens op bij de organisaties die ze al hebben, zodat Karin ze niet zelf hoeft op te zoeken.',
     punten: ['Karin geeft daarvoor toestemming. Gegevens over de kandidaat haalt MOZa alleen op met toestemming van de kandidaat.', 'Stap 3 van 4.'],
     scherm: 'schermen/platform-aanvraag-toestemming.png',
     hotspots: [{ x: 19.4, y: 90.8, b: 26.3, h: 3.7, naar: 'aanvraag', label: 'Haal de gegevens op en vul de aanvraag in' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/aanvraag/toestemming',
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen). Lange pagina: bovenkant en knop, met een breuk ertussen.' },
-  aanvraag: { type: 'taak', col: 16.2, row: 6.2, groep: 'MOZa', label: 'Controleer en dien in', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+  aanvraag: { type: 'taak', col: 16.2, row: 8, groep: 'MOZa', label: 'Controleer en dien in', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'De aanvraag staat vooringevuld klaar. Karin voegt de kandidaat toe, controleert per regeling de gegevens en dient in.',
     punten: ['Alleen Karin ziet de aanvraag; er is nog niets naar de overheid gestuurd.', 'Stap 4 van 4.'],
     scherm: 'schermen/platform-aanvraag-controleren.png',
     hotspots: [{ x: 19.6, y: 83.2, b: 14.0, h: 3.8, naar: 'aanvraagKlaar', label: 'Controleer en dien in' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/aanvraag',
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen). Lange pagina: bovenkant en knop, met een breuk ertussen.' },
-  aanvraagKlaar: { type: 'einde', col: 17.2, row: 6.2, groep: 'MOZa', label: 'Aanvraag ingediend', wie: '', inlog: NAMENS,
+  aanvraagKlaar: { type: 'einde', col: 17.2, row: 8, groep: 'MOZa', label: 'Aanvraag ingediend', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
   // Via de e-mail: bericht lezen en de actie uitvoeren
   berichtLezen: { type: 'taak', col: 14.2, row: 1, groep: 'MOZa', label: 'Bericht van de Belastingdienst lezen', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
@@ -591,9 +609,11 @@ const EDGES = [
   ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'], ['geen', 'anderMiddel'],
   ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'aantal'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
-  ['samen', 'doel', null, null, null, 'aannemen'], ['samen', 'aanvraagInfo', 'Iemand aannemen', [[12.75, 3.5], [12.75, 6.2]], 'aannemen'],
+  ['samen', 'doel', null, null, null, 'aannemen'], ['samen', 'aanvraagInfo', 'Iemand aannemen', [[12.75, 3.5], [12.75, 8]], 'aannemen'],
   ['aanvraagInfo', 'berekening'], ['berekening', 'toestemming'], ['toestemming', 'aanvraag'], ['aanvraag', 'aanvraagKlaar'],
-  ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen'],
+  ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen', null, null, ['digid', 'wallet']], ['doel', 'machtigDigid', 'Iemand machtigen', null, ['digid', 'wallet']],
+  ['machtigDigid', 'ehMachtigen', 'Ja'], ['machtigDigid', 'ehAanschaffen', 'Nee'],
+  ['ehAanschaffen', 'ehMachtigen'], ['ehMachtigen', 'machtig'],
   ['berichtLezen', 'actie'], ['actie', 'uitgevoerd'],
   ['dienst', 'niveau'], ['niveau', 'extra', 'Ja'], ['niveau', 'gebruik', 'Nee', [[15.2, 1.9], [17.2, 1.9]]],
   ['extra', 'gebruik'], ['gebruik', 'klaar'],
@@ -634,7 +654,9 @@ const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aant
 const START = 'start';
 const uit = id => EDGES.filter(e => e.from === id);
 // De opties in het gekozen pad: een lijn met 'als' telt alleen als het pad via die stap liep (bv. via de e-mail)
-const opties = (id, p = pad) => uit(id).filter(e => (!e.als || p.includes(e.als)) && (!e.alsNiet || !p.includes(e.alsNiet)));
+const lijstje = v => (v == null ? [] : [].concat(v));
+const opties = (id, p = pad) => uit(id).filter(e =>
+  (!e.als || lijstje(e.als).some(a => p.includes(a))) && !lijstje(e.alsNiet).some(a => p.includes(a)));
 const SOORT = { start: 'Start', taak: 'Stap', keuze: 'Keuze', samen: 'Samenkomst', einde: 'Einde' };
 const zachtjes = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -808,7 +830,7 @@ function kortstePad(doel) {
   let p = bfs(START, doel) || [START];
   const fout = p.findIndex((id, i) => i > 0 && !opties(p[i - 1], p.slice(0, i)).some(e => e.to === id));
   if (fout > 0) {
-    const nodig = uit(p[fout - 1]).find(e => e.to === p[fout]).als;
+    const nodig = lijstje(uit(p[fout - 1]).find(e => e.to === p[fout]).als)[0];
     const via = bfs(START, nodig), rest = via && bfs(nodig, doel);
     if (via && rest) p = [...via, ...rest.slice(1)];
   }

@@ -131,6 +131,16 @@
         <nldd-list-item><nldd-spacer-cell size="12"></nldd-spacer-cell><nldd-text-cell width="180px" color="secondary" text="${k}"></nldd-text-cell><nldd-text-cell text="**${v}**"></nldd-text-cell></nldd-list-item>`).join('')}
       </nldd-list>
       <nldd-spacer size="24"></nldd-spacer>` + knoppen(knop('Naar het overzicht', 'klaar'), knop('Nog iemand machtigen', 'nog', 'secondary')),
+    machtigendigid: () => titel('Iemand machtigen', 'Ingelogd als Robin Vogel, met DigiD', 'Bakkerij De Korenschoof B.V.') + `
+      <nldd-banner variant="warning" icon="exclamation-triangle" text="Machtigen kan niet met DigiD" supporting-text="Met DigiD bent u ingelogd als persoon. Om iemand te machtigen namens Bakkerij De Korenschoof B.V. hebt u eHerkenning nodig."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>` + tekst('<p>Hebt u al eHerkenning? Log dan opnieuw in met eHerkenning. U komt daarna direct terug bij het machtigen.</p><p>Hebt u nog geen eHerkenning? Vraag het aan bij een leverancier. Dat duurt meestal een paar dagen.</p>') +
+      knoppen(knop('Inloggen met eHerkenning', 'inloggen', 'primary', 'arrow-right-out-bucket'), knop('eHerkenning aanvragen', 'aanvragen', 'secondary')),
+    ehaanvragen: () => titel('eHerkenning aanvragen', 'Zo regelt u eHerkenning voor Bakkerij De Korenschoof B.V.', 'MijnOverheid Zakelijk') + tekst(`
+      <ol><li><strong>Kies een leverancier.</strong> Er zijn meerdere erkende leveranciers. Kies een middel op niveau EH3; dat is genoeg voor de meeste diensten.</li>
+      <li><strong>Vraag het middel aan.</strong> De leverancier controleert bij KVK of u de onderneming mag vertegenwoordigen.</li>
+      <li><strong>Machtig anderen.</strong> In het machtigingenregister van uw leverancier, of hier in MijnOverheid Zakelijk.</li></ol>
+      <p>Een eHerkenningsmiddel kost geld. De prijs verschilt per leverancier.</p>`) +
+      knoppen(knop('Kies een leverancier', 'leverancier', 'primary', 'arrow-right-out-bucket'), knop('Ik heb eHerkenning, log in', 'inloggen', 'secondary')),
   };
   const s = new URLSearchParams(location.search).get('s') || 'email';
   document.getElementById('inhoud').innerHTML = SCHERMEN[s]();
