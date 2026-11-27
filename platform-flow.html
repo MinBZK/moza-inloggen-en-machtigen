@@ -15,6 +15,8 @@
     .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); background: #f8f9fb; border: 1px solid #dde1e6; }
     .canvas > svg { display: block; }
     .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+    .canvas { cursor: grab; }
+    .canvas.pannen, .canvas.pannen [data-node] { cursor: grabbing; user-select: none; }
     .canvas [data-node] { cursor: pointer; }
     .canvas [data-node]:focus { outline: none; }
     .canvas [data-node]:focus-visible .vorm { stroke: #1f5fa8; stroke-width: 3; }
@@ -53,6 +55,8 @@
     [data-inlog="uit"] { background: #e3e6ea; color: #39424d; }
     [data-inlog="bezig"] { background: #ffe7c2; color: #7a4100; }
     [data-inlog="in"] { background: #d7f0dd; color: #1d5a33; }
+    #dl-paneel .att-bronbalk a { color: #fff; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+    #dl-paneel .att-bronbalk a:hover { color: #ffb612; }
     #dl-paneel .att-inhoud a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
     #dl-paneel .att-inhoud a:hover { color: #ffb612; }
     #dl-paneel a:focus-visible, #dl-paneel button:focus-visible { outline: 2px solid #ffb612; outline-offset: 2px; }
@@ -259,8 +263,8 @@ const NODES = {
     punten: ['Bij meerdere ondernemingen kiest de ondernemer eerst namens welke onderneming die verder gaat.'] },
   kies: { type: 'taak', col: 10, row: 1, groep: 'MOZa', label: 'Kies een onderneming', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'De ondernemer kiest de onderneming, zoals je op het platform een organisatie kiest.',
-    punten: ['[Bekijk het voorbeeldscherm op het platform](https://toon.rijks.app/moza-regelrecht/moza-vragen/#/kies-organisatie)'],
-    bron: 'Voorbeeld: scherm "Kies organisatie" op het MOZa platform (moza-vragen).' },
+    prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/kies-organisatie',
+    bron: 'Scherm "Kies organisatie" uit het prototype van het MOZa platform (moza-vragen), november 2026.' },
   eh: { type: 'taak', col: 7, row: 2, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Inloggen namens de onderneming via een herkenningsmakelaar.',
     punten: ['MOZa krijgt het KVK-nummer en het betrouwbaarheidsniveau.', 'Zie [eHerkenning](eherkenning.html).'] },
@@ -406,6 +410,30 @@ function kiesbaar(el, fn) {
   el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); fn(); } });
 }
 
+// Pannen: met de muis slepen schuift het schema (horizontaal en verticaal). Een klik op een stap blijft werken;
+// pas na een paar pixels slepen wordt het pannen, en dan telt de klik niet. Aanraakschermen scrollen zelf al.
+function pannen(el) {
+  let start = null, bewogen = false;
+  el.addEventListener('pointerdown', ev => {
+    if (ev.pointerType === 'touch' || ev.button !== 0) return;
+    start = { x: ev.clientX, y: ev.clientY, l: el.scrollLeft, t: el.scrollTop, id: ev.pointerId };
+    bewogen = false;
+  });
+  el.addEventListener('pointermove', ev => {
+    if (!start || ev.pointerId !== start.id) return;
+    const dx = ev.clientX - start.x, dy = ev.clientY - start.y;
+    if (!bewogen && Math.hypot(dx, dy) < 5) return;
+    if (!bewogen) { bewogen = true; el.classList.add('pannen'); el.setPointerCapture(ev.pointerId); schuifId++; }
+    el.scrollLeft = start.l - dx; el.scrollTop = start.t - dy;
+  });
+  const stop = () => { start = null; el.classList.remove('pannen'); };
+  el.addEventListener('pointerup', stop);
+  el.addEventListener('pointercancel', stop);
+  // na pannen geen klik op de stap waar je losliet
+  el.addEventListener('click', ev => { if (bewogen) { ev.stopPropagation(); ev.preventDefault(); bewogen = false; } }, true);
+}
+document.querySelectorAll('.canvas').forEach(pannen);
+
 /* ---------------- toestand ---------------- */
 let pad = [START];
 let open = false;
@@ -463,7 +491,9 @@ function renderPaneel() {
   inhoud.scrollTop = 0;
   herstart(inhoud, 'wissel');
   paneel.querySelectorAll('[data-kies]').forEach(b => b.addEventListener('click', () => ga([...pad, b.dataset.kies])));
-  paneel.querySelector('.att-bronbalk').innerHTML = n.bron ? md(n.bron) : '';
+  // Onderin het paneel: de bron van het scherm en een link naar het prototype (ter referentie)
+  paneel.querySelector('.att-bronbalk').innerHTML = [n.bron ? md(n.bron) : '',
+    n.prototype ? `<a href="${esc(n.prototype)}" target="_blank" rel="noopener">Bekijk dit scherm in het prototype ↗</a>` : ''].filter(Boolean).join(' ');
   paneel.querySelector('.dl-tekst').textContent = `Stap ${pad.length} · ← → bladeren · Esc sluit`;
   paneel.querySelector('[data-dl="vorige"]').disabled = pad.length < 2;
   paneel.querySelector('[data-dl="volgende"]').disabled = opties.length !== 1;
