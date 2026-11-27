@@ -91,7 +91,7 @@
     .att-voet .dl-tekst { flex: 1; }
     /* Rechts: kop, het scherm en de flow */
     #dl-rechts { display: flex; flex-direction: column; gap: 12px; min-width: 0; min-height: 0; box-sizing: border-box;
-      padding: 20px 32px 16px; background: #eef1f5; }
+      padding: 20px 32px 16px; background: #eef1f5; color-scheme: light; }
     .gs-kop { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
       font-size: 14px; font-weight: 600; color: #39424d; }
     .gs-kop span { color: #66707c; font-weight: 400; }
@@ -120,8 +120,10 @@
       gap: 8px; padding: 24px; text-align: center; color: #66707c; font-size: 15px; }
     .gs-leeg strong { color: #39424d; font-size: 20px; }
     .gs-leeg svg { color: #a3acb7; }
-    .gs-flowkop { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: -4px;
+    .gs-flowkop { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: -4px;
       font-size: 13px; font-weight: 600; color: #4a5562; text-transform: uppercase; letter-spacing: .04em; }
+    .gs-flowkop > span { flex: 1 1 120px; }
+    .gs-flowacties { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 12px; }
     .gs-knop { font: inherit; font-size: 14px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #154273; cursor: pointer;
       background: #fff; border: 1px solid #b8c2cf; border-radius: 999px; padding: 6px 14px; }
     .gs-knop:hover { background: #dae8fc; border-color: #1f5fa8; }
@@ -183,7 +185,7 @@
       <nldd-spacer size="32"></nldd-spacer>
       <nldd-title size="4"><h2>Ontwerp</h2><p slot="supporting-text">De flow hangt af van hoe het platform is ontworpen. Kies het ontwerp dat je wilt bekijken.</p></nldd-title>
       <nldd-spacer size="12"></nldd-spacer>
-      <nldd-segmented-control id="ontwerp-keuze" value="ontwerp-1" width="fit-content" aria-label="Ontwerp">
+      <nldd-segmented-control id="ontwerp-keuze" class="ontwerp-keuze" value="ontwerp-1" width="fit-content" aria-label="Ontwerp">
         <nldd-segmented-control-item value="ontwerp-1" text="Ontwerp 1"></nldd-segmented-control-item>
         <nldd-segmented-control-item value="betaaloverzicht" text="Conform Mijnbetaaloverzicht"></nldd-segmented-control-item>
         <nldd-segmented-control-item value="souverein" text="Souverein"></nldd-segmented-control-item>
@@ -250,7 +252,7 @@
   <div id="dl-rechts">
     <div class="gs-kop"><div class="gs-stap" aria-hidden="true"></div><div class="gs-inlog" role="status"></div></div>
     <div class="gs-vlak" tabindex="0" aria-label="Scherm bij de actieve stap"></div>
-    <div class="gs-flowkop"><span>Waar je bent in de flow</span><button type="button" class="gs-knop" data-dl="overzicht" title="Toets O">Hele flow (overzicht)</button></div>
+    <div class="gs-flowkop"><span>Waar je bent in de flow</span><div class="gs-flowacties"><nldd-segmented-control id="dl-ontwerp" class="ontwerp-keuze" size="sm" width="fit-content" aria-label="Ontwerp"></nldd-segmented-control><button type="button" class="gs-knop" data-dl="overzicht" title="Toets O">Hele flow (overzicht)</button></div></div>
     <div class="canvas" id="dl-flow" role="group" aria-label="Het gekozen pad door de flow, met de volgende keuzes"></div>
   </div>
 </div>
@@ -863,7 +865,8 @@ function leesHash() {
   const o = h.match(/ontwerp=([^&]+)/);
   ontwerp = o && ONTWERPEN[o[1]] ? o[1] : ONTWERP_STD;
   const m = h.match(/pad=([^&]+)/);
-  if (m && ONTWERPEN[ontwerp].klaar) {
+  if (m && !ONTWERPEN[ontwerp].klaar) { pad = [START]; open = true; }
+  else if (m) {
     const ids = m[1].split(',').filter(id => NODES[id]);
     const geldig = ids.length && ids[0] === START && ids.every((id, i) => i === 0 || opties(ids[i - 1], ids.slice(0, i)).some(e => e.to === id));
     pad = overSamenkomst(geldig ? ids : [START]);
@@ -1100,16 +1103,40 @@ function render() {
   const wasOpen = document.body.classList.contains('doorlopen');
   document.body.classList.toggle('doorlopen', open);
   doorloop.setAttribute('aria-hidden', String(!open));
-  if (open) {
-    renderPaneel(); renderScherm(); renderFlow(wasOpen);
+  if (open && !ONTWERPEN[ontwerp].klaar) {
+    renderOntwerp(); renderNietUitgewerkt();
+    if (!wasOpen) paneel.focus({ preventScroll: true });
+  } else if (open) {
+    renderOntwerp(); renderPaneel(); renderScherm(); renderFlow(wasOpen);
     if (!wasOpen) paneel.focus({ preventScroll: true });
   } else { getekend = []; renderOntwerp(); if (ONTWERPEN[ontwerp].klaar) renderOverzicht(); }
 }
 // Het gekozen ontwerp: een niet-uitgewerkt ontwerp toont een plaatshouder in plaats van de flow
+// Een ontwerp dat nog niet is uitgewerkt, tijdens het doorlopen: paneel, scherm en flow tonen een plaatshouder
+function renderNietUitgewerkt() {
+  const o = ONTWERPEN[ontwerp];
+  paneel.querySelector('.att-inhoud').innerHTML = `
+    <p class="att-label">MOZa platform · inloggen en machtigen · ontwerp</p>
+    <h2 class="att-titel">${esc(o.naam)}<span>Nog niet uitgewerkt</span></h2>
+    <p class="att-lead">${esc(o.uitleg)} De stappen en schermen voor dit ontwerp volgen nog.</p>
+    <p class="att-lead">Kies rechts onderin een ander ontwerp om de flow te doorlopen.</p>`;
+  paneel.querySelector('.dl-keuzevak').innerHTML = '';
+  paneel.querySelector('.att-bronbalk').innerHTML = '';
+  paneel.querySelector('.dl-tekst').textContent = 'Esc sluit';
+  ['vorige', 'volgende', 'opnieuw'].forEach(k => { paneel.querySelector(`[data-dl="${k}"]`).disabled = true; });
+  document.querySelector('#dl-rechts .gs-stap').innerHTML = `Ontwerp <span>· ${esc(o.naam)}</span>`;
+  const inlog = document.querySelector('#dl-rechts .gs-inlog');
+  inlog.dataset.inlog = 'uit'; inlog.innerHTML = '';
+  const vlak = document.querySelector('#dl-rechts .gs-vlak');
+  vlak.innerHTML = `<div class="gs-leeg"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><strong>${esc(o.naam)}</strong>Dit ontwerp is nog niet uitgewerkt</div>`;
+  herstart(vlak, 'wissel');
+  document.getElementById('dl-flow').innerHTML = '';
+  getekend = [];
+}
 function renderOntwerp() {
   const o = ONTWERPEN[ontwerp];
-  const keuze = document.getElementById('ontwerp-keuze');
-  if (keuze.value !== ontwerp) keuze.value = ontwerp;
+  document.querySelectorAll('.ontwerp-keuze').forEach(k => { if (k.value !== ontwerp) k.value = ontwerp; });
+  paneel.querySelector('[data-dl="opnieuw"]').disabled = false;
   document.querySelector('#overzicht-titel h2').textContent = o.klaar ? 'De hele flow' : 'De hele flow: ' + o.naam;
   document.querySelector('#overzicht-titel p').hidden = !o.klaar;
   const leeg = document.getElementById('ontwerp-leeg');
@@ -1120,11 +1147,15 @@ function renderOntwerp() {
   const knop = document.getElementById('doorloop-start');
   knop.toggleAttribute('disabled', !o.klaar);
 }
-document.getElementById('ontwerp-keuze').addEventListener('change', ev => {
+// Dezelfde ontwerpkeuze staat ook boven de flow tijdens het doorlopen
+document.getElementById('dl-ontwerp').innerHTML = document.getElementById('ontwerp-keuze').innerHTML;
+document.querySelectorAll('.ontwerp-keuze').forEach(k => k.addEventListener('change', ev => {
   const v = ev.detail?.value ?? ev.target.value;
   if (!ONTWERPEN[v] || v === ontwerp) return;
-  ontwerp = v; schrijfHash(); render();
-});
+  ontwerp = v;
+  if (open && ONTWERPEN[v].klaar) getekend = [];
+  schrijfHash(); render();
+}));
 
 document.getElementById('doorloop-start').addEventListener('click', () => ga(pad));
 paneel.querySelector('[data-dl="sluit"]').addEventListener('click', sluit);
@@ -1148,6 +1179,7 @@ document.addEventListener('keydown', ev => {
     if (ev.key === 'P' && ev.shiftKey && !ev.metaKey && !ev.ctrlKey && !ev.altKey && ONTWERPEN[ontwerp].klaar) { ev.preventDefault(); ga(pad); }
     return;
   }
+  if (!ONTWERPEN[ontwerp].klaar) { if (ev.key === 'Escape') sluit(); return; }
   const volgende = opties(pad[pad.length - 1]);
   if (ev.key === 'Escape') sluit();
   else if (ev.key === 'o' || ev.key === 'O') naarOverzicht();
