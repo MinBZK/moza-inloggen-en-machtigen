@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bron van de overige MOZa-schermen in de flow (platform-flow.html), in de stijl van het MOZa-prototype.
+       Kies het scherm met ?s=<naam>; elementen met data-keuze worden hotspots.
+       Vastleggen: node schermen/bron/vastleggen.mjs "moza-schermen.html?s=email" platform-email -->
+  <title>MijnOverheid Zakelijk</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Alleen voor deze nagebouwde schermen: e-mail, zoekresultaten, chat en QR-code hebben geen NLDD-component */
+    .mail { border: 1px solid #d5dae1; border-radius: 12px; overflow: hidden; }
+    .mail-kop { padding: 16px 20px; background: #f4f6f8; border-bottom: 1px solid #d5dae1; font-size: 14px; line-height: 1.6; color: #39424d; }
+    .mail-kop b { color: #1a1a2e; }
+    .mail-body { padding: 24px 20px; }
+    .zoekbalk { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border: 1px solid #c4ccd6; border-radius: 999px; font-size: 17px; color: #1a1a2e; }
+    .resultaat { padding: 14px 0; border-bottom: 1px solid #eef0f3; }
+    .resultaat small { display: block; color: #4a5562; font-size: 13px; }
+    .resultaat a { font-size: 19px; color: #1a4fa0; text-decoration: none; }
+    .resultaat p { margin: 4px 0 0; color: #39424d; font-size: 15px; line-height: 1.5; }
+    .bel { max-width: 85%; padding: 14px 18px; border-radius: 16px; font-size: 15px; line-height: 1.55; }
+    .bel-ik { margin-left: auto; background: #154273; color: #fff; border-bottom-right-radius: 4px; }
+    .bel-ai { background: #f1f3f6; color: #1a1a2e; border-bottom-left-radius: 4px; }
+    .bel-ai ul { margin: 8px 0; padding-left: 1.2em; }
+    .bron-link { display: inline-flex; gap: 8px; align-items: center; margin-top: 8px; padding: 8px 12px; border: 1px solid #c4ccd6; border-radius: 10px; background: #fff; color: #1a4fa0; font-weight: 600; }
+    .qr { display: block; width: 220px; height: 220px; padding: 12px; border: 1px solid #d5dae1; border-radius: 12px; background: #fff; }
+  </style>
+</head>
+<body>
+<nldd-shell background="base">
+  <nldd-page>
+    <nldd-simple-section width="800px" id="inhoud"></nldd-simple-section>
+    <nldd-page-footer>
+      <nldd-page-footer-legal-bar slot="legal-bar">
+        <nldd-page-footer-legal-bar-item slot="start" text="MijnOverheid Zakelijk"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Contact" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Toegankelijkheid" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Over deze website" href="#"></nldd-page-footer-legal-bar-item>
+      </nldd-page-footer-legal-bar>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script>
+  // Een nep-QR-code: vaste vindervierkanten en een vast patroon (geen echte code)
+  function qr(label) {
+    const n = 25, c = 8; let r = '', zaad = 7;
+    const rnd = () => (zaad = (zaad * 9301 + 49297) % 233280) / 233280;
+    const vinder = (x, y) => `<rect x="${x * c}" y="${y * c}" width="${7 * c}" height="${7 * c}" fill="#1a1a2e"/><rect x="${(x + 1) * c}" y="${(y + 1) * c}" width="${5 * c}" height="${5 * c}" fill="#fff"/><rect x="${(x + 2) * c}" y="${(y + 2) * c}" width="${3 * c}" height="${3 * c}" fill="#1a1a2e"/>`;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      const inVinder = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
+      if (!inVinder && rnd() > 0.52) r += `<rect x="${x * c}" y="${y * c}" width="${c}" height="${c}" fill="#1a1a2e"/>`;
+    }
+    return `<svg class="qr" data-keuze="scan" viewBox="0 0 ${n * c} ${n * c}" role="img" aria-label="${label}">${r}${vinder(0, 0)}${vinder(n - 7, 0)}${vinder(0, n - 7)}</svg>`;
+  }
+  const titel = (h, sub, overline) => `<nldd-title size="2">${overline ? `<span slot="overline">${overline}</span>` : ''}<h1>${h}</h1>${sub ? `<p slot="supporting-text">${sub}</p>` : ''}</nldd-title><nldd-spacer size="24"></nldd-spacer>`;
+  const tekst = (html) => `<nldd-rich-text>${html}</nldd-rich-text><nldd-spacer size="24"></nldd-spacer>`;
+  const knop = (t, keuze, appearance = 'primary', icon = '') => `<nldd-button data-keuze="${keuze}" appearance="${appearance}" text="${t}"${icon ? ` end-icon="${icon}"` : ''}></nldd-button>`;
+  const knoppen = (...k) => `<nldd-container layout="wrap" gap="12">${k.join('')}</nldd-container>`;
+  const qrScherm = (overline, h, uitleg, stappen) => titel(h, uitleg, overline) + `
+    <nldd-container layout="row" gap="32" vertical-alignment="center">
+      ${qr('QR-code om in te loggen')}
+      <nldd-rich-text><ol>${stappen.map((s) => `<li>${s}</li>`).join('')}</ol><p>Lukt het niet? <a href="#">Bekijk de hulp bij inloggen</a></p></nldd-rich-text>
+    </nldd-container>`;
+  const doorgeven = (overline, h, uitleg, punten, knoptekst) => titel(h, uitleg, overline) + `
+    <nldd-banner variant="neutral" icon="info-circle" text="U gaat naar de Belastingdienst" supporting-text="MijnOverheid Zakelijk geeft door voor welke onderneming u inlogt. U hoeft dat daar niet opnieuw te kiezen."></nldd-banner>
+    <nldd-spacer size="24"></nldd-spacer>` + tekst(`<ul>${punten.map((p) => `<li>${p}</li>`).join('')}</ul>`) + knoppen(knop(knoptekst, 'verder', 'primary', 'arrow-right-out-bucket'), knop('Terug naar het overzicht', 'terug', 'secondary'));
+
+  const SCHERMEN = {
+    email: () => `
+      <div class="mail">
+        <div class="mail-kop">Van: <b>MijnOverheid Zakelijk</b> &lt;noreply@mijnoverheidzakelijk.nl&gt;<br>Aan: Robin Vogel<br>Onderwerp: <b>U hebt een nieuw bericht van de Belastingdienst</b></div>
+        <div class="mail-body">
+          ${titel('Er staat een nieuw bericht voor u klaar', '', 'Bakkerij De Korenschoof B.V.')}
+          ${tekst('<p>Beste Robin Vogel,</p><p>De Belastingdienst heeft u een bericht gestuurd over de voorlopige aanslag vennootschapsbelasting 2027. In deze e-mail staat om veiligheidsredenen niet wat er in het bericht staat.</p><p>U leest het bericht als u bent ingelogd.</p>')}
+          ${knoppen(knop('Bekijk het bericht in MijnOverheid Zakelijk', 'moza'), knop('Ga naar Mijn Belastingdienst Zakelijk', 'bd', 'secondary'))}
+          <nldd-spacer size="24"></nldd-spacer>
+          ${tekst('<p><small>U krijgt deze e-mail omdat u berichten van de overheid ontvangt via MijnOverheid Zakelijk. Wilt u dit niet meer? Pas uw contactvoorkeuren aan.</small></p>')}
+        </div>
+      </div>`,
+    start: () => titel('Alles voor uw onderneming op één plek', 'Berichten, taken en machtigingen van de overheid. Voor uw eenmanszaak, bedrijf of organisatie.', 'MijnOverheid Zakelijk') + `
+      <nldd-container layout="grid" column-count="3" sm-column-count="1" gap="16">
+        ${[['envelope', 'Berichten', 'Van de Belastingdienst, KVK, UWV en meer.'], ['check-list', 'Taken', 'Wat u wanneer moet regelen.'], ['key', 'Machtigingen', 'Wie namens uw onderneming mag handelen.']].map(([i, t, s]) => `
+        <nldd-box background="tinted"><nldd-container padding="16" gap="8"><nldd-icon icon="${i}" color="accent" size="24"></nldd-icon><nldd-title size="5"><h2>${t}</h2><p slot="supporting-text">${s}</p></nldd-title></nldd-container></nldd-box>`).join('')}
+      </nldd-container>
+      <nldd-spacer size="32"></nldd-spacer>` + knoppen(knop('Inloggen', 'inloggen', 'primary', 'arrow-right-out-bucket')),
+    ziek: () => titel('Werknemer ziek melden', 'Wat u als werkgever regelt als een werknemer ziek is.', 'MijnOverheid Zakelijk') + tekst(`
+      <p>Is een werknemer ziek? Dan meldt u dat eerst bij uw arbodienst of bedrijfsarts. Duurt het verzuim lang, dan meldt u het ook bij UWV.</p>
+      <ul><li>Wat u in de eerste week regelt</li><li>Wanneer u UWV inschakelt</li><li>Welke regelingen u kunnen helpen</li></ul>
+      <p>Log in om te zien wat er voor uw onderneming klaarstaat, en om de melding te doen.</p>`) + knoppen(knop('Inloggen om ziek te melden', 'inloggen', 'primary', 'arrow-right-out-bucket')),
+    zoekmachine: () => `
+      <div class="zoekbalk"><nldd-icon icon="magnifier" size="20"></nldd-icon>personeel aannemen met arbeidsbeperking subsidie</div>
+      <nldd-spacer size="16"></nldd-spacer>
+      <div class="resultaat" data-keuze="onp"><small>ondernemersplein.kvk.nl</small><a href="#">Personeel aannemen met een arbeidsbeperking | Ondernemersplein</a><p>Er zijn regelingen die de loonkosten verlagen en het risico bij ziekte beperken. Beantwoord drie vragen en zie wat het u oplevert.</p></div>
+      <div class="resultaat"><small>uwv.nl</small><a href="#">Werkgevers: iemand met een arbeidsbeperking in dienst nemen | UWV</a><p>Loonkostenvoordeel, no-riskpolis en ondersteuning op de werkplek.</p></div>
+      <div class="resultaat"><small>rijksoverheid.nl</small><a href="#">Banenafspraak en doelgroepregister | Rijksoverheid.nl</a><p>Wat de banenafspraak is en wie in het doelgroepregister staat.</p></div>`,
+    aitool: () => `
+      <nldd-title size="4"><span slot="overline">AI-assistent</span><h1>Nieuw gesprek</h1></nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-container gap="16">
+        <div class="bel bel-ik">Ik heb een bakkerij en wil iemand met een arbeidsbeperking aannemen. Welke regelingen zijn er?</div>
+        <div class="bel bel-ai">Daar zijn een paar regelingen voor. Welke gelden, hangt af van de kandidaat:
+          <ul><li><b>Loonkostensubsidie</b> van de gemeente</li><li><b>Loonkostenvoordeel</b>, tot drie jaar lang</li><li><b>No-riskpolis</b> van UWV bij ziekte</li><li>Jobcoaching en werkplekaanpassing</li></ul>
+          Op het Ondernemersplein van KVK ziet u met drie vragen wat het u oplevert:<br>
+          <span class="bron-link" data-keuze="onp"><nldd-icon icon="link" size="16"></nldd-icon>Ondernemersplein: personeel aannemen met een arbeidsbeperking</span>
+        </div>
+      </nldd-container>`,
+    wallet: () => qrScherm('Inloggen bij MijnOverheid Zakelijk', 'Inloggen met uw persoonlijke wallet', 'Scan de QR-code met de wallet-app op uw telefoon.', ['Open de wallet-app op uw telefoon.', 'Scan de QR-code.', 'Deel uw persoonsgegevens met MijnOverheid Zakelijk.']),
+    ebw: () => qrScherm('Inloggen bij MijnOverheid Zakelijk', 'Inloggen met de European Business Wallet', 'Scan de QR-code met de wallet van uw onderneming.', ['Open de European Business Wallet.', 'Scan de QR-code.', 'Deel de gegevens van de onderneming en uw bevoegdheid.']),
+    geen: () => titel('Geen onderneming gevonden', 'Ingelogd als Robin Vogel', 'MijnOverheid Zakelijk') + `
+      <nldd-banner variant="warning" icon="exclamation-triangle" text="We vinden geen onderneming bij uw gegevens" supporting-text="Dat kan als u niet met uw BSN in het Handelsregister staat, bijvoorbeeld als u geen Nederlandse nationaliteit hebt."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>` + tekst('<p>Log opnieuw in met een middel dat laat zien namens welke onderneming u handelt, zoals eHerkenning of de European Business Wallet.</p>') + knoppen(knop('Inloggen met een ander middel', 'ander'), knop('Uitloggen', 'uit', 'secondary')),
+    extra: () => titel('Opnieuw inloggen voor deze dienst', 'Btw-aangifte 3e kwartaal doen', 'Bakkerij De Korenschoof B.V.') + `
+      <nldd-banner variant="accent" icon="info-circle" text="Deze dienst vraagt inlogniveau EH3" supporting-text="U bent ingelogd op een lager niveau. Log bij de Belastingdienst opnieuw in met eHerkenning op niveau EH3 of hoger."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>` + tekst('<p>Na het inloggen gaat u direct verder met de btw-aangifte. U hoeft de onderneming niet opnieuw te kiezen.</p>') + knoppen(knop('Inloggen met eHerkenning', 'verder', 'primary', 'arrow-right-out-bucket'), knop('Annuleren', 'terug', 'secondary')),
+    gebruik: () => doorgeven('Bakkerij De Korenschoof B.V.', 'Btw-aangifte 3e kwartaal doen', 'Dit regelt u bij de Belastingdienst.', ['Controleer de omzet die uw kassa heeft doorgegeven.', 'Vul de voorbelasting aan.', 'Verstuur de aangifte vóór 23 december.'], 'Verder bij de Belastingdienst'),
+    actie: () => doorgeven('Bakkerij De Korenschoof B.V.', 'Voorlopige aanslag aanpassen', 'Uit het bericht van de Belastingdienst van 26 november.', ['Verwacht u een duidelijk hogere of lagere winst over 2027? Dan kunt u de voorlopige aanslag laten aanpassen.', 'Zo voorkomt u dat u later veel moet bijbetalen of lang op een teruggave wacht.'], 'Aanslag aanpassen bij de Belastingdienst'),
+    machtigen: () => titel('Iemand machtigen', 'Geef iemand toestemming om namens uw onderneming te handelen.', 'Bakkerij De Korenschoof B.V.') + `
+      <nldd-container gap="16">
+        <nldd-form-field label="Wie wilt u machtigen?"><nldd-text-field id="wie"></nldd-text-field></nldd-form-field>
+        <nldd-form-field label="Voor welke dienst?"><nldd-dropdown><select><option>Loonaangifte doen (Belastingdienst)</option><option>Btw-aangifte doen (Belastingdienst)</option></select></nldd-dropdown></nldd-form-field>
+        <nldd-form-field label="Hoe lang?"><nldd-dropdown><select><option>Tot u de machtiging intrekt</option><option>Tot een einddatum</option></select></nldd-dropdown></nldd-form-field>
+      </nldd-container>
+      <nldd-spacer size="24"></nldd-spacer>` + knoppen(knop('Machtiging vastleggen', 'vastleggen'), knop('Annuleren', 'terug', 'secondary')),
+    vastgelegd: () => titel('Machtiging vastgelegd', '', 'Bakkerij De Korenschoof B.V.') + `
+      <nldd-banner variant="success" icon="check-mark" text="Bilal Yılmaz is gemachtigd" supporting-text="Hij kan nu namens Bakkerij De Korenschoof B.V. de loonaangifte doen."></nldd-banner>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Machtiging">
+        ${[['Gemachtigde', 'Bilal Yılmaz'], ['Dienst', 'Loonaangifte doen (Belastingdienst)'], ['Geldig', 'Tot u de machtiging intrekt']].map(([k, v]) => `
+        <nldd-list-item><nldd-spacer-cell size="12"></nldd-spacer-cell><nldd-text-cell width="180px" color="secondary" text="${k}"></nldd-text-cell><nldd-text-cell text="**${v}**"></nldd-text-cell></nldd-list-item>`).join('')}
+      </nldd-list>
+      <nldd-spacer size="24"></nldd-spacer>` + knoppen(knop('Naar het overzicht', 'klaar'), knop('Nog iemand machtigen', 'nog', 'secondary')),
+  };
+  const s = new URLSearchParams(location.search).get('s') || 'email';
+  document.getElementById('inhoud').innerHTML = SCHERMEN[s]();
+  customElements.whenDefined('nldd-text-field').then(() => { const w = document.getElementById('wie'); if (w) w.value = 'Bilal Yılmaz'; });
+</script>
+</body>
+</html>

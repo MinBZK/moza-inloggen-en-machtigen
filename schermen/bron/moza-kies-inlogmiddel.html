@@ -15,7 +15,7 @@
 <nldd-shell background="base">
   <nldd-page>
     <nldd-simple-section width="800px">
-      <nldd-link size="sm" href="#" start-icon="chevron-left" text="Terug naar: voor wie logt u in?"></nldd-link>
+      <nldd-link size="sm" href="#" start-icon="chevron-left" text="Terug"></nldd-link>
       <nldd-spacer size="24"></nldd-spacer>
       <nldd-title size="2">
         <span slot="overline" id="segment-naam"></span>
@@ -47,6 +47,7 @@
   const SEGMENT = {
     eenmanszaak: { naam: 'Eenmanszaak', uitleg: 'U bent eigenaar van een eenmanszaak.', middelen: ['digid', 'eh', 'wallet'] },
     bedrijf: { naam: 'Bedrijf of organisatie', uitleg: 'U logt in voor een bedrijf of organisatie, of waar u werkt.', middelen: ['eh', 'ebw'] },
+    opnieuw: { naam: 'Opnieuw inloggen', uitleg: 'DigiD is hiervoor niet genoeg. Log opnieuw in met een middel dat laat zien namens welke onderneming u handelt.', middelen: ['eh', 'ebw'] },
     ander: { naam: 'Voor een andere onderneming', uitleg: 'U bent gemachtigd, bevoegd of als bewindvoerder benoemd.', middelen: ['eh', 'ebw'] },
   };
   const s = SEGMENT[new URLSearchParams(location.search).get('segment')] || SEGMENT.eenmanszaak;

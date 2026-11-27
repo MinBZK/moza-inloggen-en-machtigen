@@ -261,37 +261,54 @@ const NODES = {
     punten: ['Kies de aanleiding om de flow te volgen.'] },
   bericht: { type: 'taak', col: 2, row: 2.5, groep: 'Ondernemer', label: 'E-mail: bericht van de Belastingdienst', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin krijgt een e-mailnotificatie: er staat een bericht van de Belastingdienst voor haar klaar.',
-    punten: ['De e-mail bevat geen inhoud van het bericht, alleen dat er iets klaarstaat.', 'Om het bericht te lezen, gaat Karin naar MOZa of rechtstreeks naar de Belastingdienst.'] },
+    punten: ['De e-mail bevat geen inhoud van het bericht, alleen dat er iets klaarstaat.', 'Om het bericht te lezen, gaat Karin naar MOZa of rechtstreeks naar de Belastingdienst.'],
+    scherm: 'schermen/platform-m-email.png',
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   berichtWaar: { type: 'keuze', col: 3, row: 2.5, groep: 'Ondernemer', label: 'Waar gaat de ondernemer naartoe?', wie: 'de ondernemer', inlog: OPENBAAR,
-    context: 'Na de e-mail kan Karin op twee plekken het bericht lezen.' },
-  belastingdienst: { type: 'taak', col: 4, row: -9.3, groep: 'Belastingdienst', label: 'Inloggen bij Mijn Belastingdienst Zakelijk', wie: 'de ondernemer, bij de Belastingdienst', inlog: ['bezig', 'Bezig met inloggen'],
-    context: 'Karin gaat rechtstreeks naar Mijn Belastingdienst Zakelijk om het bericht te lezen, en logt daar in.',
-    punten: ['Dezelfde inlogstappen als bij MOZa: eerst voor wie, dan het inlogmiddel.'] },
+    context: 'Na de e-mail kan Karin op twee plekken het bericht lezen.',
+    scherm: 'schermen/platform-m-email.png',
+    hotspots: [
+      { x: 20.4, y: 58.4, b: 26.3, h: 5.7, naar: 'segment', label: 'Bekijk het bericht in MijnOverheid Zakelijk' },
+      { x: 47.7, y: 58.4, b: 23.2, h: 5.7, naar: 'segment_bd', label: 'Ga naar Mijn Belastingdienst Zakelijk' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   ziek: { type: 'taak', col: 2, row: 3.5, groep: 'Ondernemer', label: 'Personeel ziek melden', wie: 'de ondernemer', inlog: OPENBAAR,
-    context: 'Bilal Yılmaz, werknemer van Koffiezaak Noon, is ziek. Karin wil hem ziek melden.' },
+    context: 'Bilal Yılmaz, werknemer van Koffiezaak Noon, is ziek. Karin wil hem ziek melden.',
+    scherm: 'schermen/platform-m-ziek.png',
+    hotspots: [
+      { x: 18.8, y: 66.8, b: 20, h: 7.6, naar: 'segment', label: 'Inloggen om ziek te melden' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   aannemen: { type: 'taak', col: 2, row: 4.5, groep: 'Ondernemer', label: 'Oriënteren op iemand aannemen', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin overweegt iemand aan te nemen en wil weten wat daarbij komt kijken.' },
   zoeken: { type: 'keuze', col: 2, row: 5.8, groep: 'Ondernemer', label: 'Hoe zoekt de ondernemer?', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin zoekt uit wat erbij komt kijken als ze iemand aanneemt.' },
   zoekmachine: { type: 'taak', col: 3, row: 5.8, groep: 'Ondernemer', label: 'Zoeken met een zoekmachine', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin zoekt via Google of een andere zoekmachine, bijvoorbeeld op "personeel aannemen met arbeidsbeperking".',
-    punten: ['De zoekmachine wijst naar het Ondernemersplein van KVK.'] },
+    punten: ['De zoekmachine wijst naar het Ondernemersplein van KVK.'],
+    scherm: 'schermen/platform-m-zoekmachine.png',
+    hotspots: [
+      { x: 18.8, y: 20.1, b: 62.5, h: 18, naar: 'ondernemersplein', label: 'Personeel aannemen met een arbeidsbeperking | Ondernemersplein' },
+    ],
+    bron: 'Nagebouwd voorbeeld, geen bestaand product.' },
   aitool: { type: 'taak', col: 3, row: 7.1, groep: 'Ondernemer', label: 'Vragen aan een AI-tool', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin stelt haar vraag aan een AI-tool, zoals een chatassistent.',
-    punten: ['Het antwoord verwijst naar het Ondernemersplein van KVK.'] },
+    punten: ['Het antwoord verwijst naar het Ondernemersplein van KVK.'],
+    scherm: 'schermen/platform-m-aitool.png',
+    hotspots: [
+      { x: 20.2, y: 64.2, b: 37.1, h: 7.2, naar: 'ondernemersplein', label: 'Ondernemersplein: personeel aannemen met een arbeidsbeperking' },
+    ],
+    bron: 'Nagebouwd voorbeeld, geen bestaand product.' },
   ondernemersplein: { type: 'taak', col: 4, row: 5.8, groep: 'KVK', label: 'Ondernemersplein van KVK', wie: 'de ondernemer, op het Ondernemersplein', inlog: OPENBAAR,
     context: 'Op het Ondernemersplein leest Karin welke regelingen er zijn. Met drie vragen ziet ze wat het haar oplevert, en daarna kan ze de aanvraag laten invullen.',
     punten: ['Hiervoor hoeft ze niet in te loggen. Voor de aanvraag logt ze in bij MOZa.'],
     scherm: 'schermen/platform-ondernemersplein.png',
-    hotspots: [{ x: 21.5, y: 88.3, b: 16.2, h: 4.8, naar: 'inloggen', label: 'Bekijk wat het u oplevert' }],
+    hotspots: [{ x: 21.5, y: 88.3, b: 16.2, h: 4.8, naar: 'segment', label: 'Bekijk wat het u oplevert' }],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/ondernemersplein',
     bron: 'Nagebootste pagina van het Ondernemersplein uit het prototype van het MOZa platform (moza-vragen).' },
-  inloggen: { type: 'taak', col: 4, row: 3.5, groep: 'MOZa', label: 'Inloggen bij MOZa', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Bezig met inloggen'],
-    context: 'De ondernemer gaat naar MOZa en logt in.',
-    punten: ['MOZa vraagt eerst voor wie de ondernemer inlogt, daarna met welk inlogmiddel.'] },
   // Segmentatie zoals bij Mijn Belastingdienst Zakelijk: eerst voor wie, dan het inlogmiddel dat daarbij past
-  segment: { type: 'keuze', col: 5, row: 3.5, groep: 'MOZa', label: 'Voor wie logt de ondernemer in?', wie: 'de ondernemer', inlog: ['bezig', 'Bezig met inloggen'],
-    context: 'MOZa vraagt eerst voor wie de ondernemer inlogt, zoals ondernemers dat kennen van Mijn Belastingdienst Zakelijk.',
+  segment: { type: 'keuze', col: 5.0, row: 3.5, groep: 'MOZa', label: 'Inloggen: voor wie logt de ondernemer in?', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Bezig met inloggen'],
+    context: 'De ondernemer gaat naar MOZa en logt in. MOZa vraagt eerst voor wie, zoals ondernemers dat kennen van Mijn Belastingdienst Zakelijk.',
     punten: ['Eerst de soort onderneming, daarna de rol en het inlogmiddel dat daarbij past.', 'Zie ook de tabel "Wie logt in met welk middel" in de [roadmap](roadmap.html).'],
     scherm: 'schermen/platform-inloggen-voor-wie.png',
     hotspots: [
@@ -366,10 +383,21 @@ const NODES = {
     bron: 'Scherm "Kies organisatie" uit het prototype van het MOZa platform (moza-vragen), aangevuld met een gezamenlijk bevoegde onderneming.' },
   geen: { type: 'taak', col: 9.9, row: -3.9, groep: 'MOZa', label: 'Geen ondernemingen gevonden', wie: 'MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'MOZa vindt geen onderneming bij deze persoon.',
-    punten: ['Bijvoorbeeld omdat de persoon niet met een BSN in het Handelsregister staat, zoals een bestuurder zonder Nederlandse nationaliteit.', 'MOZa legt uit waarom en wijst de weg, bijvoorbeeld naar eHerkenning of een machtiging. Hoe dit scherm eruitziet, volgt nog.'] },
+    punten: ['Bijvoorbeeld omdat de persoon niet met een BSN in het Handelsregister staat, zoals een bestuurder zonder Nederlandse nationaliteit.', 'MOZa legt uit waarom en wijst de weg, bijvoorbeeld naar eHerkenning of een machtiging. Hoe dit scherm eruitziet, volgt nog.'],
+    scherm: 'schermen/platform-m-geen.png',
+    hotspots: [
+      { x: 18.8, y: 65, b: 20, h: 8, naar: 'anderMiddel', label: 'Inloggen met een ander middel' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   anderMiddel: { type: 'keuze', col: 9.9, row: -1.3, groep: 'MOZa', label: 'Met welk middel opnieuw inloggen?', wie: 'de ondernemer', inlog: ['bezig', 'Ingelogd als persoon'],
-    context: 'Voor een onderneming waarvoor de ondernemer gezamenlijk bevoegd is, is DigiD niet genoeg.',
-    punten: ['De ondernemer logt opnieuw in, met eHerkenning of de European Business Wallet.'] },
+    context: 'DigiD is niet genoeg: de ondernemer is gezamenlijk bevoegd, of MOZa vond geen onderneming.',
+    punten: ['De ondernemer logt opnieuw in, met eHerkenning of de European Business Wallet.'],
+    scherm: 'schermen/platform-inlogmiddel-opnieuw.png',
+    hotspots: [
+      { x: 19.1, y: 40.4, b: 61.9, h: 10.8, naar: 'ehKies', label: 'eHerkenning' },
+      { x: 19.1, y: 51.2, b: 61.9, h: 10.6, naar: 'ebwKies', label: 'European Business Wallet' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   ehKies: { type: 'taak', col: 11.1, row: -1.3, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'De ondernemer logt opnieuw in, nu met eHerkenning, voor de onderneming waarvoor die gezamenlijk bevoegd is.',
     punten: ['MOZa stuurt de ondernemer door naar de inlogpagina van eHerkenning.', 'Uit de machtiging bij eHerkenning blijkt dat de ondernemer namens deze onderneming mag handelen.'],
@@ -378,7 +406,12 @@ const NODES = {
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   ebwKies: { type: 'taak', col: 11.1, row: -2.6, groep: 'EBW', label: 'Inloggen met de EBW', wie: 'de ondernemer, met de European Business Wallet', inlog: ['bezig', 'Bezig met inloggen met de EBW'],
     context: 'De ondernemer logt opnieuw in, nu met de European Business Wallet van de onderneming.',
-    punten: ['De EBW laat zien dat de ondernemer namens deze onderneming mag handelen.', 'Zie [wallets](ebw.html).'] },
+    punten: ['De EBW laat zien dat de ondernemer namens deze onderneming mag handelen.', 'Zie [wallets](ebw.html).'],
+    scherm: 'schermen/platform-m-ebw.png',
+    hotspots: [
+      { x: 18.8, y: 30.4, b: 13.3, h: 41.6, naar: 'samen', label: 'QR-code scannen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   ehE: { type: 'taak', col: 7.5, row: 1, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de eigenaar, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Ook de eigenaar van een eenmanszaak kan met eHerkenning inloggen.',
     punten: ['MOZa krijgt het KVK-nummer en het betrouwbaarheidsniveau.', 'Zie [eHerkenning](eherkenning.html).'],
@@ -387,7 +420,12 @@ const NODES = {
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   wallet: { type: 'taak', col: 7.5, row: 2, groep: 'Wallet', label: 'Inloggen met wallet', wie: 'de ondernemer, met de wallet', inlog: ['bezig', 'Bezig met inloggen met de wallet'],
     context: 'De ondernemer logt in als persoon met de persoonlijke wallet (EDI-wallet). De wallet deelt de persoonsgegevens (PID), met het BSN.',
-    punten: ['In de persoonlijke wallet staan geen attestaties van KVK. MOZa zoekt de ondernemingen daarna op bij KVK, net als bij DigiD.', 'Zie [wallets](ebw.html).'] },
+    punten: ['In de persoonlijke wallet staan geen attestaties van KVK. MOZa zoekt de ondernemingen daarna op bij KVK, net als bij DigiD.', 'Zie [wallets](ebw.html).'],
+    scherm: 'schermen/platform-m-wallet.png',
+    hotspots: [
+      { x: 18.8, y: 30.4, b: 13.3, h: 41.6, naar: 'aantal', label: 'QR-code scannen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   // Bedrijf of organisatie
   ehB: { type: 'taak', col: 7.5, row: 3, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Inloggen namens het bedrijf via een herkenningsmakelaar.',
@@ -397,7 +435,12 @@ const NODES = {
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   ebwB: { type: 'taak', col: 7.5, row: 4, groep: 'EBW', label: 'Inloggen met de EBW', wie: 'de ondernemer, met de European Business Wallet', inlog: ['bezig', 'Bezig met inloggen met de EBW'],
     context: 'Inloggen namens het bedrijf met de European Business Wallet.',
-    punten: ['De EBW deelt de gegevens van de onderneming en de bevoegdheid van wie inlogt.', 'Zie [wallets](ebw.html).'] },
+    punten: ['De EBW deelt de gegevens van de onderneming en de bevoegdheid van wie inlogt.', 'Zie [wallets](ebw.html).'],
+    scherm: 'schermen/platform-m-ebw.png',
+    hotspots: [
+      { x: 18.8, y: 30.4, b: 13.3, h: 41.6, naar: 'samen', label: 'QR-code scannen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   // Fiscale eenheid
   ehF: { type: 'taak', col: 7.5, row: 5, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de fiscale eenheid, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Een fiscale eenheid (moeder- en dochtermaatschappij) logt in met eHerkenning.',
@@ -413,7 +456,12 @@ const NODES = {
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   ebwA: { type: 'taak', col: 7.5, row: 7, groep: 'EBW', label: 'Inloggen met de EBW', wie: 'de gemachtigde, met de European Business Wallet', inlog: ['bezig', 'Bezig met inloggen met de EBW'],
     context: 'De gemachtigde krijgt een machtiging vanuit de EBW van de andere onderneming.',
-    punten: ['Gepland met EBW R4 in de [roadmap](roadmap.html).'] },
+    punten: ['Gepland met EBW R4 in de [roadmap](roadmap.html).'],
+    scherm: 'schermen/platform-m-ebw.png',
+    hotspots: [
+      { x: 18.8, y: 30.4, b: 13.3, h: 41.6, naar: 'samen', label: 'QR-code scannen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   // Ingelogd
   samen: { type: 'samen', col: 12.2, row: 3.5, groep: 'MOZa', label: 'Ingelogd', wie: 'MOZa', inlog: NAMENS,
     context: 'Alle inlogroutes komen hier samen.',
@@ -446,16 +494,36 @@ const NODES = {
     context: 'Vraagt de dienst een hoger betrouwbaarheidsniveau dan waarmee de ondernemer is ingelogd?' },
   extra: { type: 'taak', col: 17.2, row: 2.5, groep: 'Dienstverlener', label: 'Inloggen bij de dienstverlener', wie: 'de ondernemer, bij de dienstverlener', inlog: ['bezig', 'Bezig met inloggen bij de dienstverlener'],
     context: 'MOZa is dienstbemiddelaar.',
-    punten: ['De ondernemer logt alleen extra in bij een dienstverlener als dat op dat moment nodig is, op het niveau dat de dienst vraagt.'] },
+    punten: ['De ondernemer logt alleen extra in bij een dienstverlener als dat op dat moment nodig is, op het niveau dat de dienst vraagt.'],
+    scherm: 'schermen/platform-m-extra.png',
+    hotspots: [
+      { x: 18.8, y: 65, b: 19.3, h: 8, naar: 'gebruik', label: 'Inloggen met eHerkenning' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   gebruik: { type: 'taak', col: 18.2, row: 2.5, groep: 'Dienstverlener', label: 'Dienst gebruiken', wie: 'de ondernemer, bij de dienstverlener', inlog: NAMENS,
-    context: 'De ondernemer regelt de zaak bij de dienstverlener.' },
+    context: 'De ondernemer regelt de zaak bij de dienstverlener.',
+    scherm: 'schermen/platform-m-gebruik.png',
+    hotspots: [
+      { x: 18.8, y: 68.1, b: 20.5, h: 7.3, naar: 'klaar', label: 'Verder bij de Belastingdienst' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   klaar: { type: 'einde', col: 19.2, row: 2.5, groep: 'Dienstverlener', label: 'Zaak geregeld', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
   machtig: { type: 'taak', col: 15.2, row: 4.5, groep: 'MOZa', label: 'Kies persoon en dienst', wie: 'de ondernemer, bij MOZa', inlog: NAMENS,
-    context: 'Karin machtigt bijvoorbeeld Bilal Yılmaz voor de loonaangifte.' },
+    context: 'Karin machtigt bijvoorbeeld Bilal Yılmaz voor de loonaangifte.',
+    scherm: 'schermen/platform-m-machtigen.png',
+    hotspots: [
+      { x: 18.8, y: 68.6, b: 14.9, h: 7.2, naar: 'vastleggen', label: 'Machtiging vastleggen' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   vastleggen: { type: 'taak', col: 16.2, row: 4.5, groep: 'MOZa', label: 'Machtiging vastleggen', wie: 'MOZa', inlog: NAMENS,
     context: 'MOZa legt de machtiging vast.',
-    punten: ['Bilal kan daarna namens Koffiezaak Noon inloggen.'] },
+    punten: ['Bilal kan daarna namens Koffiezaak Noon inloggen.'],
+    scherm: 'schermen/platform-m-vastgelegd.png',
+    hotspots: [
+      { x: 18.8, y: 67.6, b: 12.5, h: 7.4, naar: 'actief', label: 'Naar het overzicht' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   actief: { type: 'einde', col: 17.2, row: 4.5, groep: 'MOZa', label: 'Machtiging actief', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
   // Via de e-mail: bericht lezen en de actie uitvoeren
@@ -467,7 +535,12 @@ const NODES = {
     bron: 'Scherm uit het prototype van het MOZa platform (moza-vragen).' },
   actie: { type: 'taak', col: 16.2, row: 1, groep: 'Belastingdienst', label: 'Actie uitvoeren', wie: 'de ondernemer, bij de Belastingdienst', inlog: NAMENS,
     context: 'Karin voert de actie uit die in het bericht staat, bijvoorbeeld een aangifte doen of gegevens aanvullen.',
-    punten: ['MOZa brengt Karin naar de Belastingdienst. Vraagt de actie een hoger inlogniveau, dan logt ze daar extra in.'] },
+    punten: ['MOZa brengt Karin naar de Belastingdienst. Vraagt de actie een hoger inlogniveau, dan logt ze daar extra in.'],
+    scherm: 'schermen/platform-m-actie.png',
+    hotspots: [
+      { x: 18.8, y: 67.7, b: 27.7, h: 7.4, naar: 'uitgevoerd', label: 'Aanslag aanpassen bij de Belastingdienst' },
+    ],
+    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   uitgevoerd: { type: 'einde', col: 17.2, row: 1, groep: 'Belastingdienst', label: 'Actie uitgevoerd', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
 };
@@ -476,17 +549,16 @@ const NODES = {
 const EDGES = [
   ['start', 'aanleiding'],
   ['aanleiding', 'bericht', 'Bericht'], ['aanleiding', 'ziek', 'Ziekmelding'], ['aanleiding', 'aannemen', 'Iemand aannemen'],
-  ['bericht', 'berichtWaar'], ['berichtWaar', 'inloggen', 'MOZa', [[4, 2.5]]], ['berichtWaar', 'belastingdienst', 'Belastingdienst'], ['ziek', 'inloggen'],
+  ['bericht', 'berichtWaar'], ['berichtWaar', 'segment', 'MOZa', [[4.5, 2.5], [4.5, 3.5]]], ['berichtWaar', 'segment_bd', 'Belastingdienst'], ['ziek', 'segment'],
   ['aannemen', 'zoeken'], ['zoeken', 'zoekmachine', 'Zoekmachine'], ['zoeken', 'aitool', 'AI-tool'],
-  ['zoekmachine', 'ondernemersplein'], ['aitool', 'ondernemersplein'], ['ondernemersplein', 'inloggen'],
-  ['inloggen', 'segment'],
+  ['zoekmachine', 'ondernemersplein'], ['aitool', 'ondernemersplein'], ['ondernemersplein', 'segment'],
   ['segment', 'middelE', 'Eenmanszaak'], ['segment', 'middelB', 'Bedrijf of organisatie'],
   ['segment', 'ehF', 'Fiscale eenheid'], ['segment', 'middelA', 'Andere onderneming'],
   ['middelE', 'digid', 'DigiD'], ['middelE', 'ehE', 'eHerkenning'], ['middelE', 'wallet', 'Wallet'],
   ['middelB', 'ehB', 'eHerkenning'], ['middelB', 'ebwB', 'EBW'],
   ['middelA', 'ehA', 'eHerkenning'], ['middelA', 'ebwA', 'EBW'],
   ['digid', 'aantal'],
-  ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'],
+  ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'], ['geen', 'anderMiddel'],
   ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'aantal'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
   ['samen', 'overzicht'], ['overzicht', 'doel'],
@@ -513,7 +585,8 @@ const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aant
     if (n.scherm) delete kopie.bron;
     NODES[id + BD] = kopie;
   }
-  NODES.segment_bd.context = 'Mijn Belastingdienst Zakelijk vraagt eerst voor wie de ondernemer inlogt.';
+  NODES.segment_bd.label = 'Inloggen bij Mijn Belastingdienst Zakelijk: voor wie?';
+  NODES.segment_bd.context = 'Karin gaat rechtstreeks naar Mijn Belastingdienst Zakelijk om het bericht te lezen, en logt daar in. Eerst kiest ze voor wie.';
   NODES.samen_bd.context = 'Alle inlogroutes komen hier samen: de ondernemer is ingelogd bij Mijn Belastingdienst Zakelijk.';
   NODES.lezen_bd = { type: 'taak', col: 13.2, row: 3.5 + SCHUIF, groep: 'Belastingdienst', label: 'Bericht lezen', wie: 'de ondernemer, bij de Belastingdienst',
     inlog: NODES.samen.inlog, context: 'Karin leest het bericht in Mijn Belastingdienst Zakelijk.' };
@@ -524,7 +597,7 @@ const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aant
   const binnen = new Set(INLOGSTAPPEN);
   for (const e of [...EDGES]) if (binnen.has(e.from) && binnen.has(e.to))
     EDGES.push({ ...e, from: e.from + BD, to: e.to + BD, via: e.via && e.via.map(([c, r]) => [c, r + SCHUIF]) });
-  EDGES.push({ from: 'belastingdienst', to: 'segment_bd' }, { from: 'samen_bd', to: 'lezen_bd' }, { from: 'lezen_bd', to: 'actie_bd' }, { from: 'actie_bd', to: 'gelezen_bd' });
+  EDGES.push({ from: 'samen_bd', to: 'lezen_bd' }, { from: 'lezen_bd', to: 'actie_bd' }, { from: 'actie_bd', to: 'gelezen_bd' });
 })();
 
 const START = 'start';
