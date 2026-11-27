@@ -356,10 +356,15 @@ function knoop(id, x, y, stijl, extra = '', cls = '') {
   let vorm = '';
   if (n.type === 'taak') vorm = `<rect class="vorm" x="${x - 68}" y="${y - 30}" width="136" height="60" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-dasharray="${dash}"/>`;
   if (n.type === 'keuze' || n.type === 'samen') {
-    const h = HALF[n.type][1], k = n.type === 'keuze' ? 8 : 6;
-    const kruis = stijl === 'spook' ? '#8a8f96' : n.type === 'keuze' ? '#b46504' : '#7a4f8c';
-    vorm = `<path class="vorm" d="M${x} ${y - h}L${x + h} ${y}L${x} ${y + h}L${x - h} ${y}Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-dasharray="${dash}"/>` +
-      `<path d="M${x - k} ${y - k}L${x + k} ${y + k}M${x + k} ${y - k}L${x - k} ${y + k}" stroke="${kruis}" stroke-width="2.5"/>`;
+    const h = HALF[n.type][1];
+    const kleur = stijl === 'spook' ? '#8a8f96' : n.type === 'keuze' ? '#b46504' : '#7a4f8c';
+    // Keuze: één pad dat zich splitst in twee richtingen. Samenkomst: twee paden die samen verder gaan.
+    const icoon = n.type === 'keuze'
+      ? `<path d="M${x - 12} ${y}H${x - 4}L${x + 4} ${y - 7}M${x - 4} ${y}L${x + 4} ${y + 7}" fill="none" stroke="${kleur}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
+        `<path d="M${x + 9} ${y - 10}L${x + 2} ${y - 9.5}L${x + 7} ${y - 3.5}ZM${x + 9} ${y + 10}L${x + 2} ${y + 9.5}L${x + 7} ${y + 3.5}Z" fill="${kleur}"/>`
+      : `<path d="M${x - 9} ${y - 7}L${x - 2} ${y}L${x - 9} ${y + 7}M${x - 2} ${y}H${x + 5}" fill="none" stroke="${kleur}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
+        `<path d="M${x + 10} ${y}L${x + 4} ${y - 4}L${x + 4} ${y + 4}Z" fill="${kleur}"/>`;
+    vorm = `<path class="vorm" d="M${x} ${y - h}L${x + h} ${y}L${x} ${y + h}L${x - h} ${y}Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-dasharray="${dash}"/>` + icoon;
   }
   if (n.type === 'start' || n.type === 'einde') vorm = `<circle class="vorm" cx="${x}" cy="${y}" r="18" fill="${fill}" stroke="${stroke}" stroke-width="${n.type === 'einde' && stijl !== 'spook' ? Math.max(sw, 3.5) : sw}" stroke-dasharray="${dash}"/>`;
   let tekst = '';
