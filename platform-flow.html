@@ -71,6 +71,14 @@
       background: #ffb612; color: #154273; font-size: 14px; }
     .dl-keuzes span { display: flex; flex-direction: column; font-size: 17px; font-weight: 700; }
     .dl-keuzes small { font-size: 14px; font-weight: 400; color: rgb(255 255 255 / 0.8); }
+    /* De keuzes staan vast onderin het paneel (sticky); de tekst erboven scrolt */
+    .dl-keuzevak { flex: none; padding: 16px 32px; border-top: 1px solid rgb(255 255 255 / 0.25); background: #133b67;
+      box-shadow: 0 -8px 16px rgb(0 0 0 / 0.15); max-height: 45vh; overflow: auto; }
+    .dl-keuzevak:empty { display: none; }
+    .dl-keuzevak .att-kop { margin: 0 0 10px; }
+    .dl-keuzevak .dl-keuzes { margin: 0; gap: 8px; }
+    .dl-keuzevak .dl-keuzes button { padding: 10px 14px; }
+    .dl-keuzevak .dl-hint { margin: 10px 0 0; }
     .att-bronbalk { flex: none; margin: 0; padding: 10px 32px; border-top: 1px solid rgb(255 255 255 / 0.15);
       font-size: 13px; line-height: 1.5; color: rgb(255 255 255 / 0.8); }
     .att-bronbalk:empty { display: none; }
@@ -211,6 +219,7 @@
 <div id="doorloop" aria-hidden="true">
   <aside id="dl-paneel" tabindex="-1" aria-label="Flow doorlopen: MOZa platform, inloggen en machtigen">
     <div class="att-inhoud" aria-live="polite"></div>
+    <div class="dl-keuzevak"></div>
     <p class="att-bronbalk"></p>
     <div class="att-voet">
       <button type="button" data-dl="sluit" aria-label="Sluiten (Esc)">&times;</button>
@@ -674,9 +683,11 @@ function renderPaneel() {
     <p class="att-lead">${md(n.context)}</p>
     ${punten ? `<h3 class="att-kop">Inloggen en machtigen</h3>${punten}` : ''}
     ${(n.achtergrond || []).length ? `<h3 class="att-kop">Achtergrond</h3><ul class="att-punten">${n.achtergrond.map(p => `<li>${md(p)}</li>`).join('')}</ul>` : ''}
-    ${keuzes}
-    ${(n.hotspots || []).length ? `<p class="dl-hint">Tip: klik in het scherm rechts om te kiezen, net als in het prototype.</p>` : ''}`;
+`;
   inhoud.scrollTop = 0;
+  const vak = paneel.querySelector('.dl-keuzevak');
+  vak.innerHTML = keuzes ? keuzes + ((n.hotspots || []).length ? `<p class="dl-hint">Tip: klik in het scherm rechts om te kiezen, net als in het prototype.</p>` : '') : '';
+  if (keuzes) herstart(vak, 'wissel');
   herstart(inhoud, 'wissel');
   paneel.querySelectorAll('[data-kies]').forEach(b => b.addEventListener('click', () => ga([...pad, b.dataset.kies])));
   // Onderin het paneel: de bron van het scherm en een link naar het prototype (ter referentie)
