@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bron van schermen/platform-inlogmiddel-<segment>.png: het MOZa-scherm "Hoe wilt u inloggen?" per segment
+       (?segment=eenmanszaak | bedrijf | ander), het vervolg op "Voor wie logt u in?". Alleen de middelen die bij het
+       segment passen, volgens de tabel "Wie logt in met welk middel" in de roadmap.
+       Vastleggen: node schermen/bron/vastleggen.mjs "moza-kies-inlogmiddel.html?segment=eenmanszaak" platform-inlogmiddel-eenmanszaak -->
+  <title>Inloggen bij MijnOverheid Zakelijk</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+</head>
+<body>
+<nldd-shell background="base">
+  <nldd-page>
+    <nldd-simple-section width="800px">
+      <nldd-link size="sm" href="#" start-icon="chevron-left" text="Terug"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="2">
+        <span slot="overline" id="segment-naam"></span>
+        <h1>Hoe wilt u inloggen?</h1>
+        <p slot="supporting-text" id="uitleg"></p>
+      </nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Inlogmiddelen" id="middelen"></nldd-list>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-banner variant="neutral" size="sm" icon="info-circle" text="Log altijd in met uw eigen inloggegevens. Ook als u voor iemand anders inlogt."></nldd-banner>
+    </nldd-simple-section>
+    <nldd-page-footer>
+      <nldd-page-footer-legal-bar slot="legal-bar">
+        <nldd-page-footer-legal-bar-item slot="start" text="MijnOverheid Zakelijk"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Contact" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Toegankelijkheid" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Over deze website" href="#"></nldd-page-footer-legal-bar-item>
+      </nldd-page-footer-legal-bar>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+<script>
+  const MIDDEL = {
+    digid: { logo: '../../logos/digid.png', naam: 'DigiD', tekst: 'Inloggen als persoon. MOZa zoekt daarna uw onderneming op bij KVK.' },
+    eh: { logo: '../../logos/eherkenning.svg', naam: 'eHerkenning', tekst: 'Inloggen namens de onderneming, met uw eHerkenningsmiddel.' },
+    wallet: { logo: '../../logos/edi-wallet.png', naam: 'Persoonlijke wallet', tekst: 'Inloggen als persoon met uw EDI-wallet. MOZa zoekt daarna uw onderneming op bij KVK.' },
+    ebw: { logo: '../../logos/ebw.png', naam: 'European Business Wallet', tekst: 'Inloggen met de wallet van de onderneming.' },
+  };
+  const SEGMENT = {
+    eenmanszaak: { naam: 'Eenmanszaak', uitleg: 'U bent eigenaar van een eenmanszaak.', middelen: ['digid', 'eh', 'wallet'] },
+    bedrijf: { naam: 'Bedrijf of organisatie', uitleg: 'U logt in voor een bedrijf of organisatie, of waar u werkt.', middelen: ['eh', 'ebw'] },
+    opnieuw: { naam: 'Opnieuw inloggen', uitleg: 'DigiD is hiervoor niet genoeg. Log opnieuw in met een middel dat laat zien namens welke onderneming u handelt.', middelen: ['eh', 'ebw'] },
+    ander: { naam: 'Voor een andere onderneming', uitleg: 'U bent gemachtigd, bevoegd of als bewindvoerder benoemd.', middelen: ['eh', 'ebw'] },
+  };
+  const s = SEGMENT[new URLSearchParams(location.search).get('segment')] || SEGMENT.eenmanszaak;
+  document.getElementById('segment-naam').textContent = s.naam;
+  document.getElementById('uitleg').textContent = s.uitleg;
+  document.getElementById('middelen').innerHTML = s.middelen.map((id) => `
+    <nldd-list-item button data-keuze="${id}">
+      <nldd-spacer-cell size="12"></nldd-spacer-cell>
+      <nldd-cell width="56px" vertical-alignment="center"><img src="${MIDDEL[id].logo}" alt="" style="display:block;width:48px;height:40px;object-fit:contain"></nldd-cell>
+      <nldd-spacer-cell size="8"></nldd-spacer-cell>
+      <nldd-text-cell text="**${MIDDEL[id].naam}**" supporting-text="${MIDDEL[id].tekst}"></nldd-text-cell>
+      <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+    </nldd-list-item>`).join('');
+</script>
+</body>
+</html>

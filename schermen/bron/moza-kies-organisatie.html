@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bron van schermen/platform-kies-organisatie.png: het scherm "Kies een organisatie" uit het MOZa-prototype
+       (moza-vragen), aangevuld met een onderneming waarvoor de ondernemer gezamenlijk bevoegd is.
+       Vastleggen: node schermen/bron/vastleggen.mjs moza-kies-organisatie platform-kies-organisatie -->
+  <title>Kies een organisatie</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+</head>
+<body>
+<nldd-shell background="base">
+  <nldd-page>
+    <nldd-simple-section width="800px">
+      <nldd-title size="2">
+        <h1>Kies een organisatie</h1>
+        <p slot="supporting-text">Ingelogd als Robin Vogel</p>
+      </nldd-title>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Waarvoor u gemachtigd bent</h2></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-rich-text><p>U kunt voor meer dan één organisatie zaken regelen. Kies van welke organisatie u het overzicht wilt zien. Wisselen kan daarna altijd.</p></nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Organisaties">
+        <nldd-list-item button data-keuze="korenschoof">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="apartment-building" color="secondary" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-cell>
+            <nldd-text-cell style="flex-shrink:0" text="Bakkerij De Korenschoof B.V." supporting-text="Bestuurder · KVK 00012345"></nldd-text-cell>
+            <nldd-spacer size="6"></nldd-spacer><nldd-container layout="row" gap="6"><nldd-tag size="sm" color="neutral" text="4 openstaande taken"></nldd-tag><nldd-tag size="sm" color="accent" text="5 nieuwe meldingen"></nldd-tag></nldd-container>
+          </nldd-cell>
+          <nldd-spacer-cell size="flexible"></nldd-spacer-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item button data-keuze="vogel">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="apartment-building" color="secondary" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-cell>
+            <nldd-text-cell style="flex-shrink:0" text="Vogel Beheer B.V." supporting-text="Bestuurder · KVK 00067890"></nldd-text-cell>
+            <nldd-spacer size="6"></nldd-spacer><nldd-container layout="row" gap="6"><nldd-tag size="sm" color="neutral" text="1 openstaande taak"></nldd-tag><nldd-tag size="sm" color="accent" text="1 nieuwe melding"></nldd-tag></nldd-container>
+          </nldd-cell>
+          <nldd-spacer-cell size="flexible"></nldd-spacer-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item button data-keuze="bloesem">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="apartment-building" color="secondary" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-cell>
+            <nldd-text-cell style="flex-shrink:0" text="Kwekerij De Bloesem" supporting-text="Vennoot · KVK 62345681"></nldd-text-cell>
+            <nldd-spacer size="6"></nldd-spacer><nldd-container layout="row" gap="6"><nldd-tag size="sm" color="neutral" text="1 openstaande taak"></nldd-tag><nldd-tag size="sm" color="accent" text="1 nieuwe melding"></nldd-tag></nldd-container>
+          </nldd-cell>
+          <nldd-spacer-cell size="flexible"></nldd-spacer-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Inloggen met een ander middel</h2><p slot="supporting-text">Hiervoor bent u gezamenlijk bevoegd. Log daarom opnieuw in, met eHerkenning of de European Business Wallet.</p></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Inloggen met een ander middel">
+        <nldd-list-item button data-keuze="linde">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="apartment-building" color="secondary" size="24" vertical-alignment="top"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-cell>
+            <nldd-text-cell style="flex-shrink:0" text="Stichting Dorpshuis De Linde" supporting-text="Penningmeester · KVK 00054321"></nldd-text-cell>
+            <nldd-spacer size="6"></nldd-spacer><nldd-container layout="row" gap="6"><nldd-tag size="sm" color="warning" text="Gezamenlijk bevoegd"></nldd-tag></nldd-container>
+          </nldd-cell>
+          <nldd-spacer-cell size="flexible"></nldd-spacer-cell>
+          <nldd-text-cell width="160px" text="Kies inlogmiddel"></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+    <nldd-page-footer>
+      <nldd-page-footer-legal-bar slot="legal-bar">
+        <nldd-page-footer-legal-bar-item slot="start" text="MijnOverheid Zakelijk"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Contact" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Toegankelijkheid" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Over deze website" href="#"></nldd-page-footer-legal-bar-item>
+      </nldd-page-footer-legal-bar>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+</body>
+</html>
