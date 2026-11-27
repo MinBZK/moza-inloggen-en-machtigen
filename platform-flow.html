@@ -265,14 +265,18 @@ const NODES = {
   inloggen: { type: 'taak', col: 4, row: 3.5, groep: 'MOZa', label: 'Inloggen bij MOZa', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Bezig met inloggen'],
     context: 'De ondernemer gaat naar MOZa en logt in.',
     punten: ['MOZa vraagt eerst voor wie de ondernemer inlogt, daarna met welk inlogmiddel.'] },
-  // Segmentatie zoals bij Mijn Belastingdienst Zakelijk: eerst de soort onderneming, dan de rol
-  segment: { type: 'keuze', col: 5, row: 2, groep: 'MOZa', label: 'Voor wie logt de ondernemer in?', wie: 'de ondernemer', inlog: ['bezig', 'Bezig met inloggen'],
-    context: 'MOZa vraagt eerst voor wie de ondernemer inlogt, zoals ondernemers dat kennen van Mijn Belastingdienst Zakelijk.',
-    punten: ['Eerst de soort onderneming, daarna de rol en het inlogmiddel dat daarbij past.', 'Zie ook de tabel "Wie logt in met welk middel" in de [roadmap](roadmap.html).'] },
   // Segmentatie zoals bij Mijn Belastingdienst Zakelijk: eerst voor wie, dan het inlogmiddel dat daarbij past
   segment: { type: 'keuze', col: 5, row: 3.5, groep: 'MOZa', label: 'Voor wie logt de ondernemer in?', wie: 'de ondernemer', inlog: ['bezig', 'Bezig met inloggen'],
     context: 'MOZa vraagt eerst voor wie de ondernemer inlogt, zoals ondernemers dat kennen van Mijn Belastingdienst Zakelijk.',
-    punten: ['Eerst de soort onderneming, daarna de rol en het inlogmiddel dat daarbij past.', 'Zie ook de tabel "Wie logt in met welk middel" in de [roadmap](roadmap.html).'] },
+    punten: ['Eerst de soort onderneming, daarna de rol en het inlogmiddel dat daarbij past.', 'Zie ook de tabel "Wie logt in met welk middel" in de [roadmap](roadmap.html).'],
+    scherm: 'schermen/platform-inloggen-voor-wie.png',
+    hotspots: [
+      { x: 19.1, y: 39, b: 61.9, h: 7.7, naar: 'middelE', label: 'Eenmanszaak' },
+      { x: 19.1, y: 46.6, b: 61.9, h: 7.7, naar: 'middelB', label: 'Bedrijf of organisatie' },
+      { x: 19.1, y: 54.3, b: 61.9, h: 7.5, naar: 'ehF', label: 'Fiscale eenheid' },
+      { x: 19.1, y: 71.9, b: 61.9, h: 7.5, naar: 'middelA', label: 'Voor een andere onderneming' },
+    ],
+    bron: 'Conceptscherm, afgeleid van de inlogpagina van Mijn Belastingdienst Zakelijk (sinds 6 augustus 2026), in de stijl van het MOZa-prototype.' },
   middelE: { type: 'keuze', col: 6.3, row: 1, groep: 'MOZa', label: 'Eenmanszaak: waarmee inloggen?', wie: 'de eigenaar', inlog: ['bezig', 'Bezig met inloggen'],
     context: 'De ondernemer is eigenaar van een eenmanszaak en staat zelf in het Handelsregister.',
     punten: ['Inloggen met DigiD, eHerkenning of de persoonlijke wallet (EDI-wallet).'] },
@@ -407,7 +411,7 @@ const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'kvk'
     for (const veld of ['label', 'wie', 'context']) kopie[veld] = naarBd(n[veld]);
     for (const veld of ['punten', 'achtergrond']) if (n[veld]) kopie[veld] = n[veld].map(naarBd);
     delete kopie.scherm; delete kopie.hotspots; delete kopie.prototype;
-    if (id === 'kies') delete kopie.bron;
+    if (n.scherm) delete kopie.bron;
     NODES[id + BD] = kopie;
   }
   NODES.segment_bd.context = 'Mijn Belastingdienst Zakelijk vraagt eerst voor wie de ondernemer inlogt.';

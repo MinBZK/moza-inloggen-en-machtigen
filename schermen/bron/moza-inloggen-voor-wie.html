@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bron van schermen/platform-inloggen-voor-wie.png: het MOZa-scherm "Voor wie logt u in?", een afgeleide van
+       de inlogpagina van Mijn Belastingdienst Zakelijk (sinds 6 augustus 2026), in de stijl van het
+       MOZa-prototype (moza-vragen). Vastleggen: node schermen/bron/vastleggen.mjs -->
+  <title>Inloggen bij MijnOverheid Zakelijk</title>
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+</head>
+<body>
+<nldd-shell background="base">
+  <nldd-page>
+    <nldd-simple-section width="800px">
+      <nldd-title size="2">
+        <h1>Inloggen bij MijnOverheid Zakelijk</h1>
+        <p slot="supporting-text">Kies eerst voor wie u inlogt. Daarna kiest u hoe u inlogt.</p>
+      </nldd-title>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-banner variant="accent" icon="info-circle" text="Hebt u een eenmanszaak?" supporting-text="Kies dan Eenmanszaak. Daarna logt u in zoals u gewend bent, bijvoorbeeld met DigiD. Hoort uw onderneming bij een fiscale eenheid? Kies dan Fiscale eenheid."></nldd-banner>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Voor wie logt u in?</h2></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Voor wie logt u in?" id="keuzes">
+        <nldd-list-item button data-keuze="eenmanszaak">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="person" color="accent" size="24"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Eenmanszaak**" supporting-text="U bent eigenaar en staat zelf in het Handelsregister."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item button data-keuze="bedrijf">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="apartment-building" color="accent" size="24"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Bedrijf of organisatie**" supporting-text="Bijvoorbeeld uw eigen bedrijf. Of waar u werkt."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+        <nldd-list-item button data-keuze="fiscaal">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="person-2" color="accent" size="24"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Fiscale eenheid**" supporting-text="Voor ondernemingen die als 1 worden gezien, zoals een moeder- en dochtermaatschappij."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
+      <nldd-spacer size="32"></nldd-spacer>
+      <nldd-title size="4"><h2>Inloggen voor een andere onderneming</h2></nldd-title>
+      <nldd-spacer size="12"></nldd-spacer>
+      <nldd-list appearance="box-base" aria-label="Inloggen voor een andere onderneming">
+        <nldd-list-item button data-keuze="ander">
+          <nldd-spacer-cell size="12"></nldd-spacer-cell>
+          <nldd-icon-cell icon="handshake" color="accent" size="24"></nldd-icon-cell>
+          <nldd-spacer-cell size="8"></nldd-spacer-cell>
+          <nldd-text-cell text="**Voor een andere onderneming**" supporting-text="U bent hiervoor gemachtigd, bevoegd of als bewindvoerder benoemd."></nldd-text-cell>
+          <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+        </nldd-list-item>
+      </nldd-list>
+    </nldd-simple-section>
+    <nldd-page-footer>
+      <nldd-page-footer-legal-bar slot="legal-bar">
+        <nldd-page-footer-legal-bar-item slot="start" text="MijnOverheid Zakelijk"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Contact" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Toegankelijkheid" href="#"></nldd-page-footer-legal-bar-item>
+        <nldd-page-footer-legal-bar-item slot="end" text="Over deze website" href="#"></nldd-page-footer-legal-bar-item>
+      </nldd-page-footer-legal-bar>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+</body>
+</html>
