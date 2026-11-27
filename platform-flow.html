@@ -740,7 +740,8 @@ function renderFlow(animeer) {
   let gelijk = 0; while (gelijk < pad.length && gelijk < getekend.length && pad[gelijk] === getekend[gelijk]) gelijk++;
   const nieuw = i => animeer && i >= gelijk && i > 0;
   const keuze = volgende.length > 1, spreiding = volgende.length > 3 ? 66 : 78;
-  const extra = keuze ? Math.max(40, Math.max(...volgende.map(e => (e.label || '').length)) * 6.8 - 50) : 0;
+  const rand0 = HALF[NODES[huidig].type][0];
+  const extra = keuze ? Math.max(40, Math.max(...volgende.map(e => (e.label || '').length)) * 6.8 - 50) + (rand0 - 24) : 0;
   // ruimte voor het label rechts naast een volgende keuze
   const rechts = volgende.some(e => NODES[e.to].type !== 'taak') ? 150 : 0;
   const breedte = (pad.length + (volgende.length ? 1 : 0)) * SW + extra + 40 + rechts;
@@ -760,10 +761,10 @@ function renderFlow(animeer) {
     const yy = y0 + (k - (volgende.length - 1) / 2) * spreiding;
     const xa = x(pad.length - 1), xb = x(pad.length) + extra;
     const pts = keuze && yy !== y0
-      ? [[xa + 24, y0], [xa + 44, y0], [xa + 44, yy], [xb - HALF[NODES[e.to].type][0], yy]]
+      ? [[xa + rand0, y0], [xa + rand0 + 20, y0], [xa + rand0 + 20, yy], [xb - HALF[NODES[e.to].type][0], yy]]
       : route(huidig, e.to, xa, y0, xb, yy);
     s += `<g class="spook" style="--i:${k}">` + lijn(pts, '#8a8f96', 'pg', 1.6, '5 4');
-    if (e.label) s += `<text x="${xa + 54}" y="${yy - 7}" font-size="11.5" font-weight="700" fill="#555">${esc(e.label)}</text>`;
+    if (e.label) s += `<text x="${xa + rand0 + 30}" y="${yy - 7}" font-size="11.5" font-weight="700" fill="#555">${esc(e.label)}</text>`;
     s += knoop(e.to, xb, yy, 'spook', `data-volgende="${e.to}"`) + '</g>';
   });
   s += '</svg>';
