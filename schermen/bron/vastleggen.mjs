@@ -8,9 +8,10 @@ const { chromium } = require(process.env.PLAYWRIGHT || 'playwright');
 const [bron, doel] = process.argv.slice(2);
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 1.25, colorScheme: 'light' });
-await page.goto(`http://localhost:8905/schermen/bron/${bron}.html`, { waitUntil: 'networkidle' });
+await page.goto(`http://localhost:8905/schermen/bron/${bron.includes('.html') ? bron : bron + '.html'}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(800);
-const hoogte = await page.evaluate(() => Math.max(800, document.querySelector('nldd-page')?.scrollHeight || 0, document.body.scrollHeight));
+// Zo hoog als de inhoud: tot onder de footer (niet langer, anders blijft er wit over)
+const hoogte = await page.evaluate(() => Math.ceil(document.querySelector('nldd-page-footer')?.getBoundingClientRect().bottom || 800));
 await page.setViewportSize({ width: 1280, height: Math.min(hoogte, 1000) });
 await page.waitForTimeout(300);
 const maat = page.viewportSize();
