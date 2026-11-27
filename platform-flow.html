@@ -255,7 +255,7 @@ const NODES = {
     punten: ['De e-mail bevat geen inhoud van het bericht, alleen dat er iets klaarstaat.', 'Om het bericht te lezen, gaat Karin naar MOZa of rechtstreeks naar de Belastingdienst.'] },
   berichtWaar: { type: 'keuze', col: 3, row: 2.5, groep: 'Ondernemer', label: 'Waar gaat de ondernemer naartoe?', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Na de e-mail kan Karin op twee plekken het bericht lezen.' },
-  belastingdienst: { type: 'taak', col: 4, row: -6, groep: 'Belastingdienst', label: 'Inloggen bij Mijn Belastingdienst Zakelijk', wie: 'de ondernemer, bij de Belastingdienst', inlog: ['bezig', 'Bezig met inloggen'],
+  belastingdienst: { type: 'taak', col: 4, row: -8, groep: 'Belastingdienst', label: 'Inloggen bij Mijn Belastingdienst Zakelijk', wie: 'de ondernemer, bij de Belastingdienst', inlog: ['bezig', 'Bezig met inloggen'],
     context: 'Karin gaat rechtstreeks naar Mijn Belastingdienst Zakelijk om het bericht te lezen, en logt daar in.',
     punten: ['Dezelfde inlogstappen als bij MOZa: eerst voor wie, dan het inlogmiddel.'] },
   ziek: { type: 'taak', col: 2, row: 3.5, groep: 'Ondernemer', label: 'Personeel ziek melden', wie: 'de ondernemer', inlog: OPENBAAR,
@@ -310,14 +310,15 @@ const NODES = {
     context: 'Inloggen als persoon, met het BSN.',
     punten: ['Hiermee start het portaal (DigiD R1 in de [roadmap](roadmap.html)).', 'MOZa weet daarna wie de ondernemer is, nog niet namens welke onderneming. Die zoekt MOZa op bij KVK.'],
     scherm: 'schermen/platform-digid.png',
-    hotspots: [{ x: 36.3, y: 25.4, b: 27.5, h: 11.3, naar: 'kvk', label: 'Met de DigiD app' }],
+    hotspots: [{ x: 36.3, y: 25.4, b: 27.5, h: 11.3, naar: 'aantal', label: 'Met de DigiD app' }],
     bron: 'DigiD-inlogscherm uit de MOZa proof of concept, in de context van MijnOverheid Zakelijk.' },
-  kvk: { type: 'taak', col: 8.7, row: 0, groep: 'KVK', label: 'MOZa zoekt ondernemingen bij KVK', wie: 'MOZa, bij KVK', inlog: ['bezig', 'Ingelogd als persoon'],
+  aantal: { type: 'keuze', col: 8.7, row: 0, groep: 'MOZa', label: 'Hoeveel ondernemingen?', wie: 'MOZa, bij KVK', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'MOZa zoekt met het BSN in het Handelsregister naar de ondernemingen van deze persoon. Dat heet Zoeken op Natuurlijk Persoon (ZNP).',
     punten: [
       'Alleen actieve inschrijvingen waarbij de persoon eigenaar of functionaris is.',
       'Per KVK-nummer haalt MOZa de functionarissen en hun bevoegdheid op (KVK Dataservice Inschrijving).',
       'In de keuzelijst komen alle ondernemingen waarvoor de persoon eigenaar of bevoegd is. Bij gezamenlijk bevoegd staat erbij dat de ondernemer met een ander middel moet inloggen, zoals eHerkenning of de EBW.',
+      'Bij één onderneming gaat de ondernemer direct verder. Bij meerdere kiest die eerst de onderneming. Vindt MOZa er geen, dan legt MOZa uit waarom.',
     ],
     achtergrond: [
       'ZNP is een aparte autorisatie, aan te vragen bij KVK Dataservice. Het BSN mag MOZa alleen verwerken als dat bij de wettelijke taak hoort.',
@@ -327,23 +328,27 @@ const NODES = {
       '**Architectuurkeuze:** MOZa bevraagt KVK zelf met het BSN, of de inlogvoorziening levert alleen "persoon X handelt namens KVK-nummer Y". Bij die tweede optie verwerkt MOZa geen BSN, wat privacytechnisch netter is. Welke kant het op gaat, is nog open.',
     ],
     bron: 'Bronnen: KVK, [Zoeken op Natuurlijk Persoon](https://www.kvk.nl/zoeken/over-znp/), [KVK Dataservice](https://www.kvk.nl/producten-bestellen/kvk-dataservice), [aansluiten voor overheden](https://www.kvk.nl/producten-bestellen/kvk-dataservice-aansluiten-overheid/) en [autorisaties](https://kvk.nl/en/about-the-business-register/authorisations-to-view-non-public-data).' },
-  aantal: { type: 'keuze', col: 9.9, row: 0, groep: 'MOZa', label: 'Hoeveel ondernemingen?', wie: 'MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
-    context: 'Heeft de ondernemer meer dan één onderneming?',
-    punten: ['Bij meerdere ondernemingen kiest de ondernemer eerst namens welke onderneming die verder gaat.'] },
-  kies: { type: 'taak', col: 11, row: 0, groep: 'MOZa', label: 'Kies een onderneming', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
+  kies: { type: 'taak', col: 9.9, row: 0, groep: 'MOZa', label: 'Kies een onderneming', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'De ondernemer kiest de onderneming, zoals je op het platform een organisatie kiest.',
-    punten: ['Is de ondernemer voor een onderneming gezamenlijk bevoegd, dan staat die er ook in, met de melding dat inloggen voor die onderneming met een ander middel moet, zoals eHerkenning of de EBW.'],
+    punten: ['Ondernemingen waarvoor de ondernemer gezamenlijk bevoegd is, staan in een aparte lijst. Kiest de ondernemer er een, dan gaat die naar de inlogpagina van eHerkenning.'],
     scherm: 'schermen/platform-kies-organisatie.png',
     hotspots: [
-      { x: 19.1, y: 38.6, b: 61.9, h: 9.8, naar: 'samen', label: 'Bakkerij De Korenschoof B.V.' },
-      { x: 19.1, y: 48.4, b: 61.9, h: 9.8, naar: 'samen', label: 'Vogel Beheer B.V.' },
-      { x: 19.1, y: 68, b: 61.9, h: 9.7, naar: 'samen', label: 'Kwekerij De Bloesem' },
+      { x: 19.1, y: 33.6, b: 61.9, h: 8.5, naar: 'samen', label: 'Bakkerij De Korenschoof B.V.' },
+      { x: 19.1, y: 42.1, b: 61.9, h: 8.5, naar: 'samen', label: 'Vogel Beheer B.V.' },
+      { x: 19.1, y: 50.6, b: 61.9, h: 8.4, naar: 'samen', label: 'Kwekerij De Bloesem' },
+      { x: 19.1, y: 72.2, b: 61.9, h: 8.4, naar: 'ehKies', label: 'Stichting Dorpshuis De Linde: inloggen met eHerkenning' },
     ],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/kies-organisatie',
     bron: 'Scherm "Kies organisatie" uit het prototype van het MOZa platform (moza-vragen), aangevuld met een gezamenlijk bevoegde onderneming.' },
-  geen: { type: 'taak', col: 11, row: -1.3, groep: 'MOZa', label: 'Geen ondernemingen gevonden', wie: 'MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
+  geen: { type: 'taak', col: 9.9, row: -2.6, groep: 'MOZa', label: 'Geen ondernemingen gevonden', wie: 'MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'MOZa vindt geen onderneming bij deze persoon.',
     punten: ['Bijvoorbeeld omdat de persoon niet met een BSN in het Handelsregister staat, zoals een bestuurder zonder Nederlandse nationaliteit.', 'MOZa legt uit waarom en wijst de weg, bijvoorbeeld naar eHerkenning of een machtiging. Hoe dit scherm eruitziet, volgt nog.'] },
+  ehKies: { type: 'taak', col: 9.9, row: -1.3, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
+    context: 'Voor een onderneming waarvoor de ondernemer gezamenlijk bevoegd is, logt die opnieuw in, nu met eHerkenning.',
+    punten: ['MOZa stuurt de ondernemer door naar de inlogpagina van eHerkenning.', 'Uit de machtiging bij eHerkenning blijkt dat de ondernemer namens deze onderneming mag handelen. Inloggen met de EBW kan ook.'],
+    scherm: 'schermen/platform-eh-makelaar.jpg',
+    hotspots: [{ x: 45.6, y: 77, b: 7.6, h: 6, naar: 'samen', label: 'Verder' }],
+    bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   ehE: { type: 'taak', col: 7.5, row: 1, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de eigenaar, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Ook de eigenaar van een eenmanszaak kan met eHerkenning inloggen.',
     punten: ['MOZa krijgt het KVK-nummer en het betrouwbaarheidsniveau.', 'Zie [eHerkenning](eherkenning.html).'],
@@ -431,9 +436,9 @@ const EDGES = [
   ['middelE', 'digid', 'DigiD'], ['middelE', 'ehE', 'eHerkenning'], ['middelE', 'wallet', 'Wallet'],
   ['middelB', 'ehB', 'eHerkenning'], ['middelB', 'ebwB', 'EBW'],
   ['middelA', 'ehA', 'eHerkenning'], ['middelA', 'ebwA', 'EBW'],
-  ['digid', 'kvk'], ['kvk', 'aantal'],
-  ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[9.9, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'],
-  ['kies', 'samen'], ['wallet', 'bevoegd'], ['bevoegd', 'samen'],
+  ['digid', 'aantal'],
+  ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'],
+  ['kies', 'samen'], ['kies', 'ehKies', 'Gezamenlijk bevoegd'], ['ehKies', 'samen'], ['wallet', 'bevoegd'], ['bevoegd', 'samen'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
   ['samen', 'overzicht'], ['overzicht', 'doel'],
   ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen'],
@@ -445,10 +450,10 @@ const EDGES = [
 
 // Via de Belastingdienst: dezelfde inlogstappen als bij MOZa, als kopie (id + '_bd') boven de MOZa-tak.
 // In de teksten wordt MOZa de Belastingdienst; schermen uit het MOZa-prototype gaan niet mee.
-const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'kvk', 'aantal', 'kies', 'geen', 'ehE', 'wallet', 'bevoegd',
+const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aantal', 'kies', 'geen', 'ehKies', 'ehE', 'wallet', 'bevoegd',
   'ehB', 'ebwB', 'ehF', 'ehA', 'ebwA', 'samen'];
 (() => {
-  const BD = '_bd', SCHUIF = -9.5;
+  const BD = '_bd', SCHUIF = -11.5;
   const naarBd = t => typeof t === 'string'
     ? t.replace(/(^|[.:!?]\s+)MOZa\b/g, '$1De Belastingdienst').replace(/\bMOZa\b/g, 'de Belastingdienst') : t;
   for (const id of INLOGSTAPPEN) {
@@ -551,7 +556,7 @@ function rand(id, x, y, dx, dy) {
 }
 function route(a, b, ax, ay, bx, by, via) {
   let pts = [[ax, ay], ...(via || []), [bx, by]];
-  if (!via && ay !== by) {
+  if (!via && ay !== by && ax !== bx) {
     if (NODES[a].type === 'keuze') pts = [[ax, ay], [ax, by], [bx, by]];
     else if (NODES[b].type === 'samen') pts = [[ax, ay], [bx, ay], [bx, by]];
     else { const mx = bx - 80; pts = [[ax, ay], [mx, ay], [mx, by], [bx, by]]; }
