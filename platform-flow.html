@@ -247,6 +247,7 @@
    inlog:   [uit | bezig | in, tekst] = inlogstatus met slotje
    context, punten (Inloggen en machtigen), bron: tekst in het paneel; **vet** en [link](url) mogen
    scherm:  pad naar een schermafbeelding in de map met schermen
+   schermNotitie: tekst in de plaatshouder als er (nog) geen scherm is
    hotspots: klikbare vlakken op het scherm: { x, y, b, h (in % van de afbeelding), naar: volgende stap, label }
    ------------------------------------------------------------------ */
 const OPENBAAR = ['uit', 'Openbaar'];
@@ -256,22 +257,16 @@ const NODES = {
   start: { type: 'start', col: 0, row: 3.5, groep: 'Ondernemer', label: 'Ondernemer', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin Jansen is eigenaar van Koffiezaak Noon. Ze heeft iets te regelen met de overheid.',
     punten: ['Nog niet ingelogd: Karin ziet alleen openbare informatie.'] },
-  aanleiding: { type: 'keuze', col: 1, row: 3.5, groep: 'Ondernemer', label: 'Waarom komt de ondernemer naar MOZa?', wie: 'de ondernemer', inlog: OPENBAAR,
-    context: 'Er zijn verschillende aanleidingen om naar MijnOverheid Zakelijk te gaan.',
+  aanleiding: { type: 'keuze', col: 1, row: 3.5, groep: 'Ondernemer', label: 'Wat wil de ondernemer doen met de overheid?', wie: 'de ondernemer', inlog: OPENBAAR,
+    context: 'Karin heeft iets te regelen met de overheid. Wat dat is, bepaalt hoe ze bij MijnOverheid Zakelijk terechtkomt.',
     punten: ['Kies de aanleiding om de flow te volgen.'] },
   bericht: { type: 'taak', col: 2, row: 2.5, groep: 'Ondernemer', label: 'E-mail: bericht van de Belastingdienst', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Karin krijgt een e-mailnotificatie: er staat een bericht van de Belastingdienst voor haar klaar.',
     punten: ['De e-mail bevat geen inhoud van het bericht, alleen dat er iets klaarstaat.', 'Om het bericht te lezen, gaat Karin naar MOZa of rechtstreeks naar de Belastingdienst.'],
-    scherm: 'schermen/platform-m-email.png',
-    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+    schermNotitie: 'Hier komt de afbeelding van de e-mail uit het gebruikersonderzoek contactherstel.' },
   berichtWaar: { type: 'keuze', col: 3, row: 2.5, groep: 'Ondernemer', label: 'Waar gaat de ondernemer naartoe?', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Na de e-mail kan Karin op twee plekken het bericht lezen.',
-    scherm: 'schermen/platform-m-email.png',
-    hotspots: [
-      { x: 20.4, y: 58.4, b: 26.3, h: 5.7, naar: 'segment', label: 'Bekijk het bericht in MijnOverheid Zakelijk' },
-      { x: 47.7, y: 58.4, b: 23.2, h: 5.7, naar: 'segment_bd', label: 'Ga naar Mijn Belastingdienst Zakelijk' },
-    ],
-    bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
+    schermNotitie: 'Hier komt de afbeelding van de e-mail uit het gebruikersonderzoek contactherstel.' },
   ziek: { type: 'taak', col: 2, row: 3.5, groep: 'Ondernemer', label: 'Personeel ziek melden', wie: 'de ondernemer', inlog: OPENBAAR,
     context: 'Bilal Yılmaz, werknemer van Koffiezaak Noon, is ziek. Karin wil hem ziek melden.',
     scherm: 'schermen/platform-m-ziek.png',
@@ -526,6 +521,21 @@ const NODES = {
     bron: 'Conceptscherm in de stijl van het MOZa-prototype.' },
   actief: { type: 'einde', col: 17.2, row: 4.5, groep: 'MOZa', label: 'Machtiging actief', wie: '', inlog: NAMENS,
     context: 'Einde van deze route.' },
+  // Via 'iemand aannemen': na het inloggen direct verder met de aanvraag
+  aanvraagInfo: { type: 'taak', col: 13.2, row: 6.2, groep: 'MOZa', label: 'Lees wat er kan', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+    context: 'Na het inloggen komt Karin direct in de aanvraag "Iemand aannemen met een afstand tot de arbeidsmarkt", waar ze op het Ondernemersplein mee begon.',
+    punten: ['Zes regelingen kunnen gelden, uitgevoerd door UWV, de Belastingdienst en de gemeente.', 'Stap 1 van 4: lees wat er kan.'] },
+  berekening: { type: 'taak', col: 14.2, row: 6.2, groep: 'MOZa', label: 'Bereken wat het oplevert', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+    context: 'Karin rekent uit wat het aannemen haar onderneming kost en oplevert.',
+    punten: ['De berekening blijft op haar scherm; er gaat niets naar een overheidsorganisatie.', 'Stap 2 van 4.'] },
+  toestemming: { type: 'taak', col: 15.2, row: 6.2, groep: 'MOZa', label: 'Laat de aanvraag invullen', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+    context: 'MOZa haalt gegevens op bij de organisaties die ze al hebben, zodat Karin ze niet zelf hoeft op te zoeken.',
+    punten: ['Karin geeft daarvoor toestemming. Gegevens over de kandidaat haalt MOZa alleen op met toestemming van de kandidaat.', 'Stap 3 van 4.'] },
+  aanvraag: { type: 'taak', col: 16.2, row: 6.2, groep: 'MOZa', label: 'Controleer en dien in', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
+    context: 'De aanvraag staat vooringevuld klaar. Karin voegt de kandidaat toe, controleert per regeling de gegevens en dient in.',
+    punten: ['Alleen Karin ziet de aanvraag; er is nog niets naar de overheid gestuurd.', 'Stap 4 van 4.'] },
+  aanvraagKlaar: { type: 'einde', col: 17.2, row: 6.2, groep: 'MOZa', label: 'Aanvraag ingediend', wie: '', inlog: NAMENS,
+    context: 'Einde van deze route.' },
   // Via de e-mail: bericht lezen en de actie uitvoeren
   berichtLezen: { type: 'taak', col: 15.2, row: 1, groep: 'MOZa', label: 'Bericht van de Belastingdienst lezen', wie: 'de ondernemer, in MOZa', inlog: NAMENS,
     context: 'Karin opent het bericht van de Belastingdienst in MOZa.',
@@ -561,13 +571,15 @@ const EDGES = [
   ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'], ['geen', 'anderMiddel'],
   ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'aantal'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
-  ['samen', 'overzicht'], ['overzicht', 'doel'],
+  ['samen', 'overzicht', null, null, null, 'aannemen'], ['samen', 'aanvraagInfo', 'Iemand aannemen', [[12.75, 3.5], [12.75, 6.2]], 'aannemen'],
+  ['overzicht', 'doel'],
+  ['aanvraagInfo', 'berekening'], ['berekening', 'toestemming'], ['toestemming', 'aanvraag'], ['aanvraag', 'aanvraagKlaar'],
   ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen'],
   ['berichtLezen', 'actie'], ['actie', 'uitgevoerd'],
   ['dienst', 'niveau'], ['niveau', 'extra', 'Ja'], ['niveau', 'gebruik', 'Nee', [[16.2, 1.9], [18.2, 1.9]]],
   ['extra', 'gebruik'], ['gebruik', 'klaar'],
   ['machtig', 'vastleggen'], ['vastleggen', 'actief'],
-].map(([from, to, label, via, als]) => ({ from, to, label, via, als }));
+].map(([from, to, label, via, als, alsNiet]) => ({ from, to, label, via, als, alsNiet }));
 
 // Via de Belastingdienst: dezelfde inlogstappen als bij MOZa, als kopie (id + '_bd') boven de MOZa-tak.
 // In de teksten wordt MOZa de Belastingdienst; schermen uit het MOZa-prototype gaan niet mee.
@@ -603,7 +615,7 @@ const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aant
 const START = 'start';
 const uit = id => EDGES.filter(e => e.from === id);
 // De opties in het gekozen pad: een lijn met 'als' telt alleen als het pad via die stap liep (bv. via de e-mail)
-const opties = (id, p = pad) => uit(id).filter(e => !e.als || p.includes(e.als));
+const opties = (id, p = pad) => uit(id).filter(e => (!e.als || p.includes(e.als)) && (!e.alsNiet || !p.includes(e.alsNiet)));
 const SOORT = { start: 'Start', taak: 'Stap', keuze: 'Keuze', samen: 'Samenkomst', einde: 'Einde' };
 const zachtjes = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -831,7 +843,7 @@ function renderScherm() {
   vlak.innerHTML = n.scherm
     ? `<div class="gs-scherm"><img src="${esc(n.scherm)}" alt="${esc('Scherm bij stap ' + stapNr() + ': ' + n.label)}">${hotspots.map(h =>
         `<button type="button" class="gs-hotspot" data-naar="${h.naar}" style="left:${h.x}%;top:${h.y}%;width:${h.b}%;height:${h.h}%" aria-label="${esc(h.label)}" title="${esc(h.label)}"></button>`).join('')}</div>`
-    : `<div class="gs-leeg"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><strong>${esc(n.label)}</strong>Schermafbeelding volgt</div>`;
+    : `<div class="gs-leeg"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><strong>${esc(n.label)}</strong>${esc(n.schermNotitie || 'Schermafbeelding volgt')}</div>`;
   vlak.querySelectorAll('.gs-hotspot').forEach(b => b.addEventListener('click', () => ga([...pad, b.dataset.naar])));
   vlak.scrollTop = 0;
   herstart(vlak, 'wissel');
