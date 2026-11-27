@@ -67,10 +67,9 @@
     <nldd-banner variant="neutral" icon="info-circle" text="U gaat naar de Belastingdienst" supporting-text="MijnOverheid Zakelijk geeft door voor welke onderneming u inlogt. U hoeft dat daar niet opnieuw te kiezen."></nldd-banner>
     <nldd-spacer size="24"></nldd-spacer>` + tekst(`<ul>${punten.map((p) => `<li>${p}</li>`).join('')}</ul>`) + knoppen(knop(knoptekst, 'verder', 'primary', 'arrow-right-out-bucket'), knop('Terug naar het overzicht', 'terug', 'secondary'));
 
-  // Gemachtigde met beperkte machtigingen: werknemer (standaard) of intermediair (&wie=intermediair)
+  // Gemachtigde met beperkte machtigingen: Bilal, werknemer
   const GEM = {
     werknemer: { naam: 'Bilal Yılmaz', rol: 'Werknemer', taak: 'Loonaangifte november doen', dienst: 'Loonaangifte doen', datum: 'vóór 31 december', ander: 'Btw-aangifte doen', mist: 'Btw-aangifte, berichten van de Belastingdienst en machtigingen' },
-    intermediair: { naam: 'Femke de Boer', rol: 'Boekhoudkantoor De Balans', taak: 'Btw-aangifte 3e kwartaal doen', dienst: 'Btw-aangifte doen', datum: 'vóór 23 december', ander: 'Loonaangifte doen', mist: 'Loonaangifte, berichten van de Belastingdienst en machtigingen' },
   };
   const g = GEM[new URLSearchParams(location.search).get('wie')] || GEM.werknemer;
   const ORG = 'Bakkerij De Korenschoof B.V.';
