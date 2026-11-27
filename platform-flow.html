@@ -93,6 +93,16 @@
     .gs-vlak { flex: 1 1 auto; min-height: 0; overflow: auto; box-sizing: border-box; width: 100%; max-width: 960px; align-self: center;
       border-radius: 10px; border: 1px solid #d5dae1; background: #fff; box-shadow: 0 12px 32px rgba(16, 24, 40, .14); }
     .gs-vlak img { display: block; width: 100%; height: auto; }
+    /* Hotspots: klikbare keuzevlakken op de schermafbeelding. Bij bewegen over het scherm lichten ze op;
+       bij het openen van de stap knipperen ze één keer, zodat je ziet waar je kunt kiezen. */
+    .gs-scherm { position: relative; }
+    .gs-hotspot { position: absolute; box-sizing: border-box; padding: 0; margin: 0; border: 2px dashed transparent; border-radius: 8px;
+      background: transparent; cursor: pointer; transition: background-color .2s ease, border-color .2s ease;
+      animation: hotspot-hint 1.2s ease .7s 2; }
+    .gs-vlak:hover .gs-hotspot { border-color: rgb(212 140 0 / 0.65); }
+    .gs-hotspot:hover, .gs-hotspot:focus-visible { outline: none; border-style: solid; border-color: #d48c00; background: rgb(255 182 18 / 0.18); }
+    @keyframes hotspot-hint { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 182 18 / 0); } 50% { box-shadow: 0 0 0 6px rgb(255 182 18 / 0.5); background: rgb(255 182 18 / 0.15); } }
+    .dl-hint { margin: -8px 0 20px; font-size: 14px; color: rgb(255 255 255 / 0.8); }
     .gs-leeg { box-sizing: border-box; height: 100%; min-height: 160px; display: grid; place-content: center; justify-items: center;
       gap: 8px; padding: 24px; text-align: center; color: #66707c; font-size: 15px; }
     .gs-leeg strong { color: #39424d; font-size: 20px; }
@@ -225,6 +235,7 @@
    inlog:   [uit | bezig | in, tekst] = inlogstatus met slotje
    context, punten (Inloggen en machtigen), bron: tekst in het paneel; **vet** en [link](url) mogen
    scherm:  pad naar een schermafbeelding in de map met schermen
+   hotspots: klikbare vlakken op het scherm: { x, y, b, h (in % van de afbeelding), naar: volgende stap, label }
    ------------------------------------------------------------------ */
 const OPENBAAR = ['uit', 'Openbaar'];
 const NAMENS = ['in', 'Ingelogd namens Koffiezaak Noon'];
@@ -269,6 +280,12 @@ const NODES = {
   kies: { type: 'taak', col: 10, row: 1, groep: 'MOZa', label: 'Kies een onderneming', wie: 'de ondernemer, bij MOZa', inlog: ['bezig', 'Ingelogd als persoon'],
     context: 'De ondernemer kiest de onderneming, zoals je op het platform een organisatie kiest.',
     scherm: 'schermen/platform-kies-organisatie.png',
+    hotspots: [
+      { x: 19.7, y: 40.3, b: 60.6, h: 10.9, naar: 'samen', label: 'Bakkerij De Korenschoof B.V.' },
+      { x: 19.7, y: 51.2, b: 60.6, h: 10.9, naar: 'samen', label: 'Vogel Beheer B.V.' },
+      { x: 19.7, y: 62.1, b: 60.6, h: 10.9, naar: 'samen', label: 'Stichting Dorpshuis De Linde' },
+      { x: 19.7, y: 73.0, b: 60.6, h: 11.6, naar: 'samen', label: 'Kwekerij De Bloesem' },
+    ],
     prototype: 'https://toon.rijks.app/moza-regelrecht/moza-vragen/#/kies-organisatie',
     bron: 'Scherm "Kies organisatie" uit het prototype van het MOZa platform (moza-vragen), november 2026.' },
   eh: { type: 'taak', col: 7, row: 2, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
@@ -498,7 +515,8 @@ function renderPaneel() {
     <h3 class="att-kop">Context</h3>
     <p class="att-lead">${md(n.context)}</p>
     ${punten ? `<h3 class="att-kop">Inloggen en machtigen</h3>${punten}` : ''}
-    ${keuzes}`;
+    ${keuzes}
+    ${(n.hotspots || []).length ? `<p class="dl-hint">Tip: klik in het scherm rechts om te kiezen, net als in het prototype.</p>` : ''}`;
   inhoud.scrollTop = 0;
   herstart(inhoud, 'wissel');
   paneel.querySelectorAll('[data-kies]').forEach(b => b.addEventListener('click', () => ga([...pad, b.dataset.kies])));
@@ -518,9 +536,13 @@ function renderScherm() {
   inlog.dataset.inlog = n.inlog[0];
   inlog.innerHTML = inlogIcoon(n.inlog[0]) + `<span>${esc(n.inlog[1])}</span>`;
   const vlak = document.querySelector('#dl-rechts .gs-vlak');
+  // Alleen hotspots die naar een echte volgende stap wijzen
+  const hotspots = (n.hotspots || []).filter(h => uit(id).some(e => e.to === h.naar));
   vlak.innerHTML = n.scherm
-    ? `<img src="${esc(n.scherm)}" alt="${esc('Scherm bij stap ' + pad.length + ': ' + n.label)}">`
+    ? `<div class="gs-scherm"><img src="${esc(n.scherm)}" alt="${esc('Scherm bij stap ' + pad.length + ': ' + n.label)}">${hotspots.map(h =>
+        `<button type="button" class="gs-hotspot" data-naar="${h.naar}" style="left:${h.x}%;top:${h.y}%;width:${h.b}%;height:${h.h}%" aria-label="${esc(h.label)}" title="${esc(h.label)}"></button>`).join('')}</div>`
     : `<div class="gs-leeg"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><strong>${esc(n.label)}</strong>Schermafbeelding volgt</div>`;
+  vlak.querySelectorAll('.gs-hotspot').forEach(b => b.addEventListener('click', () => ga([...pad, b.dataset.naar])));
   vlak.scrollTop = 0;
   herstart(vlak, 'wissel');
 }
