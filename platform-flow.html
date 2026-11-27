@@ -371,11 +371,8 @@ const NODES = {
     hotspots: [{ x: 45.6, y: 77, b: 7.6, h: 6, naar: 'samen', label: 'Verder' }],
     bron: 'Keuze van de leverancier bij eHerkenning, aangepast voor MijnOverheid Zakelijk (uit het inlogconcept eHerkenning). Daarna logt de ondernemer in bij de leverancier, bijvoorbeeld Z login.' },
   wallet: { type: 'taak', col: 7.5, row: 2, groep: 'Wallet', label: 'Inloggen met wallet', wie: 'de ondernemer, met de wallet', inlog: ['bezig', 'Bezig met inloggen met de wallet'],
-    context: 'De ondernemer deelt gegevens uit de persoonlijke wallet (EDI-wallet).',
-    punten: ['Zie [wallets](ebw.html).'] },
-  bevoegd: { type: 'taak', col: 8.7, row: 2, groep: 'Wallet', label: 'Wallet deelt bevoegdheid', wie: 'de wallet, aan MOZa', inlog: ['bezig', 'Bezig met inloggen met de wallet'],
-    context: 'De vertegenwoordigingsbevoegdheid van KVK (Pub-EAA) gaat mee.',
-    punten: ['Daarmee ziet MOZa dat de ondernemer namens de onderneming mag handelen.'] },
+    context: 'De ondernemer logt in als persoon met de persoonlijke wallet (EDI-wallet). De wallet deelt de persoonsgegevens (PID), met het BSN.',
+    punten: ['In de persoonlijke wallet staan geen attestaties van KVK. MOZa zoekt de ondernemingen daarna op bij KVK, net als bij DigiD.', 'Zie [wallets](ebw.html).'] },
   // Bedrijf of organisatie
   ehB: { type: 'taak', col: 7.5, row: 3, groep: 'eHerkenning', label: 'Inloggen met eHerkenning', wie: 'de ondernemer, bij de herkenningsmakelaar', inlog: ['bezig', 'Bezig met inloggen met eHerkenning'],
     context: 'Inloggen namens het bedrijf via een herkenningsmakelaar.',
@@ -453,7 +450,7 @@ const EDGES = [
   ['middelA', 'ehA', 'eHerkenning'], ['middelA', 'ebwA', 'EBW'],
   ['digid', 'aantal'],
   ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[8.7, -0.55], [12.2, -0.55]]], ['aantal', 'geen', 'Geen'],
-  ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'bevoegd'], ['bevoegd', 'samen'],
+  ['kies', 'samen'], ['kies', 'anderMiddel', 'Gezamenlijk bevoegd'], ['anderMiddel', 'ehKies', 'eHerkenning'], ['anderMiddel', 'ebwKies', 'EBW'], ['ehKies', 'samen'], ['ebwKies', 'samen'], ['wallet', 'aantal'],
   ['ehE', 'samen'], ['ehB', 'samen'], ['ebwB', 'samen'], ['ehF', 'samen'], ['ehA', 'samen'], ['ebwA', 'samen'],
   ['samen', 'overzicht'], ['overzicht', 'doel'],
   ['doel', 'berichtLezen', 'Bericht lezen', null, 'bericht'], ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen'],
@@ -465,7 +462,7 @@ const EDGES = [
 
 // Via de Belastingdienst: dezelfde inlogstappen als bij MOZa, als kopie (id + '_bd') boven de MOZa-tak.
 // In de teksten wordt MOZa de Belastingdienst; schermen uit het MOZa-prototype gaan niet mee.
-const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aantal', 'kies', 'geen', 'anderMiddel', 'ehKies', 'ebwKies', 'ehE', 'wallet', 'bevoegd',
+const INLOGSTAPPEN = ['segment', 'middelE', 'middelB', 'middelA', 'digid', 'aantal', 'kies', 'geen', 'anderMiddel', 'ehKies', 'ebwKies', 'ehE', 'wallet',
   'ehB', 'ebwB', 'ehF', 'ehA', 'ebwA', 'samen'];
 (() => {
   const BD = '_bd', SCHUIF = -12.8;
