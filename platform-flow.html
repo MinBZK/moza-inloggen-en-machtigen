@@ -32,7 +32,11 @@
     #dl-paneel { display: flex; flex-direction: column; min-height: 0; background: #154273; color: #fff;
       box-shadow: 0 0 24px rgb(0 0 0 / 0.35); z-index: 1; animation: dl-in 0.25s ease both; }
     #dl-paneel:focus { outline: none; }
-    .att-inhoud { flex: 1; overflow: auto; padding: 32px 32px 24px; }
+    .att-balk { flex: none; padding: 16px 32px 0; }
+    .att-overzicht { font: inherit; font-size: 14px; color: #fff; background: transparent; border: 1px solid rgb(255 255 255 / 0.45);
+      border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .att-overzicht:hover { background: rgb(255 255 255 / 0.15); }
+    .att-inhoud { flex: 1; overflow: auto; padding: 24px 32px 24px; }
     .att-label { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: rgb(255 255 255 / 0.85); }
     .att-titel { margin: 0 0 16px; font-size: 32px; line-height: 1.15; font-weight: 600; }
     .att-titel span { display: block; color: #ffb612; font-size: 0.75em; }
@@ -193,6 +197,7 @@
 
 <div id="doorloop" aria-hidden="true">
   <aside id="dl-paneel" tabindex="-1" aria-label="Flow doorlopen: MOZa platform, inloggen en machtigen">
+    <div class="att-balk"><button type="button" class="att-overzicht" data-dl="overzicht">&#8592; Hele flow (overzicht)</button></div>
     <div class="att-inhoud" aria-live="polite"></div>
     <p class="att-bronbalk"></p>
     <div class="att-voet">
@@ -462,7 +467,7 @@ function sluit() {
   const zoek = new URLSearchParams(location.search); zoek.delete('presentatie');
   history.replaceState(null, '', location.pathname + (zoek.size ? '?' + zoek : ''));
   render();
-  document.getElementById('doorloop-start').focus?.();
+  document.getElementById('doorloop-start').focus?.({ preventScroll: true });
 }
 function kortstePad(doel) {
   const vorige = { [START]: null }, rij = [START];
@@ -500,7 +505,7 @@ function renderPaneel() {
   // Onderin het paneel: de bron van het scherm en een link naar het prototype (ter referentie)
   paneel.querySelector('.att-bronbalk').innerHTML = [n.bron ? md(n.bron) : '',
     n.prototype ? `<a href="${esc(n.prototype)}" target="_blank" rel="noopener">Bekijk dit scherm in het prototype ↗</a>` : ''].filter(Boolean).join(' ');
-  paneel.querySelector('.dl-tekst').textContent = `Stap ${pad.length} · ← → bladeren · Esc sluit`;
+  paneel.querySelector('.dl-tekst').textContent = `Stap ${pad.length} · ← → bladeren · O overzicht · Esc sluit`;
   paneel.querySelector('[data-dl="vorige"]').disabled = pad.length < 2;
   paneel.querySelector('[data-dl="volgende"]').disabled = opties.length !== 1;
 }
@@ -629,6 +634,14 @@ function render() {
 
 document.getElementById('doorloop-start').addEventListener('click', () => ga(pad));
 paneel.querySelector('[data-dl="sluit"]').addEventListener('click', sluit);
+// Naar de hele flow: sluit het paneel en toon het overzicht, met het doorlopen pad in blauw
+const naarOverzicht = () => {
+  sluit();
+  document.getElementById('overzicht').scrollIntoView({ behavior: zachtjes ? 'smooth' : 'auto' });
+  const c = document.getElementById('overzicht-canvas'), g = c.querySelector(`[data-node="${pad[pad.length - 1]}"]`);
+  if (g) c.scrollLeft = g.getBBox().x - c.clientWidth / 2;
+};
+paneel.querySelector('[data-dl="overzicht"]').addEventListener('click', naarOverzicht);
 paneel.querySelector('[data-dl="opnieuw"]').addEventListener('click', () => ga([START]));
 paneel.querySelector('[data-dl="vorige"]').addEventListener('click', () => pad.length > 1 && ga(pad.slice(0, -1)));
 paneel.querySelector('[data-dl="volgende"]').addEventListener('click', () => {
@@ -643,6 +656,7 @@ document.addEventListener('keydown', ev => {
   }
   const opties = uit(pad[pad.length - 1]);
   if (ev.key === 'Escape') sluit();
+  else if (ev.key === 'o' || ev.key === 'O') naarOverzicht();
   else if (ev.key === 'ArrowLeft' && pad.length > 1) ga(pad.slice(0, -1));
   else if (ev.key === 'ArrowRight' && opties.length === 1) ga([...pad, opties[0].to]);
   else if (/^[1-9]$/.test(ev.key) && opties.length > 1 && opties[+ev.key - 1]) ga([...pad, opties[+ev.key - 1].to]);
