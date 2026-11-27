@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MOZa platform: inloggen en machtigen</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/touch-icon.png">
+  <link rel="stylesheet" href="https://esm.sh/@nldd/design-system@0.8.99/dist/css/global.css">
+  <script type="module" src="https://esm.sh/@nldd/design-system@0.8.99"></script>
+  <style>
+    /* Uitzondering op NLDD-only: het flowschema is een SVG-tekening op een 'papieren' canvas in dezelfde
+       stijl als op het EBW-landschap (bewust licht, ook in donkere modus). */
+    .canvas { overflow-x: auto; border-radius: var(--primitives-corner-radius-md, 12px); background: #f8f9fb; border: 1px solid #dde1e6; }
+    .canvas > svg { display: block; }
+    .canvas text { font-family: "RijksSans", system-ui, sans-serif; }
+    .canvas [data-node] { cursor: pointer; }
+    .canvas [data-node]:focus { outline: none; }
+    .canvas [data-node]:focus-visible .vorm { stroke: #1f5fa8; stroke-width: 3; }
+    .canvas [data-node]:hover .vorm { stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+<nldd-shell background="tinted">
+  <nldd-page>
+
+    <nldd-simple-section id="intro">
+      <nldd-link size="sm" href="index.html" start-icon="chevron-left" text="Inloggen en machtigen bij MOZa"></nldd-link>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-title size="1">
+        <span slot="overline">MOZa platform</span>
+        <h1>Inloggen en machtigen</h1>
+      </nldd-title>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner data-ai-disclaimer variant="warning" size="sm" icon="sparkles" text="Bij het maken van deze content is gebruikgemaakt van AI."></nldd-banner>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text>
+        <p>Loop de flow stap voor stap door, van links naar rechts. Bij een keuze bepaal je zelf welke kant je op gaat. Rechts lees je per stap de toelichting, met een schermafbeelding waar die er is. In het overzicht zie je de hele flow en alle keuzes in één keer.</p>
+      </nldd-rich-text>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-banner variant="accent" size="sm" icon="info-circle" text="Concept" supporting-text="De stappen hieronder zijn een eerste opzet om de werking te laten zien. De inhoud volgt nog."></nldd-banner>
+      <div id="opm-hint"></div>
+      <nldd-spacer size="24"></nldd-spacer>
+      <nldd-segmented-control id="weergave" value="stappen" width="fit-content">
+        <nldd-segmented-control-item value="stappen" text="Stap voor stap"></nldd-segmented-control-item>
+        <nldd-segmented-control-item value="overzicht" text="Overzicht"></nldd-segmented-control-item>
+      </nldd-segmented-control>
+    </nldd-simple-section>
+
+    <!-- Weergave 1: stap voor stap -->
+    <nldd-two-thirds-one-third-section id="stappen" width="full" padding-top="0">
+      <nldd-container slot="left" gap="16">
+        <div class="canvas" id="pad-canvas" role="group" aria-label="Het gekozen pad door de flow"></div>
+        <nldd-container layout="wrap" gap="8" vertical-alignment="center" id="pad-knoppen"></nldd-container>
+      </nldd-container>
+      <nldd-box slot="right" background="base" id="paneel">
+        <nldd-container padding="24" gap="16" id="paneel-inhoud" aria-live="polite"></nldd-container>
+      </nldd-box>
+    </nldd-two-thirds-one-third-section>
+
+    <!-- Weergave 2: overzicht -->
+    <nldd-simple-section id="overzicht" width="full" padding-top="0" hidden>
+      <nldd-container gap="16">
+        <nldd-rich-text><p>De hele flow. Het pad dat je stap voor stap hebt gekozen is blauw. Klik op een stap of keuze om er naartoe te gaan.</p></nldd-rich-text>
+        <div class="canvas" id="overzicht-canvas" role="group" aria-label="Overzicht van de hele flow"></div>
+        <nldd-spacer size="8"></nldd-spacer>
+        <nldd-title size="3"><h2>Keuzes in deze flow</h2><p slot="supporting-text">Op deze punten splitst de flow zich. Kies er een om er direct naartoe te gaan.</p></nldd-title>
+        <nldd-list appearance="box-tinted" type="navigation" aria-label="Keuzes in deze flow" id="keuzes"></nldd-list>
+      </nldd-container>
+    </nldd-simple-section>
+
+    <nldd-simple-section background="base" id="bronnen">
+      <nldd-title size="3"><h3>Bronnen</h3></nldd-title>
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text>
+        <ul>
+          <li><a href="https://toon.rijks.app/moza-regelrecht/moza-vragen/">MOZa platform (moza-vragen), schermen voor de toelichting</a></li>
+          <li><a href="digid.html">DigiD</a>, <a href="eherkenning.html">eHerkenning</a> en <a href="ebw.html">wallets</a> op deze site</li>
+        </ul>
+      </nldd-rich-text>
+    </nldd-simple-section>
+
+    <nldd-page-footer>
+      <nldd-container padding="24" gap="16">
+        <div id="opm-knop"></div>
+        <nldd-container gap="4">
+          <nldd-title size="4"><h2>Meedoen</h2></nldd-title>
+          <nldd-rich-text spacing="tight"><p>Heb je feedback of wil je meedenken? Dat kan altijd: stuur een e-mail naar <a href="mailto:moza@minbzk.nl">moza@minbzk.nl</a>.</p><p>Heb je een Rijksaccount? Dan kun je <a href="/auth/inloggen?voor=opmerkingen&amp;rd=/platform-flow.html">inloggen</a> en opmerkingen plaatsen op de pagina's.</p></nldd-rich-text>
+        </nldd-container>
+        <nldd-divider style="--semantics-dividers-color: var(--primitives-color-neutral-200)"></nldd-divider>
+        <nldd-rich-text spacing="tight"><p>Concept MOZa - platform: inloggen en machtigen. Versie november 2026.</p></nldd-rich-text>
+      </nldd-container>
+    </nldd-page-footer>
+  </nldd-page>
+</nldd-shell>
+
+<script type="module">
+/* ------------------------------------------------------------------
+   De flow als data. Pas hier de stappen aan; de rest volgt vanzelf.
+   type: start | taak | keuze | samen (samenkomst) | einde
+   col/row: plek in het overzicht (row 1 = hoofdlijn)
+   scherm: pad naar een schermafbeelding (een bestand in de map met schermen)
+   ------------------------------------------------------------------ */
+const NODES = {
+  start:      { type: 'start', col: 0, row: 1, label: 'Ondernemer wil iets regelen', wie: 'Ondernemer',
+                tekst: '<p>Karin Jansen, eigenaar van Koffiezaak Noon, wil iets regelen met de overheid. Ze gaat naar MijnOverheid Zakelijk.</p>' },
+  inloggen:   { type: 'taak', col: 1, row: 1, label: 'Inloggen bij MOZa', wie: 'Ondernemer, MOZa',
+                tekst: '<p>MOZa toont de inlogpagina. De ondernemer kiest hoe die inlogt.</p>' },
+  middel:     { type: 'keuze', col: 2, row: 1, label: 'Waarmee logt de ondernemer in?', wie: 'Ondernemer',
+                tekst: '<p>De ondernemer kiest een inlogmiddel. Elk middel geeft MOZa andere gegevens.</p>' },
+  digid:      { type: 'taak', col: 3, row: 0, label: 'Inloggen met DigiD', wie: 'Ondernemer, DigiD',
+                tekst: '<p>Inloggen als persoon, met het BSN. Hiermee start het portaal (DigiD R1 in de <a href="roadmap.html">roadmap</a>).</p>' },
+  kvk:        { type: 'taak', col: 4, row: 0, label: 'MOZa zoekt ondernemingen bij KVK', wie: 'MOZa, KVK',
+                tekst: '<p>MOZa bevraagt het Handelsregister op het BSN en vindt de ondernemingen van deze persoon.</p>' },
+  aantal:     { type: 'keuze', col: 5, row: 0, label: 'Hoeveel ondernemingen?', wie: 'MOZa',
+                tekst: '<p>Heeft de ondernemer meer dan één onderneming, dan kiest die eerst namens welke onderneming die verder gaat.</p>' },
+  kies:       { type: 'taak', col: 6, row: 0, label: 'Kies een onderneming', wie: 'Ondernemer',
+                tekst: '<p>De ondernemer kiest de onderneming, zoals je op het platform een organisatie kiest.</p><p><a href="https://toon.rijks.app/moza-regelrecht/moza-vragen/#/kies-organisatie">Bekijk het voorbeeldscherm op het platform</a></p>' },
+  eh:         { type: 'taak', col: 3, row: 1, label: 'Inloggen met eHerkenning', wie: 'Ondernemer, herkenningsmakelaar',
+                tekst: '<p>Inloggen namens de onderneming via een herkenningsmakelaar. MOZa krijgt het KVK-nummer en het betrouwbaarheidsniveau.</p>' },
+  wallet:     { type: 'taak', col: 3, row: 2, label: 'Inloggen met wallet', wie: 'Ondernemer, wallet',
+                tekst: '<p>De ondernemer deelt gegevens uit de persoonlijke wallet (EDI-wallet).</p>' },
+  bevoegd:    { type: 'taak', col: 4, row: 2, label: 'Wallet deelt bevoegdheid', wie: 'Wallet, MOZa',
+                tekst: '<p>De vertegenwoordigingsbevoegdheid van KVK (Pub-EAA) laat zien dat de ondernemer namens de onderneming mag handelen.</p>' },
+  samen:      { type: 'samen', col: 7, row: 1, label: 'Ingelogd', wie: '',
+                tekst: '<p>Alle inlogroutes komen hier samen: MOZa weet wie de ondernemer is en namens welke onderneming die handelt.</p>' },
+  overzicht:  { type: 'taak', col: 8, row: 1, label: 'Overzicht van de onderneming', wie: 'MOZa',
+                tekst: '<p>MOZa toont de onderneming, de diensten en de machtigingen op één plek.</p>' },
+  doel:       { type: 'keuze', col: 9, row: 1, label: 'Wat wil de ondernemer doen?', wie: 'Ondernemer',
+                tekst: '<p>Een dienst gebruiken, of iemand anders machtigen om dat te doen.</p>' },
+  dienst:     { type: 'taak', col: 10, row: 0, label: 'Kies een dienst', wie: 'Ondernemer',
+                tekst: '<p>Bijvoorbeeld de btw-aangifte bij de Belastingdienst.</p>' },
+  niveau:     { type: 'keuze', col: 11, row: 0, label: 'Hoger inlogniveau nodig?', wie: 'MOZa',
+                tekst: '<p>Vraagt de dienst een hoger betrouwbaarheidsniveau dan waarmee de ondernemer is ingelogd?</p>' },
+  extra:      { type: 'taak', col: 12, row: 0, label: 'Inloggen bij de dienstverlener', wie: 'Ondernemer, dienstverlener',
+                tekst: '<p>MOZa is dienstbemiddelaar. De ondernemer logt alleen extra in bij een dienstverlener als dat op dat moment nodig is, op het niveau dat de dienst vraagt.</p>' },
+  gebruik:    { type: 'taak', col: 13, row: 0, label: 'Dienst gebruiken', wie: 'Ondernemer, dienstverlener',
+                tekst: '<p>De ondernemer regelt de zaak bij de dienstverlener.</p>' },
+  klaar:      { type: 'einde', col: 14, row: 0, label: 'Zaak geregeld', wie: '',
+                tekst: '<p>Einde van deze route.</p>' },
+  machtig:    { type: 'taak', col: 10, row: 2, label: 'Kies persoon en dienst', wie: 'Ondernemer',
+                tekst: '<p>Karin machtigt bijvoorbeeld Bilal Yılmaz voor de loonaangifte.</p>' },
+  vastleggen: { type: 'taak', col: 11, row: 2, label: 'Machtiging vastleggen', wie: 'MOZa',
+                tekst: '<p>MOZa legt de machtiging vast. Bilal kan daarna namens Koffiezaak Noon inloggen.</p>' },
+  actief:     { type: 'einde', col: 12, row: 2, label: 'Machtiging actief', wie: '',
+                tekst: '<p>Einde van deze route.</p>' },
+};
+
+// Verbindingen. label = de keuze (alleen bij een keuze). via = knikpunten in rasterposities.
+const EDGES = [
+  ['start', 'inloggen'], ['inloggen', 'middel'],
+  ['middel', 'digid', 'DigiD'], ['middel', 'eh', 'eHerkenning'], ['middel', 'wallet', 'Wallet'],
+  ['digid', 'kvk'], ['kvk', 'aantal'],
+  ['aantal', 'kies', 'Meerdere'], ['aantal', 'samen', 'Eén', [[5, -0.6], [7, -0.6]]],
+  ['kies', 'samen'], ['eh', 'samen'], ['wallet', 'bevoegd'], ['bevoegd', 'samen'],
+  ['samen', 'overzicht'], ['overzicht', 'doel'],
+  ['doel', 'dienst', 'Dienst gebruiken'], ['doel', 'machtig', 'Iemand machtigen'],
+  ['dienst', 'niveau'], ['niveau', 'extra', 'Ja'], ['niveau', 'gebruik', 'Nee', [[11, -0.6], [13, -0.6]]],
+  ['extra', 'gebruik'], ['gebruik', 'klaar'],
+  ['machtig', 'vastleggen'], ['vastleggen', 'actief'],
+].map(([from, to, label, via]) => ({ from, to, label, via }));
+
+const START = 'start';
+const uit = id => EDGES.filter(e => e.from === id);
+const SOORT = { start: 'Start', taak: 'Stap', keuze: 'Keuze', samen: 'Samenkomst', einde: 'Einde' };
+const SOORT_KLEUR = { start: 'accent', taak: 'neutral', keuze: 'warning', samen: 'neutral', einde: 'success' };
+
+/* ---------------- tekenen ---------------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function regels(s, max) {
+  const out = []; let r = '';
+  for (const w of s.split(' ')) {
+    if (r && (r + ' ' + w).length > max) { out.push(r); r = w; } else r = r ? r + ' ' + w : w;
+  }
+  if (r) out.push(r);
+  return out;
+}
+const HALF = { taak: [68, 30], keuze: [24, 24], samen: [20, 20], start: [18, 18], einde: [18, 18] };
+
+// Eén knoop tekenen rond (x, y). stijl: 'normaal' | 'actief' | 'pad' | 'spook' | 'gedimd'
+function knoop(id, x, y, stijl, extra = '') {
+  const n = NODES[id];
+  const kleur = {
+    normaal: { taak: ['#fff', '#666'], keuze: ['#ffe6cc', '#d79b00'], samen: ['#e1d5e7', '#9673a6'], start: ['#dae8fc', '#6c8ebf'], einde: ['#d5e8d4', '#333'] },
+  }.normaal[n.type];
+  let [fill, stroke] = kleur, sw = 1.5, dash = '', txt = '#333', op = 1;
+  if (stijl === 'actief') { stroke = '#1f5fa8'; sw = 3; if (n.type === 'taak') fill = '#dae8fc'; }
+  if (stijl === 'pad') { stroke = '#1f5fa8'; sw = 2; }
+  if (stijl === 'spook') { fill = '#fff'; stroke = '#8a8f96'; dash = '5 4'; txt = '#555'; }
+  if (stijl === 'gedimd') op = 0.55;
+  let vorm = '';
+  if (n.type === 'taak') vorm = `<rect class="vorm" x="${x - 68}" y="${y - 30}" width="136" height="60" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-dasharray="${dash}"/>`;
+  if (n.type === 'keuze' || n.type === 'samen') {
+    const h = n.type === 'keuze' ? 24 : 20;
+    vorm = `<path class="vorm" d="M${x} ${y - h}L${x + h} ${y}L${x} ${y + h}L${x - h} ${y}Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-dasharray="${dash}"/>`;
+    vorm += n.type === 'keuze'
+      ? `<path d="M${x - 8} ${y - 8}L${x + 8} ${y + 8}M${x + 8} ${y - 8}L${x - 8} ${y + 8}" stroke="${stijl === 'spook' ? '#8a8f96' : '#b46504'}" stroke-width="2.5"/>`
+      : `<path d="M${x - 6} ${y - 6}L${x + 6} ${y + 6}M${x + 6} ${y - 6}L${x - 6} ${y + 6}" stroke="#7a4f8c" stroke-width="2.5"/>`;
+  }
+  if (n.type === 'start' || n.type === 'einde') vorm = `<circle class="vorm" cx="${x}" cy="${y}" r="18" fill="${fill}" stroke="${stroke}" stroke-width="${n.type === 'einde' && stijl !== 'spook' ? Math.max(sw, 3.5) : sw}" stroke-dasharray="${dash}"/>`;
+  let tekst = '';
+  if (n.type === 'taak') {
+    const r = regels(n.label, 19);
+    tekst = r.map((l, i) => `<text x="${x}" y="${y + 4 + (i - (r.length - 1) / 2) * 15}" font-size="12.5" fill="${txt}" text-anchor="middle">${esc(l)}</text>`).join('');
+  } else {
+    // bij een keuze staat de tekst linksonder: boven, onder en rechts vertrekken de lijnen
+    const k = n.type === 'keuze', r = regels(n.label, 22), top = y + HALF[n.type][1] + (k ? 10 : 15);
+    tekst = r.map((l, i) => `<text x="${k ? x - 12 : x}" y="${top + i * 14}" font-size="11.5" fill="${txt}" text-anchor="${k ? 'end' : 'middle'}"${k ? ' font-weight="700"' : ''}>${esc(l)}</text>`).join('');
+  }
+  return `<g data-node="${id}" ${extra} tabindex="0" role="button" aria-label="${esc(SOORT[n.type] + ': ' + n.label)}" opacity="${op}">${vorm}${tekst}</g>`;
+}
+
+const pijl = (kleur, idp) => `<marker id="${idp}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="${kleur}"/></marker>`;
+function lijn(pts, kleur, mk, sw = 1.6, dash = '') {
+  return `<path d="M${pts.map(p => p.join(' ')).join('L')}" fill="none" stroke="${kleur}" stroke-width="${sw}" stroke-dasharray="${dash}" marker-end="url(#${mk})"/>`;
+}
+// Punt op de rand van een knoop, in de richting van (dx, dy)
+function rand(id, x, y, dx, dy) {
+  const [hw, hh] = HALF[NODES[id].type];
+  if (Math.abs(dx) >= Math.abs(dy)) return [x + Math.sign(dx) * hw, y];
+  return [x, y + Math.sign(dy) * hh];
+}
+function route(a, b, ax, ay, bx, by, via) {
+  let pts = [[ax, ay], ...(via || []), [bx, by]];
+  if (!via) {
+    if (ay !== by) {
+      if (NODES[a].type === 'keuze') pts = [[ax, ay], [ax, by], [bx, by]];
+      else if (NODES[b].type === 'samen') pts = [[ax, ay], [bx, ay], [bx, by]];
+      else { const mx = bx - 80; pts = [[ax, ay], [mx, ay], [mx, by], [bx, by]]; }
+    }
+  }
+  const [p0, p1] = pts, [q1, q0] = [pts[pts.length - 2], pts[pts.length - 1]];
+  pts[0] = rand(a, ax, ay, p1[0] - p0[0], p1[1] - p0[1]);
+  pts[pts.length - 1] = rand(b, bx, by, q1[0] - q0[0], q1[1] - q0[1]);
+  return pts;
+}
+function label(pts, tekst, kleur) {
+  if (!tekst) return '';
+  const [a, b] = pts, vert = a[0] === b[0];
+  // langs een verticaal stuk: rechts van de lijn, vlak bij de knik (boven de lijn omlaag, onder de lijn omhoog)
+  const x = vert ? a[0] + 8 : a[0] + 10, y = vert ? (b[1] > a[1] ? b[1] - 8 : b[1] + 16) : a[1] - 7;
+  return `<text x="${x}" y="${y}" font-size="11.5" font-weight="700" fill="${kleur}">${esc(tekst)}</text>`;
+}
+
+/* ---------------- toestand ---------------- */
+let pad = [START];
+let weergave = 'stappen';
+
+function leesHash() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  weergave = h.startsWith('overzicht') ? 'overzicht' : 'stappen';
+  const m = h.match(/pad=([^&]+)/);
+  if (m) {
+    const ids = m[1].split(',').filter(id => NODES[id]);
+    const geldig = ids.length && ids[0] === START && ids.every((id, i) => i === 0 || uit(ids[i - 1]).some(e => e.to === id));
+    pad = geldig ? ids : [START];
+  }
+}
+function schrijfHash() {
+  const h = (weergave === 'overzicht' ? 'overzicht&' : '') + 'pad=' + pad.join(',');
+  history.replaceState(null, '', '#' + h);
+}
+function ga(nieuwPad) { pad = nieuwPad; schrijfHash(); render(); }
+function kortstePad(doel) {
+  const vorige = { [START]: null }, rij = [START];
+  while (rij.length) {
+    const id = rij.shift();
+    if (id === doel) break;
+    for (const e of uit(id)) if (!(e.to in vorige)) { vorige[e.to] = id; rij.push(e.to); }
+  }
+  const p = []; for (let id = doel; id; id = vorige[id]) p.unshift(id);
+  return p;
+}
+
+/* ---------------- weergave: stap voor stap ---------------- */
+const SW = 200, Y = 140;
+function renderPad() {
+  const huidig = pad[pad.length - 1], opties = uit(huidig);
+  const breedte = (pad.length + (opties.length ? 1 : 0)) * SW + 80;
+  const spreiding = opties.length > 1 ? 92 : 0;
+  const hoogte = Math.max(280, Y * 2 + (opties.length - 1) * spreiding - 100);
+  const y0 = hoogte / 2;
+  let s = `<svg width="${breedte}" height="${hoogte}" viewBox="0 0 ${breedte} ${hoogte}" xmlns="http://www.w3.org/2000/svg"><defs>${pijl('#1f5fa8', 'pp')}${pijl('#8a8f96', 'pg')}</defs>`;
+  const x = i => 20 + SW / 2 + i * SW;
+  pad.forEach((id, i) => {
+    if (i) {
+      const e = uit(pad[i - 1]).find(e => e.to === id);
+      const pts = route(pad[i - 1], id, x(i - 1), y0, x(i), y0);
+      s += lijn(pts, '#1f5fa8', 'pp', 2) + label(pts, e.label, '#1f5fa8');
+    }
+    s += `<text x="${x(i)}" y="${y0 - 48}" font-size="11" fill="#6b7280" text-anchor="middle">${i + 1}</text>`;
+    s += knoop(id, x(i), y0, i === pad.length - 1 ? 'actief' : 'pad', `data-index="${i}"`);
+  });
+  opties.forEach((e, k) => {
+    const yy = y0 + (k - (opties.length - 1) / 2) * spreiding;
+    const xa = x(pad.length - 1), xb = x(pad.length) + (opties.length > 1 ? 40 : 0);
+    const pts = route(huidig, e.to, xa, y0, xb, yy, opties.length > 1 && NODES[huidig].type === 'keuze' ? null : null);
+    // vanaf een keuze waaieren de opties uit; anders een rechte lijn
+    const p2 = NODES[huidig].type === 'keuze' && yy !== y0
+      ? [[xa + 24, y0], [xa + 44, y0], [xa + 44, yy], [xb - HALF[NODES[e.to].type][0], yy]]
+      : pts;
+    s += lijn(p2, '#8a8f96', 'pg', 1.6, '5 4');
+    if (e.label) s += `<text x="${xa + 54}" y="${yy - 7}" font-size="11.5" font-weight="700" fill="#555">${esc(e.label)}</text>`;
+    s += knoop(e.to, xb, yy, 'spook', `data-volgende="${e.to}"`);
+  });
+  s += '</svg>';
+  const c = document.getElementById('pad-canvas');
+  c.innerHTML = s;
+  c.scrollLeft = c.scrollWidth;
+  c.querySelectorAll('[data-index]').forEach(g => kiesbaar(g, () => ga(pad.slice(0, +g.dataset.index + 1))));
+  c.querySelectorAll('[data-volgende]').forEach(g => kiesbaar(g, () => ga([...pad, g.dataset.volgende])));
+}
+function kiesbaar(el, fn) {
+  el.addEventListener('click', fn);
+  el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); fn(); } });
+}
+
+function knop(text, appearance, fn, icons = {}) {
+  const b = document.createElement('nldd-button');
+  b.setAttribute('text', text); b.setAttribute('appearance', appearance);
+  if (icons.start) b.setAttribute('start-icon', icons.start);
+  if (icons.end) b.setAttribute('end-icon', icons.end);
+  b.addEventListener('click', fn);
+  return b;
+}
+function renderKnoppen() {
+  const k = document.getElementById('pad-knoppen'); k.replaceChildren();
+  const huidig = pad[pad.length - 1], opties = uit(huidig);
+  if (pad.length > 1) k.append(knop('Vorige stap', 'secondary', () => ga(pad.slice(0, -1)), { start: 'chevron-left' }));
+  if (opties.length === 1) k.append(knop('Volgende stap', 'primary', () => ga([...pad, opties[0].to]), { end: 'chevron-right' }));
+  if (opties.length > 1) opties.forEach(e => k.append(knop(e.label, 'primary', () => ga([...pad, e.to]))));
+  if (!opties.length) k.append(knop('Opnieuw beginnen', 'primary', () => ga([START])));
+  const sp = document.createElement('nldd-spacer'); sp.setAttribute('size', 'flexible'); sp.setAttribute('direction', 'horizontal');
+  k.append(sp);
+  if (pad.length > 1 && opties.length) k.append(knop('Opnieuw beginnen', 'neutral-transparent', () => ga([START])));
+}
+
+function renderPaneel() {
+  const id = pad[pad.length - 1], n = NODES[id], opties = uit(id);
+  const p = document.getElementById('paneel-inhoud');
+  const keuzeTekst = n.type === 'keuze' ? `<nldd-rich-text><p><strong>Maak een keuze:</strong> ${opties.map(e => esc(e.label)).join(', ')}.</p></nldd-rich-text>` : '';
+  const scherm = n.scherm
+    ? `<nldd-image src="${esc(n.scherm)}" alt="${esc(n.schermAlt || 'Schermafbeelding: ' + n.label)}" shape="rounded" caption="${esc(n.schermBijschrift || '')}"></nldd-image>`
+    : `<nldd-box background="tinted"><nldd-container padding="16" gap="8" layout="row" vertical-alignment="center"><nldd-icon icon="image" color="secondary" size="24"></nldd-icon><nldd-text color="secondary" size="sm">Schermafbeelding volgt</nldd-text></nldd-container></nldd-box>`;
+  p.innerHTML = `
+    <nldd-container layout="wrap" gap="8"><nldd-tag size="sm" color="${SOORT_KLEUR[n.type]}" text="${SOORT[n.type]}"></nldd-tag><nldd-tag size="sm" color="neutral" text="Stap ${pad.length}"></nldd-tag></nldd-container>
+    <nldd-title size="3"><h2>${esc(n.label)}</h2>${n.wie ? `<p slot="supporting-text">${esc(n.wie)}</p>` : ''}</nldd-title>
+    <nldd-rich-text>${n.tekst}</nldd-rich-text>
+    ${keuzeTekst}
+    ${scherm}`;
+}
+
+/* ---------------- weergave: overzicht ---------------- */
+const CW = 170, RH = 120, OX = 40 + 68, OY = 130;
+const pos = id => [OX + NODES[id].col * CW, OY + NODES[id].row * RH];
+function renderOverzicht() {
+  const ids = Object.keys(NODES);
+  const maxCol = Math.max(...ids.map(id => NODES[id].col)), maxRow = Math.max(...ids.map(id => NODES[id].row));
+  const breedte = OX + maxCol * CW + 68 + 40, hoogte = OY + maxRow * RH + 90;
+  const opPad = new Set(pad), padRand = new Set(pad.slice(1).map((id, i) => pad[i] + '>' + id));
+  let s = `<svg width="${breedte}" height="${hoogte}" viewBox="0 0 ${breedte} ${hoogte}" xmlns="http://www.w3.org/2000/svg"><defs>${pijl('#555', 'og')}${pijl('#1f5fa8', 'ob')}</defs>`;
+  for (const e of EDGES) {
+    const [ax, ay] = pos(e.from), [bx, by] = pos(e.to);
+    const via = e.via && e.via.map(([c, r]) => [OX + c * CW, OY + r * RH]);
+    const pts = route(e.from, e.to, ax, ay, bx, by, via);
+    const blauw = padRand.has(e.from + '>' + e.to);
+    s += lijn(pts, blauw ? '#1f5fa8' : '#555', blauw ? 'ob' : 'og', blauw ? 2.5 : 1.4) + label(pts, e.label, blauw ? '#1f5fa8' : '#555');
+  }
+  const huidig = pad[pad.length - 1];
+  for (const id of ids) {
+    const [x, y] = pos(id);
+    s += knoop(id, x, y, id === huidig ? 'actief' : opPad.has(id) ? 'pad' : 'normaal');
+  }
+  s += '</svg>';
+  const c = document.getElementById('overzicht-canvas');
+  c.innerHTML = s;
+  c.querySelectorAll('[data-node]').forEach(g => kiesbaar(g, () => { weergave = 'stappen'; ga(kortstePad(g.dataset.node)); }));
+
+  const lijst = document.getElementById('keuzes');
+  lijst.innerHTML = ids.filter(id => NODES[id].type === 'keuze').map(id => `
+    <nldd-list-item href="#pad=${kortstePad(id).join(',')}" data-keuze="${id}">
+      <nldd-spacer-cell size="12"></nldd-spacer-cell>
+      <nldd-icon-cell icon="git-branch" color="accent" size="20" vertical-alignment="top"></nldd-icon-cell>
+      <nldd-spacer-cell size="8"></nldd-spacer-cell>
+      <nldd-text-cell text="**${esc(NODES[id].label)}**" supporting-text="${esc(uit(id).map(e => e.label).join(' / '))}"></nldd-text-cell>
+      <nldd-icon-cell icon="chevron-right" color="secondary" size="20"></nldd-icon-cell>
+    </nldd-list-item>`).join('');
+}
+
+/* ---------------- alles ---------------- */
+function render() {
+  document.getElementById('stappen').hidden = weergave !== 'stappen';
+  document.getElementById('overzicht').hidden = weergave !== 'overzicht';
+  const sc = document.getElementById('weergave');
+  if (sc.getAttribute('value') !== weergave) sc.setAttribute('value', weergave);
+  if (weergave === 'stappen') { renderPad(); renderKnoppen(); renderPaneel(); }
+  else renderOverzicht();
+}
+
+document.getElementById('weergave').addEventListener('change', ev => {
+  const v = ev.detail?.value ?? ev.target?.value;
+  if (v && v !== weergave) { weergave = v; schrijfHash(); render(); }
+});
+window.addEventListener('hashchange', () => { leesHash(); render(); });
+document.addEventListener('keydown', ev => {
+  if (weergave !== 'stappen' || ev.target.closest?.('input, textarea, [contenteditable]')) return;
+  const opties = uit(pad[pad.length - 1]);
+  if (ev.key === 'ArrowLeft' && pad.length > 1) ga(pad.slice(0, -1));
+  if (ev.key === 'ArrowRight' && opties.length === 1) ga([...pad, opties[0].to]);
+});
+
+leesHash();
+render();
+</script>
+<script type="module" src="opmerkingen.js"></script>
+<script defer src="begrippen.js"></script>
+</body>
+</html>
